@@ -5,7 +5,6 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import { PrivacyTermsProvider } from './components/ui/privacy-terms-provider';
-import { ThemeProvider } from './contexts/ThemeContext';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -48,7 +47,7 @@ function ScrollToTop() {
 
 // Loading component
 const PageLoader = () => (
-  <div className="min-h-screen bg-white dark:bg-dark flex items-center justify-center transition-colors duration-300">
+  <div className="min-h-screen bg-dark flex items-center justify-center">
     <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
   </div>
 );
@@ -76,55 +75,53 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 function App() {
   return (
     <HelmetProvider>
-      <ThemeProvider>
-        <PrivacyTermsProvider>
-          <Router>
-            <ScrollToTop />
-            <div className="min-h-screen bg-white dark:bg-dark text-gray-900 dark:text-white font-sans transition-colors duration-300">
-              <Layout>
-                <Suspense fallback={<PageLoader />}>
-                  <Routes>
-                    {/* Public routes */}
-                    <Route path="/" element={<Home />} />
-                    <Route path="/portfolio" element={<Portfolio />} />
-                    <Route path="/services" element={<Services />} />
-                    <Route path="/services/design" element={<DesignServices />} />
-                    <Route path="/services/software" element={<SoftwareServices />} />
-                    <Route path="/services/marketing" element={<MarketingServices />} />
+      <PrivacyTermsProvider>
+        <Router>
+          <ScrollToTop />
+          <div className="min-h-screen bg-dark text-white font-sans">
+            <Layout>
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                  {/* Public routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/portfolio" element={<Portfolio />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/services/design" element={<DesignServices />} />
+                  <Route path="/services/software" element={<SoftwareServices />} />
+                  <Route path="/services/marketing" element={<MarketingServices />} />
+                  
+                  {/* Design subcategory routes */}
+                  <Route path="/services/design/digital-web" element={<DigitalWebDesign />} />
+                  <Route path="/services/design/brand-identity" element={<BrandIdentity />} />
+                  <Route path="/services/design/print-graphic" element={<PrintGraphicDesign />} />
+                  <Route path="/services/design/illustration" element={<IllustrationDesign />} />
+                  
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:slug" element={<BlogDetail />} />
+                  <Route path="/join" element={<JoinUs />} />
+                  <Route path="/project-request" element={<ProjectRequest />} />
+                  <Route path="/contact" element={<Contact />} />
 
-                    {/* Design subcategory routes */}
-                    <Route path="/services/design/digital-web" element={<DigitalWebDesign />} />
-                    <Route path="/services/design/brand-identity" element={<BrandIdentity />} />
-                    <Route path="/services/design/print-graphic" element={<PrintGraphicDesign />} />
-                    <Route path="/services/design/illustration" element={<IllustrationDesign />} />
+                  {/* Admin routes */}
+                  <Route path="/login" element={<Login />} />
+                  <Route
+                    path="/admin/*"
+                    element={
+                      <PrivateRoute>
+                        <AdminRoutes />
+                      </PrivateRoute>
+                    }
+                  />
 
-                    <Route path="/about" element={<About />} />
-                    <Route path="/blog" element={<Blog />} />
-                    <Route path="/blog/:slug" element={<BlogDetail />} />
-                    <Route path="/join" element={<JoinUs />} />
-                    <Route path="/project-request" element={<ProjectRequest />} />
-                    <Route path="/contact" element={<Contact />} />
-
-                    {/* Admin routes */}
-                    <Route path="/login" element={<Login />} />
-                    <Route
-                      path="/admin/*"
-                      element={
-                        <PrivateRoute>
-                          <AdminRoutes />
-                        </PrivateRoute>
-                      }
-                    />
-
-                    {/* Catch all route - redirect to home */}
-                    <Route path="*" element={<Navigate to="/" replace />} />
-                  </Routes>
-                </Suspense>
-              </Layout>
-            </div>
-          </Router>
-        </PrivacyTermsProvider>
-      </ThemeProvider>
+                  {/* Catch all route - redirect to home */}
+                  <Route path="*" element={<Navigate to="/" replace />} />
+                </Routes>
+              </Suspense>
+            </Layout>
+          </div>
+        </Router>
+      </PrivacyTermsProvider>
     </HelmetProvider>
   );
 }

@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
+import { 
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
   FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import ThemeToggle from './ThemeToggle';
 
 const serviceCategories = [
   {
@@ -40,9 +39,9 @@ const serviceCategories = [
   }
 ];
 
-const NavLink = ({ to, active, children, onClick }: {
-  to: string;
-  active: boolean;
+const NavLink = ({ to, active, children, onClick }: { 
+  to: string; 
+  active: boolean; 
   children: React.ReactNode;
   onClick?: () => void;
 }) => (
@@ -50,8 +49,8 @@ const NavLink = ({ to, active, children, onClick }: {
     to={to}
     className={`
       px-4 py-2 rounded-lg transition-all duration-300 relative group text-base
-      ${active ? 'text-primary' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}
-      hover:bg-gray-100/50 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      ${active ? 'text-primary' : 'text-gray-300 hover:text-white'}
+      hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
     `}
     onClick={onClick}
   >
@@ -66,19 +65,19 @@ const NavLink = ({ to, active, children, onClick }: {
   </Link>
 );
 
-const ActionButton = ({ href, icon: Icon, primary, children, onClick, isLink = false }: {
-  href: string;
-  icon: React.ElementType;
-  primary?: boolean;
+const ActionButton = ({ href, icon: Icon, primary, children, onClick, isLink = false }: { 
+  href: string; 
+  icon: React.ElementType; 
+  primary?: boolean; 
   children: React.ReactNode;
   onClick?: () => void;
   isLink?: boolean;
 }) => {
   const className = `
     flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 text-base
-    ${primary
-      ? 'bg-primary text-white hover:bg-primary-dark'
-      : 'bg-gray-100 dark:bg-white/5 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/10'
+    ${primary 
+      ? 'bg-primary text-white hover:bg-primary-dark' 
+      : 'bg-white/5 text-white hover:bg-white/10'
     }
     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
   `;
@@ -152,11 +151,11 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav
+    <motion.nav 
       className={`
         fixed w-full z-50 transition-all duration-300
-        ${isScrolled
-          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-md shadow-lg shadow-primary/5 py-2'
+        ${isScrolled 
+          ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-primary/5 py-2' 
           : 'bg-transparent py-4'}
       `}
       initial={{ y: -100 }}
@@ -197,8 +196,8 @@ const Navbar = () => {
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                   className={`
                     px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2
-                    ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white'}
-                    hover:bg-gray-100/50 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
+                    ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-gray-300 hover:text-white'}
+                    hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
                   `}
                 >
                   <span>Hizmetler</span>
@@ -217,7 +216,7 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute top-full left-0 mt-2 bg-white/95 dark:bg-dark-light/95 backdrop-blur-sm rounded-xl shadow-xl border border-gray-200 dark:border-white/10 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 bg-dark-light/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/10 overflow-hidden"
                     >
                       <div className="flex p-4 gap-8">
                         {serviceCategories.map((category, index) => (
@@ -237,7 +236,7 @@ const Navbar = () => {
                                 <Link
                                   key={itemIndex}
                                   to={category.path}
-                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-white/5 transition-colors group min-h-[44px]"
+                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors group min-h-[44px]"
                                   onClick={() => {
                                     setIsServicesOpen(false);
                                     scrollToTop();
@@ -246,7 +245,7 @@ const Navbar = () => {
                                   <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                                     <item.icon className="w-4 h-4 text-primary" />
                                   </div>
-                                  <span className="text-base text-gray-600 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">
+                                  <span className="text-base text-gray-300 group-hover:text-white transition-colors">
                                     {item.label}
                                   </span>
                                 </Link>
@@ -277,7 +276,6 @@ const Navbar = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <ThemeToggle />
             <ActionButton href="/project-request" icon={Rocket} primary isLink>
               Teklif Al
             </ActionButton>
@@ -324,7 +322,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="fixed inset-0 top-[64px] bg-white/95 dark:bg-dark/95 backdrop-blur-lg z-40 md:hidden overflow-y-auto"
+                className="fixed inset-0 top-[64px] bg-dark/95 backdrop-blur-lg z-40 md:hidden overflow-y-auto"
                 style={{ height: 'calc(100vh - 64px)' }}
               >
                 <div className="min-h-screen px-4 py-6">
@@ -332,10 +330,10 @@ const Navbar = () => {
                     {/* Main Navigation Links */}
                     <div className="space-y-3">
                       {/* Services Dropdown */}
-                      <div className="bg-gray-100 dark:bg-dark-light/30 rounded-xl overflow-hidden">
+                      <div className="bg-dark-light/30 rounded-xl overflow-hidden">
                         <button
                           onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                          className="w-full px-6 py-4 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors duration-200 flex items-center justify-between"
+                          className="w-full px-6 py-4 text-lg text-gray-300 hover:text-white transition-colors duration-200 flex items-center justify-between"
                         >
                           <div className="flex items-center space-x-3">
                             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -358,7 +356,7 @@ const Navbar = () => {
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="border-t border-gray-200 dark:border-white/10"
+                              className="border-t border-white/10"
                             >
                               {serviceCategories.map((category, index) => (
                                 <div key={index} className="px-6 py-4 space-y-3">
@@ -378,7 +376,7 @@ const Navbar = () => {
                                       <Link
                                         key={itemIndex}
                                         to={category.path}
-                                        className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-gray-50 dark:hover:bg-dark transition-colors duration-200"
+                                        className="flex items-center space-x-3 p-3 bg-dark/50 rounded-xl hover:bg-dark transition-colors duration-200"
                                         onClick={() => {
                                           setIsOpen(false);
                                           setMobileServicesOpen(false);
@@ -388,7 +386,7 @@ const Navbar = () => {
                                         <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                                           <item.icon className="w-4 h-4 text-primary" />
                                         </div>
-                                        <span className="text-gray-600 dark:text-gray-300">{item.label}</span>
+                                        <span className="text-gray-300">{item.label}</span>
                                       </Link>
                                     ))}
                                   </div>
@@ -409,7 +407,7 @@ const Navbar = () => {
                         <Link
                           key={link.to}
                           to={link.to}
-                          className="flex items-center justify-between px-6 py-4 bg-gray-100 dark:bg-dark-light/30 text-lg text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white rounded-xl transition-colors duration-200 group"
+                          className="flex items-center justify-between px-6 py-4 bg-dark-light/30 text-lg text-gray-300 hover:text-white rounded-xl transition-colors duration-200 group"
                           onClick={() => {
                             setIsOpen(false);
                             scrollToTop();
@@ -425,33 +423,28 @@ const Navbar = () => {
                         </Link>
                       ))}
                     </div>
-
+                    
                     {/* Action Buttons */}
-                    <div className="space-y-4 pt-4">
-                      <div className="flex justify-center">
-                        <ThemeToggle />
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <Link
-                          to="/project-request"
-                          className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          <Rocket className="w-5 h-5" />
-                          <span className="font-medium">Teklif Al</span>
-                        </Link>
-                        <Link
-                          to="/join"
-                          className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary/10 text-primary rounded-xl hover:bg-primary/20 transition-colors"
-                          onClick={() => {
-                            setIsOpen(false);
-                            scrollToTop();
-                          }}
-                        >
-                          <Users className="w-5 h-5" />
-                          <span className="font-medium">Bize Katıl</span>
-                        </Link>
-                      </div>
+                    <div className="grid grid-cols-2 gap-4 pt-4">
+                      <Link
+                        to="/project-request"
+                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <Rocket className="w-5 h-5" />
+                        <span className="font-medium">Teklif Al</span>
+                      </Link>
+                      <Link
+                        to="/join"
+                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary/10 text-primary rounded-xl hover:bg-primary/20 transition-colors"
+                        onClick={() => {
+                          setIsOpen(false);
+                          scrollToTop();
+                        }}
+                      >
+                        <Users className="w-5 h-5" />
+                        <span className="font-medium">Bize Katıl</span>
+                      </Link>
                     </div>
                   </div>
                 </div>

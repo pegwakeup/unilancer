@@ -44,24 +44,19 @@
   html {
     @apply overflow-x-hidden;
   }
-
+  
   body {
-    @apply overflow-x-hidden;
+    @apply overflow-x-hidden bg-dark;
   }
 
   :root {
     --brand: 27 96% 61%;
     --brand-foreground: 31 97% 72%;
   }
-
+ 
   .dark {
     --brand: 31 97% 72%;
     --brand-foreground: 27 96% 61%
-  }
-
-  .light {
-    --brand: 27 96% 61%;
-    --brand-foreground: 31 97% 72%;
   }
 }
 
@@ -71,7 +66,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-gray-100 dark:bg-dark;
+  @apply bg-dark;
 }
 
 ::-webkit-scrollbar-thumb {
