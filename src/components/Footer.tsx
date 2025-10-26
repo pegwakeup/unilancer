@@ -7,7 +7,7 @@ const Footer = () => {
   const { openPrivacyPolicy, openTerms } = usePrivacyTerms();
 
   return (
-    <footer className="relative bg-gradient-to-b from-dark to-[#1A1A1A] border-t border-white/10">
+    <footer className="relative bg-gradient-to-b from-slate-50 to-slate-100 dark:from-dark dark:to-[#1A1A1A] border-t border-slate-200 dark:border-white/10">
       {/* Gradient Overlay */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
@@ -32,7 +32,7 @@ const Footer = () => {
                 />
               </div>
             </Link>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
               Modern teknolojiler ve yaratıcı çözümlerle işletmenizi dijital dünyada öne çıkarıyoruz.
             </p>
             <div className="flex items-center space-x-4">
@@ -50,7 +50,7 @@ const Footer = () => {
                   className="relative group"
                 >
                   <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  <social.icon className="h-5 w-5 text-gray-400 hover:text-primary transition-colors relative" />
+                  <social.icon className="h-5 w-5 text-gray-500 dark:text-gray-400 hover:text-primary transition-colors relative" />
                 </a>
               ))}
             </div>
@@ -58,7 +58,7 @@ const Footer = () => {
           
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold mb-6 text-lg">Hızlı Bağlantılar</h3>
+            <h3 className="font-semibold mb-6 text-lg text-slate-900 dark:text-white">Hızlı Bağlantılar</h3>
             <ul className="space-y-4">
               {[
                 { to: '/portfolio', label: 'Portfolyo' },
@@ -69,7 +69,7 @@ const Footer = () => {
                 <li key={index}>
                   <Link 
                     to={link.to} 
-                    className="group relative inline-flex items-center text-gray-400 hover:text-white transition-colors"
+                    className="group relative inline-flex items-center text-gray-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                   >
                     <span className="relative">
                       <span className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-transparent rounded-lg blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -84,14 +84,14 @@ const Footer = () => {
           
           {/* Contact Info */}
           <div>
-            <h3 className="font-semibold mb-6 text-lg">İletişim</h3>
+            <h3 className="font-semibold mb-6 text-lg text-slate-900 dark:text-white">İletişim</h3>
             <div className="space-y-4">
               <a 
                 href="mailto:contact@unilancerlabs.com" 
                 className="flex items-start space-x-3 group"
               >
                 <Mail className="h-5 w-5 text-primary mt-0.5" />
-                <span className="text-gray-400 group-hover:text-white transition-colors">
+                <span className="text-gray-600 dark:text-gray-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                   contact@unilancerlabs.com
                 </span>
               </a>
@@ -100,7 +100,7 @@ const Footer = () => {
                 className="flex items-start space-x-3 group"
               >
                 <Phone className="h-5 w-5 text-primary mt-0.5" />
-                <span className="text-gray-400 group-hover:text-white transition-colors">
+                <span className="text-gray-600 dark:text-gray-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                   +90 212 555 0000
                 </span>
               </a>
@@ -111,7 +111,7 @@ const Footer = () => {
                 className="flex items-start space-x-3 group"
               >
                 <MapPin className="h-5 w-5 text-primary mt-0.5" />
-                <span className="text-gray-400 group-hover:text-white transition-colors">
+                <span className="text-gray-600 dark:text-gray-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                   Cube Beyoğlu<br />
                   İstiklal Caddesi, Beyoğlu<br />
                   34435 İstanbul, Türkiye

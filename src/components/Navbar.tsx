@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { 
+import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
-  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText
+  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTheme } from '../contexts/ThemeContext';
 
 const serviceCategories = [
   {
@@ -111,6 +112,7 @@ const Navbar = () => {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const location = useLocation();
+  const { theme, toggleTheme } = useTheme();
 
   const handleScroll = useCallback(() => {
     const scrolled = window.scrollY > 50;
@@ -151,11 +153,11 @@ const Navbar = () => {
   };
 
   return (
-    <motion.nav 
+    <motion.nav
       className={`
         fixed w-full z-50 transition-all duration-300
-        ${isScrolled 
-          ? 'bg-dark/95 backdrop-blur-md shadow-lg shadow-primary/5 py-2' 
+        ${isScrolled
+          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-md shadow-lg shadow-primary/5 py-2'
           : 'bg-transparent py-4'}
       `}
       initial={{ y: -100 }}
@@ -196,8 +198,8 @@ const Navbar = () => {
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                   className={`
                     px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2
-                    ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-gray-300 hover:text-white'}
-                    hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
+                    ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-gray-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white'}
+                    hover:bg-slate-100/50 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
                   `}
                 >
                   <span>Hizmetler</span>
@@ -216,14 +218,14 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute top-full left-0 mt-2 bg-dark-light/95 backdrop-blur-sm rounded-xl shadow-xl border border-white/10 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-sm rounded-xl shadow-xl border border-slate-200 dark:border-white/10 overflow-hidden"
                     >
                       <div className="flex p-4 gap-8">
                         {serviceCategories.map((category, index) => (
                           <div key={index} className="min-w-[240px]">
                             <Link
                               to={category.path}
-                              className="text-sm font-medium text-primary hover:text-primary-light transition-colors mb-4 block"
+                              className="text-sm font-medium text-primary hover:text-primary-dark dark:hover:text-primary-light transition-colors mb-4 block"
                               onClick={() => {
                                 setIsServicesOpen(false);
                                 scrollToTop();
@@ -236,7 +238,7 @@ const Navbar = () => {
                                 <Link
                                   key={itemIndex}
                                   to={category.path}
-                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-white/5 transition-colors group min-h-[44px]"
+                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group min-h-[44px]"
                                   onClick={() => {
                                     setIsServicesOpen(false);
                                     scrollToTop();
@@ -245,7 +247,7 @@ const Navbar = () => {
                                   <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
                                     <item.icon className="w-4 h-4 text-primary" />
                                   </div>
-                                  <span className="text-base text-gray-300 group-hover:text-white transition-colors">
+                                  <span className="text-base text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
                                     {item.label}
                                   </span>
                                 </Link>
@@ -276,6 +278,37 @@ const Navbar = () => {
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <motion.button
+              onClick={toggleTheme}
+              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle theme"
+            >
+              <AnimatePresence mode="wait">
+                {theme === 'dark' ? (
+                  <motion.div
+                    key="sun"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Sun className="w-5 h-5 text-yellow-400" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="moon"
+                    initial={{ rotate: 90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: -90, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Moon className="w-5 h-5 text-slate-700" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
             <ActionButton href="/project-request" icon={Rocket} primary isLink>
               Teklif Al
             </ActionButton>
@@ -322,7 +355,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="fixed inset-0 top-[64px] bg-dark/95 backdrop-blur-lg z-40 md:hidden overflow-y-auto"
+                className="fixed inset-0 top-[64px] bg-white/95 dark:bg-dark/95 backdrop-blur-lg z-40 md:hidden overflow-y-auto"
                 style={{ height: 'calc(100vh - 64px)' }}
               >
                 <div className="min-h-screen px-4 py-6">
@@ -330,10 +363,10 @@ const Navbar = () => {
                     {/* Main Navigation Links */}
                     <div className="space-y-3">
                       {/* Services Dropdown */}
-                      <div className="bg-dark-light/30 rounded-xl overflow-hidden">
+                      <div className="bg-slate-100 dark:bg-dark-light/30 rounded-xl overflow-hidden">
                         <button
                           onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                          className="w-full px-6 py-4 text-lg text-gray-300 hover:text-white transition-colors duration-200 flex items-center justify-between"
+                          className="w-full px-6 py-4 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 flex items-center justify-between"
                         >
                           <div className="flex items-center space-x-3">
                             <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
@@ -356,13 +389,13 @@ const Navbar = () => {
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="border-t border-white/10"
+                              className="border-t border-slate-200 dark:border-white/10"
                             >
                               {serviceCategories.map((category, index) => (
                                 <div key={index} className="px-6 py-4 space-y-3">
                                   <Link
                                     to={category.path}
-                                    className="block text-lg font-medium text-primary"
+                                    className="block text-lg font-medium text-primary dark:text-primary"
                                     onClick={() => {
                                       setIsOpen(false);
                                       setMobileServicesOpen(false);
@@ -376,7 +409,7 @@ const Navbar = () => {
                                       <Link
                                         key={itemIndex}
                                         to={category.path}
-                                        className="flex items-center space-x-3 p-3 bg-dark/50 rounded-xl hover:bg-dark transition-colors duration-200"
+                                        className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-slate-50 dark:hover:bg-dark transition-colors duration-200 border border-slate-200 dark:border-transparent"
                                         onClick={() => {
                                           setIsOpen(false);
                                           setMobileServicesOpen(false);
@@ -386,7 +419,7 @@ const Navbar = () => {
                                         <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
                                           <item.icon className="w-4 h-4 text-primary" />
                                         </div>
-                                        <span className="text-gray-300">{item.label}</span>
+                                        <span className="text-gray-700 dark:text-gray-300">{item.label}</span>
                                       </Link>
                                     ))}
                                   </div>
@@ -407,7 +440,7 @@ const Navbar = () => {
                         <Link
                           key={link.to}
                           to={link.to}
-                          className="flex items-center justify-between px-6 py-4 bg-dark-light/30 text-lg text-gray-300 hover:text-white rounded-xl transition-colors duration-200 group"
+                          className="flex items-center justify-between px-6 py-4 bg-slate-100 dark:bg-dark-light/30 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors duration-200 group"
                           onClick={() => {
                             setIsOpen(false);
                             scrollToTop();
@@ -424,6 +457,25 @@ const Navbar = () => {
                       ))}
                     </div>
                     
+                    {/* Theme Toggle */}
+                    <div className="pt-4">
+                      <button
+                        onClick={toggleTheme}
+                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-100 dark:bg-dark-light/30 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors duration-200"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                            {theme === 'dark' ? (
+                              <Sun className="w-5 h-5 text-yellow-400" />
+                            ) : (
+                              <Moon className="w-5 h-5 text-slate-700" />
+                            )}
+                          </div>
+                          <span className="font-medium">{theme === 'dark' ? 'Aydınlık Tema' : 'Koyu Tema'}</span>
+                        </div>
+                      </button>
+                    </div>
+
                     {/* Action Buttons */}
                     <div className="grid grid-cols-2 gap-4 pt-4">
                       <Link
