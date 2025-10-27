@@ -187,17 +187,17 @@ const Navbar = () => {
               className="relative"
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <img 
-                src="/images/Unilancer logo 2.png" 
+              <img
+                src="/images/Unilancer logo 2.webp"
                 alt="Unilancer"
-                className="h-8 lg:h-10 w-auto relative"
+                className="h-10 lg:h-12 w-auto relative"
               />
             </motion.div>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center">
-            <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-2">
               <div 
                 className="relative group"
                 onMouseEnter={() => setIsServicesOpen(true)}
