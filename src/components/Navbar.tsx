@@ -40,18 +40,20 @@ const serviceCategories = [
   }
 ];
 
-const NavLink = ({ to, active, children, onClick }: { 
-  to: string; 
-  active: boolean; 
+const NavLink = ({ to, active, children, onClick }: {
+  to: string;
+  active: boolean;
   children: React.ReactNode;
   onClick?: () => void;
 }) => (
   <Link
     to={to}
     className={`
-      px-4 py-2 rounded-lg transition-all duration-300 relative group text-base
-      ${active ? 'text-primary' : 'text-gray-300 hover:text-white'}
-      hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
+      px-4 py-2 rounded-lg transition-all duration-300 relative group text-base font-medium
+      ${active
+        ? 'text-primary dark:text-primary'
+        : 'text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white'}
+      hover:bg-slate-100/70 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
     `}
     onClick={onClick}
   >
@@ -75,10 +77,10 @@ const ActionButton = ({ href, icon: Icon, primary, children, onClick, isLink = f
   isLink?: boolean;
 }) => {
   const className = `
-    flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 text-base
-    ${primary 
-      ? 'bg-primary text-white hover:bg-primary-dark' 
-      : 'bg-white/5 text-white hover:bg-white/10'
+    flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-300 text-base font-medium
+    ${primary
+      ? 'bg-primary text-white hover:bg-primary-dark shadow-md hover:shadow-lg'
+      : 'bg-slate-200/80 dark:bg-white/5 text-slate-900 dark:text-white hover:bg-slate-300/80 dark:hover:bg-white/10'
     }
     focus:outline-none focus-visible:ring-2 focus-visible:ring-primary
   `;
@@ -157,8 +159,8 @@ const Navbar = () => {
       className={`
         fixed w-full z-50 transition-all duration-300
         ${isScrolled
-          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-md shadow-lg shadow-primary/5 py-2'
-          : 'bg-transparent py-4'}
+          ? 'bg-white/98 dark:bg-dark/95 backdrop-blur-xl shadow-lg border-b border-slate-200/50 dark:border-white/5 py-2'
+          : 'bg-white/80 dark:bg-transparent backdrop-blur-sm py-4'}
       `}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -177,7 +179,7 @@ const Navbar = () => {
               whileTap={{ scale: 0.95 }}
               className="relative"
             >
-              <div className="absolute -inset-2 bg-gradient-to-r from-primary/10 to-primary-light/10 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <img 
                 src="/images/Unilancer logo 2.png" 
                 alt="Unilancer"
@@ -197,9 +199,11 @@ const Navbar = () => {
                 <button
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                   className={`
-                    px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2
-                    ${location.pathname.startsWith('/services') ? 'text-primary' : 'text-gray-600 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white'}
-                    hover:bg-slate-100/50 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
+                    px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2 font-medium
+                    ${location.pathname.startsWith('/services')
+                      ? 'text-primary dark:text-primary'
+                      : 'text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white'}
+                    hover:bg-slate-100/70 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
                   `}
                 >
                   <span>Hizmetler</span>
@@ -218,14 +222,14 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute top-full left-0 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-sm rounded-xl shadow-xl border border-slate-200 dark:border-white/10 overflow-hidden"
+                      className="absolute top-full left-0 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-md rounded-xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden"
                     >
                       <div className="flex p-4 gap-8">
                         {serviceCategories.map((category, index) => (
                           <div key={index} className="min-w-[240px]">
                             <Link
                               to={category.path}
-                              className="text-sm font-medium text-primary hover:text-primary-dark dark:hover:text-primary-light transition-colors mb-4 block"
+                              className="text-sm font-semibold text-primary hover:text-primary-dark dark:hover:text-primary-light transition-colors mb-4 block tracking-wide uppercase"
                               onClick={() => {
                                 setIsServicesOpen(false);
                                 scrollToTop();
@@ -238,13 +242,13 @@ const Navbar = () => {
                                 <Link
                                   key={itemIndex}
                                   to={category.path}
-                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group min-h-[44px]"
+                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all group min-h-[44px] hover:translate-x-1"
                                   onClick={() => {
                                     setIsServicesOpen(false);
                                     scrollToTop();
                                   }}
                                 >
-                                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                                  <div className="w-8 h-8 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
                                     <item.icon className="w-4 h-4 text-primary" />
                                   </div>
                                   <span className="text-base text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
@@ -280,7 +284,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <motion.button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="p-2.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle theme"
@@ -320,8 +324,8 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <motion.button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden relative w-12 h-12 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center justify-center"
-            whileHover={{ scale: 1.1 }}
+            className="md:hidden relative w-12 h-12 rounded-lg bg-slate-100 dark:bg-transparent hover:bg-slate-200 dark:hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary flex items-center justify-center"
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             <AnimatePresence mode="wait">
@@ -332,7 +336,7 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-6 h-6 text-slate-900 dark:text-white" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -341,7 +345,7 @@ const Navbar = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                 >
-                  <Menu className="w-6 h-6" />
+                  <Menu className="w-6 h-6 text-slate-900 dark:text-white" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -355,7 +359,7 @@ const Navbar = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
-                className="fixed inset-0 top-[64px] bg-white/95 dark:bg-dark/95 backdrop-blur-lg z-40 md:hidden overflow-y-auto"
+                className="fixed inset-0 top-[64px] bg-white/98 dark:bg-dark/95 backdrop-blur-xl z-40 md:hidden overflow-y-auto border-t border-slate-200/50 dark:border-white/5"
                 style={{ height: 'calc(100vh - 64px)' }}
               >
                 <div className="min-h-screen px-4 py-6">
@@ -363,16 +367,16 @@ const Navbar = () => {
                     {/* Main Navigation Links */}
                     <div className="space-y-3">
                       {/* Services Dropdown */}
-                      <div className="bg-slate-100 dark:bg-dark-light/30 rounded-xl overflow-hidden">
+                      <div className="bg-slate-50 dark:bg-dark-light/30 rounded-xl overflow-hidden border border-slate-200 dark:border-transparent shadow-sm">
                         <button
                           onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
-                          className="w-full px-6 py-4 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 flex items-center justify-between"
+                          className="w-full px-6 py-4 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white transition-colors duration-200 flex items-center justify-between"
                         >
                           <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
                               <Code2 className="w-5 h-5 text-primary" />
                             </div>
-                            <span className="font-medium">Hizmetler</span>
+                            <span className="font-semibold">Hizmetler</span>
                           </div>
                           <motion.div
                             animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
@@ -389,13 +393,13 @@ const Navbar = () => {
                               animate={{ opacity: 1, height: 'auto' }}
                               exit={{ opacity: 0, height: 0 }}
                               transition={{ duration: 0.2 }}
-                              className="border-t border-slate-200 dark:border-white/10"
+                              className="border-t border-slate-200/80 dark:border-white/10"
                             >
                               {serviceCategories.map((category, index) => (
                                 <div key={index} className="px-6 py-4 space-y-3">
                                   <Link
                                     to={category.path}
-                                    className="block text-lg font-medium text-primary dark:text-primary"
+                                    className="block text-sm font-semibold text-primary dark:text-primary uppercase tracking-wide"
                                     onClick={() => {
                                       setIsOpen(false);
                                       setMobileServicesOpen(false);
@@ -409,17 +413,17 @@ const Navbar = () => {
                                       <Link
                                         key={itemIndex}
                                         to={category.path}
-                                        className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-slate-50 dark:hover:bg-dark transition-colors duration-200 border border-slate-200 dark:border-transparent"
+                                        className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-slate-100 dark:hover:bg-dark transition-all duration-200 border border-slate-200 dark:border-transparent hover:translate-x-1"
                                         onClick={() => {
                                           setIsOpen(false);
                                           setMobileServicesOpen(false);
                                           scrollToTop();
                                         }}
                                       >
-                                        <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                                        <div className="w-8 h-8 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center">
                                           <item.icon className="w-4 h-4 text-primary" />
                                         </div>
-                                        <span className="text-gray-700 dark:text-gray-300">{item.label}</span>
+                                        <span className="text-slate-700 dark:text-gray-300 font-medium">{item.label}</span>
                                       </Link>
                                     ))}
                                   </div>
@@ -440,17 +444,17 @@ const Navbar = () => {
                         <Link
                           key={link.to}
                           to={link.to}
-                          className="flex items-center justify-between px-6 py-4 bg-slate-100 dark:bg-dark-light/30 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors duration-200 group"
+                          className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 group border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
                           onClick={() => {
                             setIsOpen(false);
                             scrollToTop();
                           }}
                         >
                           <div className="flex items-center space-x-3">
-                            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
                               <link.icon className="w-5 h-5 text-primary" />
                             </div>
-                            <span className="font-medium">{link.label}</span>
+                            <span className="font-semibold">{link.label}</span>
                           </div>
                           <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
                         </Link>
@@ -461,17 +465,17 @@ const Navbar = () => {
                     <div className="pt-4">
                       <button
                         onClick={toggleTheme}
-                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-100 dark:bg-dark-light/30 text-lg text-gray-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-colors duration-200"
+                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">
+                          <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
                             {theme === 'dark' ? (
                               <Sun className="w-5 h-5 text-yellow-400" />
                             ) : (
                               <Moon className="w-5 h-5 text-slate-700" />
                             )}
                           </div>
-                          <span className="font-medium">{theme === 'dark' ? 'Aydınlık Tema' : 'Koyu Tema'}</span>
+                          <span className="font-semibold">{theme === 'dark' ? 'Aydınlık Tema' : 'Koyu Tema'}</span>
                         </div>
                       </button>
                     </div>
@@ -480,7 +484,7 @@ const Navbar = () => {
                     <div className="grid grid-cols-2 gap-4 pt-4">
                       <Link
                         to="/project-request"
-                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-colors"
+                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-all font-semibold shadow-md hover:shadow-lg"
                         onClick={() => setIsOpen(false)}
                       >
                         <Rocket className="w-5 h-5" />
@@ -488,7 +492,7 @@ const Navbar = () => {
                       </Link>
                       <Link
                         to="/join"
-                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary/10 text-primary rounded-xl hover:bg-primary/20 transition-colors"
+                        className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary/10 dark:bg-primary/10 text-primary rounded-xl hover:bg-primary/20 dark:hover:bg-primary/20 transition-all font-semibold border border-primary/20 dark:border-primary/20"
                         onClick={() => {
                           setIsOpen(false);
                           scrollToTop();
