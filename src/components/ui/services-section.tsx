@@ -72,12 +72,12 @@ const ServicesSection = () => {
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
-                  <img 
-                    src={service.image} 
+                  <img
+                    src={service.image}
                     alt={service.category}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/80 to-dark/90" />
+                  <div className="absolute inset-0 bg-gradient-to-b from-slate-100/95 via-slate-50/90 to-slate-100/95 dark:from-dark/90 dark:via-dark/80 dark:to-dark/90" />
                 </div>
                 
                 <div className="relative z-10 p-6">
@@ -86,7 +86,7 @@ const ServicesSection = () => {
                     <div className="w-12 h-12 bg-primary/10 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                       <service.icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-xl font-bold text-white">{service.category}</h3>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">{service.category}</h3>
                   </div>
 
                   {/* Service Items */}
@@ -95,14 +95,14 @@ const ServicesSection = () => {
                       <Link
                         key={itemIndex}
                         to={item.link}
-                        className="flex items-center p-4 bg-dark/50 dark:bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-white/90 dark:hover:bg-dark transition-colors group/item border border-transparent hover:border-slate-200 dark:hover:border-transparent"
+                        className="flex items-center p-4 bg-white/80 dark:bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-white dark:hover:bg-dark transition-colors group/item border border-slate-200 dark:border-transparent hover:border-slate-300 dark:hover:border-transparent shadow-sm"
                       >
                         <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform">
                           <item.icon className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
-                            <span className="font-medium text-white group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors">{item.title}</span>
+                            <span className="font-medium text-slate-900 dark:text-white transition-colors">{item.title}</span>
                             <ArrowUpRight className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" />
                           </div>
                         </div>

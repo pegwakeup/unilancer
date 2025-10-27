@@ -28,11 +28,11 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
             transition={{ duration: 0.5 }}
             className="max-w-2xl mx-auto text-center mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               {title}
             </h2>
             {description && (
-              <p className="text-lg text-gray-400">{description}</p>
+              <p className="text-lg text-slate-600 dark:text-gray-400">{description}</p>
             )}
           </motion.div>
 
@@ -75,10 +75,10 @@ const FaqItem = React.forwardRef<
       className={cn(
         "group rounded-xl overflow-hidden",
         "transition-all duration-200 ease-in-out",
-        "border border-slate-200 dark:border-white/10",
+        "border shadow-sm",
         isOpen
-          ? "bg-white dark:bg-dark-light"
-          : "bg-white dark:bg-white dark:bg-dark-light/50 hover:bg-white dark:bg-white dark:bg-dark-light/80"
+          ? "bg-white dark:bg-dark-light border-slate-300 dark:border-white/10 shadow-md"
+          : "bg-slate-100 dark:bg-dark-light/50 border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-dark-light/80 hover:border-slate-300 dark:hover:border-white/20"
       )}
     >
       <button
@@ -87,7 +87,7 @@ const FaqItem = React.forwardRef<
       >
         <h3 className={cn(
           "text-lg font-medium transition-colors duration-200 text-left",
-          isOpen ? "text-slate-900 dark:text-white" : "text-gray-300"
+          isOpen ? "text-slate-900 dark:text-white" : "text-slate-700 dark:text-gray-300"
         )}>
           {question}
         </h3>
@@ -100,7 +100,7 @@ const FaqItem = React.forwardRef<
           className={cn(
             "ml-4 flex-shrink-0 p-1 rounded-full",
             "transition-colors duration-200",
-            isOpen ? "bg-primary/10 text-primary" : "text-gray-400"
+            isOpen ? "bg-primary/10 text-primary" : "text-slate-500 dark:text-gray-400"
           )}
         >
           <ChevronDown className="h-4 w-4" />

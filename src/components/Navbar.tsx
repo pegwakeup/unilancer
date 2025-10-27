@@ -159,8 +159,8 @@ const Navbar = () => {
       className={`
         fixed w-full z-50 transition-all duration-300
         ${isScrolled
-          ? 'bg-white dark:bg-dark/95 backdrop-blur-xl shadow-xl border-b border-slate-200 dark:border-white/5 py-2'
-          : 'bg-white dark:bg-transparent backdrop-blur-md shadow-md py-4'}
+          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-xl shadow-xl border-b border-slate-200 dark:border-white/5 py-2'
+          : 'bg-transparent backdrop-blur-md py-4'}
       `}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
