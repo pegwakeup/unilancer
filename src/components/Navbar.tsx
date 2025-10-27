@@ -190,7 +190,8 @@ const Navbar = () => {
               <img
                 src="/images/Unilancer logo 2.webp"
                 alt="Unilancer"
-                className="h-10 lg:h-12 w-auto relative"
+                className="h-10 w-auto relative"
+                style={{ width: '150.7px', height: '40px' }}
               />
             </motion.div>
           </Link>
