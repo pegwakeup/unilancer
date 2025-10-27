@@ -20,6 +20,8 @@ export default {
         'primary-light': '#7DD4E3',
         dark: '#121212',
         'dark-light': '#1A1A1A',
+        'light-accent': '#E0F7FA',
+        'light-secondary': '#B2EBF2',
         brand: "hsl(var(--brand))",
         "brand-foreground": "hsl(var(--brand-foreground))",
         border: "hsl(var(--border))",

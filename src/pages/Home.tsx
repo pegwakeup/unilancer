@@ -35,8 +35,8 @@ const Home = () => {
     <div className="relative min-h-screen">
       {/* Fixed Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-white dark:bg-dark/95" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000018_1px,transparent_1px),linear-gradient(to_bottom,#00000018_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30 dark:bg-dark/95" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA15_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA15_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
       </div>
 
       {/* Content */}
@@ -55,11 +55,11 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 0.5 }}
                 className="relative group"
               >
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary-light/15 to-transparent rounded-2xl blur-2xl opacity-40 dark:opacity-50 group-hover:opacity-60 dark:group-hover:opacity-75 transition-opacity" />
                 <img
                   src={images[0].url}
                   alt={images[0].title}
-                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all -rotate-6 rounded-xl relative filter brightness-50 group-hover:brightness-75"
+                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all -rotate-6 rounded-xl relative filter brightness-75 dark:brightness-50 group-hover:brightness-90 dark:group-hover:brightness-75 shadow-lg dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10"
                 />
               </motion.div>
             </FloatingElement>
@@ -75,11 +75,11 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 0.7 }}
                 className="relative group"
               >
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="absolute -inset-4 bg-gradient-to-l from-primary/20 via-primary-light/15 to-transparent rounded-2xl blur-2xl opacity-40 dark:opacity-50 group-hover:opacity-60 dark:group-hover:opacity-75 transition-opacity" />
                 <img
                   src={images[1].url}
                   alt={images[1].title}
-                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all rotate-6 rounded-xl relative filter brightness-50 group-hover:brightness-75"
+                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all rotate-6 rounded-xl relative filter brightness-75 dark:brightness-50 group-hover:brightness-90 dark:group-hover:brightness-75 shadow-lg dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10"
                 />
               </motion.div>
             </FloatingElement>
@@ -95,11 +95,11 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 0.9 }}
                 className="relative group"
               >
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-primary-light/15 to-transparent rounded-2xl blur-2xl opacity-40 dark:opacity-50 group-hover:opacity-60 dark:group-hover:opacity-75 transition-opacity" />
                 <img
                   src={images[2].url}
                   alt={images[2].title}
-                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all -rotate-12 rounded-xl relative filter brightness-50 group-hover:brightness-75"
+                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all -rotate-12 rounded-xl relative filter brightness-75 dark:brightness-50 group-hover:brightness-90 dark:group-hover:brightness-75 shadow-lg dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10"
                 />
               </motion.div>
             </FloatingElement>
@@ -115,11 +115,11 @@ const Home = () => {
                 transition={{ duration: 0.8, delay: 1.1 }}
                 className="relative group"
               >
-                <div className="absolute -inset-4 bg-gradient-to-r from-primary/10 to-transparent rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity" />
+                <div className="absolute -inset-4 bg-gradient-to-l from-primary/20 via-primary-light/15 to-transparent rounded-2xl blur-2xl opacity-40 dark:opacity-50 group-hover:opacity-60 dark:group-hover:opacity-75 transition-opacity" />
                 <img
                   src={images[3].url}
                   alt={images[3].title}
-                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all rotate-12 rounded-xl relative filter brightness-50 group-hover:brightness-75"
+                  className="w-48 h-32 sm:w-56 sm:h-40 md:w-64 md:h-48 lg:w-72 lg:h-56 object-cover hover:scale-105 duration-700 cursor-pointer transition-all rotate-12 rounded-xl relative filter brightness-75 dark:brightness-50 group-hover:brightness-90 dark:group-hover:brightness-75 shadow-lg dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10"
                 />
               </motion.div>
             </FloatingElement>

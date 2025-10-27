@@ -159,9 +159,16 @@ const Navbar = () => {
       className={`
         fixed w-full z-50 transition-all duration-300
         ${isScrolled
-          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-xl shadow-xl border-b border-slate-200 dark:border-white/5 py-2'
-          : 'bg-transparent backdrop-blur-md py-4'}
+          ? 'bg-white/95 dark:bg-dark/95 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-2'
+          : 'bg-transparent py-4'}
       `}
+      style={{
+        boxShadow: isScrolled
+          ? theme === 'dark'
+            ? '0 4px 20px rgba(95, 200, 218, 0.15), 0 2px 8px rgba(95, 200, 218, 0.1)'
+            : '0 4px 20px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04)'
+          : 'none'
+      }}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
