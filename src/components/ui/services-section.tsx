@@ -44,7 +44,7 @@ const services = [
 
 const ServicesSection = () => {
   return (
-    <div className="w-full py-12">
+    <div className="w-full py-12 bg-gradient-to-b from-transparent via-blue-50/30 to-transparent dark:from-transparent dark:via-transparent dark:to-transparent">
       <div className="container mx-auto px-4">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -53,7 +53,7 @@ const ServicesSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">Hizmetlerimiz</h2>
-          <p className="text-slate-700 dark:text-gray-400 max-w-2xl mx-auto font-medium">
+          <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto font-medium">
             Modern teknolojiler ve yaratıcı çözümlerle işletmenizi dijital dünyada öne çıkarıyoruz.
           </p>
         </motion.div>
@@ -68,7 +68,7 @@ const ServicesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl relative group shadow-lg overflow-hidden w-full"
+                className="bg-gradient-to-br from-white via-slate-50/50 to-white dark:from-dark-light/50 dark:via-dark-light/30 dark:to-dark-light/50 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl relative group shadow-lg hover:shadow-2xl overflow-hidden w-full transition-shadow duration-500"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">

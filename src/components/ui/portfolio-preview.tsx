@@ -44,17 +44,17 @@ function PortfolioPreview() {
   }, []);
 
   return (
-    <div className="w-full py-12">
+    <div className="w-full py-12 bg-gradient-to-b from-transparent via-cyan-50/20 to-transparent dark:from-transparent dark:via-transparent dark:to-transparent">
       <div className="container mx-auto">
         <div className="grid lg:grid-cols-[1fr_2fr] gap-8 items-center">
           {/* Left Column - Project Details */}
           <div className="space-y-4">
             <div>
-              <Badge>Örnek Proje</Badge>
+              <Badge className="bg-primary/10 text-primary border-primary/20">Örnek Proje</Badge>
               <h2 className="text-2xl md:text-3xl tracking-tighter font-regular mt-4">
                 Modern Ofis Tasarımı
               </h2>
-              <p className="text-base leading-relaxed tracking-tight text-gray-600 dark:text-gray-400 mt-2">
+              <p className="text-base leading-relaxed tracking-tight text-slate-600 dark:text-gray-400 mt-2">
                 Kullanıcı deneyimini ön planda tutan, modern ve minimalist ofis tasarımı projesi. Ergonomik çalışma alanları ve akıllı aydınlatma sistemleri ile öne çıkan proje.
               </p>
             </div>
@@ -72,7 +72,7 @@ function PortfolioPreview() {
           {/* Right Column - Image Comparison */}
           <div className="relative">
             <div
-              className="relative aspect-[16/9] w-full overflow-hidden rounded-xl select-none border border-slate-200 dark:border-white/10"
+              className="relative aspect-[16/9] w-full overflow-hidden rounded-xl select-none border border-slate-200 dark:border-white/10 shadow-xl hover:shadow-2xl transition-shadow duration-500"
               onMouseMove={onMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}

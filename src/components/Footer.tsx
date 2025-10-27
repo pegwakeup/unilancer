@@ -7,11 +7,11 @@ const Footer = () => {
   const { openPrivacyPolicy, openTerms } = usePrivacyTerms();
 
   return (
-    <footer className="relative bg-gradient-to-b from-slate-50 to-slate-100 dark:from-dark dark:to-[#1A1A1A] border-t border-slate-200 dark:border-white/10">
+    <footer className="relative bg-gradient-to-b from-slate-50 to-slate-100 dark:from-dark dark:to-dark-light border-t border-slate-200 dark:border-white/10">
       {/* Gradient Overlay */}
       <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent dark:from-primary/10 dark:via-transparent dark:to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent dark:from-primary/10 dark:via-transparent dark:to-transparent opacity-30" />
       </div>
 
       {/* Content */}
@@ -122,10 +122,10 @@ const Footer = () => {
           
           {/* Newsletter */}
           <div className="relative">
-            <div className="absolute -inset-4 bg-gradient-to-br from-primary/5 to-transparent rounded-xl blur-lg opacity-50" />
+            <div className="absolute -inset-4 bg-gradient-to-br from-primary/5 to-transparent dark:from-primary/10 dark:to-transparent rounded-xl blur-lg opacity-50" />
             <div className="relative">
-              <h3 className="font-semibold mb-6 text-lg">Bülten</h3>
-              <p className="text-gray-400 text-sm mb-4">
+              <h3 className="font-semibold mb-6 text-lg text-slate-900 dark:text-white">Bülten</h3>
+              <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
                 Güncel teknoloji haberlerini ve blog yazılarımızı takip edin.
               </p>
               <form className="space-y-3">
@@ -134,7 +134,7 @@ const Footer = () => {
                   <input
                     type="email"
                     placeholder="E-posta adresiniz"
-                    className="relative w-full bg-dark border border-white/10 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors text-sm"
+                    className="relative w-full bg-white dark:bg-dark-light border border-slate-200 dark:border-white/10 rounded-lg px-4 py-2.5 focus:outline-none focus:border-primary transition-colors text-sm text-slate-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-500"
                   />
                 </div>
                 <button
@@ -150,21 +150,21 @@ const Footer = () => {
         </div>
         
         {/* Bottom Bar */}
-        <div className="relative border-t border-white/10 mt-12 pt-8">
+        <div className="relative border-t border-slate-200 dark:border-white/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-600 dark:text-gray-400 text-sm">
               &copy; {new Date().getFullYear()} Unilancer Labs. Tüm hakları saklıdır.
             </p>
             <div className="flex items-center space-x-6">
-              <button 
+              <button
                 onClick={openPrivacyPolicy}
-                className="text-gray-400 hover:text-white transition-colors text-sm"
+                className="text-gray-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors text-sm"
               >
                 Gizlilik Politikası
               </button>
-              <button 
+              <button
                 onClick={openTerms}
-                className="text-gray-400 hover:text-white transition-colors text-sm"
+                className="text-gray-600 dark:text-gray-400 hover:text-slate-900 dark:hover:text-white transition-colors text-sm"
               >
                 Kullanım Koşulları
               </button>

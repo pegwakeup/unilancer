@@ -18,14 +18,14 @@ interface CTAProps {
 
 export function CTASection({ title, description, action, className }: CTAProps) {
   return (
-    <section className={cn("group relative overflow-hidden py-24 sm:py-32", className)}>
+    <section className={cn("group relative overflow-hidden py-24 sm:py-32 bg-gradient-to-b from-slate-50/50 via-blue-50/30 to-slate-50/50 dark:from-transparent dark:via-dark-light/20 dark:to-transparent", className)}>
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-container flex-col items-center gap-6 text-center sm:gap-8 px-4">
         <h2 className="text-3xl font-bold sm:text-5xl animate-appear text-slate-900 dark:text-white">
           {title}
         </h2>
         {description && (
-          <p className="text-lg text-slate-700 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100 font-medium">
+          <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100 font-medium">
             {description}
           </p>
         )}
@@ -68,7 +68,8 @@ export function CTASection({ title, description, action, className }: CTAProps) 
       </div>
 
       {/* Gradient Orbs */}
-      <div className="absolute -right-40 -bottom-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl opacity-20" />
+      <div className="absolute -right-40 -bottom-40 w-80 h-80 bg-primary/20 dark:bg-primary/30 rounded-full blur-3xl opacity-20 dark:opacity-30" />
+      <div className="absolute -left-40 -top-40 w-80 h-80 bg-cyan-400/15 dark:bg-cyan-500/20 rounded-full blur-3xl opacity-15 dark:opacity-25" />
     </section>
   )
 }
