@@ -50,39 +50,17 @@ const Home = () => {
               className="top-[10%] left-[5%] md:top-[12%] md:left-[10%]"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateY: -15 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotateY: 0,
-                  y: [0, -10, 0]
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.5,
-                  y: {
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }
-                }}
-                whileHover={{
-                  scale: 1.08,
-                  rotateY: 5,
-                  rotateZ: -8,
-                  transition: { duration: 0.3 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
                 className="relative group"
-                style={{ transformStyle: 'preserve-3d' }}
               >
-                <div className="absolute -inset-6 bg-gradient-to-r from-primary/30 via-cyan-400/20 to-blue-400/20 dark:from-primary/40 dark:via-cyan-500/30 dark:to-blue-500/30 rounded-2xl blur-3xl opacity-50 dark:opacity-60 group-hover:opacity-80 dark:group-hover:opacity-100 transition-all duration-500 animate-pulse" />
-                <div className="absolute -inset-1 bg-gradient-to-br from-primary via-cyan-400 to-blue-400 dark:from-primary dark:via-cyan-500 dark:to-blue-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
                 <img
                   src={images[0].url}
                   alt={images[0].title}
-                  className="w-56 h-40 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 object-cover hover:scale-[1.02] duration-700 cursor-pointer transition-all -rotate-6 rounded-xl relative filter brightness-90 dark:brightness-60 group-hover:brightness-100 dark:group-hover:brightness-80 shadow-2xl dark:shadow-[0_20px_60px_-15px_rgba(95,200,218,0.5)] ring-2 ring-white/20 dark:ring-primary/30 will-change-transform"
+                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl -rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent dark:from-primary/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl -rotate-6 pointer-events-none" />
               </motion.div>
             </FloatingElement>
 
@@ -92,40 +70,17 @@ const Home = () => {
               className="top-[10%] right-[5%] md:top-[12%] md:right-[10%]"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateY: 15 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotateY: 0,
-                  y: [0, -15, 0]
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.7,
-                  y: {
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 1
-                  }
-                }}
-                whileHover={{
-                  scale: 1.08,
-                  rotateY: -5,
-                  rotateZ: 8,
-                  transition: { duration: 0.3 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
                 className="relative group"
-                style={{ transformStyle: 'preserve-3d' }}
               >
-                <div className="absolute -inset-6 bg-gradient-to-l from-primary/30 via-purple-400/20 to-pink-400/20 dark:from-primary/40 dark:via-purple-500/30 dark:to-pink-500/30 rounded-2xl blur-3xl opacity-50 dark:opacity-60 group-hover:opacity-80 dark:group-hover:opacity-100 transition-all duration-500 animate-pulse" style={{ animationDelay: '1s' }} />
-                <div className="absolute -inset-1 bg-gradient-to-br from-primary via-purple-400 to-pink-400 dark:from-primary dark:via-purple-500 dark:to-pink-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
                 <img
                   src={images[1].url}
                   alt={images[1].title}
-                  className="w-56 h-40 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 object-cover hover:scale-[1.02] duration-700 cursor-pointer transition-all rotate-6 rounded-xl relative filter brightness-90 dark:brightness-60 group-hover:brightness-100 dark:group-hover:brightness-80 shadow-2xl dark:shadow-[0_20px_60px_-15px_rgba(95,200,218,0.5)] ring-2 ring-white/20 dark:ring-primary/30 will-change-transform"
+                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-transparent dark:from-purple-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl rotate-6 pointer-events-none" />
               </motion.div>
             </FloatingElement>
 
@@ -135,40 +90,17 @@ const Home = () => {
               className="bottom-[10%] left-[5%] md:bottom-[15%] md:left-[10%]"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateX: -15 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotateX: 0,
-                  y: [0, -12, 0]
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: 0.9,
-                  y: {
-                    duration: 4.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 2
-                  }
-                }}
-                whileHover={{
-                  scale: 1.08,
-                  rotateX: 5,
-                  rotateZ: -14,
-                  transition: { duration: 0.3 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.7 }}
                 className="relative group"
-                style={{ transformStyle: 'preserve-3d' }}
               >
-                <div className="absolute -inset-6 bg-gradient-to-r from-green-400/30 via-emerald-400/20 to-teal-400/20 dark:from-green-500/40 dark:via-emerald-500/30 dark:to-teal-500/30 rounded-2xl blur-3xl opacity-50 dark:opacity-60 group-hover:opacity-80 dark:group-hover:opacity-100 transition-all duration-500 animate-pulse" style={{ animationDelay: '2s' }} />
-                <div className="absolute -inset-1 bg-gradient-to-br from-green-400 via-emerald-400 to-teal-400 dark:from-green-500 dark:via-emerald-500 dark:to-teal-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
                 <img
                   src={images[2].url}
                   alt={images[2].title}
-                  className="w-56 h-40 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 object-cover hover:scale-[1.02] duration-700 cursor-pointer transition-all -rotate-12 rounded-xl relative filter brightness-90 dark:brightness-60 group-hover:brightness-100 dark:group-hover:brightness-80 shadow-2xl dark:shadow-[0_20px_60px_-15px_rgba(95,200,218,0.5)] ring-2 ring-white/20 dark:ring-primary/30 will-change-transform"
+                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl -rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/20 via-transparent to-transparent dark:from-emerald-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl -rotate-12 pointer-events-none" />
               </motion.div>
             </FloatingElement>
 
@@ -178,40 +110,17 @@ const Home = () => {
               className="bottom-[10%] right-[5%] md:bottom-[15%] md:right-[10%]"
             >
               <motion.div
-                initial={{ opacity: 0, scale: 0.8, rotateX: 15 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotateX: 0,
-                  y: [0, -8, 0]
-                }}
-                transition={{
-                  duration: 0.8,
-                  delay: 1.1,
-                  y: {
-                    duration: 5.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: 3
-                  }
-                }}
-                whileHover={{
-                  scale: 1.08,
-                  rotateX: -5,
-                  rotateZ: 14,
-                  transition: { duration: 0.3 }
-                }}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.9 }}
                 className="relative group"
-                style={{ transformStyle: 'preserve-3d' }}
               >
-                <div className="absolute -inset-6 bg-gradient-to-l from-orange-400/30 via-amber-400/20 to-yellow-400/20 dark:from-orange-500/40 dark:via-amber-500/30 dark:to-yellow-500/30 rounded-2xl blur-3xl opacity-50 dark:opacity-60 group-hover:opacity-80 dark:group-hover:opacity-100 transition-all duration-500 animate-pulse" style={{ animationDelay: '3s' }} />
-                <div className="absolute -inset-1 bg-gradient-to-br from-orange-400 via-amber-400 to-yellow-400 dark:from-orange-500 dark:via-amber-500 dark:to-yellow-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
                 <img
                   src={images[3].url}
                   alt={images[3].title}
-                  className="w-56 h-40 sm:w-64 sm:h-48 md:w-80 md:h-60 lg:w-96 lg:h-72 object-cover hover:scale-[1.02] duration-700 cursor-pointer transition-all rotate-12 rounded-xl relative filter brightness-90 dark:brightness-60 group-hover:brightness-100 dark:group-hover:brightness-80 shadow-2xl dark:shadow-[0_20px_60px_-15px_rgba(95,200,218,0.5)] ring-2 ring-white/20 dark:ring-primary/30 will-change-transform"
+                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-amber-500/20 via-transparent to-transparent dark:from-amber-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl rotate-12 pointer-events-none" />
               </motion.div>
             </FloatingElement>
           </Floating>
