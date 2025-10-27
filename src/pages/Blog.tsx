@@ -16,11 +16,11 @@ const categories = [
 
 const BlogCardSkeleton = () => (
   <div className="animate-pulse">
-    <div className="aspect-video bg-dark-light/50 rounded-xl mb-4" />
+    <div className="aspect-video bg-white dark:bg-dark-light/50 rounded-xl mb-4" />
     <div className="space-y-3">
-      <div className="h-4 bg-dark-light/50 rounded w-1/4" />
-      <div className="h-6 bg-dark-light/50 rounded w-3/4" />
-      <div className="h-4 bg-dark-light/50 rounded w-2/3" />
+      <div className="h-4 bg-white dark:bg-dark-light/50 rounded w-1/4" />
+      <div className="h-6 bg-white dark:bg-dark-light/50 rounded w-3/4" />
+      <div className="h-4 bg-white dark:bg-dark-light/50 rounded w-2/3" />
     </div>
   </div>
 );
@@ -89,7 +89,7 @@ const Blog = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       <Helmet>
         <title>Blog | Unilancer</title>
         <meta name="description" content="Teknoloji, tasarım ve dijital dönüşüm hakkında güncel içerikler ve uzman görüşleri." />
@@ -123,7 +123,7 @@ const Blog = () => {
               <span>Güncel İçerikler</span>
             </motion.div>
             <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">Blog</h1>
-            <p className="text-base md:text-lg text-gray-300">
+            <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
               Teknoloji, tasarım ve dijital dönüşüm hakkında güncel içerikler
             </p>
           </motion.div>
@@ -141,13 +141,13 @@ const Blog = () => {
               className="relative mb-6 md:mb-8 max-w-xl mx-auto"
             >
               <div className="relative">
-                <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-gray-400" />
+                <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-gray-600 dark:text-gray-400" />
                 <input
                   type="text"
                   placeholder="Blog yazılarında ara..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-dark-light/80 backdrop-blur-sm border border-white/10 rounded-xl pl-10 md:pl-12 pr-4 py-2.5 md:py-3 focus:outline-none focus:border-primary transition-colors text-sm md:text-base placeholder-gray-400 text-gray-100"
+                  className="w-full bg-white dark:bg-dark-light/80 backdrop-blur-sm border border-white/10 rounded-xl pl-10 md:pl-12 pr-4 py-2.5 md:py-3 focus:outline-none focus:border-primary transition-colors text-sm md:text-base placeholder-gray-400 text-gray-100"
                 />
               </div>
             </motion.div>
@@ -166,7 +166,7 @@ const Blog = () => {
                     px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-sm transition-all
                     ${selectedCategory === category
                       ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                      : 'bg-dark-light/80 backdrop-blur-sm text-gray-300 hover:bg-primary/10 border border-white/10'}
+                      : 'bg-white dark:bg-dark-light/80 backdrop-blur-sm text-gray-600 dark:text-gray-300 hover:bg-primary/10 border border-white/10'}
                   `}
                 >
                   {category}
@@ -218,7 +218,7 @@ const Blog = () => {
                   >
                     <Link 
                       to={`/blog/${post.slug}`} 
-                      className="block bg-dark-light/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-primary/20 transition-all overflow-hidden transform group-hover:scale-105"
+                      className="block bg-white dark:bg-dark-light/50 backdrop-blur-sm rounded-xl border border-white/10 hover:border-primary/20 transition-all overflow-hidden transform group-hover:scale-105"
                     >
                       <div className="relative aspect-video overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
@@ -239,7 +239,7 @@ const Blog = () => {
                         <h2 className="text-lg md:text-xl font-bold group-hover:text-primary transition-colors line-clamp-2">
                           {post.title}
                         </h2>
-                        <p className="text-gray-400 mt-2 line-clamp-2 text-sm">
+                        <p className="text-gray-600 dark:text-gray-400 mt-2 line-clamp-2 text-sm">
                           {post.excerpt}
                         </p>
                         <div className="flex items-center space-x-4 mt-4">
@@ -252,7 +252,7 @@ const Blog = () => {
                             />
                             <div>
                               <h3 className="text-sm font-medium">{post.author.name}</h3>
-                              <p className="text-xs text-gray-400">{post.author.role}</p>
+                              <p className="text-xs text-gray-600 dark:text-gray-400">{post.author.role}</p>
                             </div>
                           </div>
                         </div>

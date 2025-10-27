@@ -48,7 +48,7 @@ const SolutionsSection = () => {
           viewport={{ once: true }}
         >
           <h2 className="text-3xl font-bold mb-2">Çözümlerimiz</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             İhtiyaçlarınıza özel, esnek ve ölçeklenebilir çözümler sunuyoruz
           </p>
         </motion.div>
@@ -83,7 +83,7 @@ const SolutionsSection = () => {
                       <Icon className="w-6 h-6 text-primary" />
                     </div>
                     <h3 className="text-xl md:text-2xl font-bold">{solution.title}</h3>
-                    <p className="text-gray-400 leading-relaxed text-base">{solution.description}</p>
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">{solution.description}</p>
                     <motion.a
                       href="/contact"
                       whileHover={{ scale: 1.02 }}

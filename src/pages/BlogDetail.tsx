@@ -115,7 +115,7 @@ const BlogDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-dark flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-dark flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -123,7 +123,7 @@ const BlogDetail = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-dark flex items-center justify-center">
+      <div className="min-h-screen bg-white dark:bg-dark flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-500 mb-4">{error || 'Blog yazısı bulunamadı.'}</p>
           <Link
@@ -186,11 +186,11 @@ const BlogDetail = () => {
                   <span className="inline-block px-3 py-1 bg-primary/20 backdrop-blur-sm text-primary rounded-full text-xs md:text-sm">
                     {post.category}
                   </span>
-                  <span className="flex items-center text-gray-300 text-xs md:text-sm">
+                  <span className="flex items-center text-gray-600 dark:text-gray-300 text-xs md:text-sm">
                     <Calendar className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1" />
                     {new Date(post.created_at).toLocaleDateString('tr-TR')}
                   </span>
-                  <span className="flex items-center text-gray-300 text-xs md:text-sm">
+                  <span className="flex items-center text-gray-600 dark:text-gray-300 text-xs md:text-sm">
                     <Clock className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1" />
                     {post.read_time}
                   </span>
@@ -212,7 +212,7 @@ const BlogDetail = () => {
                   </div>
                   <div>
                     <h3 className="font-medium text-sm md:text-base">{post.author.name}</h3>
-                    <p className="text-xs md:text-sm text-gray-400">{post.author.role}</p>
+                    <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">{post.author.role}</p>
                   </div>
                 </div>
               </div>
@@ -237,14 +237,14 @@ const BlogDetail = () => {
                 <div className="lg:hidden mb-8">
                   <button
                     onClick={() => setShowToc(!showToc)}
-                    className="w-full flex items-center justify-between px-4 py-3 bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10"
+                    className="w-full flex items-center justify-between px-4 py-3 bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10"
                   >
                     <span className="font-medium">İçindekiler</span>
                     <ChevronRight className={`w-5 h-5 transition-transform ${showToc ? 'rotate-90' : ''}`} />
                   </button>
                   
                   {showToc && (
-                    <div className="mt-2 p-4 bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10">
+                    <div className="mt-2 p-4 bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10">
                       <div className="space-y-1">
                         {headings.map((heading, index) => (
                           <button
@@ -255,7 +255,7 @@ const BlogDetail = () => {
                               ${heading.level === 2 ? '' : 'pl-6'}
                               ${activeHeading === heading.id
                                 ? 'text-primary bg-primary/10 font-medium'
-                                : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-white hover:bg-white/5'
                               }
                               ${heading.level === 2 ? 'text-[0.95rem]' : 'text-[0.9rem]'}
                             `}
@@ -283,7 +283,7 @@ const BlogDetail = () => {
                   {post.tags.map((tag, i) => (
                     <span 
                       key={i}
-                      className="px-3 py-1 bg-dark-light/80 backdrop-blur-sm rounded-full text-xs md:text-sm text-gray-300 hover:bg-white/10 transition-colors cursor-pointer hover:text-white"
+                      className="px-3 py-1 bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-full text-xs md:text-sm text-gray-600 dark:text-gray-300 hover:bg-white/10 transition-colors cursor-pointer hover:text-white"
                     >
                       {tag}
                     </span>
@@ -302,7 +302,7 @@ const BlogDetail = () => {
               >
                 <div className="sticky top-24">
                   <nav
-                    className="p-6 bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
+                    className="p-6 bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl border border-white/10 shadow-lg"
                     aria-label="İçindekiler"
                   >
                     <h2 className="text-lg font-semibold mb-4">İçindekiler</h2>
@@ -316,7 +316,7 @@ const BlogDetail = () => {
                             ${heading.level === 2 ? '' : 'pl-6'}
                             ${activeHeading === heading.id
                               ? 'text-primary bg-primary/10 font-medium'
-                              : 'text-gray-400 hover:text-white hover:bg-white/5'
+                              : 'text-gray-600 dark:text-gray-400 hover:text-white hover:bg-white/5'
                             }
                             ${heading.level === 2 ? 'text-[0.95rem]' : 'text-[0.9rem]'}
                             group

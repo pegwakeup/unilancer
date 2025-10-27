@@ -67,7 +67,7 @@ function WhyUnilancer() {
             <h2 className="text-[30px] font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
               Neden Unilancer?
             </h2>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Modern çözümler ve profesyonel ekibimizle işletmenizi geleceğe taşıyoruz
             </p>
           </motion.div>
@@ -76,7 +76,7 @@ function WhyUnilancer() {
             {/* Team Power - Large Card */}
             <motion.div 
               variants={itemVariants}
-              className="bg-dark-light/80 backdrop-blur-sm rounded-xl lg:col-span-2 relative overflow-hidden group border border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
+              className="bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl lg:col-span-2 relative overflow-hidden group border border-slate-200 dark:border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
             >
               <div className="absolute inset-0">
                 <img 
@@ -91,7 +91,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Ekip Gücü</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     Farklı yeteneklere sahip profesyonelleri tek ekipte buluşturuyoruz. Freelancerlarımız sadece kendi uzmanlık alanlarına odaklanarak verimli çalışabiliyor.
                   </p>
                 </div>
@@ -101,7 +101,7 @@ function WhyUnilancer() {
             {/* Time and Cost - Square Card */}
             <motion.div 
               variants={itemVariants}
-              className="bg-dark-light/80 backdrop-blur-sm rounded-xl relative overflow-hidden group border border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
+              className="bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl relative overflow-hidden group border border-slate-200 dark:border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
             >
               <div className="absolute inset-0">
                 <img 
@@ -116,7 +116,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Zaman ve Maliyet Avantajı</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     Proje bazlı çalışma imkanı sunarak geleneksel giderlerden ve uzun işe alım süreçlerinden sizi kurtarıyoruz.
                   </p>
                 </div>
@@ -126,7 +126,7 @@ function WhyUnilancer() {
             {/* Latest Technology - Square Card */}
             <motion.div 
               variants={itemVariants}
-              className="bg-dark-light/80 backdrop-blur-sm rounded-xl relative overflow-hidden group border border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
+              className="bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl relative overflow-hidden group border border-slate-200 dark:border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
             >
               <div className="absolute inset-0">
                 <img 
@@ -141,7 +141,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">En Yeni Teknoloji</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     Güncel teknoloji araçlarıyla müşterilerimize dijital rekabet avantajı sunuyoruz.
                   </p>
                 </div>
@@ -151,7 +151,7 @@ function WhyUnilancer() {
             {/* Project Management - Large Card */}
             <motion.div 
               variants={itemVariants}
-              className="bg-dark-light/80 backdrop-blur-sm rounded-xl lg:col-span-2 relative overflow-hidden group border border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
+              className="bg-white dark:bg-dark-light/80 backdrop-blur-sm rounded-xl lg:col-span-2 relative overflow-hidden group border border-slate-200 dark:border-white/10 hover:border-primary/20 transition-all duration-500 scale-80"
             >
               <div className="absolute inset-0">
                 <img 
@@ -166,7 +166,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Profesyonel Proje Yönetimi ve İletişim</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     Profesyonel proje yönetimi araçları ve düzenli geri bildirimlerle projenizi şeffaf bir şekilde yönetiyoruz.
                   </p>
                 </div>

@@ -44,7 +44,7 @@ export const ServiceDetailModal = ({
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.9 }}
-          className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-dark-light rounded-xl border border-white/10"
+          className="relative w-full max-w-6xl max-h-[90vh] overflow-y-auto bg-dark-light rounded-xl border border-slate-200 dark:border-white/10"
         >
           {/* Close Button */}
           <button
@@ -81,7 +81,7 @@ export const ServiceDetailModal = ({
                 {features.map((feature, index) => (
                   <div
                     key={index}
-                    className="flex items-start space-x-3 p-4 bg-dark rounded-xl border border-white/10"
+                    className="flex items-start space-x-3 p-4 bg-white dark:bg-dark rounded-xl border border-slate-200 dark:border-white/10"
                   >
                     <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                     <span>{feature}</span>
@@ -97,7 +97,7 @@ export const ServiceDetailModal = ({
                 {benefits.map((benefit, index) => (
                   <div
                     key={index}
-                    className="p-6 bg-dark rounded-xl border border-white/10"
+                    className="p-6 bg-white dark:bg-dark rounded-xl border border-slate-200 dark:border-white/10"
                   >
                     <p className="text-gray-300">{benefit}</p>
                   </div>
@@ -112,7 +112,7 @@ export const ServiceDetailModal = ({
                 {process.map((step, index) => (
                   <div
                     key={index}
-                    className="p-6 bg-dark rounded-xl border border-white/10"
+                    className="p-6 bg-white dark:bg-dark rounded-xl border border-slate-200 dark:border-white/10"
                   >
                     <div className="flex items-start space-x-4">
                       <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
@@ -153,7 +153,7 @@ export const ServiceDetailModal = ({
                   {caseStudies.map((study, index) => (
                     <div
                       key={index}
-                      className="group relative bg-dark rounded-xl border border-white/10 overflow-hidden"
+                      className="group relative bg-white dark:bg-dark rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden"
                     >
                       <div className="aspect-[4/3]">
                         <img
@@ -165,7 +165,7 @@ export const ServiceDetailModal = ({
                       <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                         <div className="absolute bottom-0 left-0 right-0 p-6">
                           <h4 className="text-lg font-bold mb-2">{study.title}</h4>
-                          <p className="text-gray-300 text-sm mb-4">{study.description}</p>
+                          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">{study.description}</p>
                           {study.link && (
                             <a
                               href={study.link}

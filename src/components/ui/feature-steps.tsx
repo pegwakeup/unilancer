@@ -75,7 +75,7 @@ export function FeatureSteps({
       {/* Content Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Framed Content */}
-        <div className="relative bg-dark-light/30 backdrop-blur-sm rounded-xl border border-white/10 p-8 md:p-12">
+        <div className="relative bg-white dark:bg-dark-light/30 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/10 p-8 md:p-12">
           {/* Inner Gradient Background */}
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent rounded-xl" />
           
@@ -94,8 +94,8 @@ export function FeatureSteps({
                       className={cn(
                         "w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center border-2",
                         index === currentFeature
-                          ? "bg-primary border-primary text-white scale-110"
-                          : "bg-dark-light border-white/10",
+                          ? "bg-primary border-primary text-slate-900 dark:text-white scale-110"
+                          : "bg-dark-light border-slate-200 dark:border-white/10",
                       )}
                     >
                       <span className="text-lg font-semibold">{index + 1}</span>

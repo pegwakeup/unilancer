@@ -54,7 +54,7 @@ function PortfolioPreview() {
               <h2 className="text-2xl md:text-3xl tracking-tighter font-regular mt-4">
                 Modern Ofis Tasarımı
               </h2>
-              <p className="text-base leading-relaxed tracking-tight text-gray-400 mt-2">
+              <p className="text-base leading-relaxed tracking-tight text-gray-600 dark:text-gray-400 mt-2">
                 Kullanıcı deneyimini ön planda tutan, modern ve minimalist ofis tasarımı projesi. Ergonomik çalışma alanları ve akıllı aydınlatma sistemleri ile öne çıkan proje.
               </p>
             </div>
@@ -72,7 +72,7 @@ function PortfolioPreview() {
           {/* Right Column - Image Comparison */}
           <div className="relative">
             <div
-              className="relative aspect-[16/9] w-full overflow-hidden rounded-xl select-none border border-white/10"
+              className="relative aspect-[16/9] w-full overflow-hidden rounded-xl select-none border border-slate-200 dark:border-white/10"
               onMouseMove={onMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}

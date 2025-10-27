@@ -85,7 +85,7 @@ export const DesktopSidebar = ({
   return (
     <motion.div
       className={cn(
-        "h-full px-4 py-4 hidden md:flex md:flex-col bg-dark-light border-r border-white/10 w-[300px] flex-shrink-0",
+        "h-full px-4 py-4 hidden md:flex md:flex-col bg-dark-light border-r border-slate-200 dark:border-white/10 w-[300px] flex-shrink-0",
         className
       )}
       animate={{
@@ -110,7 +110,7 @@ export const MobileSidebar = ({
     <>
       <div
         className={cn(
-          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-dark-light border-b border-white/10 w-full",
+          "h-10 px-4 py-4 flex flex-row md:hidden items-center justify-between bg-dark-light border-b border-slate-200 dark:border-white/10 w-full",
           className
         )}
         {...props}
@@ -132,7 +132,7 @@ export const MobileSidebar = ({
                 ease: "easeInOut",
               }}
               className={cn(
-                "fixed h-full w-full inset-0 bg-dark p-10 z-[100] flex flex-col justify-between",
+                "fixed h-full w-full inset-0 bg-white dark:bg-dark p-10 z-[100] flex flex-col justify-between",
                 className
               )}
             >
@@ -176,7 +176,7 @@ export const SidebarLink = ({
           display: animate ? (open ? "inline-block" : "none") : "inline-block",
           opacity: animate ? (open ? 1 : 0) : 1,
         }}
-        className="text-gray-300 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
+        className="text-gray-600 dark:text-gray-300 text-sm group-hover/sidebar:translate-x-1 transition duration-150 whitespace-pre inline-block !p-0 !m-0"
       >
         {link.label}
       </motion.span>

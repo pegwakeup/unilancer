@@ -15,7 +15,7 @@ function Feature() {
               <h2 className="text-3xl md:text-5xl tracking-tighter max-w-xl font-regular text-left">
                 Something new!
               </h2>
-              <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-gray-400 text-left">
+              <p className="text-lg max-w-xl lg:max-w-lg leading-relaxed tracking-tight text-gray-600 dark:text-gray-400 text-left">
                 Managing a small business today is already tough.
               </p>
             </div>
@@ -25,7 +25,7 @@ function Feature() {
               <User className="w-8 h-8 stroke-1" />
               <div className="flex flex-col">
                 <h3 className="text-xl tracking-tight">Pay supplier invoices</h3>
-                <p className="text-gray-400 max-w-xs text-base">
+                <p className="text-gray-600 dark:text-gray-400 max-w-xs text-base">
                   Our goal is to streamline SMB trade, making it easier and faster
                   than ever.
                 </p>
@@ -35,7 +35,7 @@ function Feature() {
               <User className="w-8 h-8 stroke-1" />
               <div className="flex flex-col">
                 <h3 className="text-xl tracking-tight">Pay supplier invoices</h3>
-                <p className="text-gray-400 max-w-xs text-base">
+                <p className="text-gray-600 dark:text-gray-400 max-w-xs text-base">
                   Our goal is to streamline SMB trade, making it easier and faster
                   than ever.
                 </p>
@@ -46,7 +46,7 @@ function Feature() {
               <User className="w-8 h-8 stroke-1" />
               <div className="flex flex-col">
                 <h3 className="text-xl tracking-tight">Pay supplier invoices</h3>
-                <p className="text-gray-400 max-w-xs text-base">
+                <p className="text-gray-600 dark:text-gray-400 max-w-xs text-base">
                   Our goal is to streamline SMB trade, making it easier and faster
                   than ever.
                 </p>
@@ -56,7 +56,7 @@ function Feature() {
               <User className="w-8 h-8 stroke-1" />
               <div className="flex flex-col">
                 <h3 className="text-xl tracking-tight">Pay supplier invoices</h3>
-                <p className="text-gray-400 max-w-xs text-base">
+                <p className="text-gray-600 dark:text-gray-400 max-w-xs text-base">
                   Our goal is to streamline SMB trade, making it easier and faster
                   than ever.
                 </p>

@@ -88,7 +88,7 @@ const Portfolio = () => {
   });
 
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
@@ -97,7 +97,7 @@ const Portfolio = () => {
             alt="Portfolio"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/70 to-dark" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-dark/90 dark:via-dark/70 dark:to-dark" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -107,10 +107,10 @@ const Portfolio = () => {
             transition={{ duration: 0.6 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
               Portfolyo
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Modern teknolojiler ve yaratıcı çözümlerle geliştirdiğimiz projelerimizden örnekler
             </p>
           </motion.div>
@@ -118,17 +118,17 @@ const Portfolio = () => {
       </section>
 
       {/* Filters Section */}
-      <section className="py-8 bg-dark-light/30 sticky top-20 z-30 backdrop-blur-sm">
+      <section className="py-8 bg-slate-100 dark:bg-dark-light/30 sticky top-20 z-30 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Search */}
           <div className="relative max-w-xl mx-auto mb-8">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400" />
             <input
               type="text"
               placeholder="Proje ara..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-dark border border-white/10 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-primary"
+              className="w-full bg-white dark:bg-dark border border-slate-200 dark:border-white/10 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-primary text-slate-900 dark:text-white"
             />
           </div>
 
@@ -142,7 +142,7 @@ const Portfolio = () => {
               className={`px-6 py-3 rounded-xl transition-all ${
                 !selectedCategory
                   ? 'bg-primary text-white'
-                  : 'bg-dark-light text-gray-400 hover:bg-white/5'
+                  : 'bg-white dark:bg-dark-light text-gray-700 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-white/5 border border-slate-200 dark:border-transparent'
               }`}
             >
               Tümü
@@ -158,7 +158,7 @@ const Portfolio = () => {
                   className={`px-6 py-3 rounded-xl transition-all ${
                     selectedCategory === key
                       ? 'bg-primary text-white'
-                      : 'bg-dark-light text-gray-400 hover:bg-white/5'
+                      : 'bg-white dark:bg-dark-light text-gray-700 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-white/5 border border-slate-200 dark:border-transparent'
                   }`}
                 >
                   <span className="flex items-center space-x-2">
@@ -174,7 +174,7 @@ const Portfolio = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      className="absolute top-full left-0 mt-2 w-48 bg-dark-light border border-white/10 rounded-xl overflow-hidden shadow-xl z-10"
+                      className="absolute top-full left-0 mt-2 w-48 bg-white dark:bg-dark-light border border-slate-200 dark:border-white/10 rounded-xl overflow-hidden shadow-xl z-10"
                     >
                       {category.subcategories.map((sub) => (
                         <button
@@ -233,7 +233,7 @@ const Portfolio = () => {
                   onHoverStart={() => setHoveredId(item.id)}
                   onHoverEnd={() => setHoveredId(null)}
                 >
-                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-dark-light/50 border border-white/10">
+                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-100 dark:bg-dark-light/50 border border-slate-200 dark:border-white/10">
                     <motion.img
                       src={item.main_image}
                       alt={item.title}
@@ -244,19 +244,19 @@ const Portfolio = () => {
                       }}
                       transition={{ duration: 0.4 }}
                     />
-                    <motion.div 
-                      className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent p-6 flex flex-col justify-end"
+                    <motion.div
+                      className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent dark:from-dark/90 dark:via-dark/50 dark:to-transparent p-6 flex flex-col justify-end"
                       initial={{ opacity: 0.8 }}
-                      animate={{ 
+                      animate={{
                         opacity: hoveredId === item.id ? 1 : 0.8,
                       }}
                       transition={{ duration: 0.3 }}
                     >
                       <motion.div
                         initial={{ y: 20, opacity: 0 }}
-                        animate={{ 
+                        animate={{
                           y: hoveredId === item.id ? 0 : 20,
-                          opacity: hoveredId === item.id ? 1 : 0 
+                          opacity: hoveredId === item.id ? 1 : 0
                         }}
                         transition={{ duration: 0.3 }}
                         className="space-y-4"
@@ -271,8 +271,8 @@ const Portfolio = () => {
 
                         {/* Title & Description */}
                         <div>
-                          <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                          <p className="text-gray-300 line-clamp-2">{item.description}</p>
+                          <h3 className="text-xl font-bold mb-2 text-white">{item.title}</h3>
+                          <p className="text-gray-200 dark:text-gray-300 line-clamp-2">{item.description}</p>
                         </div>
 
                         {/* Technologies */}

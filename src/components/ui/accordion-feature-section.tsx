@@ -61,7 +61,7 @@ const FAQ = ({ features = defaultFeatures }: Feature197Props) => {
   const [activeTabId, setActiveTabId] = useState<number | null>(1);
 
   return (
-    <section className="py-20 bg-dark-light/30 relative overflow-hidden">
+    <section className="py-20 bg-white dark:bg-dark-light/30 relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
       
@@ -92,7 +92,7 @@ const FAQ = ({ features = defaultFeatures }: Feature197Props) => {
           className="grid lg:grid-cols-2 gap-8 items-start"
         >
           {/* FAQ Questions */}
-          <div className="bg-dark-light/50 backdrop-blur-sm rounded-xl border border-white/10 overflow-hidden">
+          <div className="bg-white dark:bg-dark-light/50 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
             <Accordion 
               type="single" 
               className="w-full" 
@@ -108,13 +108,13 @@ const FAQ = ({ features = defaultFeatures }: Feature197Props) => {
                     className="cursor-pointer px-6 py-4 !no-underline transition group"
                   >
                     <h6
-                      className={`text-base font-medium ${tab.id === activeTabId ? "text-primary" : "text-gray-400 group-hover:text-white"}`}
+                      className={`text-base font-medium ${tab.id === activeTabId ? "text-primary" : "text-gray-600 dark:text-gray-400 group-hover:text-white"}`}
                     >
                       {tab.title}
                     </h6>
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4">
-                    <p className="text-gray-400 leading-relaxed text-base">
+                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-base">
                       {tab.description}
                     </p>
                   </AccordionContent>

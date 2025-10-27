@@ -49,7 +49,7 @@ const Contact = () => {
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                  className="w-full bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
+                  className="w-full bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
                   placeholder="İsminizi girin"
                   required
                 />
@@ -63,7 +63,7 @@ const Contact = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  className="w-full bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
+                  className="w-full bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
                   placeholder="E-posta adresinizi girin"
                   required
                 />
@@ -77,7 +77,7 @@ const Contact = () => {
                   type="text"
                   value={formData.subject}
                   onChange={(e) => setFormData(prev => ({ ...prev, subject: e.target.value }))}
-                  className="w-full bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
+                  className="w-full bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
                   placeholder="Mesajınızın konusu"
                   required
                 />
@@ -91,7 +91,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
                   rows={6}
-                  className="w-full bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
+                  className="w-full bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors placeholder-gray-400 text-gray-100"
                   placeholder="Mesajınızı yazın"
                   required
                 />
@@ -138,27 +138,27 @@ const Contact = () => {
               <div className="space-y-6">
                 <a 
                   href="mailto:info@unilancerlabs.com"
-                  className="flex items-center space-x-4 text-gray-300 hover:text-white transition-colors group"
+                  className="flex items-center space-x-4 text-gray-600 dark:text-gray-300 hover:text-white transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="text-base font-medium text-gray-100">E-posta</h3>
-                    <p className="text-base text-gray-400">info@unilancerlabs.com</p>
+                    <p className="text-base text-gray-600 dark:text-gray-400">info@unilancerlabs.com</p>
                   </div>
                 </a>
                 
                 <a 
                   href="tel:+905061523255"
-                  className="flex items-center space-x-4 text-gray-300 hover:text-white transition-colors group"
+                  className="flex items-center space-x-4 text-gray-600 dark:text-gray-300 hover:text-white transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="text-base font-medium text-gray-100">Telefon</h3>
-                    <p className="text-base text-gray-400">+90 506 152 32 55</p>
+                    <p className="text-base text-gray-600 dark:text-gray-400">+90 506 152 32 55</p>
                   </div>
                 </a>
                 
@@ -166,14 +166,14 @@ const Contact = () => {
                   href="https://maps.app.goo.gl/QjP8fXWYP5awy7qK8"
                   target="_blank"
                   rel="noopener noreferrer" 
-                  className="flex items-center space-x-4 text-gray-300 hover:text-white transition-colors group"
+                  className="flex items-center space-x-4 text-gray-600 dark:text-gray-300 hover:text-white transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="text-base font-medium text-gray-100">Adres</h3>
-                    <p className="text-base text-gray-400">
+                    <p className="text-base text-gray-600 dark:text-gray-400">
                       Şehit Muhtar, Mis Sk. No:24<br />
                       34435 Beyoğlu/İstanbul<br />
                       Cube Beyoğlu
@@ -187,7 +187,7 @@ const Contact = () => {
                   </div>
                   <div>
                     <h3 className="text-base font-medium text-gray-100">Çalışma Saatleri</h3>
-                    <p className="text-base text-gray-400">
+                    <p className="text-base text-gray-600 dark:text-gray-400">
                       Pazartesi - Cuma: 09:00 - 18:00<br />
                       Cumartesi - Pazar: Kapalı
                     </p>

@@ -25,7 +25,7 @@ export function CTASection({ title, description, action, className }: CTAProps) 
           {title}
         </h2>
         {description && (
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
             {description}
           </p>
         )}
@@ -45,7 +45,7 @@ export function CTASection({ title, description, action, className }: CTAProps) 
           <Button
             variant="glow"
             size="lg"
-            className="bg-[#25D366] hover:bg-[#20BD5A] text-white group/button"
+            className="bg-[#25D366] hover:bg-[#20BD5A] text-slate-900 dark:text-white group/button"
             asChild
           >
             <a 

@@ -75,10 +75,10 @@ const FaqItem = React.forwardRef<
       className={cn(
         "group rounded-xl overflow-hidden",
         "transition-all duration-200 ease-in-out",
-        "border border-white/10",
+        "border border-slate-200 dark:border-white/10",
         isOpen
-          ? "bg-dark-light"
-          : "bg-dark-light/50 hover:bg-dark-light/80"
+          ? "bg-white dark:bg-dark-light"
+          : "bg-white dark:bg-white dark:bg-dark-light/50 hover:bg-white dark:bg-white dark:bg-dark-light/80"
       )}
     >
       <button
@@ -87,7 +87,7 @@ const FaqItem = React.forwardRef<
       >
         <h3 className={cn(
           "text-lg font-medium transition-colors duration-200 text-left",
-          isOpen ? "text-white" : "text-gray-300"
+          isOpen ? "text-slate-900 dark:text-white" : "text-gray-300"
         )}>
           {question}
         </h3>
@@ -126,7 +126,7 @@ const FaqItem = React.forwardRef<
                 initial={{ y: -10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: -10, opacity: 0 }}
-                className="text-gray-400 leading-relaxed"
+                className="text-gray-600 dark:text-gray-400 leading-relaxed"
               >
                 {answer}
               </motion.p>

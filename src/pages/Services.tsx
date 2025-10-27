@@ -30,13 +30,13 @@ const ServiceCard = ({ icon: Icon, title, items }: {
 }) => (
   <motion.div 
     variants={fadeInUp}
-    className="bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:border-primary/20 transition-all group"
+    className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/20 transition-all group shadow-sm"
   >
     <Icon className="h-12 w-12 text-primary mb-6 group-hover:scale-110 transition-transform" />
-    <h3 className="text-xl font-bold mb-4">{title}</h3>
+    <h3 className="text-xl font-bold mb-4 text-slate-900 dark:text-white">{title}</h3>
     <ul className="space-y-2">
       {items.map((item, index) => (
-        <li key={index} className="text-gray-400 flex items-start space-x-2">
+        <li key={index} className="text-gray-600 dark:text-gray-400 flex items-start space-x-2">
           <CheckCircle className="w-4 h-4 text-primary/70 shrink-0 mt-1" />
           <span>{item}</span>
         </li>
@@ -59,10 +59,10 @@ const ImageSection = ({ image, title, description }: {
       alt={title}
       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
     />
-    <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/50 to-transparent flex items-end">
+    <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/50 to-transparent dark:from-dark/90 dark:via-dark/50 dark:to-transparent flex items-end">
       <div className="p-6">
-        <h3 className="text-xl font-bold mb-2">{title}</h3>
-        <p className="text-gray-300 text-sm">{description}</p>
+        <h3 className="text-xl font-bold mb-2 text-white">{title}</h3>
+        <p className="text-gray-200 dark:text-gray-300 text-sm">{description}</p>
       </div>
     </div>
   </motion.div>
@@ -70,7 +70,7 @@ const ImageSection = ({ image, title, description }: {
 
 const Services = () => {
   return (
-    <div className="pt-24 pb-16">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
@@ -79,7 +79,7 @@ const Services = () => {
             alt="Services"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/70 to-dark" />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/70 to-white dark:from-dark/90 dark:via-dark/70 dark:to-dark" />
         </div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -99,10 +99,10 @@ const Services = () => {
               <span>Modern Çözümler</span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
               Hizmetlerimiz
             </h1>
-            <p className="text-xl text-gray-300">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümler sunuyoruz
             </p>
           </motion.div>
@@ -119,8 +119,8 @@ const Services = () => {
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-4xl font-bold mb-4">Tasarım</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Tasarım</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Modern ve kullanıcı odaklı tasarım çözümleri ile markanızı öne çıkarın
             </p>
           </motion.div>
@@ -201,7 +201,7 @@ const Services = () => {
       </section>
 
       {/* Software Development */}
-      <section className="py-20 bg-dark-light/30">
+      <section className="py-20 bg-slate-50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
@@ -210,8 +210,8 @@ const Services = () => {
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-4xl font-bold mb-4">Yazılım</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Yazılım</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Modern teknolojiler ve en iyi pratiklerle özel yazılım çözümleri
             </p>
           </motion.div>
@@ -302,8 +302,8 @@ const Services = () => {
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-4xl font-bold mb-4">Dijital Pazarlama ve Strateji</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Dijital Pazarlama ve Strateji</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
               Markanızı dijital dünyada güçlendiren stratejik çözümler
             </p>
           </motion.div>
@@ -361,23 +361,23 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-dark-light/30">
+      <section className="py-20 bg-slate-50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-dark-light/50 backdrop-blur-sm p-8 rounded-xl border border-white/10 relative overflow-hidden"
+            className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-8 rounded-xl border border-slate-200 dark:border-white/10 relative overflow-hidden shadow-lg"
           >
             <div className="absolute inset-0">
               <div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-transparent" />
             </div>
             
             <div className="relative max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
                 Projenizi Hayata Geçirmeye Hazır mısınız?
               </h2>
-              <p className="text-gray-300 mb-8">
+              <p className="text-gray-600 dark:text-gray-300 mb-8">
                 Size özel çözümler için hemen iletişime geçin
               </p>
               <motion.a

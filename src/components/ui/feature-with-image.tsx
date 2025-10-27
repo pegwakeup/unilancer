@@ -20,7 +20,7 @@ function Feature() {
               <h2 className="text-xl md:text-3xl md:text-5xl tracking-tighter lg:max-w-xl font-regular text-left">
                 This is the start of something new
               </h2>
-              <p className="text-lg max-w-xl lg:max-w-sm leading-relaxed tracking-tight text-gray-400 text-left">
+              <p className="text-lg max-w-xl lg:max-w-sm leading-relaxed tracking-tight text-gray-600 dark:text-gray-400 text-left">
                 Managing a small business today is already tough. Avoid further
                 complications by ditching outdated, tedious trade methods. Our
                 goal is to streamline SMB trade, making it easier and faster than

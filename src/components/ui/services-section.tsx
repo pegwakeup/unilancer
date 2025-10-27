@@ -53,7 +53,7 @@ const ServicesSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl font-bold mb-4 text-white">Hizmetlerimiz</h2>
-          <p className="text-gray-400 max-w-2xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
             Modern teknolojiler ve yaratıcı çözümlerle işletmenizi dijital dünyada öne çıkarıyoruz.
           </p>
         </motion.div>
@@ -68,7 +68,7 @@ const ServicesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-dark-light/50 backdrop-blur-sm border border-white/10 rounded-xl relative group shadow-lg overflow-hidden w-full"
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm border border-slate-200 dark:border-white/10 rounded-xl relative group shadow-lg overflow-hidden w-full"
               >
                 {/* Background Image */}
                 <div className="absolute inset-0">
@@ -95,7 +95,7 @@ const ServicesSection = () => {
                       <Link
                         key={itemIndex}
                         to={item.link}
-                        className="flex items-center p-4 bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-dark transition-colors group/item"
+                        className="flex items-center p-4 bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-white dark:bg-dark transition-colors group/item"
                       >
                         <div className="w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform">
                           <item.icon className="w-5 h-5 text-primary" />

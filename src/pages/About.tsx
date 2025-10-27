@@ -123,10 +123,10 @@ const About = () => {
   }, [isDragging, isHovered, isMobile, listWidth, controls, x]);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-16">
+    <div className="relative min-h-screen pt-24 pb-16 bg-white dark:bg-dark">
       {/* Sabit Arka Plan */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-dark/95" />
+        <div className="absolute inset-0 bg-white/95 dark:bg-dark/95" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
       </div>
 
@@ -142,7 +142,7 @@ const About = () => {
                 transition={{ duration: 0.8 }}
               >
                 <h2 className="text-3xl font-bold mb-4">Hikayemiz</h2>
-                <div className="space-y-6 text-gray-300">
+                <div className="space-y-6 text-gray-600 dark:text-gray-300">
                   <p>
                     2022 yılında, farklı alanlarda freelance hizmet veren üniversiteli gençler olarak; 
                     "Uni" (üniversiteli, bir ve bütün) ve "Freelancer" kavramlarından ilham alarak <span className="text-primary font-medium">Unilancer Labs</span>'i kurduk.
@@ -193,7 +193,7 @@ const About = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-dark/40 to-transparent rounded-xl" />
                 </div>
                 <motion.div
-                  className="absolute -bottom-8 -right-8 p-6 bg-dark-light/90 backdrop-blur-sm rounded-xl border border-white/10"
+                  className="absolute -bottom-8 -right-8 p-6 bg-white dark:bg-dark-light/90 backdrop-blur-sm rounded-xl border border-white/10"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -205,7 +205,7 @@ const About = () => {
                     </div>
                     <div>
                       <div className="text-2xl font-bold">150+</div>
-                      <div className="text-gray-400">Freelancer</div>
+                      <div className="text-gray-600 dark:text-gray-400">Freelancer</div>
                     </div>
                   </div>
                 </motion.div>
@@ -223,13 +223,13 @@ const About = () => {
                       </div>
                       <div className="text-left">
                         <h3 className="text-lg font-semibold">Unilancer Labs</h3>
-                        <p className="text-sm text-gray-400">Yazılım ve Teknoloji Çözümleri</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Yazılım ve Teknoloji Çözümleri</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6">
                     <div className="space-y-4">
-                      <p className="text-gray-300">
+                      <p className="text-gray-600 dark:text-gray-300">
                         Unilancer Labs, yazılım ve teknoloji alanında yenilikçi çözümler sunan ana şirketimizdir. 
                         Web ve mobil uygulama geliştirme, yapay zeka entegrasyonları ve özel yazılım çözümleri 
                         konularında uzmanlaşmış ekibimizle, işletmelerin dijital dönüşüm süreçlerini yönetiyoruz.
@@ -252,13 +252,13 @@ const About = () => {
                       </div>
                       <div className="text-left">
                         <h3 className="text-lg font-semibold">Lance Art</h3>
-                        <p className="text-sm text-gray-400">Tasarım ve Kreatif Stüdyo</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">Tasarım ve Kreatif Stüdyo</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6">
                     <div className="space-y-4">
-                      <p className="text-gray-300">
+                      <p className="text-gray-600 dark:text-gray-300">
                         Lance Art, yaratıcı tasarım çözümleri sunan kreatif stüdyomuzdur. 
                         Dijital tasarım, marka kimliği, UI/UX tasarımı ve illüstrasyon alanlarında 
                         uzman ekibimizle, markaların görsel dünyasını şekillendiriyoruz.
@@ -293,10 +293,10 @@ const About = () => {
                       </div>
                       <h3 className="text-2xl font-bold">Misyonumuz</h3>
                     </div>
-                    <p className="text-gray-300 text-lg mb-4">
+                    <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
                       "Beyin Göçü yerine Hizmet İhracatı"
                     </p>
-                    <p className="text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400">
                       Ülkemizin önemli sorunlarından biri olan beyin göçünü hizmet ihracatı yoluyla azaltmayı ve ölçeklenebilir bir yapıyla freelancerlar, işverenler ve iş ortaklarımız için güvenilir, kârlı ve adil bir freelance ekosistemi olmayı amaçlıyoruz.
                     </p>
                   </div>
@@ -317,10 +317,10 @@ const About = () => {
                       </div>
                       <h3 className="text-2xl font-bold">Vizyonumuz</h3>
                     </div>
-                    <p className="text-gray-300 text-lg mb-4">
+                    <p className="text-gray-600 dark:text-gray-300 text-lg mb-4">
                       "Freelancer Ekosistemin İlk Tercihi"
                     </p>
-                    <p className="text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400">
                       Öncelikle Türkiye'de, ardından dünyada freelancerlar ile firmaların ilk tercihi olmak. Yenilikçi iş modelimiz ve teknoloji odaklı yaklaşımımızla sektöre yön veren bir marka olmayı hedefliyoruz.
                     </p>
                   </div>
@@ -341,7 +341,7 @@ const About = () => {
               viewport={fadeInUp.viewport}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Ekibimiz</h2>
-              <p className="text-gray-400 max-w-2xl mx-auto">
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
                 Deneyimli ve tutkulu ekibimizle müşterilerimize en iyi hizmeti sunuyoruz
               </p>
             </motion.div>
@@ -396,7 +396,7 @@ const About = () => {
                       <div className="text-center">
                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
                         <p className="text-primary text-sm mb-2">{member.role}</p>
-                        <p className="text-gray-400 text-sm mb-4">{member.bio}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{member.bio}</p>
                         <div className="flex justify-center">
                           {member.social.linkedin && (
                             <a
@@ -441,7 +441,7 @@ const About = () => {
                       <div className="text-center">
                         <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
                         <p className="text-primary text-sm mb-2">{member.role}</p>
-                        <p className="text-gray-400 text-sm mb-4">{member.bio}</p>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{member.bio}</p>
                         <div className="flex justify-center">
                           {member.social.linkedin && (
                             <a
@@ -487,7 +487,7 @@ const About = () => {
               <div className="text-5xl font-bold">150+</div>
             </div>
             <h3 className="text-2xl font-bold text-white mb-2">Yetenekli Freelancer</h3>
-            <p className="text-gray-300 max-w-xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
               Farklı uzmanlık alanlarında deneyimli freelancer ekibimizle projelerinizi hayata geçiriyoruz
             </p>
           </div>
@@ -524,7 +524,7 @@ const About = () => {
             <h2 className="text-3xl font-bold sm:text-5xl animate-appear bg-gradient-to-b from-white to-white/80 bg-clip-text text-transparent">
               Ekibimize Katılın
             </h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
               Yeteneklerinizi bizimle paylaşın, birlikte büyüyelim
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-appear delay-200">

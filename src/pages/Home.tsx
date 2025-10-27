@@ -35,8 +35,8 @@ const Home = () => {
     <div className="relative min-h-screen">
       {/* Fixed Background */}
       <div className="fixed inset-0 z-0">
-        <div className="absolute inset-0 bg-dark/95" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
+        <div className="absolute inset-0 bg-white dark:bg-dark/95" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#00000008_1px,transparent_1px),linear-gradient(to_bottom,#00000008_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
       </div>
 
       {/* Content */}
@@ -135,14 +135,14 @@ const Home = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary-light/20 text-primary mb-6 sm:mb-8 text-sm sm:text-base"
+                className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary-light/20 text-primary dark:text-primary mb-6 sm:mb-8 text-sm sm:text-base"
               >
                 <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1.5 md:mr-2" />
                 <span>2024'ün En İyi Teknoloji Çözümleri</span>
               </motion.div>
 
               <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight text-slate-900 dark:text-white"
                 animate={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
@@ -171,7 +171,7 @@ const Home = () => {
               </motion.h1>
               
               <motion.p
-                className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
+                className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
                 animate={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
@@ -192,7 +192,7 @@ const Home = () => {
 
                 <motion.a
                   href="/portfolio"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/5 backdrop-blur-sm text-white rounded-xl hover:bg-white/10 transition-colors flex items-center justify-center space-x-2"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-300 dark:hover:bg-white/10 transition-colors flex items-center justify-center space-x-2"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -213,13 +213,13 @@ const Home = () => {
         {/* Partners Section */}
         <section className="pt-8 pb-4 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <motion.div 
+            <motion.div
               className="text-center mb-4"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="text-3xl font-bold">Partnerlerimiz</h2>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">Partnerlerimiz</h2>
             </motion.div>
           </div>
 
