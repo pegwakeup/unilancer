@@ -52,8 +52,8 @@ const ServicesSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-bold mb-4 text-white">Hizmetlerimiz</h2>
-          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">Hizmetlerimiz</h2>
+          <p className="text-slate-700 dark:text-gray-400 max-w-2xl mx-auto font-medium">
             Modern teknolojiler ve yaratıcı çözümlerle işletmenizi dijital dünyada öne çıkarıyoruz.
           </p>
         </motion.div>
@@ -95,14 +95,14 @@ const ServicesSection = () => {
                       <Link
                         key={itemIndex}
                         to={item.link}
-                        className="flex items-center p-4 bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-white dark:bg-dark transition-colors group/item"
+                        className="flex items-center p-4 bg-dark/50 dark:bg-dark/50 backdrop-blur-sm rounded-xl hover:bg-white/90 dark:hover:bg-dark transition-colors group/item border border-transparent hover:border-slate-200 dark:hover:border-transparent"
                       >
-                        <div className="w-10 h-10 bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform">
+                        <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 backdrop-blur-sm rounded-lg flex items-center justify-center mr-4 group-hover/item:scale-110 transition-transform">
                           <item.icon className="w-5 h-5 text-primary" />
                         </div>
                         <div className="flex-1">
                           <div className="flex items-center justify-between">
-                            <span className="font-medium text-white">{item.title}</span>
+                            <span className="font-medium text-white group-hover/item:text-slate-900 dark:group-hover/item:text-white transition-colors">{item.title}</span>
                             <ArrowUpRight className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all" />
                           </div>
                         </div>

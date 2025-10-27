@@ -21,11 +21,11 @@ export function CTASection({ title, description, action, className }: CTAProps) 
     <section className={cn("group relative overflow-hidden py-24 sm:py-32", className)}>
       {/* Content */}
       <div className="relative z-10 mx-auto flex max-w-container flex-col items-center gap-6 text-center sm:gap-8 px-4">
-        <h2 className="text-3xl font-bold sm:text-5xl animate-appear bg-gradient-to-b from-white to-white/80 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold sm:text-5xl animate-appear text-slate-900 dark:text-white">
           {title}
         </h2>
         {description && (
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
+          <p className="text-lg text-slate-700 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100 font-medium">
             {description}
           </p>
         )}

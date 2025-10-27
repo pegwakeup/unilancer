@@ -64,10 +64,10 @@ function WhyUnilancer() {
             className="text-center"
             variants={itemVariants}
           >
-            <h2 className="text-[30px] font-bold mb-4 bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent">
+            <h2 className="text-[30px] font-bold mb-4 text-slate-900 dark:text-white">
               Neden Unilancer?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-slate-700 dark:text-gray-400 max-w-2xl mx-auto font-medium">
               Modern çözümler ve profesyonel ekibimizle işletmenizi geleceğe taşıyoruz
             </p>
           </motion.div>
@@ -91,7 +91,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Ekip Gücü</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  <p className="text-slate-100 dark:text-gray-300 text-sm leading-relaxed">
                     Farklı yeteneklere sahip profesyonelleri tek ekipte buluşturuyoruz. Freelancerlarımız sadece kendi uzmanlık alanlarına odaklanarak verimli çalışabiliyor.
                   </p>
                 </div>
@@ -116,7 +116,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Zaman ve Maliyet Avantajı</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  <p className="text-slate-100 dark:text-gray-300 text-sm leading-relaxed">
                     Proje bazlı çalışma imkanı sunarak geleneksel giderlerden ve uzun işe alım süreçlerinden sizi kurtarıyoruz.
                   </p>
                 </div>
@@ -141,7 +141,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">En Yeni Teknoloji</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  <p className="text-slate-100 dark:text-gray-300 text-sm leading-relaxed">
                     Güncel teknoloji araçlarıyla müşterilerimize dijital rekabet avantajı sunuyoruz.
                   </p>
                 </div>
@@ -166,7 +166,7 @@ function WhyUnilancer() {
                 </div>
                 <div className="transform group-hover:translate-y-[-8px] transition-transform duration-500">
                   <h3 className="text-lg font-bold mb-2 text-white/90 group-hover:text-white">Profesyonel Proje Yönetimi ve İletişim</h3>
-                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
+                  <p className="text-slate-100 dark:text-gray-300 text-sm leading-relaxed">
                     Profesyonel proje yönetimi araçları ve düzenli geri bildirimlerle projenizi şeffaf bir şekilde yönetiyoruz.
                   </p>
                 </div>

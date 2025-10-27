@@ -171,7 +171,7 @@ const Home = () => {
               </motion.h1>
               
               <motion.p
-                className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
+                className="text-base sm:text-lg md:text-xl text-slate-700 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4 font-medium"
                 animate={{ opacity: 1, y: 0 }}
                 initial={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
@@ -192,7 +192,7 @@ const Home = () => {
 
                 <motion.a
                   href="/portfolio"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-slate-200 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-300 dark:hover:bg-white/10 transition-colors flex items-center justify-center space-x-2"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 font-medium border border-slate-200 dark:border-transparent"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
