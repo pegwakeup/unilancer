@@ -24,7 +24,7 @@ const Contact = () => {
       {/* Fixed Background Patterns */}
       <div className="fixed inset-0 z-0">
         {/* Grid Pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA35_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA35_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_85%)]" />
         
         {/* Gradient Orbs */}
         <div className="absolute -left-40 -top-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl opacity-20" />

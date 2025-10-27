@@ -70,7 +70,7 @@ const ImageSection = ({ image, title, description }: {
 
 const Services = () => {
   return (
-    <div className="pt-24 pb-16 bg-white dark:bg-dark">
+    <div className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">
@@ -201,7 +201,7 @@ const Services = () => {
       </section>
 
       {/* Software Development */}
-      <section className="py-20 bg-slate-50 dark:bg-dark-light/30">
+      <section className="py-20 bg-blue-50/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div 
             className="text-center mb-16"
@@ -361,7 +361,7 @@ const Services = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-slate-50 dark:bg-dark-light/30">
+      <section className="py-20 bg-blue-50/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
