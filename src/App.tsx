@@ -11,16 +11,6 @@ import { ThemeProvider } from './contexts/ThemeContext';
 const Home = lazy(() => import('./pages/Home'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
 const Services = lazy(() => import('./pages/Services'));
-const DesignServices = lazy(() => import('./pages/services/DesignServices'));
-const SoftwareServices = lazy(() => import('./pages/services/SoftwareServices'));
-const MarketingServices = lazy(() => import('./pages/services/MarketingServices'));
-
-// Design subcategory pages
-const DigitalWebDesign = lazy(() => import('./pages/services/design/DigitalWebDesign'));
-const BrandIdentity = lazy(() => import('./pages/services/design/BrandIdentity'));
-const PrintGraphicDesign = lazy(() => import('./pages/services/design/PrintGraphicDesign'));
-const IllustrationDesign = lazy(() => import('./pages/services/design/IllustrationDesign'));
-
 const About = lazy(() => import('./pages/About'));
 const Blog = lazy(() => import('./pages/Blog'));
 const BlogDetail = lazy(() => import('./pages/BlogDetail'));
@@ -88,16 +78,6 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/services" element={<Services />} />
-                  <Route path="/services/design" element={<DesignServices />} />
-                  <Route path="/services/software" element={<SoftwareServices />} />
-                  <Route path="/services/marketing" element={<MarketingServices />} />
-                  
-                  {/* Design subcategory routes */}
-                  <Route path="/services/design/digital-web" element={<DigitalWebDesign />} />
-                  <Route path="/services/design/brand-identity" element={<BrandIdentity />} />
-                  <Route path="/services/design/print-graphic" element={<PrintGraphicDesign />} />
-                  <Route path="/services/design/illustration" element={<IllustrationDesign />} />
-                  
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogDetail />} />
