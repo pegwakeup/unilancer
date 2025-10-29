@@ -39,6 +39,11 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
       return;
     }
 
+    if (modelUrl.includes('.obj')) {
+      alert('AR özelliği şu anda kullanılamıyor. AR için GLB/GLTF formatında 3D model gereklidir. Lütfen sistem yöneticinizle iletişime geçin.');
+      return;
+    }
+
     if (isMobile) {
       const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
       const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
