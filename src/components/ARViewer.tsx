@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Smartphone, Camera, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
 
@@ -15,6 +15,8 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
   const [isMobile, setIsMobile] = useState(false);
   const [isARSupported, setIsARSupported] = useState(false);
   const [deviceType, setDeviceType] = useState<'ios' | 'android' | 'other'>('other');
+  const [modelLoaded, setModelLoaded] = useState(false);
+  const modelViewerRef = useRef<any>(null);
 
   useEffect(() => {
     const checkDevice = () => {
@@ -43,26 +45,33 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
   useEffect(() => {
     if (!isOpen) {
       setShowQRCode(false);
+      setModelLoaded(false);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (isOpen && modelViewerRef.current) {
+      const handleLoad = () => {
+        setModelLoaded(true);
+      };
+
+      modelViewerRef.current.addEventListener('load', handleLoad);
+
+      return () => {
+        if (modelViewerRef.current) {
+          modelViewerRef.current.removeEventListener('load', handleLoad);
+        }
+      };
     }
   }, [isOpen]);
 
   const currentUrl = window.location.href;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}`;
 
-  const handleARActivation = () => {
-    if (!modelUrl) return;
-
-    const link = document.createElement('a');
-    link.href = modelUrl;
-    link.rel = 'ar';
-    link.download = '';
-
-    const img = document.createElement('img');
-    link.appendChild(img);
-
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const activateAR = () => {
+    if (modelViewerRef.current && modelViewerRef.current.canActivateAR) {
+      modelViewerRef.current.activateAR();
+    }
   };
 
   if (!isOpen) return null;
@@ -133,21 +142,50 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
 
               {isMobile && isARSupported && modelUrl ? (
                 <>
-                  <motion.button
+                  <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    whileHover={{ scale: 1.02, boxShadow: "0 20px 50px rgba(95, 200, 218, 0.3)" }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleARActivation}
-                    className="w-full bg-gradient-to-r from-primary via-primary to-primary-light hover:from-primary/90 hover:via-primary/90 hover:to-primary-light/90 text-white font-bold py-5 sm:py-6 rounded-xl shadow-2xl shadow-primary/40 transition-all flex items-center justify-center gap-3 touch-manipulation relative overflow-hidden group"
+                    className="bg-gradient-to-br from-white via-slate-50/30 to-white dark:from-slate-800/70 dark:via-slate-800/50 dark:to-slate-900/70 border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 overflow-hidden shadow-xl backdrop-blur-sm"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    <Camera className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" />
-                    <span className="text-base sm:text-lg relative z-10">
-                      {deviceType === 'ios' ? 'AR Kamerayı Aç' : 'AR ile Görüntüle'}
-                    </span>
-                  </motion.button>
+                    <div className="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200/50 dark:from-slate-900/70 dark:to-slate-900/50 border-2 border-slate-200 dark:border-white/10 shadow-inner">
+                      {!modelLoaded && (
+                        <div className="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm z-10">
+                          <div className="text-center">
+                            <div className="relative w-16 h-16 mx-auto mb-3">
+                              <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
+                            </div>
+                            <p className="text-sm font-semibold text-primary">Model Yükleniyor...</p>
+                          </div>
+                        </div>
+                      )}
+                      <model-viewer
+                        ref={modelViewerRef}
+                        src={modelUrl}
+                        alt="3D Model AR Görüntüleme"
+                        ar
+                        ar-modes="webxr scene-viewer quick-look"
+                        camera-controls
+                        auto-rotate
+                        shadow-intensity="1"
+                        exposure="1"
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: 'transparent'
+                        }}
+                      >
+                        <button
+                          slot="ar-button"
+                          onClick={activateAR}
+                          className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary via-primary to-primary-light text-white px-6 py-3 rounded-full font-bold shadow-lg shadow-primary/40 flex items-center gap-2 touch-manipulation z-20 hover:scale-105 transition-transform"
+                        >
+                          <Camera className="w-5 h-5" />
+                          <span>AR'yi Başlat</span>
+                        </button>
+                      </model-viewer>
+                    </div>
+                  </motion.div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -167,8 +205,8 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                           1
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">AR Butonu</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Yukarıdaki butona dokunun</p>
+                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">AR'yi Başlat</p>
+                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Model üzerindeki "AR'yi Başlat" butonuna dokunun</p>
                         </div>
                       </div>
                       <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
@@ -186,7 +224,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Yerleştirin</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Düz bir yüzeye yerleştirin</p>
+                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Düz bir yüzeyi tarayın ve ürünü yerleştirin</p>
                         </div>
                       </div>
                       <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
@@ -195,7 +233,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">İnceleyin</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Her açıdan inceleyebilirsiniz</p>
+                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Ürünün etrafında dolaşarak her açıdan inceleyin</p>
                         </div>
                       </div>
                     </div>
