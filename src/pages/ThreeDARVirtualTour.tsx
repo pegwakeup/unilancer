@@ -327,7 +327,7 @@ const ThreeDARVirtualTour = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative order-1 lg:order-2"
             >
-              <div className="relative flex items-center justify-center min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px]">'
+              <div className="relative flex items-center justify-center min-h-[450px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[750px] xl:min-h-[800px]">'
                 <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
                 <div className="relative w-full">
@@ -361,7 +361,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -407,7 +407,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -474,7 +474,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -575,7 +575,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -621,7 +621,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -667,7 +667,7 @@ const ThreeDARVirtualTour = () => {
       <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"

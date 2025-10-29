@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Smartphone, Camera, Download } from 'lucide-react';
 
@@ -12,6 +12,8 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
   const [isARSupported, setIsARSupported] = useState(false);
   const [showQRCode, setShowQRCode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [arLaunched, setArLaunched] = useState(false);
+  const launchAttemptedRef = useRef(false);
 
   useEffect(() => {
     const checkARSupport = () => {
@@ -22,13 +24,26 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
       const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
       const isAndroid = /Android/i.test(userAgent);
 
-      // Check for AR support more comprehensively
       const hasARSupport = isIOS || isAndroid;
       setIsARSupported(hasARSupport);
     };
 
     checkARSupport();
   }, []);
+
+  useEffect(() => {
+    if (isOpen && isMobile && isARSupported && modelUrl && !launchAttemptedRef.current) {
+      launchAttemptedRef.current = true;
+      setTimeout(() => {
+        handleARLaunch();
+      }, 100);
+    }
+
+    if (!isOpen) {
+      launchAttemptedRef.current = false;
+      setArLaunched(false);
+    }
+  }, [isOpen, isMobile, isARSupported, modelUrl]);
 
   const currentUrl = window.location.href;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}`;
@@ -38,6 +53,8 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
       alert('3D model yüklenemedi. Lütfen sayfayı yenileyin.');
       return;
     }
+
+    setArLaunched(true);
 
     if (isMobile) {
       const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
@@ -49,20 +66,41 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
         const anchor = document.createElement('a');
         anchor.href = usdzUrl;
         anchor.rel = 'ar';
-        anchor.download = '';
+        anchor.setAttribute('aria-label', 'View in AR');
+
         const img = document.createElement('img');
+        img.style.display = 'none';
         anchor.appendChild(img);
+
         document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
+
+        setTimeout(() => {
+          anchor.click();
+          setTimeout(() => {
+            if (document.body.contains(anchor)) {
+              document.body.removeChild(anchor);
+            }
+          }, 100);
+        }, 50);
+
+        setTimeout(() => {
+          onClose();
+        }, 1000);
       } else if (isAndroid) {
-        const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
-        window.location.href = sceneViewerUrl;
+        const intent = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred&resizable=false&link=${encodeURIComponent(window.location.href)}&title=3D%20Model#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
+
+        window.location.href = intent;
+
+        setTimeout(() => {
+          onClose();
+        }, 500);
       } else {
         alert('AR görüntüleme iOS Safari veya Android Chrome tarayıcılarında desteklenir.');
+        setArLaunched(false);
       }
     } else {
       setShowQRCode(true);
+      setArLaunched(false);
     }
   };
 
@@ -95,13 +133,38 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
             <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/20 rounded-full mb-3 md:mb-4">
               <Camera className="w-6 h-6 md:w-8 md:h-8 text-primary" />
             </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">AR Görüntüleme</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              {arLaunched ? 'AR Başlatılıyor...' : 'AR Görüntüleme'}
+            </h2>
             <p className="text-sm md:text-base text-gray-400 px-4">
-              Ürünü kendi mekanınızda sanki oradaymış gibi görün
+              {arLaunched
+                ? 'Lütfen cihazınızda AR görüntüleyiciyi açın'
+                : 'Ürünü kendi mekanınızda sanki oradaymış gibi görün'
+              }
             </p>
           </div>
 
-          {!showQRCode ? (
+          {arLaunched && isMobile ? (
+            <div className="space-y-4 md:space-y-6">
+              <div className="bg-slate-800/50 border border-primary/20 rounded-xl p-6 md:p-8 text-center">
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 md:w-20 md:h-20 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                </div>
+                <h3 className="text-lg md:text-xl font-semibold text-white mb-3">AR Kamerası Açılıyor</h3>
+                <p className="text-sm md:text-base text-gray-300 mb-4">
+                  AR görüntüleyici açılmazsa, aşağıdaki butona tekrar basın
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={handleARLaunch}
+                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 md:py-4 rounded-xl transition-all"
+                >
+                  Tekrar Dene
+                </motion.button>
+              </div>
+            </div>
+          ) : !showQRCode ? (
             <div className="space-y-4 md:space-y-6">
               {isARSupported && isMobile ? (
                 <>

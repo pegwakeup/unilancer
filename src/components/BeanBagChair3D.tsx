@@ -43,6 +43,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
   const animationFrameRef = useRef<number[]>([]);
   const transformCalculated = useRef(false);
   const materialsInitialized = useRef(false);
+  const meshCacheRef = useRef<THREE.Mesh[]>([]);
 
   useEffect(() => {
     if (modelRef.current && !transformCalculated.current) {
@@ -51,7 +52,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
       const size = box.getSize(new THREE.Vector3());
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 3.5 / maxDim;
+      const scale = 5.0 / maxDim;
 
       modelRef.current.scale.setScalar(scale);
       modelRef.current.position.set(
@@ -66,16 +67,26 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
     if (modelRef.current && !materialsInitialized.current) {
       modelRef.current.traverse((child) => {
         if (child instanceof THREE.Mesh) {
+          meshCacheRef.current.push(child);
           const leatherConfig = LEATHER_COLORS[leatherColor];
+
+          if (child.geometry) {
+            child.geometry.computeVertexNormals();
+            child.geometry.computeBoundingSphere();
+          }
+
           child.material = new THREE.MeshStandardMaterial({
             color: new THREE.Color(leatherConfig.color),
             roughness: leatherConfig.roughness,
             metalness: leatherConfig.metalness,
-            envMapIntensity: 1.2,
-            side: THREE.DoubleSide
+            envMapIntensity: 1.0,
+            side: THREE.FrontSide,
+            flatShading: false,
+            toneMapped: true
           });
-          child.castShadow = true;
-          child.receiveShadow = true;
+          child.castShadow = false;
+          child.receiveShadow = false;
+          child.frustumCulled = true;
         }
       });
 
@@ -87,7 +98,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
     animationFrameRef.current.forEach(id => cancelAnimationFrame(id));
     animationFrameRef.current = [];
 
-    if (!modelRef.current) return;
+    if (meshCacheRef.current.length === 0) return;
 
     const meshes: Array<{
       material: THREE.MeshStandardMaterial;
@@ -101,26 +112,37 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
 
     const leatherConfig = LEATHER_COLORS[leatherColor];
 
-    modelRef.current.traverse((child) => {
-      if (child instanceof THREE.Mesh) {
-        const material = child.material as THREE.MeshStandardMaterial;
-        meshes.push({
-          material,
-          startColor: material.color.clone(),
-          targetColor: new THREE.Color(leatherConfig.color),
-          startRoughness: material.roughness,
-          startMetalness: material.metalness,
-          targetRoughness: leatherConfig.roughness,
-          targetMetalness: leatherConfig.metalness,
-        });
-      }
+    meshCacheRef.current.forEach((mesh) => {
+      const material = mesh.material as THREE.MeshStandardMaterial;
+      meshes.push({
+        material,
+        startColor: material.color.clone(),
+        targetColor: new THREE.Color(leatherConfig.color),
+        startRoughness: material.roughness,
+        startMetalness: material.metalness,
+        targetRoughness: leatherConfig.roughness,
+        targetMetalness: leatherConfig.metalness,
+      });
     });
 
-    const duration = 400;
+    const duration = 300;
     const startTime = Date.now();
+    let lastFrameTime = startTime;
+    const targetFPS = 30;
+    const frameInterval = 1000 / targetFPS;
 
     const animate = () => {
-      const elapsed = Date.now() - startTime;
+      const currentTime = Date.now();
+      const elapsed = currentTime - startTime;
+      const timeSinceLastFrame = currentTime - lastFrameTime;
+
+      if (timeSinceLastFrame < frameInterval) {
+        const frameId = requestAnimationFrame(animate);
+        animationFrameRef.current.push(frameId);
+        return;
+      }
+
+      lastFrameTime = currentTime;
       const progress = Math.min(elapsed / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
 
@@ -128,6 +150,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
         material.color.lerpColors(startColor, targetColor, eased);
         material.roughness = THREE.MathUtils.lerp(startRoughness, targetRoughness, eased);
         material.metalness = THREE.MathUtils.lerp(startMetalness, targetMetalness, eased);
+        material.needsUpdate = true;
       });
 
       if (progress < 1) {
@@ -276,40 +299,40 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-[400px] sm:h-[450px] md:h-[550px] lg:h-[650px] ${className}`}>
+    <div className={`relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[750px] xl:h-[800px] ${className}`}>
       <Canvas
         shadows
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         gl={{
           antialias: true,
           alpha: true,
           powerPreference: 'high-performance',
           stencil: false,
-          depth: true
+          depth: true,
+          logarithmicDepthBuffer: true
         }}
-        frameloop="demand"
+        frameloop="always"
         className="touch-none"
-        performance={{ min: 0.5 }}
+        performance={{ min: 0.5, max: 1 }}
       >
-        <PerspectiveCamera makeDefault position={[0, 0, 5.5]} fov={45} />
+        <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={50} />
 
         <ambientLight intensity={0.7} />
         <hemisphereLight intensity={0.6} groundColor="#555555" />
         <directionalLight
-          position={[8, 8, 5]}
-          intensity={1.2}
+          position={[5, 5, 5]}
+          intensity={1.0}
           castShadow
-          shadow-mapSize-width={1024}
-          shadow-mapSize-height={1024}
-          shadow-camera-far={50}
-          shadow-camera-left={-10}
-          shadow-camera-right={10}
-          shadow-camera-top={10}
-          shadow-camera-bottom={-10}
+          shadow-mapSize-width={512}
+          shadow-mapSize-height={512}
+          shadow-camera-far={30}
+          shadow-camera-left={-5}
+          shadow-camera-right={5}
+          shadow-camera-top={5}
+          shadow-camera-bottom={-5}
+          shadow-bias={-0.0001}
         />
-        <directionalLight position={[-5, 3, -5]} intensity={0.5} />
-        <spotLight position={[0, 8, 0]} intensity={0.6} angle={0.4} penumbra={1} castShadow />
-        <pointLight position={[3, 3, 3]} intensity={0.4} color="#ffffff" />
+        <pointLight position={[-3, 3, -3]} intensity={0.4} />
 
         <Suspense fallback={null}>
           <BeanBagModel leatherColor={leatherColor} />
@@ -320,11 +343,15 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           ref={controlsRef}
           enablePan={false}
           enableZoom={true}
-          minDistance={4}
-          maxDistance={8}
+          minDistance={3}
+          maxDistance={10}
           autoRotate={isRotating}
           autoRotateSpeed={1.5}
           target={[0, 0, 0]}
+          maxPolarAngle={Math.PI}
+          minPolarAngle={0}
+          enableDamping={true}
+          dampingFactor={0.05}
           onStart={() => setIsRotating(false)}
           onEnd={() => {
             setTimeout(() => setIsRotating(true), 2000);
