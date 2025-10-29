@@ -20,6 +20,7 @@ import {
   Package
 } from 'lucide-react';
 import { OptimizedSpline } from '../components/ui/optimized-spline';
+import { ARModelViewer } from '../components/ui/ar-model-viewer';
 import { Card } from '../components/ui/card';
 import { Spotlight } from '../components/ui/spotlight-aceternity';
 
@@ -589,6 +590,80 @@ Optimize model = Mutlu kullanıcı!`
           </div>
         </section>
 
+        <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=1920')] opacity-10 bg-cover bg-center" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900" />
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm mb-6">
+                <Camera className="w-4 h-4 text-blue-400" />
+                <span className="text-blue-300 text-sm font-medium">Mobil AR Deneyimi</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                Kameranızla AR Görüntüleme
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Ürünleri gerçek dünyanızda görüntüleyin. Telefonunuzun kamerasını açın ve 3D modelleri evinizde, ofisinizde veya istediğiniz yerde görün.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="mb-16"
+            >
+              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-blue-500/20 overflow-hidden">
+                <div className="grid md:grid-cols-2 gap-8 p-8">
+                  <div className="flex flex-col justify-center space-y-6">
+                    <h3 className="text-3xl font-bold text-white">
+                      AR ile Ürünlerinizi Keşfedin
+                    </h3>
+                    <p className="text-gray-300 text-lg leading-relaxed">
+                      Google'ın model-viewer teknolojisi ile iOS ve Android cihazlarda tam AR desteği. Gerçek boyutta, gerçek mekanınızda görüntüleyin.
+                    </p>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <span>iOS 12+ (iPhone/iPad) desteği</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <span>ARCore destekli Android cihazlar</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <span>Gerçek boyut ve ölçek</span>
+                      </div>
+                      <div className="flex items-center gap-3 text-gray-300">
+                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
+                        <span>360° döndürme ve yakınlaştırma</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="relative">
+                    <ARModelViewer
+                      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+                      alt="Sample AR Model"
+                      poster="https://modelviewer.dev/shared-assets/models/Astronaut.webp"
+                      className="w-full h-[500px] rounded-xl overflow-hidden bg-slate-800"
+                    />
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
         <section className="py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
@@ -599,10 +674,10 @@ Optimize model = Mutlu kullanıcı!`
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Use Cases & Applications
+                Kullanım Alanları
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Discover how 3D and AR can transform your industry.
+                3D ve AR'ın sektörünüzü nasıl dönüştürebileceğini keşfedin.
               </p>
             </motion.div>
 
