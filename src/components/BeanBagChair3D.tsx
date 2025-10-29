@@ -39,6 +39,7 @@ interface BeanBagModelProps {
 function BeanBagModel({ leatherColor }: BeanBagModelProps) {
   const obj = useLoader(OBJLoader, MODEL_URL);
   const modelRef = useRef<THREE.Group>(null);
+  const animationFrameRef = useRef<number[]>([]);
 
   useEffect(() => {
     if (modelRef.current) {
@@ -68,40 +69,67 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
         }
       });
     }
-  }, [obj]);
+  }, [obj, leatherColor]);
 
   useEffect(() => {
-    if (modelRef.current) {
-      modelRef.current.traverse((child) => {
-        if (child instanceof THREE.Mesh) {
-          const leatherConfig = LEATHER_COLORS[leatherColor];
-          const targetColor = new THREE.Color(leatherConfig.color);
-          const currentColor = (child.material as THREE.MeshStandardMaterial).color;
+    animationFrameRef.current.forEach(id => cancelAnimationFrame(id));
+    animationFrameRef.current = [];
 
-          let progress = 0;
-          const animate = () => {
-            progress += 0.05;
-            if (progress <= 1) {
-              currentColor.lerp(targetColor, 0.1);
-              (child.material as THREE.MeshStandardMaterial).roughness =
-                THREE.MathUtils.lerp(
-                  (child.material as THREE.MeshStandardMaterial).roughness,
-                  leatherConfig.roughness,
-                  0.1
-                );
-              (child.material as THREE.MeshStandardMaterial).metalness =
-                THREE.MathUtils.lerp(
-                  (child.material as THREE.MeshStandardMaterial).metalness,
-                  leatherConfig.metalness,
-                  0.1
-                );
-              requestAnimationFrame(animate);
-            }
-          };
-          animate();
-        }
+    if (!modelRef.current) return;
+
+    const meshes: Array<{
+      material: THREE.MeshStandardMaterial;
+      startColor: THREE.Color;
+      targetColor: THREE.Color;
+      startRoughness: number;
+      startMetalness: number;
+      targetRoughness: number;
+      targetMetalness: number;
+    }> = [];
+
+    const leatherConfig = LEATHER_COLORS[leatherColor];
+
+    modelRef.current.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        const material = child.material as THREE.MeshStandardMaterial;
+        meshes.push({
+          material,
+          startColor: material.color.clone(),
+          targetColor: new THREE.Color(leatherConfig.color),
+          startRoughness: material.roughness,
+          startMetalness: material.metalness,
+          targetRoughness: leatherConfig.roughness,
+          targetMetalness: leatherConfig.metalness,
+        });
+      }
+    });
+
+    const duration = 400;
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+
+      meshes.forEach(({ material, startColor, targetColor, startRoughness, startMetalness, targetRoughness, targetMetalness }) => {
+        material.color.lerpColors(startColor, targetColor, eased);
+        material.roughness = THREE.MathUtils.lerp(startRoughness, targetRoughness, eased);
+        material.metalness = THREE.MathUtils.lerp(startMetalness, targetMetalness, eased);
       });
-    }
+
+      if (progress < 1) {
+        const frameId = requestAnimationFrame(animate);
+        animationFrameRef.current.push(frameId);
+      }
+    };
+
+    animate();
+
+    return () => {
+      animationFrameRef.current.forEach(id => cancelAnimationFrame(id));
+      animationFrameRef.current = [];
+    };
   }, [leatherColor]);
 
   return (
@@ -155,11 +183,16 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-[600px] md:h-[700px] ${className}`}>
+    <div className={`relative w-full h-[500px] md:h-[600px] lg:h-[650px] ${className}`}>
       <Canvas
         shadows
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true }}
+        dpr={[1, 1.5]}
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: 'high-performance'
+        }}
+        frameloop="demand"
         className="touch-none"
       >
         <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />

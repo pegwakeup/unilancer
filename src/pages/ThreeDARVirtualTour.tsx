@@ -240,11 +240,11 @@ const ThreeDARVirtualTour = () => {
   return (
     <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section with 3D Model - Focused on 3D & AR */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             {/* Left: Content - Focus on 3D Modeling & AR */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
@@ -322,12 +322,12 @@ const ThreeDARVirtualTour = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative"
+              className="relative order-first lg:order-last"
             >
-              <div className="relative">
+              <div className="relative flex items-center justify-center min-h-[450px] md:min-h-[500px] lg:min-h-[550px]">
                 <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
-                <div className="relative">
+                <div className="relative w-full">
                   <BeanBagChair3D
                     className="w-full"
                     onARClick={() => setIsARModalOpen(true)}
@@ -339,7 +339,7 @@ const ThreeDARVirtualTour = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
-                className="mt-6 text-center"
+                className="mt-4 text-center"
               >
                 <p className="text-sm text-gray-600 dark:text-gray-400 flex items-center justify-center gap-2">
                   <span className="inline-block w-2 h-2 bg-primary rounded-full animate-pulse" />

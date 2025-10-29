@@ -42,12 +42,12 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[100vh] md:min-h-screen flex items-center justify-center overflow-hidden py-20 md:py-0">
+        <section className="relative min-h-[90vh] md:min-h-[95vh] lg:min-h-screen flex items-center justify-center overflow-hidden py-16 md:py-20 lg:py-0">
           <Floating sensitivity={0.5} className="h-full">
             {/* Top Left Image */}
             <FloatingElement
               depth={0.5}
-              className="top-[10%] left-[5%] md:top-[12%] md:left-[10%]"
+              className="top-[8%] left-[3%] md:top-[10%] md:left-[8%] lg:top-[12%] lg:left-[10%]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -59,7 +59,7 @@ const Home = () => {
                 <img
                   src={images[0].url}
                   alt={images[0].title}
-                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl -rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
+                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl -rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
               </motion.div>
             </FloatingElement>
@@ -67,7 +67,7 @@ const Home = () => {
             {/* Top Right Image */}
             <FloatingElement
               depth={1}
-              className="top-[10%] right-[5%] md:top-[12%] md:right-[10%]"
+              className="top-[8%] right-[3%] md:top-[10%] md:right-[8%] lg:top-[12%] lg:right-[10%]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -79,7 +79,7 @@ const Home = () => {
                 <img
                   src={images[1].url}
                   alt={images[1].title}
-                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
+                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
               </motion.div>
             </FloatingElement>
@@ -87,7 +87,7 @@ const Home = () => {
             {/* Bottom Left Image */}
             <FloatingElement
               depth={4}
-              className="bottom-[10%] left-[5%] md:bottom-[15%] md:left-[10%]"
+              className="bottom-[8%] left-[3%] md:bottom-[12%] md:left-[8%] lg:bottom-[15%] lg:left-[10%]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -99,7 +99,7 @@ const Home = () => {
                 <img
                   src={images[2].url}
                   alt={images[2].title}
-                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl -rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
+                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl -rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
               </motion.div>
             </FloatingElement>
@@ -107,7 +107,7 @@ const Home = () => {
             {/* Bottom Right Image */}
             <FloatingElement
               depth={2}
-              className="bottom-[10%] right-[5%] md:bottom-[15%] md:right-[10%]"
+              className="bottom-[8%] right-[3%] md:bottom-[12%] md:right-[8%] lg:bottom-[15%] lg:right-[10%]"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -119,7 +119,7 @@ const Home = () => {
                 <img
                   src={images[3].url}
                   alt={images[3].title}
-                  className="w-52 h-36 sm:w-60 sm:h-44 md:w-72 md:h-52 lg:w-80 lg:h-60 object-cover rounded-xl rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
+                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
                 />
               </motion.div>
             </FloatingElement>
