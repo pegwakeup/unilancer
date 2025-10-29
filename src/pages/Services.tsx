@@ -100,7 +100,7 @@ const Services = () => {
             </motion.div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
-              Hizmetlerimiz
+              DigitAll
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300">
               İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümler sunuyoruz

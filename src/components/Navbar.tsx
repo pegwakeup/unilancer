@@ -3,41 +3,21 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
-  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon
+  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon,
+  ShoppingCart, Box, Sparkles
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 
-const serviceCategories = [
-  {
-    title: "Tasarım",
-    path: "/services/design",
-    items: [
-      { icon: Monitor, label: "Dijital & Web Tasarım" },
-      { icon: PaintBucket, label: "Kurumsal Kimlik & Marka" },
-      { icon: FileImage, label: "Basılı & Grafik Tasarım" },
-      { icon: Figma, label: "İllüstrasyon & 3D" }
-    ]
-  },
-  {
-    title: "Yazılım",
-    path: "/services/software",
-    items: [
-      { icon: Globe, label: "Web Geliştirme" },
-      { icon: Smartphone, label: "Mobil Uygulama" },
-      { icon: Database, label: "SaaS Çözümleri" },
-      { icon: BrainCircuit, label: "AI Entegrasyonları" }
-    ]
-  },
-  {
-    title: "Dijital Pazarlama",
-    path: "/services/marketing",
-    items: [
-      { icon: Search, label: "SEO & SEM" },
-      { icon: Target, label: "Dijital Reklam" },
-      { icon: LineChart, label: "Analitik" }
-    ]
-  }
+const digitAllServices = [
+  { icon: Monitor, label: "Web Tasarım", path: "/services" },
+  { icon: Box, label: "3D AR SANAL TUR", path: "/digitall/3d-ar-sanal-tur" },
+  { icon: ShoppingCart, label: "E Ticaret Çözümleri", path: "/services" },
+  { icon: Target, label: "Pazarlama & Reklam", path: "/services" },
+  { icon: BrainCircuit, label: "Yapay Zeka - Digibot", path: "/services" },
+  { icon: Code2, label: "Yazılım Geliştirme", path: "/services" },
+  { icon: PaintBucket, label: "Kurumsal Kimlik & Marka", path: "/services" },
+  { icon: Palette, label: "Grafik ve Tasarım", path: "/services" }
 ];
 
 const NavLink = ({ to, active, children, onClick }: {
@@ -208,13 +188,13 @@ const Navbar = () => {
                   onClick={() => setIsServicesOpen(!isServicesOpen)}
                   className={`
                     px-4 py-2 rounded-lg transition-all duration-300 flex items-center space-x-2 font-medium
-                    ${location.pathname.startsWith('/services')
+                    ${location.pathname.startsWith('/services') || location.pathname.startsWith('/digitall')
                       ? 'text-primary dark:text-primary'
                       : 'text-slate-700 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white'}
                     hover:bg-slate-100/70 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
                   `}
                 >
-                  <span>Hizmetler</span>
+                  <span>DigitAll</span>
                   <motion.div
                     animate={{ rotate: isServicesOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -232,41 +212,27 @@ const Navbar = () => {
                       transition={{ duration: 0.3, ease: "easeInOut" }}
                       className="absolute top-full left-0 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-md rounded-xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden"
                     >
-                      <div className="flex p-4 gap-8">
-                        {serviceCategories.map((category, index) => (
-                          <div key={index} className="min-w-[240px]">
+                      <div className="p-3 min-w-[280px]">
+                        <div className="space-y-1">
+                          {digitAllServices.map((service, index) => (
                             <Link
-                              to={category.path}
-                              className="text-sm font-semibold text-primary hover:text-primary-dark dark:hover:text-primary-light transition-colors mb-4 block tracking-wide uppercase"
+                              key={index}
+                              to={service.path}
+                              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all group min-h-[48px] hover:translate-x-1"
                               onClick={() => {
                                 setIsServicesOpen(false);
                                 scrollToTop();
                               }}
                             >
-                              {category.title}
+                              <div className="w-9 h-9 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                                <service.icon className="w-4 h-4 text-primary" />
+                              </div>
+                              <span className="text-base text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors font-medium">
+                                {service.label}
+                              </span>
                             </Link>
-                            <div className="space-y-1">
-                              {category.items.map((item, itemIndex) => (
-                                <Link
-                                  key={itemIndex}
-                                  to={category.path}
-                                  className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all group min-h-[44px] hover:translate-x-1"
-                                  onClick={() => {
-                                    setIsServicesOpen(false);
-                                    scrollToTop();
-                                  }}
-                                >
-                                  <div className="w-8 h-8 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                                    <item.icon className="w-4 h-4 text-primary" />
-                                  </div>
-                                  <span className="text-base text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                                    {item.label}
-                                  </span>
-                                </Link>
-                              ))}
-                            </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                     </motion.div>
                   )}
@@ -382,9 +348,9 @@ const Navbar = () => {
                         >
                           <div className="flex items-center space-x-3">
                             <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
-                              <Code2 className="w-5 h-5 text-primary" />
+                              <Sparkles className="w-5 h-5 text-primary" />
                             </div>
-                            <span className="font-semibold">Hizmetler</span>
+                            <span className="font-semibold">DigitAll</span>
                           </div>
                           <motion.div
                             animate={{ rotate: mobileServicesOpen ? 180 : 0 }}
@@ -403,40 +369,25 @@ const Navbar = () => {
                               transition={{ duration: 0.2 }}
                               className="border-t border-slate-200/80 dark:border-white/10"
                             >
-                              {serviceCategories.map((category, index) => (
-                                <div key={index} className="px-6 py-4 space-y-3">
+                              <div className="px-6 py-4 space-y-2">
+                                {digitAllServices.map((service, index) => (
                                   <Link
-                                    to={category.path}
-                                    className="block text-sm font-semibold text-primary dark:text-primary uppercase tracking-wide"
+                                    key={index}
+                                    to={service.path}
+                                    className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-slate-100 dark:hover:bg-dark transition-all duration-200 border border-slate-200 dark:border-transparent hover:translate-x-1"
                                     onClick={() => {
                                       setIsOpen(false);
                                       setMobileServicesOpen(false);
                                       scrollToTop();
                                     }}
                                   >
-                                    {category.title}
+                                    <div className="w-8 h-8 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center">
+                                      <service.icon className="w-4 h-4 text-primary" />
+                                    </div>
+                                    <span className="text-slate-700 dark:text-gray-300 font-medium">{service.label}</span>
                                   </Link>
-                                  <div className="grid grid-cols-1 gap-2">
-                                    {category.items.map((item, itemIndex) => (
-                                      <Link
-                                        key={itemIndex}
-                                        to={category.path}
-                                        className="flex items-center space-x-3 p-3 bg-white dark:bg-dark/50 rounded-xl hover:bg-slate-100 dark:hover:bg-dark transition-all duration-200 border border-slate-200 dark:border-transparent hover:translate-x-1"
-                                        onClick={() => {
-                                          setIsOpen(false);
-                                          setMobileServicesOpen(false);
-                                          scrollToTop();
-                                        }}
-                                      >
-                                        <div className="w-8 h-8 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center">
-                                          <item.icon className="w-4 h-4 text-primary" />
-                                        </div>
-                                        <span className="text-slate-700 dark:text-gray-300 font-medium">{item.label}</span>
-                                      </Link>
-                                    ))}
-                                  </div>
-                                </div>
-                              ))}
+                                ))}
+                              </div>
                             </motion.div>
                           )}
                         </AnimatePresence>

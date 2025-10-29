@@ -18,6 +18,7 @@ const Login = lazy(() => import('./pages/Login'));
 const JoinUs = lazy(() => import('./pages/JoinUs'));
 const ProjectRequest = lazy(() => import('./pages/ProjectRequest'));
 const Contact = lazy(() => import('./pages/Contact'));
+const ThreeDARVirtualTour = lazy(() => import('./pages/ThreeDARVirtualTour'));
 
 // Admin routes
 const AdminRoutes = lazy(() => import('./features/admin/routes'));
@@ -78,6 +79,7 @@ function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/portfolio" element={<Portfolio />} />
                   <Route path="/services" element={<Services />} />
+                  <Route path="/digitall/3d-ar-sanal-tur" element={<ThreeDARVirtualTour />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogDetail />} />
