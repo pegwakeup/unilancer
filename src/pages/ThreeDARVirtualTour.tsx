@@ -218,15 +218,15 @@ const ThreeDARVirtualTour = () => {
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
-                {/* 3D Model Container */}
-                <div className="relative bg-white/80 dark:bg-dark-light/80 backdrop-blur-xl rounded-3xl p-8 border border-slate-200/50 dark:border-white/10 shadow-2xl">
+                {/* 3D Model Container - No Background */}
+                <div className="relative p-8">
                   <div className="relative aspect-square flex items-center justify-center">
                     <Interactive3DAstronaut className="w-full h-full" />
                   </div>
 
                   {/* AR Badge */}
                   <div className="mt-6 text-center">
-                    <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/10 to-primary-light/10 rounded-full">
+                    <div className="inline-flex items-center px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full">
                       <Smartphone className="w-4 h-4 text-primary mr-2" />
                       <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
                         Mouse veya parmağınızla sürükleyerek döndürün
