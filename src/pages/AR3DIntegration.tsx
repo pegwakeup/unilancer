@@ -55,7 +55,7 @@ export default function AR3DIntegration() {
     },
     {
       number: 3,
-      icon: Sparkles,
+      icon: CheckCircle2,
       title: 'Yayınlayın ve Etkileşim',
       description: 'Deneyiminizi yayınlayın ve kullanıcıların tüm cihazlarda 3D modellerinizle etkileşime girmesine izin verin.'
     }
