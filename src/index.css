@@ -242,3 +242,32 @@
     }
   }
 }
+
+/* Model Viewer Styles */
+model-viewer {
+  width: 100%;
+  height: 100%;
+  --poster-color: transparent;
+}
+
+model-viewer::part(default-ar-button) {
+  background-color: hsl(191 84% 60%);
+  color: white;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+model-viewer::part(default-ar-button):hover {
+  background-color: hsl(191 84% 55%);
+  transform: scale(1.05);
+}
+
+model-viewer::part(default-ar-button):active {
+  transform: scale(0.98);
+}

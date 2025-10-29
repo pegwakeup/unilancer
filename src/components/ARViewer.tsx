@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Smartphone, Camera, Download } from 'lucide-react';
+import { X, Smartphone, Camera } from 'lucide-react';
+import ModelViewer from './ModelViewer';
 
 interface ARViewerProps {
   isOpen: boolean;
@@ -9,99 +10,32 @@ interface ARViewerProps {
 }
 
 const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
-  const [isARSupported, setIsARSupported] = useState(false);
   const [showQRCode, setShowQRCode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [arLaunched, setArLaunched] = useState(false);
-  const launchAttemptedRef = useRef(false);
+  const [modelError, setModelError] = useState(false);
 
   useEffect(() => {
-    const checkARSupport = () => {
+    const checkDevice = () => {
       const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
       const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
       setIsMobile(isMobileDevice);
-
-      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-      const isAndroid = /Android/i.test(userAgent);
-
-      const hasARSupport = isIOS || isAndroid;
-      setIsARSupported(hasARSupport);
     };
 
-    checkARSupport();
+    checkDevice();
   }, []);
 
   useEffect(() => {
-    if (isOpen && isMobile && isARSupported && modelUrl && !launchAttemptedRef.current) {
-      launchAttemptedRef.current = true;
-      setTimeout(() => {
-        handleARLaunch();
-      }, 100);
-    }
-
     if (!isOpen) {
-      launchAttemptedRef.current = false;
-      setArLaunched(false);
+      setShowQRCode(false);
+      setModelError(false);
     }
-  }, [isOpen, isMobile, isARSupported, modelUrl]);
+  }, [isOpen]);
 
   const currentUrl = window.location.href;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}`;
 
-  const handleARLaunch = () => {
-    if (!modelUrl) {
-      alert('3D model yüklenemedi. Lütfen sayfayı yenileyin.');
-      return;
-    }
-
-    setArLaunched(true);
-
-    if (isMobile) {
-      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-      const isAndroid = /Android/i.test(userAgent);
-
-      if (isIOS) {
-        const usdzUrl = modelUrl.replace(/\.glb$/i, '.usdz');
-        const anchor = document.createElement('a');
-        anchor.href = usdzUrl;
-        anchor.rel = 'ar';
-        anchor.setAttribute('aria-label', 'View in AR');
-
-        const img = document.createElement('img');
-        img.style.display = 'none';
-        anchor.appendChild(img);
-
-        document.body.appendChild(anchor);
-
-        setTimeout(() => {
-          anchor.click();
-          setTimeout(() => {
-            if (document.body.contains(anchor)) {
-              document.body.removeChild(anchor);
-            }
-          }, 100);
-        }, 50);
-
-        setTimeout(() => {
-          onClose();
-        }, 1000);
-      } else if (isAndroid) {
-        const intent = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred&resizable=false&link=${encodeURIComponent(window.location.href)}&title=3D%20Model#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
-
-        window.location.href = intent;
-
-        setTimeout(() => {
-          onClose();
-        }, 500);
-      } else {
-        alert('AR görüntüleme iOS Safari veya Android Chrome tarayıcılarında desteklenir.');
-        setArLaunched(false);
-      }
-    } else {
-      setShowQRCode(true);
-      setArLaunched(false);
-    }
+  const handleModelError = () => {
+    setModelError(true);
   };
 
   if (!isOpen) return null;
@@ -134,46 +68,48 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
               <Camera className="w-6 h-6 md:w-8 md:h-8 text-primary" />
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-              {arLaunched ? 'AR Başlatılıyor...' : 'AR Görüntüleme'}
+              AR Görüntüleme
             </h2>
             <p className="text-sm md:text-base text-gray-400 px-4">
-              {arLaunched
-                ? 'Lütfen cihazınızda AR görüntüleyiciyi açın'
-                : 'Ürünü kendi mekanınızda sanki oradaymış gibi görün'
-              }
+              Ürünü kendi mekanınızda sanki oradaymış gibi görün
             </p>
           </div>
 
-          {arLaunched && isMobile ? (
+          {!showQRCode ? (
             <div className="space-y-4 md:space-y-6">
-              <div className="bg-slate-800/50 border border-primary/20 rounded-xl p-6 md:p-8 text-center">
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 md:w-20 md:h-20 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+              {modelError && (
+                <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-4 text-center">
+                  <p className="text-red-400 text-sm">Model yüklenemedi. Lütfen sayfayı yenileyin.</p>
                 </div>
-                <h3 className="text-lg md:text-xl font-semibold text-white mb-3">AR Kamerası Açılıyor</h3>
-                <p className="text-sm md:text-base text-gray-300 mb-4">
-                  AR görüntüleyici açılmazsa, aşağıdaki butona tekrar basın
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={handleARLaunch}
-                  className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3 md:py-4 rounded-xl transition-all"
-                >
-                  Tekrar Dene
-                </motion.button>
-              </div>
-            </div>
-          ) : !showQRCode ? (
-            <div className="space-y-4 md:space-y-6">
-              {isARSupported && isMobile ? (
+              )}
+
+              {isMobile && modelUrl ? (
                 <>
+                  <div className="bg-slate-800/50 border border-primary/10 rounded-xl p-4 md:p-6 overflow-hidden">
+                    <h3 className="text-lg md:text-xl font-semibold text-white mb-3 text-center">Önizleme</h3>
+                    <div className="w-full h-64 md:h-80 rounded-lg overflow-hidden">
+                      <ModelViewer
+                        src={modelUrl}
+                        alt="3D Model Önizleme"
+                        ar={true}
+                        arModes="webxr scene-viewer quick-look"
+                        arScale="auto"
+                        cameraControls={true}
+                        autoRotate={true}
+                        shadowIntensity={1}
+                        exposure={1}
+                        className="w-full h-full"
+                        onError={handleModelError}
+                      />
+                    </div>
+                  </div>
+
                   <div className="bg-slate-800/50 border border-primary/10 rounded-xl p-4 md:p-6">
                     <h3 className="text-lg md:text-xl font-semibold text-white mb-3">Nasıl Çalışır?</h3>
                     <ol className="space-y-2 md:space-y-3 text-sm md:text-base text-gray-300">
                       <li className="flex gap-3">
                         <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                        <span>"AR'ı Başlat" butonuna dokunun</span>
+                        <span>Model önizlemesinde AR ikonuna dokunun</span>
                       </li>
                       <li className="flex gap-3">
                         <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-bold">2</span>
@@ -190,15 +126,9 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
                     </ol>
                   </div>
 
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={handleARLaunch}
-                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 md:gap-3 touch-manipulation"
-                  >
-                    <Camera className="w-4 h-4 md:w-5 md:h-5" />
-                    <span className="text-sm md:text-base">AR'ı Başlat</span>
-                  </motion.button>
+                  <div className="text-center text-sm text-gray-500">
+                    <p>iOS Quick Look ve Android Scene Viewer ile uyumlu</p>
+                  </div>
                 </>
               ) : (
                 <>
@@ -221,19 +151,15 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
                     onClick={() => setShowQRCode(true)}
                     className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 md:gap-3 touch-manipulation"
                   >
-                    <Download className="w-4 h-4 md:w-5 md:h-5" />
+                    <Camera className="w-4 h-4 md:w-5 md:h-5" />
                     <span className="text-sm md:text-base">QR Kodu Göster</span>
                   </motion.button>
+
+                  <div className="text-center text-sm text-gray-500">
+                    <p>iPhone, iPad veya Android cihaz gereklidir</p>
+                  </div>
                 </>
               )}
-
-              <div className="text-center text-sm text-gray-500">
-                {isARSupported && isMobile ? (
-                  <p>iOS Quick Look ve Android Scene Viewer desteklenir</p>
-                ) : (
-                  <p>iPhone, iPad veya Android cihaz gereklidir</p>
-                )}
-              </div>
             </div>
           ) : (
             <div className="space-y-4 md:space-y-6">
