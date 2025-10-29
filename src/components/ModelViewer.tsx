@@ -16,6 +16,10 @@ interface ModelViewerProps {
   poster?: string;
   loading?: 'auto' | 'lazy' | 'eager';
   reveal?: 'auto' | 'interaction' | 'manual';
+  skyboxImage?: string;
+  toneMapping?: string;
+  shadowSoftness?: number;
+  materialColor?: string;
   onLoad?: () => void;
   onError?: (error: any) => void;
 }
@@ -38,6 +42,9 @@ declare global {
           poster?: string;
           loading?: 'auto' | 'lazy' | 'eager';
           reveal?: 'auto' | 'interaction' | 'manual';
+          'skybox-image'?: string;
+          'tone-mapping'?: string;
+          'shadow-softness'?: number;
         },
         HTMLElement
       >;
@@ -54,12 +61,16 @@ const ModelViewer: React.FC<ModelViewerProps> = ({
   cameraControls = true,
   autoRotate = false,
   shadowIntensity = 1,
-  environmentImage,
+  environmentImage = 'neutral',
   exposure = 1,
   className = '',
   poster,
   loading = 'auto',
   reveal = 'auto',
+  skyboxImage = 'neutral',
+  toneMapping = 'commerce',
+  shadowSoftness = 1,
+  materialColor,
   onLoad,
   onError,
 }) => {
@@ -103,7 +114,15 @@ const ModelViewer: React.FC<ModelViewerProps> = ({
       poster={poster}
       loading={loading}
       reveal={reveal}
+      skybox-image={skyboxImage}
+      tone-mapping={toneMapping}
+      shadow-softness={shadowSoftness}
       className={className}
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'transparent'
+      }}
     />
   );
 };

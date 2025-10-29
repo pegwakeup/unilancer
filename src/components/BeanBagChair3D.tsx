@@ -1,5 +1,5 @@
-import React, { Suspense, useRef, useState, useEffect } from 'react';
-import { Canvas } from '@react-three/fiber';
+import React, { Suspense, useRef, useState, useEffect, useCallback } from 'react';
+import { Canvas, useThree } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, Environment, useGLTF } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
@@ -220,7 +220,25 @@ function LoadingSpinner({ progress }: { progress: number }) {
 
 interface BeanBagChair3DProps {
   className?: string;
-  onARClick?: (modelUrl: string) => void;
+  onARClick?: (modelUrl: string, color: string, colorName: string) => void;
+}
+
+function ResponsiveCamera() {
+  const { viewport, camera } = useThree();
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (camera instanceof THREE.PerspectiveCamera) {
+        camera.aspect = viewport.width / viewport.height;
+        camera.updateProjectionMatrix();
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [camera, viewport]);
+
+  return null;
 }
 
 const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARClick }) => {
@@ -301,7 +319,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[800px] xl:h-[900px] 2xl:h-[1000px] ${className}`}>
+    <div className={`relative w-full aspect-square md:aspect-[4/3] lg:aspect-[16/10] xl:aspect-[16/9] max-h-[450px] sm:max-h-[550px] md:max-h-[650px] lg:max-h-[750px] xl:max-h-[850px] ${className}`}>
       <Canvas
         shadows={false}
         dpr={[1, 1.5]}
@@ -316,6 +334,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         frameloop="always"
         className="touch-none"
         performance={{ min: 0.5, max: 1 }}
+        style={{ width: '100%', height: '100%' }}
       >
         <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={50} />
 
@@ -339,6 +358,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         <Suspense fallback={null}>
           <BeanBagModel leatherColor={leatherColor} />
           <Environment preset="warehouse" />
+          <ResponsiveCamera />
         </Suspense>
 
         <OrbitControls
@@ -458,17 +478,18 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         </motion.button>
       </div>
 
-      {onARClick && (
+      {onARClick && isLoaded && (
         <motion.button
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          whileHover={{ scale: 1.05 }}
+          whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(95, 200, 218, 0.4)" }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => onARClick && onARClick(MODEL_URL)}
-          className="absolute top-4 right-4 bg-primary hover:bg-primary/90 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-full font-semibold shadow-lg flex items-center gap-2 z-10 transition-colors touch-manipulation"
+          onClick={() => onARClick && onARClick(MODEL_URL, LEATHER_COLORS[leatherColor].color, LEATHER_COLORS[leatherColor].name)}
+          className="absolute top-4 right-4 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-full font-semibold shadow-lg shadow-primary/30 flex items-center gap-2 z-10 transition-all touch-manipulation group overflow-hidden"
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
           <svg
-            className="w-4 h-4 md:w-5 md:h-5"
+            className="w-4 h-4 md:w-5 md:h-5 relative z-10"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -480,7 +501,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
               d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
             />
           </svg>
-          <span className="text-sm md:text-base">AR ile Görüntüle</span>
+          <span className="text-sm md:text-base relative z-10">AR ile Görüntüle</span>
         </motion.button>
       )}
     </div>

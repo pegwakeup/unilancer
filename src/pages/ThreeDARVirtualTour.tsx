@@ -222,6 +222,8 @@ const ThreeDARVirtualTour = () => {
   const [currentTourIndex, setCurrentTourIndex] = useState(0);
   const [isARModalOpen, setIsARModalOpen] = useState(false);
   const [arModelUrl, setArModelUrl] = useState<string>('');
+  const [arModelColor, setArModelColor] = useState<string>('#1a1a1a');
+  const [arModelColorName, setArModelColorName] = useState<string>('Siyah');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const nextTour = () => {
@@ -330,8 +332,10 @@ const ThreeDARVirtualTour = () => {
               <div className="relative w-full">
                 <BeanBagChair3D
                   className="w-full"
-                  onARClick={(modelUrl) => {
+                  onARClick={(modelUrl, color, colorName) => {
                     setArModelUrl(modelUrl);
+                    setArModelColor(color);
+                    setArModelColorName(colorName);
                     setIsARModalOpen(true);
                   }}
                 />
@@ -800,6 +804,8 @@ const ThreeDARVirtualTour = () => {
         isOpen={isARModalOpen}
         onClose={() => setIsARModalOpen(false)}
         modelUrl={arModelUrl}
+        currentColor={arModelColor}
+        colorName={arModelColorName}
       />
 
       {/* Virtual Tour Modal */}
