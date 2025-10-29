@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
-  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon
+  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon, Box
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
@@ -276,6 +276,9 @@ const Navbar = () => {
               <NavLink to="/portfolio" active={location.pathname === '/portfolio'} onClick={scrollToTop}>
                 Portfolyo
               </NavLink>
+              <NavLink to="/ar-3d" active={location.pathname === '/ar-3d'} onClick={scrollToTop}>
+                3D/AR
+              </NavLink>
               <NavLink to="/about" active={location.pathname === '/about'} onClick={scrollToTop}>
                 Hakkımızda
               </NavLink>
@@ -445,6 +448,7 @@ const Navbar = () => {
                       {/* Other Navigation Links */}
                       {[
                         { to: '/portfolio', icon: Image, label: 'Portfolyo' },
+                        { to: '/ar-3d', icon: Box, label: '3D/AR' },
                         { to: '/about', icon: Users, label: 'Hakkımızda' },
                         { to: '/blog', icon: FileText, label: 'Blog' },
                         { to: '/contact', icon: MessageSquare, label: 'İletişim' }
