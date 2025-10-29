@@ -8,6 +8,7 @@ interface TourOption {
   icon: React.ElementType;
   image: string;
   description: string;
+  tourUrl: string;
 }
 
 const tourOptions: TourOption[] = [
@@ -16,28 +17,32 @@ const tourOptions: TourOption[] = [
     name: 'Otel',
     icon: Building2,
     image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&q=80&w=1200',
-    description: 'Lüks otel ve konaklama tesisleri için sanal tur çözümleri'
+    description: 'Lüks otel ve konaklama tesisleri için sanal tur çözümleri',
+    tourUrl: 'https://kuula.co/share/collection/7l7kL?logo=0&info=0&fs=1&vr=1&sd=1&thumbs=1'
   },
   {
     id: 'restaurant',
     name: 'Restoran',
     icon: Utensils,
     image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=1200',
-    description: 'Restoran ve kafe mekanları için 360° görüntüleme'
+    description: 'Restoran ve kafe mekanları için 360° görüntüleme',
+    tourUrl: 'https://kuula.co/share/collection/7l0bn?logo=0&info=0&fs=1&vr=1&sd=1&thumbs=1'
   },
   {
     id: 'school',
     name: 'Okul',
     icon: GraduationCap,
     image: 'https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1200',
-    description: 'Eğitim kurumları ve kampüsler için sanal gezinti'
+    description: 'Eğitim kurumları ve kampüsler için sanal gezinti',
+    tourUrl: 'https://kuula.co/share/collection/7l7ny?logo=0&info=0&fs=1&vr=1&sd=1&thumbs=1'
   },
   {
     id: 'factory',
     name: 'Fabrika',
     icon: Factory,
     image: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200',
-    description: 'Üretim tesisleri ve endüstriyel alanlar için tur'
+    description: 'Üretim tesisleri ve endüstriyel alanlar için tur',
+    tourUrl: 'https://kuula.co/share/collection/7l0cG?logo=0&info=0&fs=1&vr=1&sd=1&thumbs=1'
   }
 ];
 
@@ -109,12 +114,21 @@ const SimpleVirtualTour: React.FC<SimpleVirtualTourProps> = ({ className = '' })
           <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
             {tourOptions.find(t => t.id === selectedTour)?.description}
           </p>
-          <div className="bg-slate-100 dark:bg-slate-900 rounded-lg p-8 text-center">
-            <div className="text-slate-600 dark:text-slate-400">
-              <Eye className="w-12 h-12 mx-auto mb-3 text-primary" />
-              <p className="text-sm">Sanal tur demo içeriği buraya gelecek</p>
-              <p className="text-xs mt-2">360° panoramik görünüm deneyimi</p>
+          <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+            <iframe
+              src={tourOptions.find(t => t.id === selectedTour)?.tourUrl}
+              className="absolute top-0 left-0 w-full h-full rounded-lg border-0"
+              allowFullScreen
+              allow="xr-spatial-tracking; gyroscope; accelerometer"
+              title={`${tourOptions.find(t => t.id === selectedTour)?.name} Virtual Tour`}
+            />
+          </div>
+          <div className="mt-4 flex items-center justify-between text-xs text-slate-600 dark:text-slate-400">
+            <div className="flex items-center space-x-2">
+              <Eye className="w-4 h-4" />
+              <span>360° İnteraktif Görünüm</span>
             </div>
+            <span>Mouse ile döndürün, zoom yapın</span>
           </div>
         </motion.div>
       )}
