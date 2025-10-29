@@ -181,18 +181,18 @@ const Simple3DViewer: React.FC<Simple3DViewerProps> = ({ className = '' }) => {
   };
 
   return (
-    <div className={`relative w-full h-full ${className}`}>
-      <div className="relative w-full h-full min-h-[600px] md:min-h-[700px] lg:min-h-[750px]">
-        <Canvas shadows style={{ background: 'transparent' }} className="rounded-2xl">
-          <PerspectiveCamera makeDefault position={[0, 2, 5]} />
+    <div className={`relative w-full ${className}`}>
+      <div className="relative w-full min-h-[600px] md:min-h-[700px] lg:min-h-[750px]">
+        <Canvas shadows style={{ background: 'transparent', width: '100%', height: '100%' }}>
+          <PerspectiveCamera makeDefault position={[0, 1.5, 4.5]} />
           <OrbitControls
             enablePan={false}
             enableZoom={true}
             enableRotate={true}
             autoRotate={true}
             autoRotateSpeed={1.5}
-            minDistance={4}
-            maxDistance={8}
+            minDistance={3.5}
+            maxDistance={7}
             minPolarAngle={Math.PI / 6}
             maxPolarAngle={(2 * Math.PI) / 3}
           />

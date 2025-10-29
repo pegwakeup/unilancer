@@ -102,8 +102,12 @@ const ThreeDARVirtualTour = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="lg:col-span-3"
             >
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
-                <Simple3DViewer />
+              <div className="relative w-full h-full">
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
+                  <div className="relative w-full h-full min-h-[600px] md:min-h-[700px] lg:min-h-[750px]">
+                    <Simple3DViewer />
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
