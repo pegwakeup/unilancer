@@ -1,13 +1,14 @@
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
+import { OrbitControls, PerspectiveCamera, Environment, useGLTF } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 
-const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.obj';
+const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.glb';
+
+useGLTF.preload(MODEL_URL);
 
 type LeatherColor = 'brown' | 'black' | 'beige';
 
@@ -37,23 +38,32 @@ interface BeanBagModelProps {
 }
 
 function BeanBagModel({ leatherColor }: BeanBagModelProps) {
-  const obj = useLoader(OBJLoader, MODEL_URL);
+  const { scene } = useGLTF(MODEL_URL);
   const modelRef = useRef<THREE.Group>(null);
   const animationFrameRef = useRef<number[]>([]);
+  const transformCalculated = useRef(false);
+  const materialsInitialized = useRef(false);
 
   useEffect(() => {
-    if (modelRef.current) {
+    if (modelRef.current && !transformCalculated.current) {
       const box = new THREE.Box3().setFromObject(modelRef.current);
       const center = box.getCenter(new THREE.Vector3());
       const size = box.getSize(new THREE.Vector3());
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 2.5 / maxDim;
+      const scale = 3.5 / maxDim;
 
       modelRef.current.scale.setScalar(scale);
-      modelRef.current.position.sub(center.multiplyScalar(scale));
-      modelRef.current.position.y -= size.y * scale * 0.5;
+      modelRef.current.position.set(
+        -center.x * scale,
+        -center.y * scale,
+        -center.z * scale
+      );
 
+      transformCalculated.current = true;
+    }
+
+    if (modelRef.current && !materialsInitialized.current) {
       modelRef.current.traverse((child) => {
         if (child instanceof THREE.Mesh) {
           const leatherConfig = LEATHER_COLORS[leatherColor];
@@ -68,8 +78,10 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
           child.receiveShadow = true;
         }
       });
+
+      materialsInitialized.current = true;
     }
-  }, [obj, leatherColor]);
+  }, [scene, leatherColor]);
 
   useEffect(() => {
     animationFrameRef.current.forEach(id => cancelAnimationFrame(id));
@@ -135,7 +147,7 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
   return (
     <primitive
       ref={modelRef}
-      object={obj}
+      object={scene}
       castShadow
       receiveShadow
     />
@@ -155,7 +167,7 @@ function LoadingSpinner() {
 
 interface BeanBagChair3DProps {
   className?: string;
-  onARClick?: () => void;
+  onARClick?: (modelUrl: string) => void;
 }
 
 const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARClick }) => {
@@ -195,20 +207,25 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         frameloop="demand"
         className="touch-none"
       >
-        <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
+        <PerspectiveCamera makeDefault position={[0, 0, 5.5]} fov={45} />
 
-        <ambientLight intensity={0.6} />
-        <hemisphereLight intensity={0.5} groundColor="#444444" />
+        <ambientLight intensity={0.7} />
+        <hemisphereLight intensity={0.6} groundColor="#555555" />
         <directionalLight
-          position={[10, 10, 5]}
-          intensity={1.5}
+          position={[8, 8, 5]}
+          intensity={1.2}
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
+          shadow-camera-far={50}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
         />
-        <directionalLight position={[-10, -10, -5]} intensity={0.4} />
-        <spotLight position={[0, 10, 0]} intensity={0.8} angle={0.3} penumbra={1} castShadow />
-        <spotLight position={[5, 5, 5]} intensity={0.6} angle={0.4} penumbra={1} color="#fff8e1" />
+        <directionalLight position={[-5, 3, -5]} intensity={0.5} />
+        <spotLight position={[0, 8, 0]} intensity={0.6} angle={0.4} penumbra={1} castShadow />
+        <pointLight position={[3, 3, 3]} intensity={0.4} color="#ffffff" />
 
         <Suspense fallback={null}>
           <BeanBagModel leatherColor={leatherColor} />
@@ -218,9 +235,12 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         <OrbitControls
           ref={controlsRef}
           enablePan={false}
-          enableZoom={false}
+          enableZoom={true}
+          minDistance={4}
+          maxDistance={8}
           autoRotate={isRotating}
           autoRotateSpeed={1.5}
+          target={[0, 0, 0]}
           onStart={() => setIsRotating(false)}
           onEnd={() => {
             setTimeout(() => setIsRotating(true), 2000);
@@ -311,7 +331,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           animate={{ opacity: 1, scale: 1 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={onARClick}
+          onClick={() => onARClick && onARClick(MODEL_URL)}
           className="absolute top-4 right-4 bg-primary hover:bg-primary/90 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-full font-semibold shadow-lg flex items-center gap-2 z-10 transition-colors touch-manipulation"
         >
           <svg

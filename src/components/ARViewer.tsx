@@ -35,13 +35,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
 
   const handleARLaunch = () => {
     if (!modelUrl) {
-      // Show a more user-friendly message
-      const message = 'AR özelliği şu anda demo modünde. Gerçek ürün için GLB/GLTF formatında 3D model gereklidir.';
-      if (isMobile) {
-        alert(message);
-      } else {
-        alert(message);
-      }
+      alert('3D model yüklenemedi. Lütfen sayfayı yenileyin.');
       return;
     }
 
@@ -51,18 +45,20 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
       const isAndroid = /Android/i.test(userAgent);
 
       if (isIOS) {
-        // iOS Quick Look - requires USDZ format
-        // For demo purposes, redirect to model page
-        const quickLookUrl = modelUrl.endsWith('.usdz')
-          ? modelUrl
-          : modelUrl.replace(/\.(glb|gltf)$/i, '.usdz');
-        window.location.href = quickLookUrl;
+        const usdzUrl = modelUrl.replace(/\.glb$/i, '.usdz');
+        const anchor = document.createElement('a');
+        anchor.href = usdzUrl;
+        anchor.rel = 'ar';
+        anchor.download = '';
+        const img = document.createElement('img');
+        anchor.appendChild(img);
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
       } else if (isAndroid) {
-        // Android Scene Viewer
         const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
         window.location.href = sceneViewerUrl;
       } else {
-        // Fallback for other mobile browsers
         alert('AR görüntüleme iOS Safari veya Android Chrome tarayıcılarında desteklenir.');
       }
     } else {

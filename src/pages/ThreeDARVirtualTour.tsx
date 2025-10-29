@@ -221,6 +221,7 @@ const ThreeDARVirtualTour = () => {
   const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const [currentTourIndex, setCurrentTourIndex] = useState(0);
   const [isARModalOpen, setIsARModalOpen] = useState(false);
+  const [arModelUrl, setArModelUrl] = useState<string>('');
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const nextTour = () => {
@@ -330,7 +331,10 @@ const ThreeDARVirtualTour = () => {
                 <div className="relative w-full">
                   <BeanBagChair3D
                     className="w-full"
-                    onARClick={() => setIsARModalOpen(true)}
+                    onARClick={(modelUrl) => {
+                      setArModelUrl(modelUrl);
+                      setIsARModalOpen(true);
+                    }}
                   />
                 </div>
               </div>
@@ -788,6 +792,7 @@ const ThreeDARVirtualTour = () => {
       <ARViewer
         isOpen={isARModalOpen}
         onClose={() => setIsARModalOpen(false)}
+        modelUrl={arModelUrl}
       />
 
       {/* Virtual Tour Modal */}
