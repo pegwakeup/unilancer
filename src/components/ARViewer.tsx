@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Smartphone, Camera, Sparkles, CheckCircle2, AlertCircle } from 'lucide-react';
+import { X, Smartphone, Camera, CheckCircle2, Info } from 'lucide-react';
 
 interface ARViewerProps {
   isOpen: boolean;
@@ -10,69 +10,42 @@ interface ARViewerProps {
   colorName?: string;
 }
 
-const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentColor = '#1a1a1a', colorName = 'Siyah' }) => {
+const ARViewer: React.FC<ARViewerProps> = ({
+  isOpen,
+  onClose,
+  modelUrl,
+  currentColor = '#1a1a1a',
+  colorName = 'Siyah'
+}) => {
   const [showQRCode, setShowQRCode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [isARSupported, setIsARSupported] = useState(false);
   const [deviceType, setDeviceType] = useState<'ios' | 'android' | 'other'>('other');
-  const [modelLoaded, setModelLoaded] = useState(false);
-  const modelViewerRef = useRef<any>(null);
 
   useEffect(() => {
-    const checkDevice = () => {
-      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
-      const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
-      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
-      const isAndroid = /Android/i.test(userAgent);
+    const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+    const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+    const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+    const isAndroid = /Android/i.test(userAgent);
 
-      setIsMobile(isMobileDevice);
+    setIsMobile(isMobileDevice);
 
-      if (isIOS) {
-        setDeviceType('ios');
-        setIsARSupported(true);
-      } else if (isAndroid) {
-        setDeviceType('android');
-        setIsARSupported(true);
-      } else {
-        setDeviceType('other');
-        setIsARSupported(false);
-      }
-    };
-
-    checkDevice();
+    if (isIOS) {
+      setDeviceType('ios');
+    } else if (isAndroid) {
+      setDeviceType('android');
+    } else {
+      setDeviceType('other');
+    }
   }, []);
 
   useEffect(() => {
     if (!isOpen) {
       setShowQRCode(false);
-      setModelLoaded(false);
-    }
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (isOpen && modelViewerRef.current) {
-      const handleLoad = () => {
-        setModelLoaded(true);
-      };
-
-      modelViewerRef.current.addEventListener('load', handleLoad);
-
-      return () => {
-        if (modelViewerRef.current) {
-          modelViewerRef.current.removeEventListener('load', handleLoad);
-        }
-      };
     }
   }, [isOpen]);
 
   const currentUrl = window.location.href;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}`;
-
-  const activateAR = () => {
-    if (modelViewerRef.current && modelViewerRef.current.canActivateAR) {
-      modelViewerRef.current.activateAR();
-    }
-  };
 
   if (!isOpen) return null;
 
@@ -90,34 +63,35 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.9, opacity: 0, y: 20 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="bg-gradient-to-br from-white via-slate-50/50 to-white dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 rounded-xl md:rounded-2xl max-w-lg md:max-w-2xl w-full max-h-[90vh] overflow-y-auto p-4 sm:p-6 md:p-8 relative border border-primary/20 dark:border-primary/30 shadow-2xl mx-4"
+          className="bg-gradient-to-br from-white via-slate-50/50 to-white dark:from-slate-900 dark:via-slate-800/50 dark:to-slate-900 rounded-xl md:rounded-2xl max-w-lg md:max-w-xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-6 md:p-8 relative border border-primary/20 dark:border-primary/30 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 pointer-events-none" />
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-primary-light/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/8 via-transparent to-primary/5 pointer-events-none rounded-xl md:rounded-2xl" />
 
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all p-2 sm:p-2.5 hover:bg-white/80 dark:hover:bg-white/10 rounded-lg shadow-lg hover:shadow-xl touch-manipulation z-10 backdrop-blur-sm border border-slate-200/50 dark:border-white/10"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all p-2 hover:bg-white/80 dark:hover:bg-white/10 rounded-lg shadow-lg hover:shadow-xl touch-manipulation z-10 backdrop-blur-sm border border-slate-200/50 dark:border-white/10"
+            aria-label="Kapat"
           >
-            <X className="w-5 h-5 sm:w-6 sm:h-6" />
+            <X className="w-5 h-5" />
           </button>
 
-          <div className="text-center mb-6 sm:mb-8 relative">
+          <div className="text-center mb-6 relative">
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
               transition={{ delay: 0.15, type: "spring", stiffness: 150, damping: 15 }}
-              className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-gradient-to-br from-primary via-primary to-primary-light rounded-2xl mb-4 sm:mb-5 shadow-xl shadow-primary/40 relative"
+              className="inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-primary to-primary-light rounded-2xl mb-4 shadow-xl shadow-primary/40 relative"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl" />
-              <Camera className="w-7 h-7 sm:w-9 sm:h-9 md:w-11 md:h-11 text-white relative z-10" />
+              <Camera className="w-8 h-8 sm:w-10 sm:h-10 text-white relative z-10" />
             </motion.div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4 tracking-tight px-2">
+
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mb-3 tracking-tight">
               AR Görüntüleme
             </h2>
-            <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-gray-300 px-4 max-w-md mx-auto leading-relaxed">
+
+            <p className="text-sm sm:text-base text-slate-600 dark:text-gray-300 max-w-md mx-auto leading-relaxed">
               Ürünü kendi mekanınızda artırılmış gerçeklik ile deneyimleyin
             </p>
 
@@ -126,43 +100,33 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.3 }}
-                className="mt-4 sm:mt-5 inline-flex items-center gap-2 sm:gap-3 px-3 sm:px-5 py-2 sm:py-2.5 bg-gradient-to-r from-white to-slate-50 dark:from-slate-800 dark:to-slate-700 rounded-full border border-primary/20 dark:border-primary/30 shadow-lg"
+                className="mt-4 inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-white to-slate-50 dark:from-slate-800 dark:to-slate-700 rounded-full border border-primary/20 dark:border-primary/30 shadow-lg"
               >
                 <div
-                  className="w-5 h-5 sm:w-6 sm:h-6 rounded-full border-2 border-white dark:border-slate-600 shadow-md ring-2 ring-primary/20"
+                  className="w-5 h-5 rounded-full border-2 border-white dark:border-slate-600 shadow-md ring-2 ring-primary/20"
                   style={{ backgroundColor: currentColor }}
                 />
-                <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-gray-200">{colorName} Renk Seçili</span>
+                <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-gray-200">
+                  {colorName}
+                </span>
               </motion.div>
             )}
           </div>
 
           {!showQRCode ? (
-            <div className="space-y-4 sm:space-y-5 relative">
-
-              {isMobile && isARSupported && modelUrl ? (
+            <div className="space-y-4 relative">
+              {isMobile && modelUrl && (deviceType === 'ios' || deviceType === 'android') ? (
                 <>
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="bg-gradient-to-br from-white via-slate-50/30 to-white dark:from-slate-800/70 dark:via-slate-800/50 dark:to-slate-900/70 border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 sm:p-5 overflow-hidden shadow-xl backdrop-blur-sm"
+                    className="bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900 border-2 border-primary/20 dark:border-primary/30 rounded-xl p-4 shadow-xl overflow-hidden"
                   >
-                    <div className="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200/50 dark:from-slate-900/70 dark:to-slate-900/50 border-2 border-slate-200 dark:border-white/10 shadow-inner">
-                      {!modelLoaded && (
-                        <div className="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm z-10">
-                          <div className="text-center">
-                            <div className="relative w-16 h-16 mx-auto mb-3">
-                              <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
-                            </div>
-                            <p className="text-sm font-semibold text-primary">Model Yükleniyor...</p>
-                          </div>
-                        </div>
-                      )}
+                    <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200/50 dark:from-slate-900 dark:to-slate-800">
                       <model-viewer
-                        ref={modelViewerRef}
                         src={modelUrl}
-                        alt="3D Model AR Görüntüleme"
+                        alt="3D Model"
                         ar
                         ar-modes="webxr scene-viewer quick-look"
                         camera-controls
@@ -174,16 +138,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                           height: '100%',
                           backgroundColor: 'transparent'
                         }}
-                      >
-                        <button
-                          slot="ar-button"
-                          onClick={activateAR}
-                          className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary via-primary to-primary-light text-white px-6 py-3 rounded-full font-bold shadow-lg shadow-primary/40 flex items-center gap-2 touch-manipulation z-20 hover:scale-105 transition-transform"
-                        >
-                          <Camera className="w-5 h-5" />
-                          <span>AR'yi Başlat</span>
-                        </button>
-                      </model-viewer>
+                      />
                     </div>
                   </motion.div>
 
@@ -191,50 +146,13 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-gradient-to-br from-white via-slate-50/30 to-white dark:from-slate-800/70 dark:via-slate-800/50 dark:to-slate-900/70 border-2 border-slate-200 dark:border-primary/20 rounded-xl p-4 sm:p-5 shadow-xl backdrop-blur-sm"
+                    className="bg-primary/5 border border-primary/20 rounded-lg p-4"
                   >
-                    <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                      <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
-                        <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-                      </div>
-                      Nasıl Çalışır?
-                    </h3>
-                    <div className="space-y-3">
-                      <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-light text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-md">
-                          1
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">AR'yi Başlat</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Model üzerindeki "AR'yi Başlat" butonuna dokunun</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-light text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-md">
-                          2
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Kamera İzni</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Kamera erişimine izin verin</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-light text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-md">
-                          3
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Yerleştirin</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Düz bir yüzeyi tarayın ve ürünü yerleştirin</p>
-                        </div>
-                      </div>
-                      <div className="flex gap-3 items-start p-3 rounded-lg bg-gradient-to-r from-white to-slate-50/50 dark:from-slate-800/50 dark:to-slate-700/50 border border-slate-200 dark:border-white/10">
-                        <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-primary to-primary-light text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-md">
-                          4
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">İnceleyin</p>
-                          <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-300 leading-relaxed">Ürünün etrafında dolaşarak her açıdan inceleyin</p>
-                        </div>
+                    <div className="flex items-start gap-3">
+                      <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <div className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">
+                        <strong className="block mb-1">Nasıl Kullanılır:</strong>
+                        Model üzerindeki AR simgesine dokunun, kameranıza izin verin ve ürünü yerleştirmek için düz bir yüzey bulun.
                       </div>
                     </div>
                   </motion.div>
@@ -245,30 +163,10 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                     transition={{ delay: 0.3 }}
                     className="flex items-center justify-center gap-2 px-3 py-2 bg-primary/5 border border-primary/20 rounded-lg"
                   >
-                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
                     <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-300 text-center">
-                      {deviceType === 'ios' ? 'iOS Quick Look' : 'Android Scene Viewer'} desteği
+                      {deviceType === 'ios' ? 'iOS Quick Look' : 'Android Scene Viewer'} destekli
                     </p>
-                  </motion.div>
-                </>
-              ) : isMobile && !isARSupported ? (
-                <>
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-amber-50 via-yellow-50/50 to-orange-50/30 dark:from-yellow-900/20 dark:via-amber-900/20 dark:to-yellow-800/10 border-2 border-amber-300 dark:border-yellow-500/30 rounded-xl p-4 sm:p-5 shadow-xl"
-                  >
-                    <div className="flex gap-3 sm:gap-4 items-start">
-                      <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <AlertCircle className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2">AR Desteklenmiyor</h3>
-                        <p className="text-sm sm:text-base text-slate-700 dark:text-gray-300 leading-relaxed">
-                          Cihazınız AR özelliğini desteklemiyor. iOS veya Android cihaz kullanmanız gerekmektedir.
-                        </p>
-                      </div>
-                    </div>
                   </motion.div>
                 </>
               ) : (
@@ -276,17 +174,19 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-gradient-to-br from-amber-50 via-yellow-50/50 to-orange-50/30 dark:from-yellow-900/20 dark:via-amber-900/20 dark:to-yellow-800/10 border-2 border-amber-300 dark:border-yellow-500/30 rounded-xl p-4 sm:p-5 shadow-xl"
+                    className="bg-gradient-to-br from-amber-50 to-orange-50/30 dark:from-yellow-900/20 dark:to-amber-900/20 border-2 border-amber-300 dark:border-yellow-500/30 rounded-xl p-4 shadow-xl"
                   >
-                    <div className="flex gap-3 sm:gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                        <Smartphone className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
+                    <div className="flex gap-3 items-start">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <Smartphone className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-2">Mobil Cihaz Gerekli</h3>
-                        <p className="text-sm sm:text-base text-slate-700 dark:text-gray-300 leading-relaxed">
-                          AR özelliğini kullanmak için bir mobil cihaza ihtiyacınız var.
-                          QR kodu telefonunuzla tarayın veya bu sayfayı mobil cihazınızda açın.
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                          Mobil Cihaz Gerekli
+                        </h3>
+                        <p className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">
+                          AR özelliğini kullanmak için iOS veya Android mobil cihaz gereklidir.
+                          QR kodu telefonunuzla tarayın.
                         </p>
                       </div>
                     </div>
@@ -299,10 +199,10 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                     whileHover={{ scale: 1.02, boxShadow: "0 25px 50px rgba(95, 200, 218, 0.4)" }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowQRCode(true)}
-                    className="w-full bg-gradient-to-r from-primary via-primary to-primary-light hover:from-primary/90 hover:via-primary/90 hover:to-primary-light/90 text-white font-bold py-5 sm:py-6 rounded-xl shadow-2xl shadow-primary/40 transition-all flex items-center justify-center gap-3 touch-manipulation relative overflow-hidden group"
+                    className="w-full bg-gradient-to-r from-primary to-primary-light hover:from-primary/90 hover:to-primary-light/90 text-white font-bold py-4 sm:py-5 rounded-xl shadow-2xl shadow-primary/40 transition-all flex items-center justify-center gap-3 touch-manipulation relative overflow-hidden group"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    <Camera className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" />
+                    <Camera className="w-6 h-6 relative z-10" />
                     <span className="text-base sm:text-lg relative z-10">QR Kodu Göster</span>
                   </motion.button>
 
@@ -312,42 +212,46 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                     transition={{ delay: 0.2 }}
                     className="flex items-center justify-center gap-2 px-3 py-2 bg-primary/5 border border-primary/20 rounded-lg"
                   >
-                    <CheckCircle2 className="w-4 h-4 sm:w-5 sm:h-5 text-primary flex-shrink-0" />
-                    <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-300 text-center">iPhone, iPad veya Android cihaz gereklidir</p>
+                    <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
+                    <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-300 text-center">
+                      iPhone, iPad veya Android cihaz gereklidir
+                    </p>
                   </motion.div>
                 </>
               )}
             </div>
           ) : (
-            <div className="space-y-5 sm:space-y-6">
+            <div className="space-y-5">
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ type: "spring", damping: 20 }}
-                className="bg-gradient-to-br from-white via-slate-50/30 to-white dark:from-slate-800/70 dark:via-slate-800/50 dark:to-slate-900/70 p-6 sm:p-8 rounded-xl flex flex-col items-center shadow-2xl border-2 border-primary/20 dark:border-primary/30 backdrop-blur-sm"
+                className="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-xl flex flex-col items-center shadow-2xl border-2 border-primary/20 dark:border-primary/30"
               >
                 <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.1, type: "spring" }}
-                  className="mb-5 sm:mb-6"
+                  className="mb-5"
                 >
-                  <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary via-primary to-primary-light rounded-2xl shadow-xl relative">
+                  <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-primary to-primary-light rounded-2xl shadow-xl relative">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent rounded-2xl" />
-                    <Smartphone className="w-7 h-7 sm:w-8 sm:h-8 text-white relative z-10" />
+                    <Smartphone className="w-7 h-7 text-white relative z-10" />
                   </div>
                 </motion.div>
-                <div className="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-lg mb-5 sm:mb-6 border-2 border-slate-200 dark:border-white/10">
+
+                <div className="p-4 bg-white dark:bg-slate-900 rounded-2xl shadow-lg mb-5 border-2 border-slate-200 dark:border-white/10">
                   <img
                     src={qrCodeUrl}
                     alt="QR Code"
-                    className="w-48 h-48 sm:w-60 sm:h-60 md:w-72 md:h-72"
+                    className="w-52 h-52 sm:w-64 sm:h-64"
                   />
                 </div>
-                <p className="text-slate-900 dark:text-white text-center font-bold text-base sm:text-lg md:text-xl mb-2">
-                  Bu QR kodu mobil cihazınızla tarayın
+
+                <p className="text-slate-900 dark:text-white text-center font-bold text-lg mb-2">
+                  QR Kodu Tarayın
                 </p>
-                <p className="text-xs sm:text-sm md:text-base text-slate-600 dark:text-gray-400 text-center max-w-sm px-4">
+                <p className="text-sm text-slate-600 dark:text-gray-400 text-center max-w-sm">
                   Telefonunuzun kamerasını QR koda tutun ve AR deneyimini başlatın
                 </p>
               </motion.div>
@@ -359,9 +263,9 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setShowQRCode(false)}
-                className="w-full bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 hover:from-slate-200 hover:to-slate-300 dark:hover:from-slate-600 dark:hover:to-slate-500 text-slate-900 dark:text-white font-bold py-4 sm:py-5 rounded-xl transition-all touch-manipulation border-2 border-slate-300 dark:border-slate-500 shadow-lg"
+                className="w-full bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 hover:from-slate-200 hover:to-slate-300 dark:hover:from-slate-600 dark:hover:to-slate-500 text-slate-900 dark:text-white font-bold py-4 rounded-xl transition-all touch-manipulation border-2 border-slate-300 dark:border-slate-500 shadow-lg"
               >
-                <span className="text-sm sm:text-base md:text-lg">Geri Dön</span>
+                <span className="text-base">Geri Dön</span>
               </motion.button>
             </div>
           )}
