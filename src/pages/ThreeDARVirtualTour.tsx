@@ -327,18 +327,14 @@ const ThreeDARVirtualTour = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="relative order-1 lg:order-2"
             >
-              <div className="relative flex items-center justify-center min-h-[450px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[750px] xl:min-h-[800px]">'
-                <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
-
-                <div className="relative w-full">
-                  <BeanBagChair3D
-                    className="w-full"
-                    onARClick={(modelUrl) => {
-                      setArModelUrl(modelUrl);
-                      setIsARModalOpen(true);
-                    }}
-                  />
-                </div>
+              <div className="relative w-full">
+                <BeanBagChair3D
+                  className="w-full"
+                  onARClick={(modelUrl) => {
+                    setArModelUrl(modelUrl);
+                    setIsARModalOpen(true);
+                  }}
+                />
               </div>
 
               <motion.div

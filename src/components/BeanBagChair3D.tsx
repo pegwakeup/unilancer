@@ -52,7 +52,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
       const size = box.getSize(new THREE.Vector3());
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 3.5 / maxDim;
+      const scale = 2.45 / maxDim;
 
       modelRef.current.scale.setScalar(scale);
       modelRef.current.position.set(
@@ -307,7 +307,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         dpr={[1, 1.5]}
         gl={{
           antialias: true,
-          alpha: false,
+          alpha: true,
           powerPreference: 'high-performance',
           stencil: false,
           depth: true,
