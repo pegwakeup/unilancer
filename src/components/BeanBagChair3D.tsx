@@ -52,7 +52,7 @@ const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
       const size = box.getSize(new THREE.Vector3());
 
       const maxDim = Math.max(size.x, size.y, size.z);
-      const scale = 5.0 / maxDim;
+      const scale = 3.5 / maxDim;
 
       modelRef.current.scale.setScalar(scale);
       modelRef.current.position.set(
@@ -225,7 +225,7 @@ interface BeanBagChair3DProps {
 
 const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARClick }) => {
   const [isRotating, setIsRotating] = useState(true);
-  const [leatherColor, setLeatherColor] = useState<LeatherColor>('brown');
+  const [leatherColor, setLeatherColor] = useState<LeatherColor>('black');
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -290,6 +290,8 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
     const savedColor = localStorage.getItem('beanBagColor') as LeatherColor;
     if (savedColor && LEATHER_COLORS[savedColor]) {
       setLeatherColor(savedColor);
+    } else {
+      setLeatherColor('black');
     }
   }, []);
 
@@ -299,13 +301,13 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[750px] xl:h-[800px] ${className}`}>
+    <div className={`relative w-full h-[450px] sm:h-[500px] md:h-[600px] lg:h-[800px] xl:h-[900px] 2xl:h-[1000px] ${className}`}>
       <Canvas
-        shadows
+        shadows={false}
         dpr={[1, 1.5]}
         gl={{
           antialias: true,
-          alpha: true,
+          alpha: false,
           powerPreference: 'high-performance',
           stencil: false,
           depth: true,
