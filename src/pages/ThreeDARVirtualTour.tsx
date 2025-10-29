@@ -239,9 +239,9 @@ const ThreeDARVirtualTour = () => {
   }, []);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-white dark:bg-dark">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section with 3D Model - Focused on 3D & AR */}
-      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">

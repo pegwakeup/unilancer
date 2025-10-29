@@ -355,21 +355,6 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         </div>
       )}
 
-      {isLoaded && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="absolute top-4 right-4 z-20"
-        >
-          <div className="bg-green-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center gap-2">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            Hazır
-          </div>
-        </motion.div>
-      )}
 
       {isRotating && (
         <motion.div
