@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Smartphone, Camera, CheckCircle2, Info } from 'lucide-react';
+import { X, Smartphone, Camera, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface ARViewerProps {
   isOpen: boolean;
@@ -20,6 +20,8 @@ const ARViewer: React.FC<ARViewerProps> = ({
   const [showQRCode, setShowQRCode] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [deviceType, setDeviceType] = useState<'ios' | 'android' | 'other'>('other');
+  const modelViewerRef = useRef<any>(null);
+  const hasActivatedAR = useRef(false);
 
   useEffect(() => {
     const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
@@ -41,11 +43,43 @@ const ARViewer: React.FC<ARViewerProps> = ({
   useEffect(() => {
     if (!isOpen) {
       setShowQRCode(false);
+      hasActivatedAR.current = false;
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen && isMobile && modelUrl && (deviceType === 'ios' || deviceType === 'android') && !hasActivatedAR.current) {
+      const timer = setTimeout(() => {
+        if (modelViewerRef.current) {
+          try {
+            if (modelViewerRef.current.canActivateAR) {
+              modelViewerRef.current.activateAR();
+              hasActivatedAR.current = true;
+            }
+          } catch (error) {
+            console.log('AR activation failed:', error);
+          }
+        }
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen, isMobile, modelUrl, deviceType]);
+
   const currentUrl = window.location.href;
   const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(currentUrl)}`;
+
+  const handleManualARActivation = () => {
+    if (modelViewerRef.current) {
+      try {
+        if (modelViewerRef.current.canActivateAR) {
+          modelViewerRef.current.activateAR();
+        }
+      } catch (error) {
+        console.log('Manual AR activation failed:', error);
+      }
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -92,7 +126,7 @@ const ARViewer: React.FC<ARViewerProps> = ({
             </h2>
 
             <p className="text-sm sm:text-base text-slate-600 dark:text-gray-300 max-w-md mx-auto leading-relaxed">
-              Ürünü kendi mekanınızda artırılmış gerçeklik ile deneyimleyin
+              Kamera açılıyor... Ürünü kendi mekanınızda görün
             </p>
 
             {currentColor && (
@@ -125,6 +159,7 @@ const ARViewer: React.FC<ARViewerProps> = ({
                   >
                     <div className="relative w-full aspect-square rounded-lg overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200/50 dark:from-slate-900 dark:to-slate-800">
                       <model-viewer
+                        ref={modelViewerRef}
                         src={modelUrl}
                         alt="3D Model"
                         ar
@@ -142,17 +177,30 @@ const ARViewer: React.FC<ARViewerProps> = ({
                     </div>
                   </motion.div>
 
-                  <motion.div
+                  <motion.button
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="bg-primary/5 border border-primary/20 rounded-lg p-4"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    onClick={handleManualARActivation}
+                    className="w-full bg-gradient-to-r from-primary to-primary-light hover:from-primary/90 hover:to-primary-light/90 text-white font-bold py-4 rounded-xl shadow-2xl shadow-primary/40 transition-all flex items-center justify-center gap-3 touch-manipulation relative overflow-hidden group"
                   >
-                    <div className="flex items-start gap-3">
-                      <Info className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <div className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">
-                        <strong className="block mb-1">Nasıl Kullanılır:</strong>
-                        Model üzerindeki AR simgesine dokunun, kameranıza izin verin ve ürünü yerleştirmek için düz bir yüzey bulun.
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/25 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+                    <Camera className="w-6 h-6 relative z-10" />
+                    <span className="text-base relative z-10">AR'ı Tekrar Başlat</span>
+                  </motion.button>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-primary/5 border border-primary/20 rounded-lg p-3"
+                  >
+                    <div className="flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-gray-300">
+                      <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                      <div>
+                        <strong>İpucu:</strong> AR otomatik başlamadıysa yukarıdaki butona dokunun veya model üzerindeki AR simgesini kullanın.
                       </div>
                     </div>
                   </motion.div>
@@ -160,13 +208,35 @@ const ARViewer: React.FC<ARViewerProps> = ({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3 }}
+                    transition={{ delay: 0.4 }}
                     className="flex items-center justify-center gap-2 px-3 py-2 bg-primary/5 border border-primary/20 rounded-lg"
                   >
                     <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
                     <p className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-300 text-center">
                       {deviceType === 'ios' ? 'iOS Quick Look' : 'Android Scene Viewer'} destekli
                     </p>
+                  </motion.div>
+                </>
+              ) : isMobile && (!deviceType || deviceType === 'other') ? (
+                <>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="bg-gradient-to-br from-amber-50 to-orange-50/30 dark:from-yellow-900/20 dark:to-amber-900/20 border-2 border-amber-300 dark:border-yellow-500/30 rounded-xl p-4 shadow-xl"
+                  >
+                    <div className="flex gap-3 items-start">
+                      <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                        <AlertCircle className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                          AR Desteklenmiyor
+                        </h3>
+                        <p className="text-sm text-slate-700 dark:text-gray-300 leading-relaxed">
+                          Cihazınız AR özelliğini desteklemiyor. iOS veya Android cihaz kullanmanız gerekmektedir.
+                        </p>
+                      </div>
+                    </div>
                   </motion.div>
                 </>
               ) : (
