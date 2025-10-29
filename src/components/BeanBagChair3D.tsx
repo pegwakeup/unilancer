@@ -1,13 +1,14 @@
 import React, { Suspense, useRef, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment, useGLTF } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 
-const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.obj';
+const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.glb';
+
+useGLTF.preload(MODEL_URL);
 
 type LeatherColor = 'brown' | 'black' | 'beige';
 
@@ -37,7 +38,7 @@ interface BeanBagModelProps {
 }
 
 function BeanBagModel({ leatherColor }: BeanBagModelProps) {
-  const obj = useLoader(OBJLoader, MODEL_URL);
+  const { scene } = useGLTF(MODEL_URL);
   const modelRef = useRef<THREE.Group>(null);
   const animationFrameRef = useRef<number[]>([]);
   const transformCalculated = useRef(false);
@@ -80,7 +81,7 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
 
       materialsInitialized.current = true;
     }
-  }, [obj, leatherColor]);
+  }, [scene, leatherColor]);
 
   useEffect(() => {
     animationFrameRef.current.forEach(id => cancelAnimationFrame(id));
@@ -146,7 +147,7 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
   return (
     <primitive
       ref={modelRef}
-      object={obj}
+      object={scene}
       castShadow
       receiveShadow
     />
