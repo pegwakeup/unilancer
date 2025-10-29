@@ -276,7 +276,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-[500px] md:h-[600px] lg:h-[650px] ${className}`}>
+    <div className={`relative w-full h-[400px] sm:h-[450px] md:h-[550px] lg:h-[650px] ${className}`}>
       <Canvas
         shadows
         dpr={[1, 2]}

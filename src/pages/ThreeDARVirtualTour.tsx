@@ -239,18 +239,19 @@ const ThreeDARVirtualTour = () => {
   }, []);
 
   return (
-    <div className="pt-24 pb-16 bg-white dark:bg-dark">
+    <div className="pb-16 bg-white dark:bg-dark">
       {/* Hero Section with 3D Model - Focused on 3D & AR */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative min-h-[90vh] md:min-h-[95vh] lg:min-h-screen flex items-center overflow-hidden pt-24">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Content - Focus on 3D Modeling & AR */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
+              className="order-2 lg:order-1"
             >
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -262,12 +263,12 @@ const ThreeDARVirtualTour = () => {
                 <span className="text-sm font-medium">3D Modelleme & AR Teknolojisi</span>
               </motion.div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white leading-tight">
                 3D Ürün Modelleme
                 <span className="block text-primary">& Artırılmış Gerçeklik</span>
               </h1>
 
-              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+              <p className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                 Ürünlerinizi interaktif 3D modeller ve artırılmış gerçeklik (AR) teknolojisi ile sunun.
                 Müşterileriniz ürünleri her açıdan inceleyebilir, kendi mekanlarında sanal olarak test edebilir.
               </p>
@@ -302,14 +303,15 @@ const ThreeDARVirtualTour = () => {
                 </ul>
               </div>
 
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap gap-4">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto"
                 >
                   <Link
                     to="/project-request"
-                    className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
+                    className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
                   >
                     <span>3D Model Talebi</span>
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
@@ -323,9 +325,9 @@ const ThreeDARVirtualTour = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="relative order-first lg:order-last"
+              className="relative order-1 lg:order-2"
             >
-              <div className="relative flex items-center justify-center min-h-[450px] md:min-h-[500px] lg:min-h-[550px]">
+              <div className="relative flex items-center justify-center min-h-[400px] sm:min-h-[450px] md:min-h-[500px] lg:min-h-[550px]">'
                 <div className="absolute -inset-8 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
                 <div className="relative w-full">
@@ -356,25 +358,25 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* 3D & AR Benefits Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               3D Modelleme & AR'ın Faydaları
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               İşletmeniz için 3D ürün görselleri ve AR teknolojisinin sağladığı avantajlar
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -384,15 +386,15 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group"
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <benefit.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-slate-900 dark:text-white">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {benefit.description}
                 </p>
               </motion.div>
@@ -402,25 +404,25 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* 3D Use Cases Section */}
-      <section className="py-20">
+      <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               3D & AR Kullanım Alanları
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               Farklı sektörlerde 3D modelleme ve AR ile fark yaratın
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -430,15 +432,15 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group cursor-pointer"
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group cursor-pointer touch-manipulation"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <useCase.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <useCase.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-slate-900 dark:text-white">
                   {useCase.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {useCase.description}
                 </p>
               </motion.div>
@@ -469,10 +471,10 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* Virtual Tour Video/Demo Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
@@ -488,10 +490,10 @@ const ThreeDARVirtualTour = () => {
               <span className="text-sm font-medium">360° Sanal Tur Teknolojisi</span>
             </motion.div>
 
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Sanal Tur Nedir?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               360° panoramik fotoğraflar ve videolarla oluşturulan interaktif mekan gezintileri.
               Müşterileriniz işletmenizi sanki oradaymış gibi keşfedebilir.
             </p>
@@ -529,7 +531,7 @@ const ThreeDARVirtualTour = () => {
           </motion.div>
 
           {/* Virtual Tour Examples Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {virtualTours.map((tour) => (
               <motion.div
                 key={tour.id}
@@ -537,10 +539,10 @@ const ThreeDARVirtualTour = () => {
                 initial="initial"
                 whileInView="whileInView"
                 viewport={fadeInUp.viewport}
-                className="bg-white dark:bg-dark-light/50 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all cursor-pointer group"
+                className="bg-white dark:bg-dark-light/50 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all cursor-pointer group touch-manipulation"
                 onClick={() => setSelectedTour(tour.id)}
               >
-                <div className="relative aspect-video overflow-hidden">
+                <div className="relative aspect-video overflow-hidden touch-manipulation">
                   <img
                     src={tour.image}
                     alt={tour.title}
@@ -552,11 +554,11 @@ const ThreeDARVirtualTour = () => {
                     </div>
                   </div>
                 </div>
-                <div className="p-6">
-                  <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
+                <div className="p-4 sm:p-6">
+                  <span className="px-2.5 sm:px-3 py-1 bg-primary/10 text-primary rounded-full text-xs font-medium">
                     {tour.category}
                   </span>
-                  <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-3 mb-2">
+                  <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white mt-3 mb-2">
                     {tour.title}
                   </h3>
                   <p className="text-sm text-gray-600 dark:text-gray-400">
@@ -570,25 +572,25 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* Virtual Tour Benefits */}
-      <section className="py-20">
+      <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Sanal Turların İşletmenize Katkıları
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               360° sanal turlar ile mekanınızı dijital dünyada öne çıkarın
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -598,15 +600,15 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group"
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <benefit.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-slate-900 dark:text-white">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {benefit.description}
                 </p>
               </motion.div>
@@ -616,25 +618,25 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* Industries Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Sanal Tur Kullanım Alanları
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               Farklı sektörlerde sanal turlarla fark yaratın
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -644,15 +646,15 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group cursor-pointer"
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-5 sm:p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group cursor-pointer touch-manipulation"
               >
-                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                  <industry.icon className="w-7 h-7 text-primary" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <industry.icon className="w-6 h-6 sm:w-7 sm:h-7 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                <h3 className="text-lg sm:text-xl font-bold mb-3 text-slate-900 dark:text-white">
                   {industry.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   {industry.description}
                 </p>
               </motion.div>
@@ -662,19 +664,19 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* Technology Comparison Section */}
-      <section className="py-20">
+      <section className="py-16 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-16"
+            className="text-center mb-12 sm:mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
               Hangi Teknoloji Sizin İçin?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto px-4">
               3D Modelleme, AR ve Sanal Tur teknolojilerini karşılaştırın
             </p>
           </motion.div>
@@ -684,30 +686,35 @@ const ThreeDARVirtualTour = () => {
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
-            className="overflow-x-auto"
+            className="overflow-x-auto -mx-4 sm:mx-0"
           >
-            <table className="w-full bg-white dark:bg-dark-light/50 rounded-xl overflow-hidden border border-slate-200 dark:border-white/10">
+            <div className="inline-block min-w-full align-middle">
+            <div className="overflow-hidden shadow-sm ring-1 ring-slate-200 dark:ring-white/10 sm:rounded-xl">
+            <table className="min-w-full bg-white dark:bg-dark-light/50">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-800/50">
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-slate-900 dark:text-white">
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap">
                     Özellik
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-primary">
-                    <div className="flex items-center gap-2">
-                      <BoxSelect className="w-5 h-5" />
-                      3D Modelleme
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-primary whitespace-nowrap">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <BoxSelect className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline">3D Modelleme</span>
+                      <span className="sm:hidden">3D</span>
                     </div>
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-primary">
-                    <div className="flex items-center gap-2">
-                      <Camera className="w-5 h-5" />
-                      AR (Artırılmış Gerçeklik)
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-primary whitespace-nowrap">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden md:inline">AR (Artırılmış Gerçeklik)</span>
+                      <span className="md:hidden">AR</span>
                     </div>
                   </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-primary">
-                    <div className="flex items-center gap-2">
-                      <Video className="w-5 h-5" />
-                      Sanal Tur
+                  <th className="px-3 sm:px-6 py-3 sm:py-4 text-left text-xs sm:text-sm font-semibold text-primary whitespace-nowrap">
+                    <div className="flex items-center gap-1 sm:gap-2">
+                      <Video className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span className="hidden sm:inline">Sanal Tur</span>
+                      <span className="sm:hidden">Tur</span>
                     </div>
                   </th>
                 </tr>
@@ -718,53 +725,56 @@ const ThreeDARVirtualTour = () => {
                     key={index}
                     className="border-t border-slate-200 dark:border-white/10 hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors"
                   >
-                    <td className="px-6 py-4 text-sm font-medium text-slate-900 dark:text-white">
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm font-medium text-slate-900 dark:text-white">
                       {row.feature}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                       {row.threeD}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                       {row.ar}
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                    <td className="px-3 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                       {row.virtualTour}
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="bg-gradient-to-br from-primary/10 to-primary-light/10 backdrop-blur-sm p-12 rounded-2xl border border-primary/20 relative overflow-hidden"
+            className="bg-gradient-to-br from-primary/10 to-primary-light/10 backdrop-blur-sm p-8 sm:p-12 rounded-2xl border border-primary/20 relative overflow-hidden"
           >
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] bg-[size:2rem_2rem]" />
 
             <div className="relative text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
                 İşletmenizi Dijital Dünyaya Taşıyın
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
+              <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 mb-8 px-4">
                 3D modelleme, AR veya sanal tur çözümlerimiz hakkında detaylı bilgi alın ve ücretsiz demo talep edin
               </p>
 
-              <div className="flex flex-wrap justify-center gap-4">
+              <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto"
                 >
                   <Link
                     to="/project-request"
-                    className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
                     <Zap className="w-5 h-5 mr-2" />
                     <span>Hemen Başlayın</span>
@@ -774,10 +784,11 @@ const ThreeDARVirtualTour = () => {
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
+                  className="w-full sm:w-auto"
                 >
                   <Link
                     to="/contact"
-                    className="inline-flex items-center px-8 py-4 bg-white dark:bg-dark-light border-2 border-primary text-primary rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="inline-flex items-center justify-center w-full sm:w-auto px-8 py-4 bg-white dark:bg-dark-light border-2 border-primary text-primary rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
                     <span>İletişime Geçin</span>
                   </Link>
@@ -809,18 +820,18 @@ const ThreeDARVirtualTour = () => {
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-white dark:bg-dark-light rounded-2xl overflow-hidden max-w-6xl w-full max-h-[90vh] relative"
+              className="bg-white dark:bg-dark-light rounded-2xl overflow-hidden max-w-6xl w-full max-h-[90vh] mx-4 relative"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-4 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+              <div className="p-3 sm:p-4 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate pr-2">
                   {virtualTours.find(t => t.id === selectedTour)?.title}
                 </h3>
                 <button
                   onClick={() => setSelectedTour(null)}
-                  className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+                  className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors flex-shrink-0 touch-manipulation"
                 >
-                  <X className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-600 dark:text-gray-400" />
                 </button>
               </div>
 
