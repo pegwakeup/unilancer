@@ -250,8 +250,6 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   const [loadError, setLoadError] = useState<string | null>(null);
   const controlsRef = useRef<any>(null);
   const retryCountRef = useRef(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [containerHeight, setContainerHeight] = useState<number>(0);
 
   useEffect(() => {
     let progressInterval: NodeJS.Timeout;
@@ -315,44 +313,13 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
     }
   }, []);
 
-  useEffect(() => {
-    const calculateHeight = () => {
-      const width = window.innerWidth;
-      let height: number;
-
-      if (width < 640) {
-        height = 500;
-      } else if (width < 768) {
-        height = 550;
-      } else if (width < 1024) {
-        height = 650;
-      } else if (width < 1280) {
-        height = 700;
-      } else {
-        height = 800;
-      }
-
-      setContainerHeight(height);
-    };
-
-    calculateHeight();
-
-    const timeoutId = setTimeout(calculateHeight, 100);
-
-    return () => clearTimeout(timeoutId);
-  }, []);
-
   const handleColorChange = (color: LeatherColor) => {
     setLeatherColor(color);
     localStorage.setItem('beanBagColor', color);
   };
 
   return (
-    <div
-      ref={containerRef}
-      className={`relative w-full ${className}`}
-      style={{ height: containerHeight > 0 ? `${containerHeight}px` : '500px' }}
-    >
+    <div className={`relative w-full h-[500px] sm:h-[550px] md:h-[650px] lg:h-[700px] xl:h-[800px] ${className}`}>
       <Canvas
         shadows={false}
         dpr={[1, 1.5]}
@@ -365,15 +332,8 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           logarithmicDepthBuffer: true
         }}
         frameloop="always"
-        className="touch-none"
+        className="touch-none w-full h-full"
         performance={{ min: 0.5, max: 1 }}
-        style={{
-          width: '100%',
-          height: '100%',
-          position: 'absolute',
-          top: 0,
-          left: 0
-        }}
       >
         <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={50} />
 

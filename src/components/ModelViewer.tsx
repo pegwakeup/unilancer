@@ -77,45 +77,19 @@ const ModelViewer: React.FC<ModelViewerProps> = ({
   onProgress,
 }) => {
   const modelViewerRef = useRef<HTMLElement>(null);
-  const loadAttemptRef = useRef(0);
-  const maxRetries = 3;
 
   useEffect(() => {
     const modelViewer = modelViewerRef.current;
 
     if (!modelViewer) return;
 
-    if (!src || src.trim() === '') {
-      console.error('ModelViewer: Invalid or empty src URL');
-      if (onError) {
-        onError(new Error('Invalid model URL'));
-      }
-      return;
-    }
-
     const handleLoad = () => {
-      loadAttemptRef.current = 0;
       if (onLoad) onLoad();
     };
 
     const handleError = (event: any) => {
       console.error('ModelViewer: Model failed to load', event);
-      loadAttemptRef.current++;
-
-      if (loadAttemptRef.current < maxRetries) {
-        console.log(`ModelViewer: Retrying... (${loadAttemptRef.current}/${maxRetries})`);
-        setTimeout(() => {
-          if (modelViewer && modelViewer.hasAttribute('src')) {
-            const currentSrc = modelViewer.getAttribute('src');
-            modelViewer.removeAttribute('src');
-            setTimeout(() => {
-              modelViewer.setAttribute('src', currentSrc || src);
-            }, 100);
-          }
-        }, 1000 * loadAttemptRef.current);
-      } else {
-        if (onError) onError(event);
-      }
+      if (onError) onError(event);
     };
 
     const handleProgress = (event: any) => {

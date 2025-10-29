@@ -45,7 +45,6 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
 
   const handleModelError = (error: any) => {
     console.error('AR Viewer Model Error:', error);
-    setModelError(true);
     setModelLoading(false);
   };
 
@@ -127,19 +126,6 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl, currentC
 
           {!showQRCode ? (
             <div className="space-y-5 md:space-y-7 relative">
-              {modelError && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="bg-gradient-to-r from-red-50 to-red-100/50 dark:from-red-500/10 dark:to-red-500/5 border-2 border-red-300 dark:border-red-500/30 rounded-xl p-5 text-center shadow-lg"
-                >
-                  <div className="w-12 h-12 bg-red-100 dark:bg-red-500/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                    <X className="w-6 h-6 text-red-600 dark:text-red-400" />
-                  </div>
-                  <p className="text-red-700 dark:text-red-300 text-base font-semibold mb-2">Model Yüklenemedi</p>
-                  <p className="text-red-600 dark:text-red-400 text-sm">Lütfen internet bağlantınızı kontrol edip tekrar deneyin</p>
-                </motion.div>
-              )}
 
               {isMobile && modelUrl ? (
                 <>
