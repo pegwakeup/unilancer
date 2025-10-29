@@ -19,7 +19,13 @@ import {
   MousePointerClick,
   Rotate3D
 } from 'lucide-react';
-import { OptimizedSpline } from '../components/ui/optimized-spline';
+import { Animated3DModel } from '../components/ui/animated-3d-model';
+import { ARAccessButton } from '../components/ui/ar-access-button';
+import { ARInstructionsModal } from '../components/ui/ar-instructions-modal';
+import { QRCodeModal } from '../components/ui/qr-code-modal';
+import { VirtualTourSection } from '../components/ui/virtual-tour-section';
+import { ModelGallery } from '../components/ui/model-gallery';
+import { DeviceCompatibilityChecker } from '../components/ui/device-compatibility-checker';
 import { ARModelViewer } from '../components/ui/ar-model-viewer';
 import { Card } from '../components/ui/card';
 
@@ -39,6 +45,8 @@ const stagger = {
 
 export default function AR3DIntegration() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
+  const [showInstructions, setShowInstructions] = useState(false);
+  const [showQRCode, setShowQRCode] = useState(false);
 
   const features = [
     {
@@ -245,95 +253,109 @@ Tavsiye: Başlangıç için Model Viewer'ı deneyin.`
         />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
-        <section className="pt-32 pb-20">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-blue-900/30 dark:bg-dark relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&h=1080&fit=crop')] opacity-5 bg-cover bg-center" />
+
+        <section className="relative pt-32 pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
+                className="z-10"
               >
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary-light/20 text-primary dark:text-primary mb-6"
+                  className="inline-flex items-center px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-400 mb-8 border border-cyan-500/30"
                 >
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  <span className="font-medium">Next Generation Technology</span>
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  <span className="font-semibold">Next Generation Technology</span>
                 </motion.div>
 
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white">
-                  3D & AR Entegrasyonu
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 text-white leading-tight">
+                  Yeni Nesil
+                  <br />
+                  <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                    İnteraktif Deneyim
+                  </span>
                 </h1>
 
-                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                  Ürünlerinizi etkileşimli 3D modellerle hayata geçirin ve artırılmış gerçeklik ile müşterilerinize benzersiz deneyimler sunun.
+                <p className="text-xl text-slate-300 mb-10 leading-relaxed">
+                  3D görüntüleme, artırılmış gerçeklik ve sanal turlarla ürünlerinizi hayata geçirin.
+                  Müşterilerinize unutulmaz deneyimler sunun.
                 </p>
 
-                <div className="space-y-4 mb-8">
+                <div className="space-y-4 mb-10">
                   {[
                     { icon: Box, text: 'Web ve mobil için optimize 3D modeller' },
                     { icon: Camera, text: 'iOS ve Android AR desteği' },
                     { icon: Rotate3D, text: 'Etkileşimli 360° görüntüleme' },
-                    { icon: MousePointerClick, text: 'Gerçek zamanlı render' }
+                    { icon: Eye, text: 'Sanal tur ve panoramik görünüm' }
                   ].map((item, index) => (
                     <motion.div
                       key={index}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.4 + index * 0.1 }}
-                      className="flex items-center gap-3"
+                      className="flex items-center gap-4"
                     >
-                      <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
-                        <item.icon className="w-5 h-5 text-primary" />
+                      <div className="w-12 h-12 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-xl flex items-center justify-center border border-cyan-500/30">
+                        <item.icon className="w-6 h-6 text-cyan-400" />
                       </div>
-                      <span className="text-gray-700 dark:text-gray-300 font-medium">{item.text}</span>
+                      <span className="text-slate-200 font-medium text-lg">{item.text}</span>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-4 mb-8">
                   <Link
                     to="/project-request"
-                    className="px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group shadow-md hover:shadow-lg"
+                    className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-2 group shadow-2xl"
                   >
                     Projenizi Başlatalım
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </Link>
                   <a
                     href="#demo"
-                    className="px-8 py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-semibold border border-slate-200 dark:border-white/10"
+                    className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-2xl hover:bg-white/20 transition-all flex items-center justify-center gap-2 font-bold text-lg border border-white/20"
                   >
                     Demo İzle
                   </a>
                 </div>
+
+                <ARAccessButton
+                  onOpenInstructions={() => setShowInstructions(true)}
+                  onShowQR={() => setShowQRCode(true)}
+                />
               </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
+                className="relative"
               >
-                <Card className="overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 border-2 border-primary/20 shadow-2xl">
-                  <div className="relative aspect-square">
-                    <OptimizedSpline
-                      scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                      className="w-full h-full"
-                      fallbackImage="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=800&fit=crop"
-                    />
-                    <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-3">
-                      <p className="text-white text-sm font-medium text-center">
-                        🖱️ Sürükleyin | 🔍 Yakınlaştırın | 🎯 Tıklayın
-                      </p>
-                    </div>
-                  </div>
-                </Card>
+                <Animated3DModel
+                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                  className="w-full h-[600px]"
+                />
               </motion.div>
             </div>
           </div>
         </section>
+
+        <ARInstructionsModal
+          isOpen={showInstructions}
+          onClose={() => setShowInstructions(false)}
+        />
+
+        <QRCodeModal
+          isOpen={showQRCode}
+          onClose={() => setShowQRCode(false)}
+        />
 
         <section id="demo" className="py-20 bg-white dark:bg-dark-light/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -443,6 +465,12 @@ Tavsiye: Başlangıç için Model Viewer'ı deneyin.`
             </motion.div>
           </div>
         </section>
+
+        <VirtualTourSection />
+
+        <ModelGallery />
+
+        <DeviceCompatibilityChecker />
 
         <section className="py-20 bg-white dark:bg-dark-light/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
