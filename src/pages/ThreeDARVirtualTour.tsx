@@ -7,7 +7,8 @@ import {
   Zap, ChevronLeft, ChevronRight, Play, X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Interactive3DAstronaut from '../components/Interactive3DAstronaut';
+import BeanBagChair3D from '../components/BeanBagChair3D';
+import ARViewer from '../components/ARViewer';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -128,6 +129,7 @@ const features = [
 const ThreeDARVirtualTour = () => {
   const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const [currentTourIndex, setCurrentTourIndex] = useState(0);
+  const [isARModalOpen, setIsARModalOpen] = useState(false);
 
   const nextTour = () => {
     setCurrentTourIndex((prev) => (prev + 1) % virtualTours.length);
@@ -207,7 +209,7 @@ const ThreeDARVirtualTour = () => {
               </div>
             </motion.div>
 
-            {/* Right: 3D Astronaut Model */}
+            {/* Right: 3D Bean Bag Chair Model */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -218,21 +220,12 @@ const ThreeDARVirtualTour = () => {
                 {/* Glow Effect */}
                 <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
-                {/* 3D Model Container - No Background */}
-                <div className="relative p-8">
-                  <div className="relative aspect-square flex items-center justify-center">
-                    <Interactive3DAstronaut className="w-full h-full" />
-                  </div>
-
-                  {/* AR Badge */}
-                  <div className="mt-6 text-center">
-                    <div className="inline-flex items-center px-4 py-2 bg-primary/10 backdrop-blur-sm rounded-full">
-                      <Smartphone className="w-4 h-4 text-primary mr-2" />
-                      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                        Mouse veya parmağınızla sürükleyerek döndürün
-                      </span>
-                    </div>
-                  </div>
+                {/* 3D Model Container */}
+                <div className="relative h-[600px]">
+                  <BeanBagChair3D
+                    className="w-full h-full"
+                    onARClick={() => setIsARModalOpen(true)}
+                  />
                 </div>
               </div>
             </motion.div>
@@ -525,6 +518,12 @@ const ThreeDARVirtualTour = () => {
           </motion.div>
         </div>
       </section>
+
+      {/* AR Viewer Modal */}
+      <ARViewer
+        isOpen={isARModalOpen}
+        onClose={() => setIsARModalOpen(false)}
+      />
 
       {/* Virtual Tour Modal */}
       <AnimatePresence>
