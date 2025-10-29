@@ -6,7 +6,7 @@ import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
 import { RotateCcw } from 'lucide-react';
 
-const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.glb';
+const MODEL_URL = 'https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/bean-bag-chair.compressed.glb';
 
 useGLTF.preload(MODEL_URL);
 
@@ -37,7 +37,7 @@ interface BeanBagModelProps {
   leatherColor: LeatherColor;
 }
 
-function BeanBagModel({ leatherColor }: BeanBagModelProps) {
+const BeanBagModel = React.memo(({ leatherColor }: BeanBagModelProps) => {
   const { scene } = useGLTF(MODEL_URL);
   const modelRef = useRef<THREE.Group>(null);
   const animationFrameRef = useRef<number[]>([]);
@@ -152,14 +152,44 @@ function BeanBagModel({ leatherColor }: BeanBagModelProps) {
       receiveShadow
     />
   );
-}
+});
 
-function LoadingSpinner() {
+function LoadingSpinner({ progress }: { progress: number }) {
   return (
-    <div className="absolute inset-0 flex items-center justify-center">
+    <div className="absolute inset-0 flex items-center justify-center bg-white/50 dark:bg-dark/50 backdrop-blur-sm">
       <div className="flex flex-col items-center gap-4">
-        <div className="w-16 h-16 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
-        <p className="text-primary font-medium">3D Model Yükleniyor...</p>
+        <div className="relative w-20 h-20">
+          <svg className="w-20 h-20 transform -rotate-90">
+            <circle
+              cx="40"
+              cy="40"
+              r="36"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+              className="text-primary/20"
+            />
+            <circle
+              cx="40"
+              cy="40"
+              r="36"
+              stroke="currentColor"
+              strokeWidth="4"
+              fill="none"
+              strokeDasharray={`${2 * Math.PI * 36}`}
+              strokeDashoffset={`${2 * Math.PI * 36 * (1 - progress / 100)}`}
+              className="text-primary transition-all duration-300"
+              strokeLinecap="round"
+            />
+          </svg>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span className="text-lg font-bold text-primary">{progress}%</span>
+          </div>
+        </div>
+        <div className="text-center">
+          <p className="text-primary font-semibold mb-1">3D Model Yükleniyor</p>
+          <p className="text-xs text-gray-600 dark:text-gray-400">Lütfen bekleyin...</p>
+        </div>
       </div>
     </div>
   );
@@ -174,7 +204,58 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   const [isRotating, setIsRotating] = useState(true);
   const [leatherColor, setLeatherColor] = useState<LeatherColor>('brown');
   const [showColorPicker, setShowColorPicker] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const controlsRef = useRef<any>(null);
+  const retryCountRef = useRef(0);
+
+  useEffect(() => {
+    let progressInterval: NodeJS.Timeout;
+
+    const loadModel = async () => {
+      try {
+        setLoadingProgress(0);
+        setLoadError(null);
+
+        progressInterval = setInterval(() => {
+          setLoadingProgress(prev => {
+            if (prev >= 90) {
+              clearInterval(progressInterval);
+              return 90;
+            }
+            return prev + 10;
+          });
+        }, 100);
+
+        await useGLTF.preload(MODEL_URL);
+
+        clearInterval(progressInterval);
+        setLoadingProgress(100);
+
+        setTimeout(() => {
+          setIsLoaded(true);
+        }, 300);
+      } catch (error) {
+        clearInterval(progressInterval);
+        console.error('3D model yükleme hatası:', error);
+
+        if (retryCountRef.current < 3) {
+          retryCountRef.current += 1;
+          setLoadError(`Yükleme başarısız, tekrar deneniyor... (${retryCountRef.current}/3)`);
+          setTimeout(loadModel, 2000);
+        } else {
+          setLoadError('Model yüklenemedi. Lütfen sayfayı yenileyin.');
+        }
+      }
+    };
+
+    loadModel();
+
+    return () => {
+      if (progressInterval) clearInterval(progressInterval);
+    };
+  }, []);
 
   const handleCameraReset = () => {
     if (controlsRef.current) {
@@ -198,14 +279,17 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
     <div className={`relative w-full h-[500px] md:h-[600px] lg:h-[650px] ${className}`}>
       <Canvas
         shadows
-        dpr={[1, 1.5]}
+        dpr={[1, 2]}
         gl={{
           antialias: true,
           alpha: true,
-          powerPreference: 'high-performance'
+          powerPreference: 'high-performance',
+          stencil: false,
+          depth: true
         }}
         frameloop="demand"
         className="touch-none"
+        performance={{ min: 0.5 }}
       >
         <PerspectiveCamera makeDefault position={[0, 0, 5.5]} fov={45} />
 
@@ -215,8 +299,8 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           position={[8, 8, 5]}
           intensity={1.2}
           castShadow
-          shadow-mapSize-width={2048}
-          shadow-mapSize-height={2048}
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
           shadow-camera-far={50}
           shadow-camera-left={-10}
           shadow-camera-right={10}
@@ -248,9 +332,44 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         />
       </Canvas>
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <div />
-      </Suspense>
+      {!isLoaded && (
+        <LoadingSpinner progress={loadingProgress} />
+      )}
+
+      {loadError && (
+        <div className="absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-dark/80 backdrop-blur-sm">
+          <div className="text-center p-6 bg-white dark:bg-dark-light rounded-xl shadow-xl max-w-sm">
+            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-red-600 dark:text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <p className="text-gray-700 dark:text-gray-300 font-medium mb-4">{loadError}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+            >
+              Sayfayı Yenile
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isLoaded && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="absolute top-4 right-4 z-20"
+        >
+          <div className="bg-green-500/90 backdrop-blur-sm text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            Hazır
+          </div>
+        </motion.div>
+      )}
 
       {isRotating && (
         <motion.div
