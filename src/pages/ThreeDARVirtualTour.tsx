@@ -31,18 +31,19 @@ const features = [
 
 const ThreeDARVirtualTour = () => {
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark transition-colors duration-300">
       {/* Hero Section with 3D Viewer */}
-      <section className="relative py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
             {/* Left: Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
+              className="lg:col-span-2"
             >
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -99,15 +100,18 @@ const ThreeDARVirtualTour = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
+              className="lg:col-span-3"
             >
-              <Simple3DViewer />
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
+                <Simple3DViewer />
+              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 md:py-20 lg:py-24 bg-white/50 dark:bg-dark-light/30 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12"
@@ -125,7 +129,7 @@ const ThreeDARVirtualTour = () => {
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -135,15 +139,16 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                className="bg-white dark:bg-slate-800 p-6 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-primary/30 dark:hover:border-primary/30 transition-all shadow-sm hover:shadow-md"
+                whileHover={{ y: -8, scale: 1.02 }}
+                className="bg-white dark:bg-slate-800 p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 transition-all shadow-lg hover:shadow-2xl"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
+                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary-light/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+                  <feature.icon className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-slate-900 dark:text-white">
+                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -153,20 +158,20 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* Virtual Tour Section */}
-      <section className="py-20">
+      <section className="py-16 md:py-20 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
               360° Sanal Tur Çözümleri
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Mekanlarınızı interaktif sanal turlarla tanıtın
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+              Mekanlarınızı interaktif sanal turlarla tanıtın. Müşterileriniz dilerken mekanınızı sanki oradayımış gibi keşfetsin.
             </p>
           </motion.div>
 
@@ -182,7 +187,7 @@ const ThreeDARVirtualTour = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+      <section className="py-16 md:py-20 lg:py-24 bg-white/50 dark:bg-dark-light/30 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

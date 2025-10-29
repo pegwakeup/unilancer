@@ -20,7 +20,7 @@ const RobotModel = () => {
       ref={meshRef}
       onPointerOver={() => setHovered(true)}
       onPointerOut={() => setHovered(false)}
-      scale={hovered ? 1.08 : 1}
+      scale={hovered ? 2.16 : 2}
     >
       {/* Head */}
       <mesh position={[0, 1.2, 0]}>
@@ -182,19 +182,19 @@ const Simple3DViewer: React.FC<Simple3DViewerProps> = ({ className = '' }) => {
 
   return (
     <div className={`relative w-full h-full ${className}`}>
-      <div className="relative w-full h-full min-h-[500px]">
-        <Canvas shadows style={{ background: 'transparent' }}>
-          <PerspectiveCamera makeDefault position={[0, 1.5, 4]} />
+      <div className="relative w-full h-full min-h-[600px] md:min-h-[700px] lg:min-h-[750px]">
+        <Canvas shadows style={{ background: 'transparent' }} className="rounded-2xl">
+          <PerspectiveCamera makeDefault position={[0, 2, 5]} />
           <OrbitControls
             enablePan={false}
             enableZoom={true}
             enableRotate={true}
             autoRotate={true}
-            autoRotateSpeed={2}
-            minDistance={3}
-            maxDistance={6}
-            minPolarAngle={Math.PI / 4}
-            maxPolarAngle={Math.PI / 2}
+            autoRotateSpeed={1.5}
+            minDistance={4}
+            maxDistance={8}
+            minPolarAngle={Math.PI / 6}
+            maxPolarAngle={(2 * Math.PI) / 3}
           />
 
           <ambientLight intensity={0.6} />
@@ -213,21 +213,24 @@ const Simple3DViewer: React.FC<Simple3DViewerProps> = ({ className = '' }) => {
           <Environment preset="city" />
         </Canvas>
 
-        <div className="absolute bottom-4 right-4 z-10">
+        <div className="absolute bottom-6 right-6 z-10">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleARView}
-            className="flex items-center space-x-2 bg-primary text-white px-5 py-3 rounded-xl shadow-xl hover:bg-primary-dark transition-colors border border-white/20"
+            className="flex items-center space-x-2 bg-primary text-white px-6 py-3.5 rounded-xl shadow-2xl hover:shadow-primary/30 transition-all border border-white/20 backdrop-blur-sm"
           >
             <Camera className="w-5 h-5" />
             <span className="text-sm font-semibold">AR ile Görüntüle</span>
           </motion.button>
         </div>
 
-        <div className="absolute top-4 right-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-lg">
-          <p className="text-xs text-slate-600 dark:text-slate-300 font-medium">
+        <div className="absolute top-6 right-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 shadow-xl">
+          <p className="text-sm text-slate-600 dark:text-slate-300 font-semibold">
             İnteraktif 3D Görüntüleme
+          </p>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Mouse ile döndürün ve yakınlaştırın
           </p>
         </div>
       </div>
