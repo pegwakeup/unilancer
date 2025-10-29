@@ -233,33 +233,12 @@
     container-type: inline-size;
     container-name: card;
   }
-
+  
   @container card (min-width: 300px) {
     .cq-card-content {
       display: grid;
       grid-template-columns: auto 1fr;
       gap: 1rem;
     }
-  }
-}
-
-/* Spline Scene Loader */
-.loader {
-  width: 48px;
-  height: 48px;
-  border: 3px solid #5FC8DA;
-  border-bottom-color: transparent;
-  border-radius: 50%;
-  display: inline-block;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
   }
 }

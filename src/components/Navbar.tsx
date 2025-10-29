@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
-  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon, Box
+  FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
@@ -188,18 +188,10 @@ const Navbar = () => {
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <img
-                src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/Unilancer%20logo%202.webp"
+                src="/images/Unilancer logo 2.webp"
                 alt="Unilancer"
                 className="h-10 w-auto relative"
                 style={{ width: '150.7px', height: '40px' }}
-                onError={(e) => {
-                  const target = e.target as HTMLImageElement;
-                  target.style.display = 'none';
-                  const fallback = document.createElement('span');
-                  fallback.textContent = 'Unilancer';
-                  fallback.className = 'text-2xl font-bold text-primary';
-                  target.parentNode?.appendChild(fallback);
-                }}
               />
             </motion.div>
           </Link>
@@ -283,9 +275,6 @@ const Navbar = () => {
 
               <NavLink to="/portfolio" active={location.pathname === '/portfolio'} onClick={scrollToTop}>
                 Portfolyo
-              </NavLink>
-              <NavLink to="/ar-3d" active={location.pathname === '/ar-3d'} onClick={scrollToTop}>
-                3D/AR
               </NavLink>
               <NavLink to="/about" active={location.pathname === '/about'} onClick={scrollToTop}>
                 Hakkımızda
@@ -456,7 +445,6 @@ const Navbar = () => {
                       {/* Other Navigation Links */}
                       {[
                         { to: '/portfolio', icon: Image, label: 'Portfolyo' },
-                        { to: '/ar-3d', icon: Box, label: '3D/AR' },
                         { to: '/about', icon: Users, label: 'Hakkımızda' },
                         { to: '/blog', icon: FileText, label: 'Blog' },
                         { to: '/contact', icon: MessageSquare, label: 'İletişim' }

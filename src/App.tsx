@@ -18,7 +18,6 @@ const Login = lazy(() => import('./pages/Login'));
 const JoinUs = lazy(() => import('./pages/JoinUs'));
 const ProjectRequest = lazy(() => import('./pages/ProjectRequest'));
 const Contact = lazy(() => import('./pages/Contact'));
-const AR3DIntegration = lazy(() => import('./pages/AR3DIntegration'));
 
 // Admin routes
 const AdminRoutes = lazy(() => import('./features/admin/routes'));
@@ -82,7 +81,6 @@ function App() {
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blog />} />
                   <Route path="/blog/:slug" element={<BlogDetail />} />
-                  <Route path="/ar-3d" element={<AR3DIntegration />} />
                   <Route path="/join" element={<JoinUs />} />
                   <Route path="/project-request" element={<ProjectRequest />} />
                   <Route path="/contact" element={<Contact />} />
