@@ -15,13 +15,16 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
 
   useEffect(() => {
     const checkARSupport = () => {
-      const isMobileDevice = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+      const isMobileDevice = /iPhone|iPad|iPod|Android|webOS|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
       setIsMobile(isMobileDevice);
 
-      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-      const isAndroid = /Android/i.test(navigator.userAgent);
+      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+      const isAndroid = /Android/i.test(userAgent);
 
-      setIsARSupported(isIOS || isAndroid);
+      // Check for AR support more comprehensively
+      const hasARSupport = isIOS || isAndroid;
+      setIsARSupported(hasARSupport);
     };
 
     checkARSupport();
@@ -32,18 +35,35 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
 
   const handleARLaunch = () => {
     if (!modelUrl) {
-      alert('Model URL not available. AR viewing requires GLB/GLTF format.');
+      // Show a more user-friendly message
+      const message = 'AR özelliği şu anda demo modünde. Gerçek ürün için GLB/GLTF formatında 3D model gereklidir.';
+      if (isMobile) {
+        alert(message);
+      } else {
+        alert(message);
+      }
       return;
     }
 
     if (isMobile) {
-      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const userAgent = navigator.userAgent || navigator.vendor || (window as any).opera;
+      const isIOS = /iPhone|iPad|iPod/i.test(userAgent);
+      const isAndroid = /Android/i.test(userAgent);
 
       if (isIOS) {
-        window.location.href = modelUrl;
-      } else {
+        // iOS Quick Look - requires USDZ format
+        // For demo purposes, redirect to model page
+        const quickLookUrl = modelUrl.endsWith('.usdz')
+          ? modelUrl
+          : modelUrl.replace(/\.(glb|gltf)$/i, '.usdz');
+        window.location.href = quickLookUrl;
+      } else if (isAndroid) {
+        // Android Scene Viewer
         const sceneViewerUrl = `intent://arvr.google.com/scene-viewer/1.0?file=${encodeURIComponent(modelUrl)}&mode=ar_preferred#Intent;scheme=https;package=com.google.android.googlequicksearchbox;action=android.intent.action.VIEW;S.browser_fallback_url=${encodeURIComponent(window.location.href)};end;`;
         window.location.href = sceneViewerUrl;
+      } else {
+        // Fallback for other mobile browsers
+        alert('AR görüntüleme iOS Safari veya Android Chrome tarayıcılarında desteklenir.');
       }
     } else {
       setShowQRCode(true);
@@ -65,33 +85,33 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-2xl w-full p-8 relative border border-primary/20 shadow-2xl"
+          className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl max-w-2xl w-full p-4 md:p-8 relative border border-primary/20 shadow-2xl mx-4"
           onClick={(e) => e.stopPropagation()}
         >
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
+            className="absolute top-3 right-3 md:top-4 md:right-4 text-gray-400 hover:text-white transition-colors p-2 touch-manipulation"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5 md:w-6 md:h-6" />
           </button>
 
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/20 rounded-full mb-4">
-              <Camera className="w-8 h-8 text-primary" />
+          <div className="text-center mb-6 md:mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 md:w-16 md:h-16 bg-primary/20 rounded-full mb-3 md:mb-4">
+              <Camera className="w-6 h-6 md:w-8 md:h-8 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold text-white mb-2">AR Görüntüleme</h2>
-            <p className="text-gray-400">
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">AR Görüntüleme</h2>
+            <p className="text-sm md:text-base text-gray-400 px-4">
               Ürünü kendi mekanınızda sanki oradaymış gibi görün
             </p>
           </div>
 
           {!showQRCode ? (
-            <div className="space-y-6">
+            <div className="space-y-4 md:space-y-6">
               {isARSupported && isMobile ? (
                 <>
-                  <div className="bg-slate-800/50 border border-primary/10 rounded-xl p-6">
-                    <h3 className="text-xl font-semibold text-white mb-3">Nasıl Çalışır?</h3>
-                    <ol className="space-y-3 text-gray-300">
+                  <div className="bg-slate-800/50 border border-primary/10 rounded-xl p-4 md:p-6">
+                    <h3 className="text-lg md:text-xl font-semibold text-white mb-3">Nasıl Çalışır?</h3>
+                    <ol className="space-y-2 md:space-y-3 text-sm md:text-base text-gray-300">
                       <li className="flex gap-3">
                         <span className="flex-shrink-0 w-6 h-6 bg-primary/20 text-primary rounded-full flex items-center justify-center text-sm font-bold">1</span>
                         <span>"AR'ı Başlat" butonuna dokunun</span>
@@ -115,20 +135,20 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={handleARLaunch}
-                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3"
+                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 md:gap-3 touch-manipulation"
                   >
-                    <Camera className="w-5 h-5" />
-                    AR'ı Başlat
+                    <Camera className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="text-sm md:text-base">AR'ı Başlat</span>
                   </motion.button>
                 </>
               ) : (
                 <>
-                  <div className="bg-slate-800/50 border border-yellow-500/20 rounded-xl p-6">
+                  <div className="bg-slate-800/50 border border-yellow-500/20 rounded-xl p-4 md:p-6">
                     <div className="flex gap-3 mb-3">
-                      <Smartphone className="w-6 h-6 text-yellow-500 flex-shrink-0" />
+                      <Smartphone className="w-5 h-5 md:w-6 md:h-6 text-yellow-500 flex-shrink-0" />
                       <div>
-                        <h3 className="text-xl font-semibold text-white mb-2">Mobil Cihaz Gerekli</h3>
-                        <p className="text-gray-300">
+                        <h3 className="text-lg md:text-xl font-semibold text-white mb-2">Mobil Cihaz Gerekli</h3>
+                        <p className="text-sm md:text-base text-gray-300">
                           AR özelliğini kullanmak için bir mobil cihaza ihtiyacınız var.
                           QR kodu telefonunuzla tarayın veya bu sayfayı mobil cihazınızda açın.
                         </p>
@@ -140,10 +160,10 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => setShowQRCode(true)}
-                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-3"
+                    className="w-full bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-600 text-white font-bold py-3 md:py-4 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 md:gap-3 touch-manipulation"
                   >
-                    <Download className="w-5 h-5" />
-                    QR Kodu Göster
+                    <Download className="w-4 h-4 md:w-5 md:h-5" />
+                    <span className="text-sm md:text-base">QR Kodu Göster</span>
                   </motion.button>
                 </>
               )}
@@ -157,14 +177,14 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
               </div>
             </div>
           ) : (
-            <div className="space-y-6">
-              <div className="bg-white p-6 rounded-xl flex flex-col items-center">
+            <div className="space-y-4 md:space-y-6">
+              <div className="bg-white p-4 md:p-6 rounded-xl flex flex-col items-center">
                 <img
                   src={qrCodeUrl}
                   alt="QR Code"
-                  className="w-64 h-64 mb-4"
+                  className="w-48 h-48 md:w-64 md:h-64 mb-3 md:mb-4"
                 />
-                <p className="text-gray-700 text-center font-medium">
+                <p className="text-gray-700 text-center font-medium text-sm md:text-base">
                   Bu QR kodu mobil cihazınızla tarayın
                 </p>
               </div>
@@ -173,9 +193,9 @@ const ARViewer: React.FC<ARViewerProps> = ({ isOpen, onClose, modelUrl }) => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setShowQRCode(false)}
-                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-4 rounded-xl transition-all"
+                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-bold py-3 md:py-4 rounded-xl transition-all touch-manipulation"
               >
-                Geri Dön
+                <span className="text-sm md:text-base">Geri Dön</span>
               </motion.button>
             </div>
           )}

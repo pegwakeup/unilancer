@@ -155,14 +155,14 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
   };
 
   return (
-    <div className={`relative w-full h-full min-h-[500px] md:min-h-[700px] lg:min-h-[800px] ${className}`}>
+    <div className={`relative w-full h-[600px] md:h-[700px] ${className}`}>
       <Canvas
         shadows
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
         className="touch-none"
       >
-        <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={50} />
+        <PerspectiveCamera makeDefault position={[0, 0, 5]} fov={60} />
 
         <ambientLight intensity={0.6} />
         <hemisphereLight intensity={0.5} groundColor="#444444" />
@@ -185,11 +185,9 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
         <OrbitControls
           ref={controlsRef}
           enablePan={false}
-          enableZoom={true}
-          minDistance={2}
-          maxDistance={12}
+          enableZoom={false}
           autoRotate={isRotating}
-          autoRotateSpeed={2}
+          autoRotateSpeed={1.5}
           onStart={() => setIsRotating(false)}
           onEnd={() => {
             setTimeout(() => setIsRotating(true), 2000);
@@ -206,9 +204,9 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-primary/20 backdrop-blur-sm px-6 py-3 rounded-full text-sm text-primary font-medium whitespace-nowrap pointer-events-none z-10"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-primary/20 backdrop-blur-sm px-4 py-2 md:px-6 md:py-3 rounded-full text-xs md:text-sm text-primary font-medium whitespace-nowrap pointer-events-none z-10"
         >
-          Sürükleyerek döndürün • Scroll ile zoom
+          Sürükleyerek döndürün
         </motion.div>
       )}
 
@@ -219,11 +217,11 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setShowColorPicker(!showColorPicker)}
-          className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white p-3 rounded-lg font-semibold shadow-lg transition-all"
+          className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white p-2.5 md:p-3 rounded-lg font-semibold shadow-lg transition-all touch-manipulation"
           title="Renk Değiştir"
         >
           <div
-            className="w-6 h-6 rounded-full border-2 border-white shadow-md"
+            className="w-5 h-5 md:w-6 md:h-6 rounded-full border-2 border-white shadow-md"
             style={{ backgroundColor: LEATHER_COLORS[leatherColor].color }}
           />
         </motion.button>
@@ -267,10 +265,10 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleCameraReset}
-          className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white p-3 rounded-lg shadow-lg transition-all"
+          className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm hover:bg-white dark:hover:bg-slate-800 text-slate-900 dark:text-white p-2.5 md:p-3 rounded-lg shadow-lg transition-all touch-manipulation"
           title="Sıfırla"
         >
-          <RotateCcw className="w-5 h-5" />
+          <RotateCcw className="w-4 h-4 md:w-5 md:h-5" />
         </motion.button>
       </div>
 
@@ -281,10 +279,10 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={onARClick}
-          className="absolute top-4 right-4 bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-full font-semibold shadow-lg flex items-center gap-2 z-10 transition-colors"
+          className="absolute top-4 right-4 bg-primary hover:bg-primary/90 text-white px-4 py-2.5 md:px-6 md:py-3 rounded-full font-semibold shadow-lg flex items-center gap-2 z-10 transition-colors touch-manipulation"
         >
           <svg
-            className="w-5 h-5"
+            className="w-4 h-4 md:w-5 md:h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -296,7 +294,7 @@ const BeanBagChair3D: React.FC<BeanBagChair3DProps> = ({ className = '', onARCli
               d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"
             />
           </svg>
-          AR ile Görüntüle
+          <span className="text-sm md:text-base">AR ile Görüntüle</span>
         </motion.button>
       )}
     </div>
