@@ -39,7 +39,7 @@ function ScrollToTop() {
 
 // Loading component
 const PageLoader = () => (
-  <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark flex items-center justify-center">
+  <div className="min-h-screen bg-white dark:bg-dark flex items-center justify-center">
     <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
   </div>
 );
@@ -71,7 +71,7 @@ function App() {
         <PrivacyTermsProvider>
           <Router>
             <ScrollToTop />
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark text-slate-900 dark:text-white font-sans transition-colors duration-300">
+            <div className="min-h-screen bg-white dark:bg-dark text-slate-900 dark:text-white font-sans transition-colors duration-300">
               <Layout>
                 <Suspense fallback={<PageLoader />}>
                   <Routes>

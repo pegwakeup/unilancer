@@ -88,7 +88,7 @@ const Portfolio = () => {
   });
 
   return (
-    <div className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section */}
       <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0">

@@ -89,7 +89,7 @@ const Blog = () => {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <div className="pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+    <div className="pt-24 pb-16 bg-white dark:bg-dark">
       <Helmet>
         <title>Blog | Unilancer</title>
         <meta name="description" content="Teknoloji, tasarım ve dijital dönüşüm hakkında güncel içerikler ve uzman görüşleri." />
