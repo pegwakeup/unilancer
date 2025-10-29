@@ -1,11 +1,12 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Box, ArrowRight, CheckCircle, Smartphone, Eye, Globe, Camera
+  Box, Camera, Eye, Maximize2, RotateCw, ArrowRight, CheckCircle,
+  Building2, Factory, GraduationCap, Store, Home, Users, TrendingUp,
+  Clock, DollarSign, Target, MousePointer, Smartphone, Globe,
+  Zap, ChevronLeft, ChevronRight, Play, X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Simple3DViewer from '../components/Simple3DViewer';
-import SimpleVirtualTour from '../components/SimpleVirtualTour';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -21,29 +22,151 @@ const stagger = {
   transition: { staggerChildren: 0.15 }
 };
 
-const features = [
-  { icon: Smartphone, title: "Mobil AR Desteği", description: "iOS ve Android cihazlarda uygulama olmadan AR" },
-  { icon: Eye, title: "360° Görünüm", description: "Tam dönme ve yakınlaştırma özellikleri" },
-  { icon: Globe, title: "Web Tabanlı", description: "Tarayıcıdan direkt erişim, indirme gerektirmez" },
-  { icon: Camera, title: "Gerçek Ortamda Görüntüleme", description: "Ürünleri kendi mekanınızda görün" }
+const virtualTours = [
+  {
+    id: 1,
+    title: "Luxury Hotel Suite",
+    category: "Otel",
+    image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&q=80&w=1200",
+    panoramaUrl: "https://www.kuula.co/share/collection/7l3PY?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&thumbs=1",
+    description: "Lüks otel süiti sanal turu - 360° panoramik görünüm"
+  },
+  {
+    id: 2,
+    title: "Modern Factory Floor",
+    category: "Fabrika",
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1200",
+    panoramaUrl: "https://www.kuula.co/share/collection/7l3PY?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&thumbs=1",
+    description: "Üretim tesisi sanal turu - İşletme süreçlerinizi sergilemek için"
+  },
+  {
+    id: 3,
+    title: "University Campus",
+    category: "Üniversite",
+    image: "https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&q=80&w=1200",
+    panoramaUrl: "https://www.kuula.co/share/collection/7l3PY?logo=1&info=1&fs=1&vr=0&zoom=1&sd=1&thumbs=1",
+    description: "Üniversite kampüsü sanal turu - Öğrencilerinize kampüsü tanıtın"
+  }
 ];
 
+const benefits = [
+  {
+    icon: TrendingUp,
+    title: "Yüksek Dönüşüm Oranı",
+    description: "Sanal tur deneyimi yaşayan potansiyel müşteriler %40 daha fazla dönüşüm sağlar"
+  },
+  {
+    icon: Clock,
+    title: "7/24 Erişilebilirlik",
+    description: "Müşterileriniz istedikleri zaman, istedikleri yerden işletmenizi ziyaret edebilir"
+  },
+  {
+    icon: DollarSign,
+    title: "Maliyet Tasarrufu",
+    description: "Fiziksel ziyaret maliyetlerini düşürün, daha fazla potansiyel müşteriyle buluşun"
+  },
+  {
+    icon: Target,
+    title: "Nitelikli Müşteri Kazanımı",
+    description: "Sanal tur öncesi karar veren müşteriler daha bilinçli ve hazır alıcılardır"
+  },
+  {
+    icon: Globe,
+    title: "Küresel Erişim",
+    description: "Coğrafi sınırlamaları ortadan kaldırın, dünya çapında müşteriye ulaşın"
+  },
+  {
+    icon: Users,
+    title: "Rekabet Avantajı",
+    description: "Modern teknoloji kullanarak rakiplerinizin önüne geçin ve fark yaratın"
+  }
+];
+
+const industries = [
+  {
+    icon: Building2,
+    title: "Gayrimenkul",
+    description: "Emlak vitrinini dijitalleştirin, uzaktan ev gezintileri düzenleyin"
+  },
+  {
+    icon: Home,
+    title: "Konaklama & Turizm",
+    description: "Oteller, resortlar ve tatil köyleri için immersive deneyimler"
+  },
+  {
+    icon: GraduationCap,
+    title: "Eğitim",
+    description: "Kampüs turları, laboratuvarlar ve eğitim tesisleri"
+  },
+  {
+    icon: Factory,
+    title: "Üretim & Sanayi",
+    description: "Fabrika gezileri, üretim hatları ve tesis tanıtımları"
+  },
+  {
+    icon: Store,
+    title: "Perakende & Showroom",
+    description: "Mağazalar, showroomlar ve sergi alanları"
+  },
+  {
+    icon: Building2,
+    title: "Müze & Kültür",
+    description: "Müzeler, galeriler ve tarihi mekanlar için sanal turlar"
+  }
+];
+
+const features = [
+  { icon: Smartphone, title: "WebAR Desteği", description: "Mobil cihazlarda uygulama olmadan AR deneyimi" },
+  { icon: Eye, title: "4K/8K Çözünürlük", description: "Ultra yüksek çözünürlükte panoramik görüntüler" },
+  { icon: MousePointer, title: "İnteraktif Hotspotlar", description: "Tıklanabilir bilgi noktaları ve açıklamalar" },
+  { icon: Maximize2, title: "Multi-Floor Navigasyon", description: "Çok katlı ve çok lokasyonlu gezinti desteği" },
+  { icon: Globe, title: "VR Uyumluluğu", description: "VR başlıklarla tam immersive deneyim" },
+  { icon: TrendingUp, title: "Analitik & Raporlama", description: "Ziyaretçi davranışlarını takip edin" }
+];
 
 const ThreeDARVirtualTour = () => {
+  const [selectedTour, setSelectedTour] = useState<number | null>(null);
+  const [currentTourIndex, setCurrentTourIndex] = useState(0);
+  const [isRotating, setIsRotating] = useState(true);
+  const modelRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let rotationFrame: number;
+    let rotation = 0;
+
+    const animate = () => {
+      if (isRotating && modelRef.current) {
+        rotation += 0.5;
+        modelRef.current.style.transform = `rotateY(${rotation}deg) rotateX(5deg)`;
+      }
+      rotationFrame = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(rotationFrame);
+  }, [isRotating]);
+
+  const nextTour = () => {
+    setCurrentTourIndex((prev) => (prev + 1) % virtualTours.length);
+  };
+
+  const prevTour = () => {
+    setCurrentTourIndex((prev) => (prev - 1 + virtualTours.length) % virtualTours.length);
+  };
+
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark transition-colors duration-300">
-      {/* Hero Section with 3D Viewer */}
-      <section className="relative py-12 md:py-16 lg:py-20 overflow-hidden">
+    <div className="min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+      {/* Hero Section with 3D Model */}
+      <section className="relative py-20 overflow-hidden">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6 }}
-              className="lg:col-span-2"
             >
               <motion.div
                 initial={{ opacity: 0, y: -20 }}
@@ -56,30 +179,15 @@ const ThreeDARVirtualTour = () => {
               </motion.div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white leading-tight">
-                Ürünlerinizi
-                <span className="block text-primary">AR ile Görüntüleyin</span>
+                3D AR
+                <span className="block text-primary">Sanal Tur</span>
               </h1>
 
               <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                3D modellerinizi web üzerinden paylaşın. Müşterileriniz ürünlerinizi hem döndürerek inceleyebilsin hem de kendi ortamlarında AR ile görüntüleyebilsin.
+                İşletmenizi, tesislerinizi veya mekanlarınızı 360° sanal turlar ve artırılmış gerçeklik ile deneyimleyin. Müşterilerinize fiziksel sınırları aşan immersive bir keşif deneyimi sunun.
               </p>
 
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-gray-600 dark:text-gray-300">Mobil AR desteği (iOS & Android)</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-gray-600 dark:text-gray-300">360° döndürme ve yakınlaştırma</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                  <span className="text-gray-600 dark:text-gray-300">Uygulama indirmeden hemen kullanım</span>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-4 mb-8">
                 <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -88,24 +196,99 @@ const ThreeDARVirtualTour = () => {
                     to="/project-request"
                     className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
                   >
-                    <span>Teklif Alın</span>
+                    <span>Demo Talep Et</span>
                     <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
                   </Link>
                 </motion.div>
+
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setSelectedTour(1)}
+                  className="inline-flex items-center px-8 py-4 bg-white dark:bg-dark-light border-2 border-primary text-primary rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
+                >
+                  <Play className="w-5 h-5 mr-2" />
+                  <span>Örnek Turu İzle</span>
+                </motion.button>
+              </div>
+
+              <div className="flex items-center gap-6 text-sm text-gray-600 dark:text-gray-400">
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                  <span>Mobil AR Desteği</span>
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="w-5 h-5 text-primary mr-2" />
+                  <span>4K Panoramik</span>
+                </div>
               </div>
             </motion.div>
 
-            {/* Right: 3D Viewer */}
+            {/* Right: 3D Model Display */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="lg:col-span-3"
+              className="relative"
             >
-              <div className="relative w-full h-full">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border-2 border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900">
-                  <div className="relative w-full h-full min-h-[600px] md:min-h-[700px] lg:min-h-[750px]">
-                    <Simple3DViewer />
+              <div className="relative aspect-square max-w-lg mx-auto">
+                {/* Glow Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50" />
+
+                {/* 3D Model Container */}
+                <div className="relative bg-white/80 dark:bg-dark-light/80 backdrop-blur-xl rounded-3xl p-8 border border-slate-200/50 dark:border-white/10 shadow-2xl">
+                  <div
+                    ref={modelRef}
+                    className="relative aspect-square flex items-center justify-center"
+                    style={{
+                      transformStyle: 'preserve-3d',
+                      perspective: '1000px'
+                    }}
+                  >
+                    {/* 3D Building/Structure Representation */}
+                    <div className="relative w-48 h-48">
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary-light/30 rounded-2xl"
+                           style={{ transform: 'translateZ(20px)' }} />
+                      <div className="absolute inset-4 bg-gradient-to-br from-primary/30 to-primary-light/40 rounded-xl"
+                           style={{ transform: 'translateZ(40px)' }} />
+                      <div className="absolute inset-8 bg-gradient-to-br from-primary to-primary-light rounded-lg flex items-center justify-center"
+                           style={{ transform: 'translateZ(60px)' }}>
+                        <Box className="w-20 h-20 text-white" strokeWidth={1.5} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Control Buttons */}
+                  <div className="flex justify-center gap-4 mt-6">
+                    <button
+                      onClick={() => setIsRotating(!isRotating)}
+                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
+                      title={isRotating ? "Durdur" : "Döndür"}
+                    >
+                      <RotateCw className={`w-5 h-5 text-primary ${isRotating ? 'animate-spin' : ''}`} />
+                    </button>
+                    <button
+                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
+                      title="AR Görünüm"
+                    >
+                      <Camera className="w-5 h-5 text-primary" />
+                    </button>
+                    <button
+                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
+                      title="Tam Ekran"
+                    >
+                      <Maximize2 className="w-5 h-5 text-primary" />
+                    </button>
+                  </div>
+
+                  {/* AR Badge */}
+                  <div className="mt-6 text-center">
+                    <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/10 to-primary-light/10 rounded-full">
+                      <Smartphone className="w-4 h-4 text-primary mr-2" />
+                      <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
+                        Mobil cihazınızdan AR ile görüntüleyin
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -114,26 +297,214 @@ const ThreeDARVirtualTour = () => {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 md:py-20 lg:py-24 bg-white/50 dark:bg-dark-light/30 transition-colors duration-300">
+      {/* Virtual Tour Showcase Section */}
+      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             variants={fadeInUp}
             initial="initial"
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
             <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
-              Özellikler
+              Örnek Sanal Turlar
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              3D AR çözümümüzün sunduğu temel özellikler
+              Farklı sektörlerden örnek turları keşfedin ve sanal gezinti deneyimini yaşayın
+            </p>
+          </motion.div>
+
+          {/* Tour Carousel */}
+          <div className="relative">
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
+              className="relative aspect-video rounded-2xl overflow-hidden shadow-2xl"
+            >
+              <img
+                src={virtualTours[currentTourIndex].image}
+                alt={virtualTours[currentTourIndex].title}
+                className="w-full h-full object-cover"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent" />
+
+              <div className="absolute bottom-0 left-0 right-0 p-8">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="px-3 py-1 bg-primary/20 backdrop-blur-sm text-primary rounded-full text-sm font-medium">
+                    {virtualTours[currentTourIndex].category}
+                  </span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                  {virtualTours[currentTourIndex].title}
+                </h3>
+                <p className="text-gray-200 mb-6 max-w-2xl">
+                  {virtualTours[currentTourIndex].description}
+                </p>
+
+                <button
+                  onClick={() => setSelectedTour(virtualTours[currentTourIndex].id)}
+                  className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg font-semibold hover:bg-primary-dark transition-colors"
+                >
+                  <Eye className="w-5 h-5 mr-2" />
+                  <span>Sanal Turu Başlat</span>
+                </button>
+              </div>
+
+              {/* Navigation Arrows */}
+              <button
+                onClick={prevTour}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-colors"
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+              <button
+                onClick={nextTour}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 hover:bg-white/20 backdrop-blur-sm rounded-full transition-colors"
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+            </motion.div>
+
+            {/* Tour Thumbnails */}
+            <div className="flex justify-center gap-4 mt-8">
+              {virtualTours.map((tour, index) => (
+                <button
+                  key={tour.id}
+                  onClick={() => setCurrentTourIndex(index)}
+                  className={`relative w-24 h-24 rounded-lg overflow-hidden transition-all ${
+                    currentTourIndex === index
+                      ? 'ring-4 ring-primary scale-110'
+                      : 'opacity-60 hover:opacity-100'
+                  }`}
+                >
+                  <img
+                    src={tour.image}
+                    alt={tour.title}
+                    className="w-full h-full object-cover"
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={fadeInUp.viewport}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+              Neden 3D AR Sanal Tur?
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              İşletmeniz için 3D AR sanal turların sağladığı avantajlar
             </p>
           </motion.div>
 
           <motion.div
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={stagger}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={stagger.viewport}
+          >
+            {benefits.map((benefit, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <benefit.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                  {benefit.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {benefit.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Industries Section */}
+      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={fadeInUp.viewport}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+              Kullanım Alanları
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Farklı sektörlerde 3D AR sanal turlarla fark yaratın
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={stagger}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={stagger.viewport}
+          >
+            {industries.map((industry, index) => (
+              <motion.div
+                key={index}
+                variants={fadeInUp}
+                className="bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10 hover:border-primary/30 transition-all group cursor-pointer"
+              >
+                <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <industry.icon className="w-7 h-7 text-primary" />
+                </div>
+                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
+                  {industry.title}
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  {industry.description}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
+            variants={fadeInUp}
+            initial="initial"
+            whileInView="whileInView"
+            viewport={fadeInUp.viewport}
+          >
+            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
+              Teknik Özellikler
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Modern teknolojiler ile donatılmış kapsamlı özellikler
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
             variants={stagger}
             initial="initial"
             whileInView="whileInView"
@@ -143,55 +514,27 @@ const ThreeDARVirtualTour = () => {
               <motion.div
                 key={index}
                 variants={fadeInUp}
-                whileHover={{ y: -8, scale: 1.02 }}
-                className="bg-white dark:bg-slate-800 p-8 rounded-2xl border-2 border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 transition-all shadow-lg hover:shadow-2xl"
+                className="flex items-start gap-4 bg-white dark:bg-dark-light/50 backdrop-blur-sm p-6 rounded-xl border border-slate-200 dark:border-white/10"
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-primary/20 to-primary-light/20 rounded-2xl flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                  <feature.icon className="w-8 h-8 text-primary" />
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                  <feature.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">
-                  {feature.title}
-                </h3>
-                <p className="text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                  {feature.description}
-                </p>
+                <div>
+                  <h3 className="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+                    {feature.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm">
+                    {feature.description}
+                  </p>
+                </div>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
 
-      {/* Virtual Tour Section */}
-      <section className="py-16 md:py-20 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-16"
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={fadeInUp.viewport}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
-              360° Sanal Tur Çözümleri
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
-              Mekanlarınızı interaktif sanal turlarla tanıtın. Müşterileriniz dilerken mekanınızı sanki oradayımış gibi keşfetsin.
-            </p>
-          </motion.div>
-
-          <motion.div
-            variants={fadeInUp}
-            initial="initial"
-            whileInView="whileInView"
-            viewport={fadeInUp.viewport}
-          >
-            <SimpleVirtualTour />
-          </motion.div>
-        </div>
-      </section>
-
       {/* CTA Section */}
-      <section className="py-16 md:py-20 lg:py-24 bg-white/50 dark:bg-dark-light/30 transition-colors duration-300">
+      <section className="py-20 bg-white/50 dark:bg-dark-light/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -203,10 +546,10 @@ const ThreeDARVirtualTour = () => {
 
             <div className="relative text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-slate-900 dark:text-white">
-                Projeniz İçin Teklif Alın
+                İşletmenizi 3D AR ile Dönüştürün
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                3D AR ve sanal tur çözümlerimiz hakkında detaylı bilgi için bizimle iletişime geçin
+                Özel sanal tur çözümlerimiz hakkında detaylı bilgi alın ve ücretsiz demo talep edin
               </p>
 
               <div className="flex flex-wrap justify-center gap-4">
@@ -216,10 +559,10 @@ const ThreeDARVirtualTour = () => {
                 >
                   <Link
                     to="/project-request"
-                    className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all group"
+                    className="inline-flex items-center px-8 py-4 bg-primary text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
-                    <span>Teklif Alın</span>
-                    <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                    <Zap className="w-5 h-5 mr-2" />
+                    <span>Hemen Başlayın</span>
                   </Link>
                 </motion.div>
 
@@ -240,6 +583,47 @@ const ThreeDARVirtualTour = () => {
         </div>
       </section>
 
+      {/* Virtual Tour Modal */}
+      <AnimatePresence>
+        {selectedTour !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-slate-900/95 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedTour(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-white dark:bg-dark-light rounded-2xl overflow-hidden max-w-6xl w-full max-h-[90vh] relative"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="p-4 border-b border-slate-200 dark:border-white/10 flex items-center justify-between">
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                  {virtualTours.find(t => t.id === selectedTour)?.title}
+                </h3>
+                <button
+                  onClick={() => setSelectedTour(null)}
+                  className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-colors"
+                >
+                  <X className="w-6 h-6 text-gray-600 dark:text-gray-400" />
+                </button>
+              </div>
+
+              <div className="aspect-video">
+                <iframe
+                  src={virtualTours.find(t => t.id === selectedTour)?.panoramaUrl}
+                  className="w-full h-full"
+                  allowFullScreen
+                  title="Virtual Tour"
+                />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

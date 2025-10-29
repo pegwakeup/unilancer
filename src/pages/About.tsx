@@ -123,9 +123,10 @@ const About = () => {
   }, [isDragging, isHovered, isMobile, listWidth, controls, x]);
 
   return (
-    <div className="relative min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark">
-      {/* Background Pattern */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
+    <div className="relative min-h-screen pt-24 pb-16 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+      {/* Sabit Arka Plan */}
+      <div className="fixed inset-0 z-0">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50/95 via-cyan-50/60 to-blue-100/50 dark:bg-dark/95" />
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA35_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA35_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_85%)]" />
       </div>
 

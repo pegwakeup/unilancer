@@ -19,14 +19,14 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
           {/* Brand Section */}
           <div className="space-y-6">
-            <Link
-              to="/"
+            <Link 
+              to="/" 
               className="inline-block group"
             >
               <div className="relative">
                 <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-transparent rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <img
-                  src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/Unilancer%20logo%202.webp"
+                <img 
+                  src="/images/Unilancer logo 2.png" 
                   alt="Unilancer"
                   className="h-8 w-auto relative"
                 />

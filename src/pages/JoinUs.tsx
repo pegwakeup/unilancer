@@ -404,7 +404,7 @@ const JoinUs = () => {
      RENDER
   ------------------------------ */
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark">
+    <div className="min-h-screen bg-dark">
       {/* Hero Section (Mobilde ufaltıldı, masaüstünde korunuyor) */}
       <section className="relative z-20 py-12 sm:py-20 overflow-hidden">
         <div className="absolute inset-0">
