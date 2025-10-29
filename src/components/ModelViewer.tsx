@@ -22,6 +22,7 @@ interface ModelViewerProps {
   materialColor?: string;
   onLoad?: () => void;
   onError?: (error: any) => void;
+  onProgress?: (progress: number) => void;
 }
 
 declare global {
@@ -73,30 +74,66 @@ const ModelViewer: React.FC<ModelViewerProps> = ({
   materialColor,
   onLoad,
   onError,
+  onProgress,
 }) => {
   const modelViewerRef = useRef<HTMLElement>(null);
+  const loadAttemptRef = useRef(0);
+  const maxRetries = 3;
 
   useEffect(() => {
     const modelViewer = modelViewerRef.current;
 
-    if (modelViewer) {
-      const handleLoad = () => {
-        if (onLoad) onLoad();
-      };
+    if (!modelViewer) return;
 
-      const handleError = (event: any) => {
-        if (onError) onError(event);
-      };
-
-      modelViewer.addEventListener('load', handleLoad);
-      modelViewer.addEventListener('error', handleError);
-
-      return () => {
-        modelViewer.removeEventListener('load', handleLoad);
-        modelViewer.removeEventListener('error', handleError);
-      };
+    if (!src || src.trim() === '') {
+      console.error('ModelViewer: Invalid or empty src URL');
+      if (onError) {
+        onError(new Error('Invalid model URL'));
+      }
+      return;
     }
-  }, [onLoad, onError]);
+
+    const handleLoad = () => {
+      loadAttemptRef.current = 0;
+      if (onLoad) onLoad();
+    };
+
+    const handleError = (event: any) => {
+      console.error('ModelViewer: Model failed to load', event);
+      loadAttemptRef.current++;
+
+      if (loadAttemptRef.current < maxRetries) {
+        console.log(`ModelViewer: Retrying... (${loadAttemptRef.current}/${maxRetries})`);
+        setTimeout(() => {
+          if (modelViewer && modelViewer.hasAttribute('src')) {
+            const currentSrc = modelViewer.getAttribute('src');
+            modelViewer.removeAttribute('src');
+            setTimeout(() => {
+              modelViewer.setAttribute('src', currentSrc || src);
+            }, 100);
+          }
+        }, 1000 * loadAttemptRef.current);
+      } else {
+        if (onError) onError(event);
+      }
+    };
+
+    const handleProgress = (event: any) => {
+      if (onProgress && event.detail && event.detail.totalProgress !== undefined) {
+        onProgress(Math.round(event.detail.totalProgress * 100));
+      }
+    };
+
+    modelViewer.addEventListener('load', handleLoad);
+    modelViewer.addEventListener('error', handleError);
+    modelViewer.addEventListener('progress', handleProgress);
+
+    return () => {
+      modelViewer.removeEventListener('load', handleLoad);
+      modelViewer.removeEventListener('error', handleError);
+      modelViewer.removeEventListener('progress', handleProgress);
+    };
+  }, [src, onLoad, onError, onProgress]);
 
   return (
     <model-viewer
