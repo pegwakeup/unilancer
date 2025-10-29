@@ -7,6 +7,7 @@ import {
   Zap, ChevronLeft, ChevronRight, Play, X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import Interactive3DAstronaut from '../components/Interactive3DAstronaut';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -127,24 +128,6 @@ const features = [
 const ThreeDARVirtualTour = () => {
   const [selectedTour, setSelectedTour] = useState<number | null>(null);
   const [currentTourIndex, setCurrentTourIndex] = useState(0);
-  const [isRotating, setIsRotating] = useState(true);
-  const modelRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    let rotationFrame: number;
-    let rotation = 0;
-
-    const animate = () => {
-      if (isRotating && modelRef.current) {
-        rotation += 0.5;
-        modelRef.current.style.transform = `rotateY(${rotation}deg) rotateX(5deg)`;
-      }
-      rotationFrame = requestAnimationFrame(animate);
-    };
-
-    animate();
-    return () => cancelAnimationFrame(rotationFrame);
-  }, [isRotating]);
 
   const nextTour = () => {
     setCurrentTourIndex((prev) => (prev + 1) % virtualTours.length);
@@ -224,7 +207,7 @@ const ThreeDARVirtualTour = () => {
               </div>
             </motion.div>
 
-            {/* Right: 3D Model Display */}
+            {/* Right: 3D Astronaut Model */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -233,52 +216,12 @@ const ThreeDARVirtualTour = () => {
             >
               <div className="relative aspect-square max-w-lg mx-auto">
                 {/* Glow Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50" />
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-primary-light/30 rounded-full blur-3xl opacity-50 animate-pulse" />
 
                 {/* 3D Model Container */}
                 <div className="relative bg-white/80 dark:bg-dark-light/80 backdrop-blur-xl rounded-3xl p-8 border border-slate-200/50 dark:border-white/10 shadow-2xl">
-                  <div
-                    ref={modelRef}
-                    className="relative aspect-square flex items-center justify-center"
-                    style={{
-                      transformStyle: 'preserve-3d',
-                      perspective: '1000px'
-                    }}
-                  >
-                    {/* 3D Building/Structure Representation */}
-                    <div className="relative w-48 h-48">
-                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary-light/30 rounded-2xl"
-                           style={{ transform: 'translateZ(20px)' }} />
-                      <div className="absolute inset-4 bg-gradient-to-br from-primary/30 to-primary-light/40 rounded-xl"
-                           style={{ transform: 'translateZ(40px)' }} />
-                      <div className="absolute inset-8 bg-gradient-to-br from-primary to-primary-light rounded-lg flex items-center justify-center"
-                           style={{ transform: 'translateZ(60px)' }}>
-                        <Box className="w-20 h-20 text-white" strokeWidth={1.5} />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Control Buttons */}
-                  <div className="flex justify-center gap-4 mt-6">
-                    <button
-                      onClick={() => setIsRotating(!isRotating)}
-                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
-                      title={isRotating ? "Durdur" : "Döndür"}
-                    >
-                      <RotateCw className={`w-5 h-5 text-primary ${isRotating ? 'animate-spin' : ''}`} />
-                    </button>
-                    <button
-                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
-                      title="AR Görünüm"
-                    >
-                      <Camera className="w-5 h-5 text-primary" />
-                    </button>
-                    <button
-                      className="p-3 bg-primary/10 hover:bg-primary/20 rounded-xl transition-colors"
-                      title="Tam Ekran"
-                    >
-                      <Maximize2 className="w-5 h-5 text-primary" />
-                    </button>
+                  <div className="relative aspect-square flex items-center justify-center">
+                    <Interactive3DAstronaut className="w-full h-full" />
                   </div>
 
                   {/* AR Badge */}
@@ -286,7 +229,7 @@ const ThreeDARVirtualTour = () => {
                     <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-primary/10 to-primary-light/10 rounded-full">
                       <Smartphone className="w-4 h-4 text-primary mr-2" />
                       <span className="text-sm text-gray-700 dark:text-gray-300 font-medium">
-                        Mobil cihazınızdan AR ile görüntüleyin
+                        Mouse veya parmağınızla sürükleyerek döndürün
                       </span>
                     </div>
                   </div>
