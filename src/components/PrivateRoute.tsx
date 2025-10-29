@@ -1,40 +1,28 @@
-/**
- * PrivateRoute Component
- * 
- * Protected route wrapper for admin pages
- * Redirects to login if user is not authenticated
- */
-
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { getCurrentUser } from '../lib/auth';
 
-interface PrivateRouteProps {
-  children: React.ReactNode;
-}
-
-const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState<any>(null);
   const location = useLocation();
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const user = await getCurrentUser();
-      setIsAuthenticated(!!user);
-    };
-
-    checkAuth();
+    getCurrentUser().then(user => {
+      setUser(user);
+      setLoading(false);
+    });
   }, []);
 
-  if (isAuthenticated === null) {
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen bg-dark flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
-  if (!isAuthenticated) {
+  if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
