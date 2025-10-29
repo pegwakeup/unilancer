@@ -19,7 +19,7 @@ import {
   Sparkles,
   Package
 } from 'lucide-react';
-import { SplineScene } from '../components/ui/splite';
+import { OptimizedSpline } from '../components/ui/optimized-spline';
 import { Card } from '../components/ui/card';
 import { Spotlight } from '../components/ui/spotlight-aceternity';
 
@@ -100,20 +100,20 @@ export default function AR3DIntegration() {
     {
       number: 1,
       icon: Upload,
-      title: 'Create Your 3D Model',
-      description: 'Design in Spline, Blender, or your favorite 3D tool. Export as GLB, GLTF, or use Spline directly.'
+      title: '3D Modelinizi Oluşturun',
+      description: 'Spline, Blender veya favori 3D aracınızda tasarlayın. GLB, GLTF olarak dışa aktarın veya Spline\'ı doğrudan kullanın.'
     },
     {
       number: 2,
       icon: Code,
-      title: 'Integrate with Code',
-      description: 'Use our simple components or APIs to embed your 3D scene with just a few lines of code.'
+      title: 'Kod ile Entegre Edin',
+      description: 'Basit bileşenlerimiz veya API\'lerimizi kullanarak 3D sahnenizi sadece birkaç satır kodla yerleştirin.'
     },
     {
       number: 3,
       icon: Play,
-      title: 'Deploy & Interact',
-      description: 'Publish your experience and let users interact with your 3D models across all devices.'
+      title: 'Yayınlayın ve Etkileşim',
+      description: 'Deneyiminizi yayınlayın ve kullanıcıların tüm cihazlarda 3D modellerinizle etkileşime girmesine izin verin.'
     }
   ];
 
@@ -366,7 +366,79 @@ Optimize model = Mutlu kullanıcı!`
           </div>
         </section>
 
-        <section id="demo" className="py-24 bg-white dark:bg-slate-900">
+        <section className="py-24 bg-white dark:bg-slate-900">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                B2B 3D & AR Hizmetlerimiz
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                İşletmenize özel 3D ürün gösterimleri ve artırılmış gerçeklik çözümleri sunuyoruz.
+              </p>
+            </motion.div>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-24">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
+                    <Upload className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">1. Ürün Verilerinizi Gönderin</h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    Ürün fotoğrafları, CAD dosyaları, ölçüler veya mevcut 3D modellerinizi bizimle paylaşın. Hangi formatta olursa olsun, biz optimize ederiz.
+                  </p>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
+                    <Box className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">2. 3D Model Oluşturma</h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    Ürünlerinizi profesyonel 3D modellere dönüştürüyoruz. Web optimize, mobil uyumlu ve etkileşimli özelliklerle.
+                  </p>
+                </Card>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
+                    <Scan className="w-7 h-7 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">3. AR Entegrasyonu</h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    Müşterileriniz ürünlerinizi kendi mekanlarında AR ile görüntüleyebilir. iOS ve Android için tam destek.
+                  </p>
+                </Card>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        <section id="demo" className="py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -379,7 +451,7 @@ Optimize model = Mutlu kullanıcı!`
                 Interactive 3D Showcase
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Experience the power of interactive 3D content. Click, drag, and explore these models.
+                Canlı 3D model deneyimi. Tıklayın, sürükleyin ve keşfedin.
               </p>
             </motion.div>
 
@@ -401,28 +473,29 @@ Optimize model = Mutlu kullanıcı!`
                       Interactive 3D Scene
                     </h3>
                     <p className="text-neutral-300 text-lg mb-6 leading-relaxed">
-                      This is a live, interactive 3D model powered by Spline. You can rotate, zoom, and explore the scene in real-time.
+                      Canlı, etkileşimli 3D model. Gerçek zamanlı olarak döndürün, yakınlaştırın ve keşfedin.
                     </p>
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3 text-neutral-300">
                         <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Drag to rotate the view</span>
+                        <span>Sürükleyerek döndürün</span>
                       </li>
                       <li className="flex items-center gap-3 text-neutral-300">
                         <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Scroll to zoom in/out</span>
+                        <span>Kaydırarak yakınlaştırın</span>
                       </li>
                       <li className="flex items-center gap-3 text-neutral-300">
                         <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Click elements for interactions</span>
+                        <span>Elementlere tıklayın</span>
                       </li>
                     </ul>
                   </div>
 
                   <div className="lg:w-3/5 relative">
-                    <SplineScene
+                    <OptimizedSpline
                       scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
                       className="w-full h-full"
+                      fallbackImage="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=800&fit=crop"
                     />
                   </div>
                 </div>
@@ -431,7 +504,7 @@ Optimize model = Mutlu kullanıcı!`
           </div>
         </section>
 
-        <section className="py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
+        <section className="py-24 bg-white dark:bg-slate-900">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -441,10 +514,10 @@ Optimize model = Mutlu kullanıcı!`
               className="text-center mb-16"
             >
               <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                How It Works
+                Nasıl Çalışır?
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Integrating 3D content is easier than you think. Follow these simple steps.
+                3D içerik entegrasyonu düşündüğünüzden daha kolay. Bu basit adımları takip edin.
               </p>
             </motion.div>
 
