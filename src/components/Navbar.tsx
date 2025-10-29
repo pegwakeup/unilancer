@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
-  X, Menu, Moon, Sun, ChevronDown, Code2, Palette, 
-  LineChart, Home, Briefcase, Users, Mail, BookOpen, UserPlus
+  X, Menu, Moon, Sun, ChevronDown, Code2, Palette,
+  LineChart, Home, Users, Mail, BookOpen, UserPlus, FileText
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
@@ -14,9 +14,8 @@ const services = [
 ];
 
 const navLinks = [
-  { icon: Home, label: 'Ana Sayfa', href: '/' },
   { icon: Users, label: 'Hakkımızda', href: '/about' },
-  { icon: Briefcase, label: 'Portfolyo', href: '/portfolio' },
+  { icon: BookOpen, label: 'Portfolyo', href: '/portfolio' },
   { icon: BookOpen, label: 'Blog', href: '/blog' },
   { icon: Mail, label: 'İletişim', href: '/contact' }
 ];
@@ -58,7 +57,7 @@ const Navbar = () => {
           <Link to="/" className="flex-shrink-0 group relative z-10">
             <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <img
-              src="/images/Unilancer logo 2.png"
+              src="/images/Unilancer logo 2.webp"
               alt="Unilancer"
               className="h-8 md:h-10 relative"
             />
@@ -69,23 +68,21 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={link.href}
-                className={`px-4 py-2 rounded-lg transition-colors font-medium flex items-center space-x-2 ${
+                className={`px-4 py-2 rounded-lg transition-colors font-medium ${
                   isActive(link.href)
                     ? 'text-primary bg-primary/10'
                     : 'text-slate-700 dark:text-gray-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-white/5'
                 }`}
               >
-                <link.icon className="w-4 h-4" />
-                <span>{link.label}</span>
+                {link.label}
               </Link>
             ))}
-            
+
             <div className="relative">
               <button
                 onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="px-4 py-2 rounded-lg transition-colors font-medium flex items-center space-x-2 text-slate-700 dark:text-gray-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-white/5"
+                className="px-4 py-2 rounded-lg transition-colors font-medium flex items-center space-x-1 text-slate-700 dark:text-gray-300 hover:text-primary hover:bg-slate-100 dark:hover:bg-white/5"
               >
-                <Briefcase className="w-4 h-4" />
                 <span>Hizmetler</span>
                 <ChevronDown className={`w-4 h-4 transition-transform ${isServicesOpen ? 'rotate-180' : ''}`} />
               </button>
@@ -114,18 +111,32 @@ const Navbar = () => {
             </div>
           </div>
 
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-3">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
+              className="p-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all duration-300"
               aria-label="Toggle theme"
             >
-              {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              <motion.div
+                initial={false}
+                animate={{ rotate: theme === 'dark' ? 180 : 0 }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+              >
+                {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </motion.div>
             </button>
 
             <Link
+              to="/project-request"
+              className="hidden md:flex items-center space-x-2 px-5 py-2.5 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-medium"
+            >
+              <FileText className="w-4 h-4" />
+              <span>Teklif Al</span>
+            </Link>
+
+            <Link
               to="/join"
-              className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium"
+              className="hidden sm:flex items-center space-x-2 px-4 py-2 bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-medium border border-slate-200 dark:border-white/10"
             >
               <UserPlus className="w-4 h-4" />
               <span>Bize Katıl</span>
@@ -167,6 +178,7 @@ const Navbar = () => {
               ))}
               
               <div className="pt-2 border-t border-slate-200 dark:border-white/10">
+                <p className="px-4 py-2 text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Hizmetler</p>
                 {services.map((service) => (
                   <Link
                     key={service.href}
@@ -180,8 +192,16 @@ const Navbar = () => {
               </div>
 
               <Link
+                to="/project-request"
+                className="flex items-center justify-center space-x-2 px-4 py-3 bg-gradient-to-r from-primary to-primary-dark text-white rounded-lg hover:shadow-lg transition-all font-medium mt-4"
+              >
+                <FileText className="w-4 h-4" />
+                <span>Teklif Al</span>
+              </Link>
+
+              <Link
                 to="/join"
-                className="flex items-center justify-center space-x-2 px-4 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-medium mt-4"
+                className="flex items-center justify-center space-x-2 px-4 py-3 bg-slate-100 dark:bg-white/5 text-slate-900 dark:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-medium border border-slate-200 dark:border-white/10"
               >
                 <UserPlus className="w-4 h-4" />
                 <span>Bize Katıl</span>
