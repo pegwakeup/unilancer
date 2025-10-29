@@ -20,9 +20,9 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-24 pb-16 relative">
+    <div className="pt-24 pb-16 relative bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark">
       {/* Fixed Background Patterns */}
-      <div className="fixed inset-0 z-0">
+      <div className="fixed inset-0 z-0 pointer-events-none">
         {/* Grid Pattern */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA35_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA35_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_85%)]" />
         

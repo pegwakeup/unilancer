@@ -168,7 +168,7 @@ const Navbar = () => {
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <img
-                src="/images/Unilancer logo 2.webp"
+                src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/Unilancer%20logo%202.webp"
                 alt="Unilancer"
                 className="h-10 w-auto relative"
                 style={{ width: '150.7px', height: '40px' }}

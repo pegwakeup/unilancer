@@ -281,7 +281,7 @@ const ProjectRequest = () => {
   ------------------------------ */
   if (success) {
     return (
-      <div className="min-h-screen bg-dark flex items-center justify-center px-4">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark flex items-center justify-center px-4">
         <div className="bg-dark-light/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 max-w-md w-full mx-auto text-center relative overflow-hidden">
           <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] pointer-events-none bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />
           <div className="absolute -left-20 -top-20 w-60 h-60 bg-primary/20 rounded-full blur-3xl opacity-20 pointer-events-none" />
@@ -643,7 +643,7 @@ const ProjectRequest = () => {
      Ana Render
   ------------------------------ */
   return (
-    <div className="min-h-screen bg-dark relative">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark relative">
       {/* Sabit Kare Arka Plan Deseni */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,#ffffff10_1px,transparent_1px),linear-gradient(to_bottom,#ffffff10_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_70%)]" />

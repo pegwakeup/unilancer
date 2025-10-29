@@ -115,7 +115,7 @@ const BlogDetail = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
@@ -123,7 +123,7 @@ const BlogDetail = () => {
 
   if (error || !post) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-500 mb-4">{error || 'Blog yazısı bulunamadı.'}</p>
           <Link
@@ -141,7 +141,7 @@ const BlogDetail = () => {
   const headings = extractHeadings(post.content);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark">
       <Helmet>
         <title>{post.title} | Unilancer Blog</title>
         <meta name="description" content={post.excerpt} />
