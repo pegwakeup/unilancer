@@ -11,31 +11,30 @@ import {
   Eye,
   ChevronDown,
   ChevronUp,
-  Code,
   Upload,
-  Play,
   CheckCircle2,
   ArrowRight,
   Sparkles,
-  Package
+  Camera,
+  MousePointerClick,
+  Rotate3D
 } from 'lucide-react';
 import { OptimizedSpline } from '../components/ui/optimized-spline';
 import { ARModelViewer } from '../components/ui/ar-model-viewer';
 import { Card } from '../components/ui/card';
-import { Spotlight } from '../components/ui/spotlight-aceternity';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
-  animate: { opacity: 1, y: 0 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: "-100px" },
   transition: { duration: 0.6 }
 };
 
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
+const stagger = {
+  initial: { opacity: 0 },
+  whileInView: { opacity: 1 },
+  viewport: { once: true, margin: "-100px" },
+  transition: { staggerChildren: 0.2 }
 };
 
 export default function AR3DIntegration() {
@@ -106,13 +105,13 @@ export default function AR3DIntegration() {
     },
     {
       number: 2,
-      icon: Code,
+      icon: Box,
       title: 'Kod ile Entegre Edin',
       description: 'Basit bileşenlerimiz veya API\'lerimizi kullanarak 3D sahnenizi sadece birkaç satır kodla yerleştirin.'
     },
     {
       number: 3,
-      icon: Play,
+      icon: Sparkles,
       title: 'Yayınlayın ve Etkileşim',
       description: 'Deneyiminizi yayınlayın ve kullanıcıların tüm cihazlarda 3D modellerinizle etkileşime girmesine izin verin.'
     }
@@ -233,69 +232,6 @@ Avantajları:
 • WebXR API
 
 Tavsiye: Başlangıç için Model Viewer'ı deneyin.`
-    },
-    {
-      question: 'Hangi 3D Format En İyi?',
-      answer: `Her formatın avantajları var:
-
-**GLB (Binary GLTF)** ⭐ Önerilen
-• Tek dosya (geometri + texture)
-• Hızlı yükleme
-• WebGL için optimize
-• Animasyon desteği
-• En yaygın web formatı
-
-**GLTF (JSON + binaries)**
-• Okunabilir JSON
-• Debug için kolay
-• Gelişmiş düzenleme
-
-**USDZ**
-• Apple AR için gerekli
-• iOS Quick Look
-• GLB'den dönüştürme kolay
-
-**FBX/OBJ**
-• Eski formatlar
-• İlk önce GLB'ye çevirin
-• Blender/Maya çıkışı
-
-**Spline (.splinecode)**
-• Spline'a özel
-• Animasyon ve etkileşim dahil
-• Otomatik optimize
-
-Genel Tavsiye: GLB kullanın veya Spline ile başlayın.`
-    },
-    {
-      question: '3D Modelleri Nasıl Optimize Ederim?',
-      answer: `Web için optimizasyon kritiktir:
-
-**Dosya Boyutu:**
-• Hedef: <5MB (ideal: 1-2MB)
-• Texture'ları sıkıştırın (2048x2048 max)
-• Poligon sayısını azaltın
-• Draco compression kullanın
-
-**Performans:**
-• LOD (Level of Detail) ekleyin
-• Gereksiz geometriyi temizleyin
-• Texture atlasları kullanın
-• Normal maps ile detay ekleyin
-
-**Araçlar:**
-• gltf-pipeline (komut satırı)
-• Blender export ayarları
-• Spline otomatik optimizasyon
-• glTF-Transform
-
-**Test:**
-• Chrome DevTools Performance
-• Lighthouse audit
-• Farklı cihazlarda test
-• 3G bağlantıda test
-
-Optimize model = Mutlu kullanıcı!`
     }
   ];
 
@@ -309,74 +245,171 @@ Optimize model = Mutlu kullanıcı!`
         />
       </Helmet>
 
-      <div className="min-h-screen">
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920')] opacity-10 bg-cover bg-center" />
-
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900" />
-
-          <div className="absolute inset-0">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/30 rounded-full blur-3xl animate-pulse delay-1000" />
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm mb-8"
-            >
-              <Sparkles className="w-4 h-4 text-blue-400" />
-              <span className="text-blue-300 text-sm font-medium">Next Generation Web Experiences</span>
-            </motion.div>
-
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-cyan-200">
-              3D & AR Integration
-            </h1>
-
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
-              Transform your digital presence with cutting-edge 3D visualization and Augmented Reality.
-              Create immersive experiences that captivate and engage.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                to="/project-request"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 group"
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:bg-dark">
+        <section className="pt-32 pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
               >
-                Start Your 3D Project
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <a
-                href="#demo"
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300"
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary-light/20 text-primary dark:text-primary mb-6"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  <span className="font-medium">Next Generation Technology</span>
+                </motion.div>
+
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-slate-900 dark:text-white">
+                  3D & AR Entegrasyonu
+                </h1>
+
+                <p className="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
+                  Ürünlerinizi etkileşimli 3D modellerle hayata geçirin ve artırılmış gerçeklik ile müşterilerinize benzersiz deneyimler sunun.
+                </p>
+
+                <div className="space-y-4 mb-8">
+                  {[
+                    { icon: Box, text: 'Web ve mobil için optimize 3D modeller' },
+                    { icon: Camera, text: 'iOS ve Android AR desteği' },
+                    { icon: Rotate3D, text: 'Etkileşimli 360° görüntüleme' },
+                    { icon: MousePointerClick, text: 'Gerçek zamanlı render' }
+                  ].map((item, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 + index * 0.1 }}
+                      className="flex items-center gap-3"
+                    >
+                      <div className="w-10 h-10 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                        <item.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300 font-medium">{item.text}</span>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    to="/project-request"
+                    className="px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group shadow-md hover:shadow-lg"
+                  >
+                    Projenizi Başlatalım
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <a
+                    href="#demo"
+                    className="px-8 py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-semibold border border-slate-200 dark:border-white/10"
+                  >
+                    Demo İzle
+                  </a>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
               >
-                View Demo
-              </a>
+                <Card className="overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-800 dark:to-slate-900 border-2 border-primary/20 shadow-2xl">
+                  <div className="relative aspect-square">
+                    <OptimizedSpline
+                      scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                      className="w-full h-full"
+                      fallbackImage="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=800&fit=crop"
+                    />
+                    <div className="absolute bottom-4 left-4 right-4 bg-white/10 backdrop-blur-md border border-white/20 rounded-lg p-3">
+                      <p className="text-white text-sm font-medium text-center">
+                        🖱️ Sürükleyin | 🔍 Yakınlaştırın | 🎯 Tıklayın
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
             </div>
-          </motion.div>
-
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-8 h-8 text-white/50" />
           </div>
         </section>
 
-        <section className="py-24 bg-white dark:bg-slate-900">
+        <section id="demo" className="py-20 bg-white dark:bg-dark-light/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/20 text-primary mb-6">
+                <Camera className="w-4 h-4 mr-2" />
+                <span className="font-medium">AR Deneyimi</span>
+              </div>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+                Artırılmış Gerçeklik ile Keşfedin
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Ürünleri gerçek dünyanızda görüntüleyin. Telefonunuzun kamerasını açın ve 3D modelleri evinizde, ofisinizde görün.
+              </p>
+            </motion.div>
+
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
+            >
+              <Card className="overflow-hidden bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/10 shadow-xl">
+                <div className="grid lg:grid-cols-2 gap-8">
+                  <div className="p-8 lg:p-12 flex flex-col justify-center">
+                    <h3 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+                      AR ile Ürünlerinizi Görüntüleyin
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-lg mb-6 leading-relaxed">
+                      Google'ın model-viewer teknolojisi ile iOS ve Android cihazlarda tam AR desteği. Gerçek boyutta, gerçek mekanınızda görüntüleyin.
+                    </p>
+                    <div className="space-y-3 mb-6">
+                      {[
+                        'iOS 12+ (iPhone/iPad) desteği',
+                        'ARCore destekli Android cihazlar',
+                        'Gerçek boyut ve ölçek',
+                        '360° döndürme ve yakınlaştırma'
+                      ].map((feature, index) => (
+                        <div key={index} className="flex items-center gap-3">
+                          <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="relative min-h-[500px] bg-slate-900">
+                    <ARModelViewer
+                      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+                      alt="Sample AR Model"
+                      poster="https://modelviewer.dev/shared-assets/models/Astronaut.webp"
+                      className="w-full h-full"
+                    />
+                  </div>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
+              className="text-center mb-16"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
                 B2B 3D & AR Hizmetlerimiz
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -384,296 +417,84 @@ Optimize model = Mutlu kullanıcı!`
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-24">
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6 }}
-              >
-                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
-                    <Upload className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">1. Ürün Verilerinizi Gönderin</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Ürün fotoğrafları, CAD dosyaları, ölçüler veya mevcut 3D modellerinizi bizimle paylaşın. Hangi formatta olursa olsun, biz optimize ederiz.
-                  </p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-              >
-                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
-                    <Box className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">2. 3D Model Oluşturma</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Ürünlerinizi profesyonel 3D modellere dönüştürüyoruz. Web optimize, mobil uyumlu ve etkileşimli özelliklerle.
-                  </p>
-                </Card>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6">
-                    <Scan className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold mb-3">3. AR Entegrasyonu</h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    Müşterileriniz ürünlerinizi kendi mekanlarında AR ile görüntüleyebilir. iOS ve Android için tam destek.
-                  </p>
-                </Card>
-              </motion.div>
-            </div>
-          </div>
-        </section>
-
-        <section id="demo" className="py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
+              className="grid md:grid-cols-3 gap-8"
+              variants={stagger}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={stagger.viewport}
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-cyan-600">
-                Interactive 3D Showcase
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Canlı 3D model deneyimi. Tıklayın, sürükleyin ve keşfedin.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Card className="w-full h-[600px] bg-gradient-to-br from-slate-900 to-slate-800 relative overflow-hidden border-2 border-blue-500/20 shadow-2xl">
-                <Spotlight
-                  className="-top-40 left-0 md:left-60 md:-top-20"
-                  fill="white"
-                />
-
-                <div className="flex flex-col lg:flex-row h-full">
-                  <div className="lg:w-2/5 p-8 lg:p-12 relative z-10 flex flex-col justify-center">
-                    <h3 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 mb-4">
-                      Interactive 3D Scene
-                    </h3>
-                    <p className="text-neutral-300 text-lg mb-6 leading-relaxed">
-                      Canlı, etkileşimli 3D model. Gerçek zamanlı olarak döndürün, yakınlaştırın ve keşfedin.
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-center gap-3 text-neutral-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Sürükleyerek döndürün</span>
-                      </li>
-                      <li className="flex items-center gap-3 text-neutral-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Kaydırarak yakınlaştırın</span>
-                      </li>
-                      <li className="flex items-center gap-3 text-neutral-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400" />
-                        <span>Elementlere tıklayın</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="lg:w-3/5 relative">
-                    <OptimizedSpline
-                      scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
-                      className="w-full h-full"
-                      fallbackImage="https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&h=800&fit=crop"
-                    />
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-        </section>
-
-        <section className="py-24 bg-white dark:bg-slate-900">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Nasıl Çalışır?
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                3D içerik entegrasyonu düşündüğünüzden daha kolay. Bu basit adımları takip edin.
-              </p>
-            </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-8">
               {steps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="p-8 h-full bg-white dark:bg-slate-800 hover:shadow-xl transition-shadow duration-300 border-2 border-transparent hover:border-blue-500/50">
-                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6 text-white text-2xl font-bold">
+                <motion.div key={index} variants={fadeInUp}>
+                  <Card className="p-8 h-full bg-white dark:bg-slate-800 hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-white/10 group hover:-translate-y-1">
+                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center mb-6 text-white text-2xl font-bold group-hover:scale-110 transition-transform">
                       {step.number}
                     </div>
-                    <div className="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center mb-4">
-                      <step.icon className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mb-4">
+                      <step.icon className="w-6 h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{step.title}</h3>
+                    <h3 className="text-2xl font-bold mb-4 text-slate-900 dark:text-white">{step.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                       {step.description}
                     </p>
                   </Card>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section className="py-24 bg-white dark:bg-slate-900">
+        <section className="py-20 bg-white dark:bg-dark-light/30">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
-                Powerful Features
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+                Güçlü Özellikler
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Everything you need to create stunning 3D and AR experiences.
+                Etkileyici 3D ve AR deneyimleri oluşturmak için ihtiyacınız olan her şey.
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <motion.div
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+              variants={stagger}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={stagger.viewport}
+            >
               {features.map((feature, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <motion.div key={index} variants={fadeInUp}>
+                  <Card className="p-8 h-full bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 hover:shadow-xl transition-all duration-300 group hover:-translate-y-1 border border-slate-200 dark:border-white/10">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-light flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                       <feature.icon className="w-7 h-7 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                    <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white">{feature.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">
                       {feature.description}
                     </p>
                   </Card>
                 </motion.div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1617802690992-15d93263d3a9?w=1920')] opacity-10 bg-cover bg-center" />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/50 to-slate-900" />
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-16"
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/20 border border-blue-400/30 backdrop-blur-sm mb-6">
-                <Camera className="w-4 h-4 text-blue-400" />
-                <span className="text-blue-300 text-sm font-medium">Mobil AR Deneyimi</span>
-              </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                Kameranızla AR Görüntüleme
-              </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-                Ürünleri gerçek dünyanızda görüntüleyin. Telefonunuzun kamerasını açın ve 3D modelleri evinizde, ofisinizde veya istediğiniz yerde görün.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-16"
-            >
-              <Card className="bg-gradient-to-br from-slate-800 to-slate-900 border-2 border-blue-500/20 overflow-hidden">
-                <div className="grid md:grid-cols-2 gap-8 p-8">
-                  <div className="flex flex-col justify-center space-y-6">
-                    <h3 className="text-3xl font-bold text-white">
-                      AR ile Ürünlerinizi Keşfedin
-                    </h3>
-                    <p className="text-gray-300 text-lg leading-relaxed">
-                      Google'ın model-viewer teknolojisi ile iOS ve Android cihazlarda tam AR desteği. Gerçek boyutta, gerçek mekanınızda görüntüleyin.
-                    </p>
-                    <div className="space-y-3">
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                        <span>iOS 12+ (iPhone/iPad) desteği</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                        <span>ARCore destekli Android cihazlar</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                        <span>Gerçek boyut ve ölçek</span>
-                      </div>
-                      <div className="flex items-center gap-3 text-gray-300">
-                        <CheckCircle2 className="w-5 h-5 text-blue-400 flex-shrink-0" />
-                        <span>360° döndürme ve yakınlaştırma</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="relative">
-                    <ARModelViewer
-                      src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
-                      alt="Sample AR Model"
-                      poster="https://modelviewer.dev/shared-assets/models/Astronaut.webp"
-                      className="w-full h-[500px] rounded-xl overflow-hidden bg-slate-800"
-                    />
-                  </div>
-                </div>
-              </Card>
             </motion.div>
           </div>
         </section>
 
-        <section className="py-24 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900">
+        <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
               className="text-center mb-16"
             >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
                 Kullanım Alanları
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -681,16 +502,16 @@ Optimize model = Mutlu kullanıcı!`
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <motion.div
+              className="grid md:grid-cols-2 gap-8"
+              variants={stagger}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={stagger.viewport}
+            >
               {useCases.map((useCase, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="overflow-hidden bg-white dark:bg-slate-800 hover:shadow-2xl transition-all duration-300 group">
+                <motion.div key={index} variants={fadeInUp}>
+                  <Card className="overflow-hidden bg-white dark:bg-slate-800 hover:shadow-2xl transition-all duration-300 group border border-slate-200 dark:border-white/10">
                     <div className="relative h-64 overflow-hidden">
                       <img
                         src={useCase.image}
@@ -700,7 +521,7 @@ Optimize model = Mutlu kullanıcı!`
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                     </div>
                     <div className="p-8">
-                      <h3 className="text-2xl font-bold mb-3">{useCase.title}</h3>
+                      <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{useCase.title}</h3>
                       <p className="text-gray-600 dark:text-gray-400">
                         {useCase.description}
                       </p>
@@ -708,24 +529,24 @@ Optimize model = Mutlu kullanıcı!`
                   </Card>
                 </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
-        <section className="py-24 bg-white dark:bg-slate-900">
+        <section className="py-20 bg-white dark:bg-dark-light/30">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
+              variants={fadeInUp}
+              initial="initial"
+              whileInView="whileInView"
+              viewport={fadeInUp.viewport}
               className="text-center mb-16"
             >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 mb-6">
-                <Package className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-                <span className="text-blue-600 dark:text-blue-400 text-sm font-medium">Implementation Guide</span>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/20 text-primary mb-6">
+                <Box className="w-4 h-4 mr-2" />
+                <span className="font-medium">Implementation Guide</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
                 Kendi 3D Modelinizi Ekleyin
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400">
@@ -737,21 +558,21 @@ Optimize model = Mutlu kullanıcı!`
               {faqs.map((faq, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.05 }}
+                  variants={fadeInUp}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={fadeInUp.viewport}
                 >
-                  <Card className="overflow-hidden bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 hover:border-blue-500 dark:hover:border-blue-500 transition-colors duration-300">
+                  <Card className="overflow-hidden bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary transition-colors duration-300">
                     <button
                       onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                       className="w-full p-6 flex items-center justify-between text-left group"
                     >
-                      <span className="text-lg font-semibold pr-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      <span className="text-lg font-semibold pr-4 group-hover:text-primary transition-colors text-slate-900 dark:text-white">
                         {faq.question}
                       </span>
                       {expandedFaq === index ? (
-                        <ChevronUp className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                        <ChevronUp className="w-5 h-5 text-primary flex-shrink-0" />
                       ) : (
                         <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
                       )}
@@ -764,7 +585,7 @@ Optimize model = Mutlu kullanıcı!`
                         transition={{ duration: 0.3 }}
                         className="px-6 pb-6"
                       >
-                        <div className="text-gray-600 dark:text-gray-400 whitespace-pre-line leading-relaxed border-t border-gray-200 dark:border-slate-700 pt-4">
+                        <div className="text-gray-600 dark:text-gray-400 whitespace-pre-line leading-relaxed border-t border-slate-200 dark:border-slate-700 pt-4">
                           {faq.answer}
                         </div>
                       </motion.div>
@@ -776,39 +597,39 @@ Optimize model = Mutlu kullanıcı!`
           </div>
         </section>
 
-        <section className="py-24 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920')] opacity-5 bg-cover bg-center" />
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-              Ready to Create Something Amazing?
-            </h2>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-              Let's bring your vision to life with cutting-edge 3D and AR technology.
-              Our team is ready to help you create unforgettable experiences.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Link
-                to="/project-request"
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-cyan-600 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center gap-2 group"
-              >
-                Request a 3D Project
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/contact"
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-xl font-semibold hover:bg-white/20 transition-all duration-300"
-              >
-                Contact Us
-              </Link>
-            </div>
-          </motion.div>
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <Card className="bg-gradient-to-br from-white to-blue-50/50 dark:from-slate-800 dark:to-slate-800/50 p-12 text-center border border-slate-200 dark:border-white/10 shadow-xl">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
+                  Projenizi Hayata Geçirmeye Hazır mısınız?
+                </h2>
+                <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                  Modern 3D ve AR teknolojileri ile vizyonunuzu hayata geçirelim. Ekibimiz unutulmaz deneyimler yaratmanıza yardımcı olmaya hazır.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    to="/project-request"
+                    className="px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 group shadow-md hover:shadow-lg"
+                  >
+                    3D Proje Talebi
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="px-8 py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-all flex items-center justify-center gap-2 font-semibold border border-slate-200 dark:border-white/10"
+                  >
+                    İletişime Geçin
+                  </Link>
+                </div>
+              </Card>
+            </motion.div>
+          </div>
         </section>
       </div>
     </>
