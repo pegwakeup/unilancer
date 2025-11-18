@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles, CheckCircle2 } from 'lucide-react';
+import { ArrowUpRight, Sparkles, Globe, ShoppingCart, Palette, FileText, Search } from 'lucide-react';
 import { CTASection } from '../components/ui/cta-with-glow';
 import { LogosCarousel } from '../components/ui/logos-carousel';
 import { FaqSectionDemo } from '../components/ui/faq-demo';
@@ -8,6 +8,14 @@ import { FeatureSectionTop } from '../components/ui/feature-section-top';
 import { FeatureSectionBottom } from '../components/ui/feature-section-bottom';
 import { ServicesSection } from '../components/ui/services-section';
 import { PortfolioPreview } from '../components/ui/portfolio-preview';
+
+const services = [
+  { icon: Globe, label: 'Web Sitesi' },
+  { icon: ShoppingCart, label: 'E-Ticaret' },
+  { icon: Palette, label: 'Tasarım' },
+  { icon: FileText, label: 'İçerik' },
+  { icon: Search, label: 'SEO' },
+];
 
 const Home = () => {
   return (
@@ -21,7 +29,7 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[92vh] flex items-center pt-24 pb-16 md:pt-32 md:pb-24 overflow-visible">
+        <section className="relative min-h-[90vh] flex items-center overflow-visible pt-24 pb-16 md:pt-28 md:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
               {/* Left Content */}
@@ -29,35 +37,45 @@ const Home = () => {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="lg:col-span-6 space-y-6"
+                className="lg:col-span-7 space-y-6"
               >
                 {/* Badge */}
                 <motion.div
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/12 to-cyan-400/12 dark:from-primary/25 dark:to-cyan-500/20 text-primary dark:text-primary border border-primary/20 dark:border-primary/30 shadow-sm backdrop-blur-sm"
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/15 to-cyan-400/15 dark:from-primary/25 dark:to-cyan-500/25 text-primary dark:text-primary backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-sm"
                 >
                   <Sparkles className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">
-                    Türkiye&apos;nin üniversiteli freelancer ekosistemi
-                  </span>
+                  <span className="text-sm font-medium">Türkiye'nin Yeni Nesil Freelance Platformu</span>
                 </motion.div>
 
                 {/* Heading */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="space-y-3"
+                  transition={{ delay: 0.3 }}
+                  className="space-y-4"
                 >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
-                    Dijital projelerinizi{' '}
-                    <span className="relative inline-block">
-                      seçilmiş
-                      <span className="absolute -inset-x-1 -bottom-1 h-3 bg-primary/15 dark:bg-primary/25 rounded-full blur-sm" />
-                    </span>{' '}
-                    üniversiteli ekiplerle yönetin.
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
+                    Türkiye'nin{' '}
+                    <span className="text-primary relative inline-block">
+                      üniversiteli
+                      <svg
+                        className="absolute -bottom-2 left-0 w-full h-3"
+                        viewBox="0 0 200 12"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M0,7 Q50,0 100,7 T200,7"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                        />
+                      </svg>
+                    </span>
+                    <br />
+                    freelancer ekosistemi
                   </h1>
                 </motion.div>
 
@@ -65,61 +83,37 @@ const Home = () => {
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-lg"
+                  transition={{ delay: 0.4 }}
+                  className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
                 >
-                  Unilancer&apos;da web sitesi, e-ticaret, tasarım, içerik ve pazarlama projelerini;
-                  seçilmiş üniversiteli ekipler ve deneyimli proje yöneticileriyle, ajans kalitesinde
-                  ama daha erişilebilir bütçelerle hayata geçirirsiniz.
+                  Unilancer&apos;da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri
+                  uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı
+                  sağlarsınız.
                 </motion.p>
 
-                {/* Highlights */}
+                {/* Services Short List */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.35 }}
-                  className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2"
+                  transition={{ delay: 0.45 }}
+                  className="flex flex-wrap gap-2 pt-1"
                 >
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-1 text-primary" />
-                    <div>
-                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Seçilmiş ekipler
-                      </p>
-                      <p className="text-xs text-slate-600 dark:text-gray-400">
-                        Üniversitelerden özenle seçilen yetenek havuzu.
-                      </p>
+                  {services.map((service) => (
+                    <div
+                      key={service.label}
+                      className="inline-flex items-center px-3 py-1 rounded-full bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-800 dark:text-gray-100 shadow-sm"
+                    >
+                      <service.icon className="w-3.5 h-3.5 mr-1.5" />
+                      <span>{service.label}</span>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-1 text-primary" />
-                    <div>
-                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Proje yöneticisi desteği
-                      </p>
-                      <p className="text-xs text-slate-600 dark:text-gray-400">
-                        Uçtan uca süreç takibi ve raporlama.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-2">
-                    <CheckCircle2 className="w-4 h-4 mt-1 text-primary" />
-                    <div>
-                      <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                        Ajans kalitesi
-                      </p>
-                      <p className="text-xs text-slate-600 dark:text-gray-400">
-                        Ajans yerine esnek, uygun maliyetli model.
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </motion.div>
 
                 {/* CTA Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.45 }}
+                  transition={{ delay: 0.5 }}
                   className="flex flex-col sm:flex-row gap-4 pt-4"
                 >
                   <motion.a
@@ -133,108 +127,55 @@ const Home = () => {
                   </motion.a>
 
                   <motion.a
-                    href="/project-request?type=digital-report"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white/90 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                    href="/portfolio"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Ücretsiz Dijital Rapor Alın</span>
+                    <span>Portfolyomuzu İnceleyin</span>
                     <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.a>
                 </motion.div>
-
-                {/* Trust hint */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.55 }}
-                  className="text-xs sm:text-sm text-slate-500 dark:text-gray-400 pt-1"
-                >
-                  * Formu doldurun, 24 saat içinde sizinle iletişime geçelim.
-                </motion.p>
               </motion.div>
 
-              {/* Right Visual Scene */}
+              {/* Right Image */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.7, delay: 0.3 }}
-                className="lg:col-span-6 mt-8 lg:mt-0 flex justify-center lg:justify-end"
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="lg:col-span-5 flex justify-center lg:justify-end"
               >
-                <div className="relative w-full max-w-[540px]">
-                  {/* Glows */}
-                  <div className="pointer-events-none absolute -top-20 -right-10 h-48 w-48 rounded-full bg-primary/25 blur-3xl opacity-70" />
-                  <div className="pointer-events-none absolute -bottom-16 -left-10 h-40 w-40 rounded-full bg-cyan-400/25 blur-3xl opacity-70" />
+                <div className="relative w-full max-w-[520px] group">
+                  {/* Main Image - no frame, no cropping */}
+                  <img
+                    src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
+                    alt="Unilancer Üniversiteli Freelancer Ekosistemi"
+                    className="w-full h-auto rounded-3xl shadow-2xl object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                  />
 
-                  {/* Main Card */}
-                  <div className="relative rounded-3xl shadow-[0_24px_80px_rgba(15,23,42,0.45)] bg-gradient-to-br from-slate-900 via-slate-900 to-slate-800 border border-white/10 overflow-hidden">
-                    {/* Image */}
-                    <img
-                      src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
-                      alt="Unilancer Üniversiteli Freelancer Ekosistemi"
-                      className="w-full h-auto object-cover object-center"
-                    />
-
-                    {/* Overlay bottom bar */}
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-slate-950/90 via-slate-950/40 to-transparent px-6 py-4 flex items-center justify-between gap-4">
-                      <div>
-                        <p className="text-xs text-slate-300 uppercase tracking-wide">
-                          Aktif proje takibi
-                        </p>
-                        <p className="text-sm font-semibold text-white">
-                          Web sitesi, e-ticaret, tasarım ve daha fazlası
-                        </p>
-                      </div>
-                      <div className="hidden sm:flex items-center gap-3">
-                        <div className="text-right">
-                          <p className="text-[11px] text-slate-300">Ortalama memnuniyet</p>
-                          <p className="text-sm font-semibold text-emerald-400">%97</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating Stats Card */}
+                  {/* Stats Badge */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.8 }}
-                    className="absolute -bottom-8 left-4 sm:left-6 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-5 py-3 w-[88%] sm:w-[75%]"
+                    transition={{ delay: 0.9 }}
+                    className="mt-5 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
                   >
                     <div className="flex items-center justify-between gap-4">
-                      <div className="text-left">
-                        <p className="text-[11px] uppercase tracking-wide text-slate-500 dark:text-gray-400">
-                          Unilancer ekosistemi
-                        </p>
-                        <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                          Genç yeteneklerle büyüyen markalar
-                        </p>
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">500+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">Üniversiteli</div>
                       </div>
-                      <div className="flex items-center gap-4">
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-primary">500+</p>
-                          <p className="text-[11px] text-slate-500 dark:text-gray-400">Üniversiteli</p>
-                        </div>
-                        <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
-                        <div className="text-center">
-                          <p className="text-lg font-bold text-primary">100+</p>
-                          <p className="text-[11px] text-slate-500 dark:text-gray-400">Proje</p>
-                        </div>
+                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">100+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">Proje</div>
+                      </div>
+                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">50+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">İş Ortağı</div>
                       </div>
                     </div>
-                  </motion.div>
-
-                  {/* Floating Small Tag */}
-                  <motion.div
-                    initial={{ opacity: 0, y: -10, x: 10 }}
-                    animate={{ opacity: 1, y: 0, x: 0 }}
-                    transition={{ delay: 0.7 }}
-                    className="absolute -top-5 right-6 bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 rounded-full px-4 py-1.5 shadow-lg flex items-center gap-2"
-                  >
-                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[11px] font-medium text-slate-700 dark:text-gray-100">
-                      Şu an 3 proje aktif
-                    </span>
                   </motion.div>
                 </div>
               </motion.div>
