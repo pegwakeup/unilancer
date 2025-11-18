@@ -58,14 +58,14 @@ const Home = () => {
                   className="space-y-4"
                 >
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
-                    Türkiye'nin üniversiteli{' '}
+                    Türkiye'nin{' '}
                     <span className="text-primary relative inline-block">
-                      freelancer
+                      üniversiteli
                       <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 200 12" preserveAspectRatio="none">
                         <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3"/>
                       </svg>
                     </span>
-                    {' '}ekosistemi
+                    {' '}freelancer ekosistemi
                   </h1>
                 </motion.div>
 
@@ -79,43 +79,12 @@ const Home = () => {
                   Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
                 </motion.p>
 
-                {/* Services Tags */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="space-y-2"
-                >
-                  <p className="text-xs font-medium text-slate-400 dark:text-gray-500 uppercase tracking-wider">Hizmetlerimiz</p>
-                  <div className="flex flex-wrap gap-2">
-                    {services.map((service, index) => (
-                      <motion.div
-                        key={service.label}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6 + index * 0.1 }}
-                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/70 dark:bg-white/5 backdrop-blur-sm rounded-md border border-slate-200 dark:border-white/10 hover:shadow-sm hover:scale-105 transition-all duration-300 group"
-                      >
-                        <service.icon className="w-3.5 h-3.5 text-primary group-hover:scale-110 transition-transform" />
-                        <span className="text-xs font-medium text-slate-600 dark:text-gray-400">{service.label}</span>
-                      </motion.div>
-                    ))}
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.6 + services.length * 0.1 }}
-                      className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-primary/10 to-cyan-400/10 dark:from-primary/15 dark:to-cyan-500/15 backdrop-blur-sm rounded-md border border-primary/20 dark:border-primary/25"
-                    >
-                      <span className="text-xs font-medium text-primary">ve daha fazlası...</span>
-                    </motion.div>
-                  </div>
-                </motion.div>
 
                 {/* CTA Buttons */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ delay: 0.5 }}
                   className="flex flex-col sm:flex-row gap-4 pt-4"
                 >
                   <motion.a
@@ -155,8 +124,6 @@ const Home = () => {
                       alt="Unilancer Üniversiteli Freelancer Ekosistemi"
                       className="w-full h-auto object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     />
-                    {/* Subtle Overlay on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-cyan-400/10 dark:from-primary/20 dark:to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 </div>
 
