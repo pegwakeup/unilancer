@@ -29,15 +29,15 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden py-20 md:py-24">
+        <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* Left Content */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="space-y-7"
+                className="lg:col-span-7 space-y-7"
               >
                 {/* Badge */}
                 <motion.div
@@ -57,12 +57,16 @@ const Home = () => {
                   transition={{ delay: 0.3 }}
                   className="space-y-4"
                 >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
                     Türkiye'nin{' '}
                     <span className="text-primary relative inline-block">
                       üniversiteli
-                      <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 200 12" preserveAspectRatio="none">
-                        <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3"/>
+                      <svg
+                        className="absolute -bottom-2 left-0 w-full h-3"
+                        viewBox="0 0 200 12"
+                        preserveAspectRatio="none"
+                      >
+                        <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3" />
                       </svg>
                     </span>
                     <br />
@@ -77,9 +81,9 @@ const Home = () => {
                   transition={{ delay: 0.4 }}
                   className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
                 >
-                  Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
+                  Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca
+                  yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
                 </motion.p>
-
 
                 {/* CTA Buttons */}
                 <motion.div
@@ -100,7 +104,7 @@ const Home = () => {
 
                   <motion.a
                     href="/portfolio"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white/80 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -115,43 +119,43 @@ const Home = () => {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative lg:pl-8"
+                className="lg:col-span-5"
               >
-                <div className="relative group">
-                  {/* Main Image Container - No background effects */}
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <div className="relative">
+                  {/* Main Image Container - sade, çerçevesiz görünüm */}
+                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-100/60 dark:border-white/10">
                     <img
                       src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
                       alt="Unilancer Üniversiteli Freelancer Ekosistemi"
-                      className="w-full h-auto object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover object-center aspect-[4/3] group-hover:scale-105 transition-transform duration-700"
                     />
                   </div>
-                </div>
 
-                {/* Stats Badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.9 }}
-                  className="absolute -bottom-6 left-1/2 -translate-x-1/2 lg:left-8 lg:translate-x-0 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4"
-                >
-                  <div className="flex items-center gap-6">
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">500+</div>
-                      <div className="text-xs text-slate-600 dark:text-gray-400">Üniversiteli</div>
+                  {/* Stats Badge */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.9 }}
+                    className="mt-6 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
+                  >
+                    <div className="flex items-center justify-between gap-4">
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">500+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">Üniversiteli</div>
+                      </div>
+                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">100+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">Proje</div>
+                      </div>
+                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                      <div className="text-center flex-1">
+                        <div className="text-2xl font-bold text-primary">50+</div>
+                        <div className="text-xs text-slate-600 dark:text-gray-400">İş Ortağı</div>
+                      </div>
                     </div>
-                    <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">100+</div>
-                      <div className="text-xs text-slate-600 dark:text-gray-400">Proje</div>
-                    </div>
-                    <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
-                    <div className="text-center">
-                      <div className="text-2xl font-bold text-primary">50+</div>
-                      <div className="text-xs text-slate-600 dark:text-gray-400">İş Ortağı</div>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
@@ -173,7 +177,9 @@ const Home = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Partnerlerimiz</h2>
-              <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">Güvenilir iş ortaklarımızla birlikte büyüyoruz</p>
+              <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Güvenilir iş ortaklarımızla birlikte büyüyoruz
+              </p>
             </motion.div>
           </div>
 
@@ -194,9 +200,9 @@ const Home = () => {
           title="Projenizi Hayata Geçirmeye Hazır mısınız?"
           description="Size özel çözümler için hemen iletişime geçin"
           action={{
-            text: "Teklif Alın",
-            href: "/project-request",
-            variant: "default"
+            text: 'Teklif Alın',
+            href: '/project-request',
+            variant: 'default',
           }}
           className="py-12"
         />
