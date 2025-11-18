@@ -58,14 +58,14 @@ const Home = () => {
                   className="space-y-4"
                 >
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white">
-                    Türkiye'nin{' '}
+                    Türkiye'nin üniversiteli{' '}
                     <span className="text-primary relative inline-block">
-                      üniversiteli
+                      freelancer
                       <svg className="absolute -bottom-2 left-0 w-full h-3" viewBox="0 0 200 12" preserveAspectRatio="none">
                         <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3"/>
                       </svg>
                     </span>
-                    {' '}freelancer ekosistemi
+                    {' '}ekosistemi
                   </h1>
                 </motion.div>
 
