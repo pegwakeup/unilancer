@@ -29,15 +29,15 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
+        <section className="relative min-h-[90vh] flex items-center overflow-visible pt-24 pb-16 md:pt-28 md:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
               {/* Left Content */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="lg:col-span-7 space-y-7"
+                className="lg:col-span-7 space-y-6"
               >
                 {/* Badge */}
                 <motion.div
@@ -66,7 +66,12 @@ const Home = () => {
                         viewBox="0 0 200 12"
                         preserveAspectRatio="none"
                       >
-                        <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3" />
+                        <path
+                          d="M0,7 Q50,0 100,7 T200,7"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                        />
                       </svg>
                     </span>
                     <br />
@@ -81,9 +86,28 @@ const Home = () => {
                   transition={{ delay: 0.4 }}
                   className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
                 >
-                  Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca
-                  yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
+                  Unilancer&apos;da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri
+                  uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı
+                  sağlarsınız.
                 </motion.p>
+
+                {/* Services Short List */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.45 }}
+                  className="flex flex-wrap gap-2 pt-1"
+                >
+                  {services.map((service) => (
+                    <div
+                      key={service.label}
+                      className="inline-flex items-center px-3 py-1 rounded-full bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-800 dark:text-gray-100 shadow-sm"
+                    >
+                      <service.icon className="w-3.5 h-3.5 mr-1.5" />
+                      <span>{service.label}</span>
+                    </div>
+                  ))}
+                </motion.div>
 
                 {/* CTA Buttons */}
                 <motion.div
@@ -119,24 +143,22 @@ const Home = () => {
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="lg:col-span-5"
+                className="lg:col-span-5 flex justify-center lg:justify-end"
               >
-                <div className="relative">
-                  {/* Main Image Container - sade, çerçevesiz görünüm */}
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-100/60 dark:border-white/10">
-                    <img
-                      src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
-                      alt="Unilancer Üniversiteli Freelancer Ekosistemi"
-                      className="w-full h-full object-cover object-center aspect-[4/3] group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
+                <div className="relative w-full max-w-[520px] group">
+                  {/* Main Image - no frame, no cropping */}
+                  <img
+                    src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
+                    alt="Unilancer Üniversiteli Freelancer Ekosistemi"
+                    className="w-full h-auto rounded-3xl shadow-2xl object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                  />
 
                   {/* Stats Badge */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
-                    className="mt-6 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
+                    className="mt-5 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="text-center flex-1">
