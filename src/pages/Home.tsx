@@ -1,7 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Zap } from 'lucide-react';
-import { TextRotate } from '../components/ui/text-rotate';
+import { ArrowUpRight, Sparkles, Globe, ShoppingCart, Palette, FileText, Search } from 'lucide-react';
 import { CTASection } from '../components/ui/cta-with-glow';
 import { LogosCarousel } from '../components/ui/logos-carousel';
 import { FaqSectionDemo } from '../components/ui/faq-demo';
@@ -9,25 +8,13 @@ import { FeatureSectionTop } from '../components/ui/feature-section-top';
 import { FeatureSectionBottom } from '../components/ui/feature-section-bottom';
 import { ServicesSection } from '../components/ui/services-section';
 import { PortfolioPreview } from '../components/ui/portfolio-preview';
-import Floating, { FloatingElement } from '../components/ui/parallax-floating';
 
-const images = [
-  {
-    url: "https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page//heropagepicture1.webp",
-    title: "Development"
-  },
-  {
-    url: "https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page//heropagepicture2.webp",
-    title: "Team Work"
-  },
-  {
-    url: "https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page//heropagepicture3.webp",
-    title: "Design"
-  },
-  {
-    url: "https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page//heropagepicture4.webp",
-    title: "Meeting"
-  }
+const services = [
+  { icon: Globe, label: 'Web Sitesi' },
+  { icon: ShoppingCart, label: 'E-Ticaret' },
+  { icon: Palette, label: 'Tasarım' },
+  { icon: FileText, label: 'İçerik' },
+  { icon: Search, label: 'SEO' },
 ];
 
 const Home = () => {
@@ -42,165 +29,192 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] md:min-h-[95vh] lg:min-h-screen flex items-center justify-center overflow-hidden py-16 md:py-20 lg:py-0">
-          <Floating sensitivity={0.5} className="h-full">
-            {/* Top Left Image */}
-            <FloatingElement
-              depth={0.5}
-              className="top-[8%] left-[3%] md:top-[10%] md:left-[8%] lg:top-[12%] lg:left-[10%]"
-            >
+        <section className="relative min-h-[90vh] md:min-h-screen flex items-center overflow-hidden py-20 md:py-24 lg:py-32">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Content */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="relative group"
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6 }}
+                className="space-y-8"
               >
-                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
-                <img
-                  src={images[0].url}
-                  alt={images[0].title}
-                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl -rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
-                />
-              </motion.div>
-            </FloatingElement>
-
-            {/* Top Right Image */}
-            <FloatingElement
-              depth={1}
-              className="top-[8%] right-[3%] md:top-[10%] md:right-[8%] lg:top-[12%] lg:right-[10%]"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
-                <img
-                  src={images[1].url}
-                  alt={images[1].title}
-                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl rotate-6 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
-                />
-              </motion.div>
-            </FloatingElement>
-
-            {/* Bottom Left Image */}
-            <FloatingElement
-              depth={4}
-              className="bottom-[8%] left-[3%] md:bottom-[12%] md:left-[8%] lg:bottom-[15%] lg:left-[10%]"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.7 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
-                <img
-                  src={images[2].url}
-                  alt={images[2].title}
-                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl -rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
-                />
-              </motion.div>
-            </FloatingElement>
-
-            {/* Bottom Right Image */}
-            <FloatingElement
-              depth={2}
-              className="bottom-[8%] right-[3%] md:bottom-[12%] md:right-[8%] lg:bottom-[15%] lg:right-[10%]"
-            >
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.9 }}
-                className="relative group"
-              >
-                <div className="absolute -inset-4 bg-primary/20 dark:bg-primary/30 rounded-2xl blur-2xl opacity-30 dark:opacity-40 group-hover:opacity-50 dark:group-hover:opacity-60 transition-opacity duration-300" />
-                <img
-                  src={images[3].url}
-                  alt={images[3].title}
-                  className="w-44 h-32 sm:w-52 sm:h-36 md:w-60 md:h-44 lg:w-72 lg:h-52 object-cover rounded-xl rotate-12 shadow-xl dark:shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10 brightness-95 dark:brightness-70 group-hover:brightness-100 dark:group-hover:brightness-80 transition-all duration-300"
-                />
-              </motion.div>
-            </FloatingElement>
-          </Floating>
-
-          <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center max-w-5xl mx-auto"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="inline-flex items-center px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-gradient-to-r from-primary/15 to-cyan-400/15 dark:from-primary/25 dark:to-cyan-500/25 text-primary dark:text-primary backdrop-blur-sm border border-primary/20 dark:border-primary/30 mb-6 sm:mb-8 text-sm sm:text-base shadow-sm"
-              >
-                <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1.5 md:mr-2" />
-                <span>2024'ün En İyi Teknoloji Çözümleri</span>
-              </motion.div>
-
-              <motion.h1
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 leading-tight text-slate-900 dark:text-white"
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.2, ease: "easeOut", delay: 0.3 }}
-              >
-                <div className="mb-2">Dijital dünyada</div>
-                <motion.div layout className="flex flex-wrap justify-center items-center gap-x-2">
-                  <motion.span
-                    layout
-                    className="flex whitespace-pre"
-                    transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                  >
-                    işinizi
-                  </motion.span>
-                  <TextRotate
-                    texts={[
-                      "büyütün 🚀",
-                      "öne çıkarın ⭐",
-                      "yenileyin ✨"
-                    ]}
-                    mainClassName="overflow-hidden text-primary py-0 pb-1 md:pb-2 rounded-xl min-w-[200px] sm:min-w-[280px] md:min-w-[380px] px-2"
-                    staggerDuration={0.03}
-                    staggerFrom="last"
-                    rotationInterval={3000}
-                  />
+                {/* Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/15 to-cyan-400/15 dark:from-primary/25 dark:to-cyan-500/25 text-primary dark:text-primary backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-sm"
+                >
+                  <Sparkles className="w-4 h-4 mr-2" />
+                  <span className="text-sm font-medium">Türkiye'nin Yeni Nesil Freelance Platformu</span>
                 </motion.div>
-              </motion.h1>
-              
-              <motion.p
-                className="text-base sm:text-lg md:text-xl text-slate-600 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto px-4 font-medium leading-relaxed"
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{ duration: 0.2, ease: "easeOut", delay: 0.5 }}
+
+                {/* Heading */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="space-y-4"
+                >
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-slate-900 dark:text-white">
+                    Türkiye'nin{' '}
+                    <span className="text-primary relative inline-block">
+                      üniversiteli
+                      <svg className="absolute -bottom-2 left-0 w-full h-3 text-primary/30" viewBox="0 0 200 12" preserveAspectRatio="none">
+                        <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3"/>
+                      </svg>
+                    </span>
+                    {' '}freelancer ekosistemi
+                  </h1>
+                </motion.div>
+
+                {/* Description */}
+                <motion.p
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="text-lg sm:text-xl text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
+                >
+                  Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
+                </motion.p>
+
+                {/* Services Tags */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="space-y-3"
+                >
+                  <p className="text-sm font-medium text-slate-500 dark:text-gray-400 uppercase tracking-wide">Hizmetlerimiz</p>
+                  <div className="flex flex-wrap gap-3">
+                    {services.map((service, index) => (
+                      <motion.div
+                        key={service.label}
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.6 + index * 0.1 }}
+                        className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-lg border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 group"
+                      >
+                        <service.icon className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="text-sm font-medium text-slate-700 dark:text-gray-300">{service.label}</span>
+                      </motion.div>
+                    ))}
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.6 + services.length * 0.1 }}
+                      className="flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-primary/10 to-cyan-400/10 dark:from-primary/20 dark:to-cyan-500/20 backdrop-blur-sm rounded-lg border border-primary/20 dark:border-primary/30"
+                    >
+                      <span className="text-sm font-medium text-primary">ve daha fazlası...</span>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
+                {/* CTA Buttons */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="flex flex-col sm:flex-row gap-4 pt-4"
+                >
+                  <motion.a
+                    href="/project-request"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span>Projenizi Başlatalım</span>
+                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </motion.a>
+
+                  <motion.a
+                    href="/portfolio"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-white/80 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span>Portfolyomuzu İnceleyin</span>
+                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  </motion.a>
+                </motion.div>
+              </motion.div>
+
+              {/* Right Image */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="relative lg:pl-8"
               >
-                Modern teknolojiler ve yaratıcı çözümlerle işletmenizi dijital dünyada öne çıkarıyoruz
-              </motion.p>
+                <div className="relative group">
+                  {/* Glow Effect */}
+                  <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-cyan-400/30 to-primary/30 dark:from-primary/40 dark:via-cyan-500/40 dark:to-primary/40 rounded-3xl blur-3xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
 
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 px-4">
-                <motion.a
-                  href="/project-request"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-medium transition-colors flex items-center justify-center space-x-2 group"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span>Projenizi Başlatalım</span>
-                  <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                </motion.a>
+                  {/* Main Image Container */}
+                  <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-slate-200/50 dark:ring-white/10">
+                    <motion.img
+                      src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
+                      alt="Unilancer Üniversiteli Freelancer Ekosistemi"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                      whileHover={{ scale: 1.02 }}
+                    />
+                    {/* Subtle Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-cyan-400/10 dark:from-primary/20 dark:to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  </div>
 
-                <motion.a
-                  href="/portfolio"
-                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-slate-100 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors flex items-center justify-center space-x-2 font-medium border border-slate-200 dark:border-white/10"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
+                  {/* Floating Decorative Elements */}
+                  <motion.div
+                    animate={{
+                      y: [0, -10, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary/20 to-cyan-400/20 dark:from-primary/30 dark:to-cyan-500/30 rounded-full blur-2xl"
+                  />
+                  <motion.div
+                    animate={{
+                      y: [0, 10, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 1
+                    }}
+                    className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-tr from-cyan-400/20 to-primary/20 dark:from-cyan-500/30 dark:to-primary/30 rounded-full blur-2xl"
+                  />
+                </div>
+
+                {/* Stats Badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.9 }}
+                  className="absolute -bottom-6 left-1/2 -translate-x-1/2 lg:left-8 lg:translate-x-0 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4"
                 >
-                  <span>Portfolyo</span>
-                  <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
-                </motion.a>
-              </div>
-            </motion.div>
+                  <div className="flex items-center gap-6">
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">500+</div>
+                      <div className="text-xs text-slate-600 dark:text-gray-400">Üniversiteli</div>
+                    </div>
+                    <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">100+</div>
+                      <div className="text-xs text-slate-600 dark:text-gray-400">Proje</div>
+                    </div>
+                    <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
+                    <div className="text-center">
+                      <div className="text-2xl font-bold text-primary">50+</div>
+                      <div className="text-xs text-slate-600 dark:text-gray-400">İş Ortağı</div>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
         </section>
 
