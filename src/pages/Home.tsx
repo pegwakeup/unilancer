@@ -74,7 +74,7 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-lg sm:text-xl text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
+                  className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
                 >
                   Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
                 </motion.p>
@@ -84,29 +84,29 @@ const Home = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="space-y-3"
+                  className="space-y-2"
                 >
-                  <p className="text-sm font-medium text-slate-500 dark:text-gray-400 uppercase tracking-wide">Hizmetlerimiz</p>
-                  <div className="flex flex-wrap gap-3">
+                  <p className="text-xs font-medium text-slate-400 dark:text-gray-500 uppercase tracking-wider">Hizmetlerimiz</p>
+                  <div className="flex flex-wrap gap-2">
                     {services.map((service, index) => (
                       <motion.div
                         key={service.label}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.6 + index * 0.1 }}
-                        className="flex items-center gap-2 px-4 py-2 bg-white/80 dark:bg-white/5 backdrop-blur-sm rounded-lg border border-slate-200 dark:border-white/10 shadow-sm hover:shadow-md hover:scale-105 transition-all duration-300 group"
+                        className="flex items-center gap-1.5 px-3 py-1.5 bg-white/70 dark:bg-white/5 backdrop-blur-sm rounded-md border border-slate-200 dark:border-white/10 hover:shadow-sm hover:scale-105 transition-all duration-300 group"
                       >
-                        <service.icon className="w-4 h-4 text-primary group-hover:scale-110 transition-transform" />
-                        <span className="text-sm font-medium text-slate-700 dark:text-gray-300">{service.label}</span>
+                        <service.icon className="w-3.5 h-3.5 text-primary group-hover:scale-110 transition-transform" />
+                        <span className="text-xs font-medium text-slate-600 dark:text-gray-400">{service.label}</span>
                       </motion.div>
                     ))}
                     <motion.div
                       initial={{ opacity: 0, scale: 0.8 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: 0.6 + services.length * 0.1 }}
-                      className="flex items-center gap-1 px-4 py-2 bg-gradient-to-r from-primary/10 to-cyan-400/10 dark:from-primary/20 dark:to-cyan-500/20 backdrop-blur-sm rounded-lg border border-primary/20 dark:border-primary/30"
+                      className="flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-primary/10 to-cyan-400/10 dark:from-primary/15 dark:to-cyan-500/15 backdrop-blur-sm rounded-md border border-primary/20 dark:border-primary/25"
                     >
-                      <span className="text-sm font-medium text-primary">ve daha fazlası...</span>
+                      <span className="text-xs font-medium text-primary">ve daha fazlası...</span>
                     </motion.div>
                   </div>
                 </motion.div>
@@ -148,44 +148,16 @@ const Home = () => {
                 className="relative lg:pl-8"
               >
                 <div className="relative group">
-                  {/* Glow Effect */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-primary/30 via-cyan-400/30 to-primary/30 dark:from-primary/40 dark:via-cyan-500/40 dark:to-primary/40 rounded-3xl blur-3xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
-
-                  {/* Main Image Container */}
+                  {/* Main Image Container - No background effects */}
                   <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                     <img
                       src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
                       alt="Unilancer Üniversiteli Freelancer Ekosistemi"
                       className="w-full h-auto object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     />
-                    {/* Subtle Overlay */}
+                    {/* Subtle Overlay on hover */}
                     <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 via-transparent to-cyan-400/10 dark:from-primary/20 dark:to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   </div>
-
-                  {/* Floating Decorative Elements */}
-                  <motion.div
-                    animate={{
-                      y: [0, -10, 0],
-                    }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-br from-primary/20 to-cyan-400/20 dark:from-primary/30 dark:to-cyan-500/30 rounded-full blur-2xl"
-                  />
-                  <motion.div
-                    animate={{
-                      y: [0, 10, 0],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: 1
-                    }}
-                    className="absolute -bottom-6 -left-6 w-32 h-32 bg-gradient-to-tr from-cyan-400/20 to-primary/20 dark:from-cyan-500/30 dark:to-primary/30 rounded-full blur-2xl"
-                  />
                 </div>
 
                 {/* Stats Badge */}
