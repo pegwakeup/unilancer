@@ -65,7 +65,8 @@ const Home = () => {
                         <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3"/>
                       </svg>
                     </span>
-                    {' '}freelancer ekosistemi
+                    <br />
+                    freelancer ekosistemi
                   </h1>
                 </motion.div>
 
