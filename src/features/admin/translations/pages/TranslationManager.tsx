@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import {
   Globe, RefreshCw, Search, Filter, CheckCircle, XCircle,
   AlertCircle, Download, Upload, Loader2
 } from 'lucide-react';
 import { supabase } from '../../../../lib/supabase';
+import { initializeStaticTranslations } from '../../../../lib/translations';
 
 interface Translation {
   id: string;
@@ -28,11 +29,7 @@ const TranslationManager = () => {
     en: 0,
   });
 
-  useEffect(() => {
-    loadTranslations();
-  }, []);
-
-  const loadTranslations = async () => {
+  const loadTranslations = useCallback(async () => {
     try {
       setLoading(true);
       const { data, error } = await supabase
@@ -57,7 +54,22 @@ const TranslationManager = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const initializeAndLoad = async () => {
+      setLoading(true);
+      try {
+        await initializeStaticTranslations();
+      } catch (error) {
+        console.error('Error initializing static translations:', error);
+      } finally {
+        await loadTranslations();
+      }
+    };
+
+    initializeAndLoad();
+  }, [loadTranslations]);
 
   const retranslateContent = async (contentKey: string, originalText: string) => {
     try {

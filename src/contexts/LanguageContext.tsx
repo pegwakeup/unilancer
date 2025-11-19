@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { detectUserLocation, markGeolocationDetected } from '../lib/geolocation';
+import { getStaticTranslation } from '../lib/translations';
 
 export type Language = 'tr' | 'en';
 
@@ -143,10 +144,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: string, fallback?: string): string => {
+    const staticFallback = getStaticTranslation(key, language);
+
     if (language === 'tr') {
-      return fallback || key;
+      return fallback || staticFallback || key;
     }
-    return translations[key] || fallback || key;
+
+    return translations[key] || staticFallback || fallback || key;
   };
 
   return (
