@@ -238,39 +238,57 @@ const Home = () => {
         {/* HERO */}
         <section
           id="hero"
-          className="min-h-[80vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
+          className="min-h-[85vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
               {/* Sol taraf */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="space-y-7"
+                className="space-y-8 flex flex-col justify-center"
               >
-                <div className="space-y-5">
-                  <h1 className="text-4xl sm:text-5xl lg:text-[3rem] font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
+                <div className="space-y-6">
+                  <h1 className="text-5xl sm:text-6xl lg:text-[3.5rem] xl:text-[4rem] font-bold leading-tight text-slate-900 dark:text-white">
                     {t('home.hero.mainTitle')}
-                    <span className="block bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
-                      {t('home.hero.mainTitleHighlight')}
+                    <span className="block relative inline-block mt-2">
+                      <span className="relative text-slate-900 dark:text-white">
+                        {t('home.hero.mainTitleHighlight')}
+                      </span>
+                      <svg
+                        className="absolute -bottom-2 left-0 w-full"
+                        height="12"
+                        viewBox="0 0 200 12"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        preserveAspectRatio="none"
+                      >
+                        <path
+                          d="M2 9C50 3 100 1 198 7"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                          className="text-primary"
+                        />
+                      </svg>
                     </span>
                   </h1>
 
-                  <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
+                  <p className="text-lg sm:text-xl lg:text-2xl text-slate-600 dark:text-gray-300 leading-relaxed">
                     {t('home.hero.mainDescription')}
                   </p>
 
-                  <div className="inline-flex items-center text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-3 py-1">
+                  <div className="inline-flex items-center text-sm sm:text-base text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-4 py-2">
                     <span className="mr-2 text-primary">•</span>
                     {t('home.hero.servicesNote')}
                   </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <div className="flex flex-col sm:flex-row gap-4 pt-2">
                   <motion.a
                     href="/project-request"
-                    className="inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+                    className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -280,7 +298,7 @@ const Home = () => {
 
                   <motion.a
                     href="#rapor"
-                    className="inline-flex items-center justify-center px-8 py-3.5 bg-white/90 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                    className="inline-flex items-center justify-center px-8 py-4 text-base sm:text-lg bg-white/90 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -288,7 +306,7 @@ const Home = () => {
                   </motion.a>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
+                <div className="flex flex-wrap items-center gap-3 text-sm sm:text-base text-slate-500 dark:text-gray-400">
                   <span>{t('home.hero.stats.projects')}</span>
                   <span className="text-slate-300 dark:text-white/20">•</span>
                   <span>{t('home.hero.stats.freelancers')}</span>
@@ -302,7 +320,7 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="flex justify-center lg:justify-end"
               >
-                <div className="relative w-full max-w-[480px] group cursor-pointer">
+                <div className="relative w-full max-w-[520px] group cursor-pointer">
                   <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <motion.img
                     src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
