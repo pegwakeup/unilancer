@@ -1,6 +1,15 @@
-import React from 'react';
+Şimdi şunları yaptım:
+
+* Ücretsiz Dijital Rapor bölümüne **Calendly inline widget** gömdüm (resmî snippet’in React uyumlu hâli).
+* Sayfa genelinde **daha interaktif** (hover / scroll animasyonları) ve **daha görselli**, ama yazılar biraz kısaltılmış.
+* Hero section’ı bir tık daha **rahat** ve net hale getirdim.
+
+Aşağıdaki kodu komple `Home.tsx` / `Home.jsx` içine yapıştırabilirsin:
+
+```tsx
+import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles, Globe, ShoppingCart, Palette, FileText, Search } from 'lucide-react';
+import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { LogosCarousel } from '../components/ui/logos-carousel';
 
 const services = [
@@ -12,7 +21,7 @@ const services = [
   {
     title: 'E-Ticaret Çözümleri',
     emoji: '🛒',
-    description: 'Hazır altyapılarla ya da özel geliştirmeyle ölçeklenebilir mağazalar.',
+    description: 'Hazır altyapı veya özel geliştirme ile satışa hazır mağazalar.',
   },
   {
     title: 'Grafik ve Tasarım',
@@ -22,12 +31,12 @@ const services = [
   {
     title: 'Mobil Uygulama ve SaaS',
     emoji: '📱',
-    description: 'MVP, panel, dashboard ve SaaS ürünleri için uçtan uca geliştirme.',
+    description: 'MVP, panel, dashboard ve SaaS ürünleri için geliştirme.',
   },
   {
     title: 'Pazarlama ve Reklam',
     emoji: '📢',
-    description: 'Performans reklamları, sosyal medya yönetimi ve içerik üretimi.',
+    description: 'Reklam yönetimi, sosyal medya, içerik üretimi.',
   },
   {
     title: '3D / AR',
@@ -37,27 +46,24 @@ const services = [
   {
     title: 'Yapay Zeka – Dijibot',
     emoji: '🤖',
-    description: 'Süreçlerinizi hızlandıran özel AI çözümleri ve chatbotlar.',
+    description: 'AI chatbotlar ve süreçleri hızlandıran akıllı çözümler.',
   },
 ];
 
 const audience = [
   {
     title: 'KOBİ ve İşletmeler',
-    description:
-      'Web sitesi, e-ticaret, kurumsal kimlik, 3D/AR ve reklam ihtiyaçlarını tek noktadan çözmek isteyen markalar.',
+    description: 'Web sitesi, e-ticaret ve dijital pazarlama ihtiyaçlarını tek noktadan çözmek isteyen markalar.',
     tag: 'Dijitalleşmek isteyen işletmeler',
   },
   {
     title: 'Ajanslar ve Startuplar',
-    description:
-      'Yoğun dönemlerde işi güvenilir bir ekibe outsource etmek isteyen ajanslar ve hızlı büyüyen girişimler.',
+    description: 'Yoğun dönemlerde işi güvenilir bir ekibe outsource etmek isteyen ajanslar ve hızlı büyüyen girişimler.',
     tag: 'Esnek kapasite & white-label üretim',
   },
   {
     title: 'Üniversiteli Freelancerlar',
-    description:
-      'Portföyünü büyütmek, gerçek müşterilerle proje yapmak ve düzenli gelir elde etmek isteyen öğrenciler.',
+    description: 'Portföyünü büyütmek ve gerçek müşterilerle proje yapmak isteyen öğrenciler.',
     tag: 'Seçilmiş ekipler & proje yönetimi',
   },
 ];
@@ -65,23 +71,19 @@ const audience = [
 const whyItems = [
   {
     title: 'Seçilmiş Üniversiteli Ekipler',
-    description:
-      'Fakülte, yetkinlik ve portföy kriterlerine göre seçilmiş ekiplerle çalışırsınız.',
+    description: 'Fakülte, yetkinlik ve portföy kriterlerine göre seçilmiş ekiplerle çalışırsınız.',
   },
   {
     title: 'Profesyonel Proje Yönetimi',
-    description:
-      'Deneyimli proje yöneticileri süreci uçtan uca yönetir, siz tek muhatapla ilerlersiniz.',
+    description: 'Süreç boyunca tek muhatabınız olan proje yöneticisi tüm adımları sizin yerinize koordine eder.',
   },
   {
     title: 'Şeffaf ve Erişilebilir Fiyatlar',
-    description:
-      'Freelancer esnekliğini kurumsal süreçle birleştiren, anlaşılır fiyat yapısı.',
+    description: 'Freelancer esnekliği ile kurumsal süreçleri birleştiren, anlaşılır fiyat yapısı.',
   },
   {
     title: 'Türkiyeyi Dijitalleştiriyoruz',
-    description:
-      'Markaları dijitalleştirirken genç yeteneklerin global seviyede üretmesini destekliyoruz.',
+    description: 'Markaları dijitalleştirirken genç yeteneklerin global seviyede üretmesini destekliyoruz.',
   },
 ];
 
@@ -92,26 +94,26 @@ const employerFaqs = [
   },
   {
     q: 'Fiyatlandırma nasıl belirleniyor?',
-    a: 'İş kapsamına göre freelancer ekibin maliyeti, proje yönetimi ve Unilancer payı şeffaf şekilde hesaplanıyor.',
+    a: 'İş kapsamına göre freelancer ekibi, proje yönetimi ve Unilancer payı şeffaf şekilde planlanıyor.',
   },
   {
     q: 'Teslim süreleri ne kadar?',
-    a: 'Standart web projeleri genellikle 3–6 hafta, daha karmaşık projeler kapsamına göre planlanıyor.',
+    a: 'Standart web projeleri genelde 3–6 hafta arasında tamamlanıyor. Daha karmaşık işler kapsamına göre planlanıyor.',
   },
   {
-    q: 'Süreçte tek muhatabım kim?',
-    a: 'Tüm süreci yöneten deneyimli bir proje yöneticisiyle çalışıyorsunuz.',
+    q: 'Tek muhatabım kim oluyor?',
+    a: 'Tüm süreci yöneten deneyimli bir proje yöneticisi ile çalışıyorsunuz.',
   },
   {
     q: 'Memnun kalmazsam ne oluyor?',
-    a: 'Revizyon süreçleri ve memnuniyet odaklı çözümlerle projenin hedefe ulaşmasını birlikte sağlıyoruz.',
+    a: 'Revizyon süreci ve memnuniyet odaklı yaklaşımımızla projenin hedefe ulaşmasını birlikte sağlıyoruz.',
   },
 ];
 
 const freelancerFaqs = [
   {
     q: 'Unilancer’a nasıl freelancer olarak katılabilirim?',
-    a: 'Başvuru formunu doldurup portföyünüzü yüklüyorsunuz, ekiplerimiz uygun profilleri seçip görüşmeye davet ediyor.',
+    a: 'Başvuru formunu doldurup portföyünüzü yüklüyorsunuz; uygun profilleri görüşmeye davet ediyoruz.',
   },
   {
     q: 'Projeler nasıl dağıtılıyor?',
@@ -123,13 +125,37 @@ const freelancerFaqs = [
   },
   {
     q: 'Sadece öğrenciler mi başvurabiliyor?',
-    a: 'Ana odağımız üniversiteli yetenekler; ancak bazı kategorilerde mezun profillere de kapımız açık.',
+    a: 'Ana odağımız üniversiteliler; bazı kategorilerde mezun profillere de yer verebiliyoruz.',
   },
   {
     q: 'Tam zamanlı çalışmak zorunda mıyım?',
-    a: 'Hayır. Proje bazlı, esnek çalışma modelini destekliyoruz.',
+    a: 'Hayır, proje bazlı ve esnek çalışma modelini destekliyoruz.',
   },
 ];
+
+// Calendly inline embed bileşeni
+const CalendlyInline = () => {
+  useEffect(() => {
+    const existingScript = document.querySelector(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    ) as HTMLScriptElement | null;
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div
+      className="calendly-inline-widget rounded-2xl"
+      data-url="https://calendly.com/taha-unilancerlabs/30min"
+      style={{ minWidth: '320px', height: '700px' }}
+    />
+  );
+};
 
 const Home = () => {
   return (
@@ -171,9 +197,8 @@ const Home = () => {
                   </h1>
 
                   <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
-                    Unilancer’da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri
-                    uçtan uca yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı
-                    sağlarsınız.
+                    Seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri süreci uçtan uca yönetir;
+                    siz uygun bütçeyle güvenle dijitalleşirsiniz.
                   </p>
 
                   <div className="inline-flex items-center text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-3 py-1">
@@ -204,8 +229,8 @@ const Home = () => {
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                  <span>100+ tamamlanmış proje</span>
-                  <span className="hidden sm:inline text-slate-300 dark:text-white/20">•</span>
+                  <span>100+ proje</span>
+                  <span className="text-slate-300 dark:text-white/20">•</span>
                   <span>500+ üniversiteli freelancer ekosistemi</span>
                 </div>
               </motion.div>
@@ -238,8 +263,7 @@ const Home = () => {
                 Kimin için?
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                Unilancer, hem işverenler hem de üniversiteli freelancerlar için tasarlanmış bir
-                ekosistemdir.
+                Unilancer, hem işverenler hem de üniversiteli freelancerlar için tasarlanmış bir ekosistemdir.
               </p>
             </div>
 
@@ -251,7 +275,7 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
-                  className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md transition-shadow p-5 flex flex-col"
+                  className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-5 flex flex-col"
                 >
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                     {item.title}
@@ -269,7 +293,10 @@ const Home = () => {
         </section>
 
         {/* PARTNERLER */}
-        <section id="partnerler" className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5">
+        <section
+          id="partnerler"
+          className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
@@ -292,7 +319,7 @@ const Home = () => {
                   Neden Unilancer?
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  Freelancer esnekliği ile kurumsal proje yönetimini tek çatı altında topluyoruz.
+                  Freelancer esnekliğini kurumsal proje yönetimiyle buluşturuyoruz.
                 </p>
               </div>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
@@ -311,7 +338,7 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.35 }}
-                  className="rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 p-5 shadow-sm"
+                  className="rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
                 >
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
                     {item.title}
@@ -325,13 +352,10 @@ const Home = () => {
           </div>
         </section>
 
-        {/* ÜCRETSİZ DİJİTAL RAPOR */}
-        <section
-          id="rapor"
-          className="py-12 md:py-16"
-        >
+        {/* ÜCRETSİZ DİJİTAL RAPOR + CALENDLY */}
+        <section id="rapor" className="py-12 md:py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid gap-8 lg:grid-cols-2 items-center">
+            <div className="grid gap-8 lg:grid-cols-2 items-start">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -343,10 +367,17 @@ const Home = () => {
                   Ücretsiz Dijital Raporunuzu Alın
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  Web sitenizden sosyal medya hesaplarınıza, reklamlarınızdan 3D/AR entegrasyonlarına kadar
-                  dijital varlığınızı inceliyoruz. Sektörünüzü ve rakiplerinizi analiz edip size özel bir yol
-                  haritası çıkarıyoruz.
+                  Web sitenizden sosyal medya hesaplarınıza kadar dijital varlığınızı inceliyor,
+                  sektörünüzü ve rakiplerinizi analiz ediyor, size kısa ve net bir yol haritası çıkarıyoruz.
                 </p>
+
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-gray-300">
+                  <li>• Web & e-ticaret kontrolleri</li>
+                  <li>• Sosyal medya & içerik analizi</li>
+                  <li>• Reklam & SEO hazırlık durumu</li>
+                  <li>• İlk 30 gün için aksiyon listesi</li>
+                </ul>
+
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
                   <span className="mr-2 text-primary">
                     <Sparkles className="w-3.5 h-3.5" />
@@ -354,18 +385,9 @@ const Home = () => {
                   Beyin Göçü Yerine Hizmet İhracatı
                 </div>
 
-                <div className="pt-4 flex flex-wrap gap-3">
-                  <a
-                    href="/project-request"
-                    className="inline-flex items-center justify-center px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl text-sm font-semibold shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/30 transition-all group"
-                  >
-                    <span>Ücretsiz Raporum Olsun</span>
-                    <ArrowUpRight className="w-4 h-4 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </a>
-                  <span className="text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                    Ortalama hazırlama süresi 2–3 iş günü.
-                  </span>
-                </div>
+                <p className="pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
+                  Görüşmenizi seçin, kalan her şeyi biz hazırlayalım.
+                </p>
               </motion.div>
 
               <motion.div
@@ -373,46 +395,21 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="rounded-3xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-xl p-6 md:p-7"
+                className="rounded-3xl bg-white/95 dark:bg-dark-light/95 border border-slate-200/70 dark:border-white/10 shadow-xl p-4 md:p-5"
               >
-                <div className="grid gap-4 text-sm text-slate-700 dark:text-gray-200">
-                  <div className="flex items-start justify-between gap-3 border-b border-slate-100/80 dark:border-white/5 pb-3">
-                    <div>
-                      <div className="font-semibold">Web Sitesi Skoru</div>
-                      <div className="text-xs text-slate-500 dark:text-gray-400">
-                        Hız, UX ve teknik altyapı analizi
-                      </div>
-                    </div>
-                    <span className="text-sm font-semibold text-primary">78 / 100</span>
-                  </div>
-                  <div className="flex items-start justify-between gap-3 border-b border-slate-100/80 dark:border-white/5 pb-3">
-                    <div>
-                      <div className="font-semibold">Sosyal Medya & İçerik</div>
-                      <div className="text-xs text-slate-500 dark:text-gray-400">
-                        İçerik tutarlılığı, görsel dil ve etkileşim
-                      </div>
-                    </div>
-                    <span className="text-sm font-semibold text-primary">B+</span>
-                  </div>
-                  <div className="flex items-start justify-between gap-3 border-b border-slate-100/80 dark:border-white/5 pb-3">
-                    <div>
-                      <div className="font-semibold">Reklam ve SEO Hazırlığı</div>
-                      <div className="text-xs text-slate-500 dark:text-gray-400">
-                        Arama görünürlüğü ve reklam altyapısı
-                      </div>
-                    </div>
-                    <span className="text-sm font-semibold text-primary">Hazır</span>
-                  </div>
-                  <div className="flex items-start justify-between gap-3">
-                    <div>
-                      <div className="font-semibold">Öncelikli Aksiyon Listesi</div>
-                      <div className="text-xs text-slate-500 dark:text-gray-400">
-                        İlk 30 günde atılması gereken adımlar
-                      </div>
-                    </div>
-                    <span className="text-sm font-semibold text-primary">+10 madde</span>
+                <div className="mb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white">
+                      30 Dakikalık Dijital Analiz Görüşmesi
+                    </h3>
+                    <p className="text-xs md:text-sm text-slate-500 dark:text-gray-300">
+                      Takviminizden uygun zamanı seçin.
+                    </p>
                   </div>
                 </div>
+
+                {/* Calendly inline widget */}
+                <CalendlyInline />
               </motion.div>
             </div>
           </div>
@@ -426,8 +423,7 @@ const Home = () => {
                 DigitAll hizmetlerimiz
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                Markanızın dijital yolculuğunun her adımı için, uzman üniversiteli ekiplerle
-                uçtan uca çözümler sunuyoruz.
+                Markanızın dijital yolculuğunun her adımı için, uzman üniversiteli ekiplerle uçtan uca çözümler sunuyoruz.
               </p>
             </div>
 
@@ -459,29 +455,31 @@ const Home = () => {
         </section>
 
         {/* SSS */}
-        <section id="sss" className="py-12 md:py-16 border-t border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-dark/60">
+        <section
+          id="sss"
+          className="py-12 md:py-16 border-t border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-dark/60"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 Sık Sorulan Sorular
               </h2>
               <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Hem iş verenler hem de freelancerlar için süreci şeffaf ve anlaşılır kılmaya
-                çalışıyoruz.
+                Hem iş verenler hem de freelancerlar için süreci şeffaf ve anlaşılır kılmaya çalışıyoruz.
               </p>
             </div>
 
             <div className="grid gap-8 md:grid-cols-2">
               {/* İş Veren */}
               <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text:white mb-4">
                   İş Veren
                 </h3>
                 <div className="space-y-3">
                   {employerFaqs.map((item) => (
                     <div
                       key={item.q}
-                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200"
+                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200 hover:-translate-y-0.5 hover:shadow-md transition-all"
                     >
                       <div className="font-semibold mb-1">{item.q}</div>
                       <div className="text-xs sm:text-[13px] text-slate-600 dark:text-gray-300">
@@ -494,14 +492,14 @@ const Home = () => {
 
               {/* Freelancer */}
               <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text:white mb-4">
                   Freelancer
                 </h3>
                 <div className="space-y-3">
                   {freelancerFaqs.map((item) => (
                     <div
                       key={item.q}
-                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200"
+                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200 hover:-translate-y-0.5 hover:shadow-md transition-all"
                     >
                       <div className="font-semibold mb-1">{item.q}</div>
                       <div className="text-xs sm:text-[13px] text-slate-600 dark:text-gray-300">
@@ -535,3 +533,6 @@ const Home = () => {
 };
 
 export default Home;
+```
+
+Eğer istersen bir sonraki adımda sadece **hero + “Ücretsiz Dijital Rapor”** bölümlerinin ekran görüntüsünü at, “çok mu boş / çok mu dolu” diye beraber inceleyip yazıyı daha da kısaltabiliriz.
