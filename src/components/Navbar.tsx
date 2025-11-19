@@ -165,21 +165,24 @@ const Navbar = () => {
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center space-x-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+            className="flex items-center space-x-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             onClick={scrollToTop}
           >
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative"
+              className="relative flex items-center"
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative flex items-center h-10">
-                <span className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"Space Grotesk", "Inter", sans-serif' }}>
-                  <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">digit</span>
-                  <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 dark:from-blue-400 dark:via-blue-500 dark:to-cyan-400 bg-clip-text text-transparent font-extrabold">All</span>
-                </span>
-              </div>
+              <img
+                src="/images/Unilancer logo 2.webp"
+                alt="Unilancer"
+                className="relative h-10 w-auto object-contain"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/unilancer-logo.png';
+                }}
+              />
             </motion.div>
           </Link>
 
@@ -219,59 +222,95 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden"
-                      style={{ width: '800px', maxWidth: '95vw' }}
+                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3"
+                      style={{ width: '1100px', maxWidth: '95vw' }}
                     >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
-                        <div className="relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 dark:from-primary/10 dark:via-primary/20 dark:to-primary/10 p-8 flex flex-col items-center justify-center border-r border-slate-200/50 dark:border-white/5">
-                          <div className="relative w-full max-w-[280px] mb-6">
-                            <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl"></div>
-                            <img
-                              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
-                              alt="Digital Services"
-                              className="relative rounded-2xl shadow-xl w-full h-48 object-cover"
-                            />
-                          </div>
-                          <div className="text-center space-y-4 w-full">
-                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                              {t('nav.getFreeReport')}
-                            </h3>
-                            <motion.button
-                              onClick={() => {
-                                setIsServicesOpen(false);
-                                setIsCalendlyOpen(true);
-                              }}
-                              className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg hover:shadow-xl"
-                              whileHover={{ scale: 1.02 }}
-                              whileTap={{ scale: 0.98 }}
-                            >
-                              <Calendar className="w-5 h-5" />
-                              <span>{t('nav.scheduleConsultation')}</span>
-                            </motion.button>
-                          </div>
-                        </div>
+                      <div className="bg-white dark:bg-dark-light/98 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden">
+                        <div className="p-8">
+                          <div className="grid grid-cols-12 gap-8">
+                            <div className="col-span-8">
+                              <div className="mb-6">
+                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                                  digitAll Hizmetlerimiz
+                                </h3>
+                                <p className="text-sm text-slate-600 dark:text-gray-400">
+                                  Dijital dönüşümünüz için kapsamlı çözümler
+                                </p>
+                              </div>
 
-                        <div className="p-6">
-                          <div className="grid grid-cols-2 gap-3">
-                            {digitAllServices.map((service, index) => (
-                              <Link
-                                key={index}
-                                to={service.path}
-                                className="flex flex-col items-center space-y-2 p-4 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition-all group border border-transparent hover:border-primary/20"
-                                onClick={() => {
-                                  setIsServicesOpen(false);
-                                  scrollToTop();
-                                }}
-                              >
-                                <div className="w-12 h-12 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                                  <service.icon className="w-5 h-5 text-primary" />
+                              <div className="grid grid-cols-4 gap-4">
+                                {digitAllServices.map((service, index) => (
+                                  <Link
+                                    key={index}
+                                    to={service.path}
+                                    className="group relative"
+                                    onClick={() => {
+                                      setIsServicesOpen(false);
+                                      scrollToTop();
+                                    }}
+                                  >
+                                    <div className="relative p-5 rounded-2xl bg-slate-50/80 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 hover:border-primary/30 dark:hover:border-primary/30 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                                      <div className="flex flex-col items-center text-center space-y-3">
+                                        <div className="relative">
+                                          <div className="absolute inset-0 bg-primary/20 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                          <div className="relative w-14 h-14 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                            <service.icon className="w-6 h-6 text-primary" />
+                                          </div>
+                                        </div>
+                                        <div>
+                                          <p className="text-sm font-semibold text-slate-800 dark:text-gray-200 group-hover:text-primary dark:group-hover:text-primary transition-colors leading-tight">
+                                            {service.label}
+                                          </p>
+                                        </div>
+                                      </div>
+                                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 via-primary/0 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                    </div>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div className="col-span-4 relative">
+                              <div className="sticky top-0">
+                                <div className="relative h-full bg-gradient-to-br from-primary/10 via-primary/5 to-transparent dark:from-primary/20 dark:via-primary/10 dark:to-transparent rounded-2xl p-6 border border-primary/20 dark:border-primary/30">
+                                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl" />
+
+                                  <div className="relative space-y-6">
+                                    <div className="relative w-full h-40 rounded-xl overflow-hidden shadow-lg">
+                                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 dark:from-primary/30 dark:to-primary/10" />
+                                      <img
+                                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
+                                        alt="Digital Services"
+                                        className="w-full h-full object-cover mix-blend-overlay opacity-80"
+                                      />
+                                    </div>
+
+                                    <div className="space-y-3">
+                                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                                        {t('nav.getFreeReport')}
+                                      </h4>
+                                      <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
+                                        Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
+                                      </p>
+
+                                      <motion.button
+                                        onClick={() => {
+                                          setIsServicesOpen(false);
+                                          setIsCalendlyOpen(true);
+                                        }}
+                                        className="w-full flex items-center justify-center space-x-2 px-5 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg hover:shadow-xl group"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                      >
+                                        <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                        <span>{t('nav.scheduleConsultation')}</span>
+                                      </motion.button>
+                                    </div>
+                                  </div>
                                 </div>
-                                <span className="text-sm text-center text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors font-medium leading-tight">
-                                  {service.label}
-                                </span>
-                              </Link>
-                            ))}
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
