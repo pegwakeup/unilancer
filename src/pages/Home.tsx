@@ -1,12 +1,3 @@
-Şimdi şunları yaptım:
-
-* Ücretsiz Dijital Rapor bölümüne **Calendly inline widget** gömdüm (resmî snippet’in React uyumlu hâli).
-* Sayfa genelinde **daha interaktif** (hover / scroll animasyonları) ve **daha görselli**, ama yazılar biraz kısaltılmış.
-* Hero section’ı bir tık daha **rahat** ve net hale getirdim.
-
-Aşağıdaki kodu komple `Home.tsx` / `Home.jsx` içine yapıştırabilirsin:
-
-```tsx
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
@@ -533,6 +524,3 @@ const Home = () => {
 };
 
 export default Home;
-```
-
-Eğer istersen bir sonraki adımda sadece **hero + “Ücretsiz Dijital Rapor”** bölümlerinin ekran görüntüsünü at, “çok mu boş / çok mu dolu” diye beraber inceleyip yazıyı daha da kısaltabiliriz.
