@@ -222,92 +222,91 @@ const Navbar = () => {
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3"
-                      style={{ width: '1100px', maxWidth: '95vw' }}
+                      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                      className="absolute top-full mt-3"
+                      style={{
+                        width: '1100px',
+                        maxWidth: '95vw',
+                        left: '50%',
+                        transform: 'translateX(-50%)'
+                      }}
                     >
-                      <div className="bg-white/98 dark:bg-dark-light/98 backdrop-blur-2xl rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden">
-                        <div className="p-8">
-                          <div className="grid grid-cols-12 gap-8">
+                      <div className="bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+                        <div className="p-6">
+                          <div className="grid grid-cols-12 gap-6">
                             <div className="col-span-8">
-                              <div className="mb-7">
-                                <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
+                              <div className="mb-5">
+                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1.5">
                                   <span className="text-slate-900 dark:text-white">digit</span>
-                                  <span className="text-primary dark:text-primary">All</span> Hizmetlerimiz
+                                  <span className="text-primary">All</span> Hizmetlerimiz
                                 </h3>
-                                <p className="text-sm text-slate-600 dark:text-gray-400">
+                                <p className="text-xs text-slate-600 dark:text-slate-400">
                                   Dijital dönüşümünüz için kapsamlı çözümler
                                 </p>
                               </div>
 
-                              <div className="grid grid-cols-4 gap-4">
+                              <div className="grid grid-cols-4 gap-3">
                                 {digitAllServices.map((service, index) => (
                                   <Link
                                     key={index}
                                     to={service.path}
-                                    className="group relative"
+                                    className="group relative block"
                                     onClick={() => {
                                       setIsServicesOpen(false);
                                       scrollToTop();
                                     }}
                                   >
-                                    <div className="relative p-5 rounded-2xl bg-white dark:bg-dark/50 border border-slate-200 dark:border-white/10 hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-300 hover:shadow-xl dark:hover:shadow-primary/20 hover:-translate-y-1">
-                                      <div className="flex flex-col items-center text-center space-y-3">
+                                    <div className="relative p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 will-change-transform">
+                                      <div className="flex flex-col items-center text-center space-y-2.5">
                                         <div className="relative">
-                                          <div className="absolute inset-0 bg-primary/20 dark:bg-primary/30 rounded-xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                                          <div className="relative w-14 h-14 bg-gradient-to-br from-primary/15 to-primary/5 dark:from-primary/25 dark:to-primary/15 rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-300">
-                                            <service.icon className="w-6 h-6 text-primary dark:text-primary" />
+                                          <div className="absolute inset-0 bg-primary/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                                          <div className="relative w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
+                                            <service.icon className="w-5 h-5 text-primary" />
                                           </div>
                                         </div>
-                                        <div>
-                                          <p className="text-sm font-semibold text-slate-800 dark:text-gray-200 group-hover:text-primary dark:group-hover:text-primary transition-colors leading-tight">
-                                            {service.label}
-                                          </p>
-                                        </div>
+                                        <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors leading-tight">
+                                          {service.label}
+                                        </p>
                                       </div>
-                                      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/0 via-primary/0 to-primary/5 dark:to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                     </div>
                                   </Link>
                                 ))}
                               </div>
                             </div>
 
-                            <div className="col-span-4 relative">
-                              <div className="sticky top-0">
-                                <div className="relative h-full bg-gradient-to-br from-primary/8 via-primary/4 to-transparent dark:from-primary/15 dark:via-primary/8 dark:to-transparent rounded-2xl p-6 border border-primary/25 dark:border-primary/30 shadow-inner">
-                                  <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent dark:from-primary/10 dark:to-transparent rounded-2xl" />
+                            <div className="col-span-4">
+                              <div className="relative h-full bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded-xl p-5 border border-primary/20 dark:border-primary/30">
+                                <div className="space-y-4">
+                                  <div className="relative w-full h-36 rounded-lg overflow-hidden shadow-md">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10" />
+                                    <img
+                                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
+                                      alt="Digital Services"
+                                      className="w-full h-full object-cover opacity-70"
+                                      loading="lazy"
+                                    />
+                                  </div>
 
-                                  <div className="relative space-y-5">
-                                    <div className="relative w-full h-40 rounded-xl overflow-hidden shadow-lg ring-1 ring-primary/10 dark:ring-primary/20">
-                                      <div className="absolute inset-0 bg-gradient-to-br from-primary/25 to-primary/10 dark:from-primary/35 dark:to-primary/15" />
-                                      <img
-                                        src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
-                                        alt="Digital Services"
-                                        className="w-full h-full object-cover opacity-70 dark:opacity-60"
-                                      />
-                                    </div>
+                                  <div className="space-y-2.5">
+                                    <h4 className="text-base font-bold text-slate-900 dark:text-white">
+                                      {t('nav.getFreeReport')}
+                                    </h4>
+                                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                      Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
+                                    </p>
 
-                                    <div className="space-y-3">
-                                      <h4 className="text-lg font-bold text-slate-900 dark:text-white">
-                                        {t('nav.getFreeReport')}
-                                      </h4>
-                                      <p className="text-sm text-slate-600 dark:text-gray-400 leading-relaxed">
-                                        Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
-                                      </p>
-
-                                      <motion.button
-                                        onClick={() => {
-                                          setIsServicesOpen(false);
-                                          setIsCalendlyOpen(true);
-                                        }}
-                                        className="w-full flex items-center justify-center space-x-2 px-5 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg hover:shadow-xl hover:shadow-primary/30 group"
-                                        whileHover={{ scale: 1.02 }}
-                                        whileTap={{ scale: 0.98 }}
-                                      >
-                                        <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-                                        <span>{t('nav.scheduleConsultation')}</span>
-                                      </motion.button>
-                                    </div>
+                                    <motion.button
+                                      onClick={() => {
+                                        setIsServicesOpen(false);
+                                        setIsCalendlyOpen(true);
+                                      }}
+                                      className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg transition-all font-semibold shadow-md hover:shadow-lg group"
+                                      whileHover={{ scale: 1.02 }}
+                                      whileTap={{ scale: 0.98 }}
+                                    >
+                                      <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+                                      <span className="text-sm">{t('nav.scheduleConsultation')}</span>
+                                    </motion.button>
                                   </div>
                                 </div>
                               </div>
