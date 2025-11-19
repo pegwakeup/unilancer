@@ -1,3 +1,6 @@
+// LEGACY / UNUSED COMPONENT
+// Şu anda projede kullanılmıyor, gelecekte referans için saklanıyor.
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Milestone, ArrowRight, Zap } from 'lucide-react';

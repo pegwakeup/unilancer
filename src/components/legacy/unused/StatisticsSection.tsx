@@ -1,3 +1,6 @@
+// LEGACY / UNUSED COMPONENT
+// Şu anda projede kullanılmıyor, gelecekte referans için saklanıyor.
+
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Users, Code2, Award, Globe, Zap, Target } from 'lucide-react';

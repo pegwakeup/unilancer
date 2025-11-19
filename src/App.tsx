@@ -1,12 +1,12 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import PrivateRoute from './components/PrivateRoute';
 import { PrivacyTermsProvider } from './components/ui/privacy-terms-provider';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import SiteLayout from './components/layout/SiteLayout';
+import AdminLayout from './features/admin/components/layout/AdminLayout';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -22,7 +22,13 @@ const Contact = lazy(() => import('./pages/Contact'));
 const ThreeDARVirtualTour = lazy(() => import('./pages/ThreeDARVirtualTour'));
 
 // Admin routes
-const AdminRoutes = lazy(() => import('./features/admin/routes'));
+const BlogAdminPage = lazy(() => import('./features/admin/blog/pages/BlogAdminPage'));
+const BlogEditor = lazy(() => import('./features/admin/blog/pages/BlogEditor'));
+const PortfolioAdminPage = lazy(() => import('./features/admin/portfolio/pages/PortfolioAdminPage'));
+const PortfolioEditor = lazy(() => import('./features/admin/portfolio/pages/PortfolioEditor'));
+const FreelancerList = lazy(() => import('./features/admin/freelancers/pages/FreelancerList'));
+const ProjectRequestsPage = lazy(() => import('./features/admin/project-requests/pages/ProjectRequestsPage'));
+const TranslationManager = lazy(() => import('./features/admin/translations/pages/TranslationManager'));
 
 // Scroll to top component
 function ScrollToTop() {
@@ -45,29 +51,6 @@ const PageLoader = () => (
   </div>
 );
 
-// Layout wrapper component
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  const location = useLocation();
-  const isAdminRoute = location.pathname.startsWith('/admin');
-  const isLoginRoute = location.pathname.includes('/login');
-  const isFormRoute = location.pathname.includes('/join') ||
-                       location.pathname.includes('/project-request') ||
-                       location.pathname.includes('/basvuru') ||
-                       location.pathname.includes('/proje-talebi');
-
-  if (isAdminRoute || isLoginRoute || isFormRoute) {
-    return <>{children}</>;
-  }
-
-  return (
-    <>
-      <Navbar />
-      {children}
-      <Footer />
-    </>
-  );
-};
-
 function App() {
   return (
     <HelmetProvider>
@@ -77,9 +60,9 @@ function App() {
             <PrivacyTermsProvider>
               <ScrollToTop />
               <div className="min-h-screen bg-white dark:bg-dark text-slate-900 dark:text-white font-sans transition-colors duration-300">
-                <Layout>
-                  <Suspense fallback={<PageLoader />}>
-                    <Routes>
+                <Suspense fallback={<PageLoader />}>
+                  <Routes>
+                    <Route element={<SiteLayout />}>
                       {/* Turkish routes */}
                       <Route path="/tr" element={<Home />} />
                       <Route path="/tr/portfolyo" element={<Portfolio />} />
@@ -88,8 +71,6 @@ function App() {
                       <Route path="/tr/hakkimizda" element={<About />} />
                       <Route path="/tr/blog" element={<Blog />} />
                       <Route path="/tr/blog/:slug" element={<BlogDetail />} />
-                      <Route path="/tr/basvuru" element={<JoinUs />} />
-                      <Route path="/tr/proje-talebi" element={<ProjectRequest />} />
                       <Route path="/tr/iletisim" element={<Contact />} />
 
                       {/* English routes */}
@@ -100,40 +81,69 @@ function App() {
                       <Route path="/en/about" element={<About />} />
                       <Route path="/en/blog" element={<Blog />} />
                       <Route path="/en/blog/:slug" element={<BlogDetail />} />
-                      <Route path="/en/join" element={<JoinUs />} />
-                      <Route path="/en/project-request" element={<ProjectRequest />} />
                       <Route path="/en/contact" element={<Contact />} />
+                    </Route>
 
-                      {/* Legacy routes - redirect to Turkish */}
-                      <Route path="/portfolio" element={<Navigate to="/tr/portfolyo" replace />} />
-                      <Route path="/services" element={<Navigate to="/tr/hizmetler" replace />} />
-                      <Route path="/digitall/3d-ar-sanal-tur" element={<Navigate to="/tr/digitall/3d-ar-sanal-tur" replace />} />
-                      <Route path="/about" element={<Navigate to="/tr/hakkimizda" replace />} />
-                      <Route path="/blog" element={<Navigate to="/tr/blog" replace />} />
-                      <Route path="/blog/:slug" element={<Navigate to="/tr/blog/:slug" replace />} />
-                      <Route path="/join" element={<Navigate to="/tr/basvuru" replace />} />
-                      <Route path="/project-request" element={<Navigate to="/tr/proje-talebi" replace />} />
-                      <Route path="/contact" element={<Navigate to="/tr/iletisim" replace />} />
+                    {/* Form routes without navbar/footer */}
+                    <Route path="/tr/basvuru" element={<JoinUs />} />
+                    <Route path="/tr/proje-talebi" element={<ProjectRequest />} />
+                    <Route path="/en/join" element={<JoinUs />} />
+                    <Route path="/en/project-request" element={<ProjectRequest />} />
 
-                      {/* Admin routes - language independent */}
-                      <Route path="/login" element={<Login />} />
-                      <Route
-                        path="/admin/*"
-                        element={
-                          <PrivateRoute>
-                            <AdminRoutes />
-                          </PrivateRoute>
-                        }
-                      />
+                    {/* Admin routes - language independent */}
+                    <Route path="/login" element={<Login />} />
+                    <Route
+                      path="/admin/*"
+                      element={
+                        <PrivateRoute>
+                          <AdminLayout />
+                        </PrivateRoute>
+                      }
+                    >
+                      {/* Default redirect */}
+                      <Route index element={<Navigate to="/admin/blog" replace />} />
 
-                      {/* Root redirect to Turkish */}
-                      <Route path="/" element={<Navigate to="/tr" replace />} />
+                      {/* Blog routes */}
+                      <Route path="blog" element={<BlogAdminPage />} />
+                      <Route path="blog/new" element={<BlogEditor />} />
+                      <Route path="blog/edit/:id" element={<BlogEditor />} />
 
-                      {/* Catch all route - redirect to Turkish home */}
-                      <Route path="*" element={<Navigate to="/tr" replace />} />
-                    </Routes>
-                  </Suspense>
-                </Layout>
+                      {/* Portfolio routes */}
+                      <Route path="portfolio" element={<PortfolioAdminPage />} />
+                      <Route path="portfolio/new" element={<PortfolioEditor />} />
+                      <Route path="portfolio/edit/:id" element={<PortfolioEditor />} />
+
+                      {/* Freelancer routes */}
+                      <Route path="freelancers" element={<FreelancerList />} />
+
+                      {/* Project Requests routes */}
+                      <Route path="project-requests" element={<ProjectRequestsPage />} />
+
+                      {/* Translation Management routes */}
+                      <Route path="translations" element={<TranslationManager />} />
+
+                      {/* Fallback redirect */}
+                      <Route path="*" element={<Navigate to="/admin/blog" replace />} />
+                    </Route>
+
+                    {/* Legacy routes - redirect to Turkish */}
+                    <Route path="/portfolio" element={<Navigate to="/tr/portfolyo" replace />} />
+                    <Route path="/services" element={<Navigate to="/tr/hizmetler" replace />} />
+                    <Route path="/digitall/3d-ar-sanal-tur" element={<Navigate to="/tr/digitall/3d-ar-sanal-tur" replace />} />
+                    <Route path="/about" element={<Navigate to="/tr/hakkimizda" replace />} />
+                    <Route path="/blog" element={<Navigate to="/tr/blog" replace />} />
+                    <Route path="/blog/:slug" element={<Navigate to="/tr/blog/:slug" replace />} />
+                    <Route path="/join" element={<Navigate to="/tr/basvuru" replace />} />
+                    <Route path="/project-request" element={<Navigate to="/tr/proje-talebi" replace />} />
+                    <Route path="/contact" element={<Navigate to="/tr/iletisim" replace />} />
+
+                    {/* Root redirect to Turkish */}
+                    <Route path="/" element={<Navigate to="/tr" replace />} />
+
+                    {/* Catch all route - redirect to Turkish home */}
+                    <Route path="*" element={<Navigate to="/tr" replace />} />
+                  </Routes>
+                </Suspense>
               </div>
             </PrivacyTermsProvider>
           </LanguageProvider>

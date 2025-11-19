@@ -1,3 +1,6 @@
+// LEGACY / UNUSED COMPONENT
+// Şu anda projede kullanılmıyor, gelecekte referans için saklanıyor.
+
 import React, { useEffect, useRef } from 'react';
 import '@google/model-viewer';
 
