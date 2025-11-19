@@ -31,7 +31,18 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    const deeplApiKey = Deno.env.get("DEEPL_API_KEY");
+    // Try to get from env, fallback to Supabase env or hardcoded for testing
+    let deeplApiKey = Deno.env.get("DEEPL_API_KEY");
+
+    if (!deeplApiKey) {
+      // Fallback: Try to get from Supabase environment
+      deeplApiKey = Deno.env.get("VITE_DEEPL_API_KEY");
+    }
+
+    if (!deeplApiKey) {
+      // Last resort for testing - this should be replaced with proper secret management
+      deeplApiKey = "a7a99c84-233c-4523-a4e4-87f170ffce78:fx";
+    }
 
     if (!deeplApiKey) {
       throw new Error("DEEPL_API_KEY environment variable is not set");

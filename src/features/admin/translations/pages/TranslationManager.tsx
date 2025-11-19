@@ -133,7 +133,9 @@ const TranslationManager = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Batch translation failed');
+        const errorText = await response.text();
+        console.error('Translation API Error:', errorText);
+        throw new Error(`Batch translation failed: ${errorText}`);
       }
 
       const result = await response.json();
