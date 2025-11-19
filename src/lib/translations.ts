@@ -1200,6 +1200,324 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
   'nav.scheduleConsultation': {
     tr: 'Görüşme Ayarlayın',
     en: 'Schedule Consultation'
+  },
+
+  // Blog Category Translations
+  'blog.category.all': {
+    tr: 'Tümü',
+    en: 'All'
+  },
+  'blog.category.technology': {
+    tr: 'Teknoloji',
+    en: 'Technology'
+  },
+  'blog.category.design': {
+    tr: 'Tasarım',
+    en: 'Design'
+  },
+  'blog.category.ai': {
+    tr: 'Yapay Zeka',
+    en: 'Artificial Intelligence'
+  },
+  'blog.category.webDevelopment': {
+    tr: 'Web Geliştirme',
+    en: 'Web Development'
+  },
+  'blog.category.mobile': {
+    tr: 'Mobil',
+    en: 'Mobile'
+  },
+  'blog.search.placeholder': {
+    tr: 'Blog yazılarında ara...',
+    en: 'Search blog posts...'
+  },
+  'blog.loadMore': {
+    tr: 'Daha Fazla Yükle',
+    en: 'Load More'
+  },
+  'blog.backToTop': {
+    tr: 'Başa Dön',
+    en: 'Back to Top'
+  },
+
+  // Project Request Form Translations
+  'projectRequest.step1.title': {
+    tr: 'Hizmet Seçimi',
+    en: 'Service Selection'
+  },
+  'projectRequest.step1.subtitle': {
+    tr: 'İhtiyacınız olan hizmetleri seçin',
+    en: 'Select the services you need'
+  },
+  'projectRequest.step2.title': {
+    tr: 'Proje Detayları',
+    en: 'Project Details'
+  },
+  'projectRequest.step2.subtitle': {
+    tr: 'Projeniz hakkında bilgi verin',
+    en: 'Tell us about your project'
+  },
+  'projectRequest.step3.title': {
+    tr: 'Çözüm Tipi',
+    en: 'Solution Type'
+  },
+  'projectRequest.step3.subtitle': {
+    tr: 'İhtiyacınıza uygun çözümü seçin',
+    en: 'Choose the solution that fits your needs'
+  },
+  'projectRequest.step4.title': {
+    tr: 'İletişim Bilgileri',
+    en: 'Contact Information'
+  },
+  'projectRequest.step4.subtitle': {
+    tr: 'Sizinle nasıl iletişime geçelim?',
+    en: 'How can we reach you?'
+  },
+  'projectRequest.step5.title': {
+    tr: 'Özet',
+    en: 'Summary'
+  },
+  'projectRequest.step5.subtitle': {
+    tr: 'Bilgilerinizi kontrol edin',
+    en: 'Review your information'
+  },
+  'projectRequest.category.software': {
+    tr: 'Yazılım',
+    en: 'Software'
+  },
+  'projectRequest.category.design': {
+    tr: 'Tasarım',
+    en: 'Design'
+  },
+  'projectRequest.category.digitalStrategy': {
+    tr: 'Dijital Strateji',
+    en: 'Digital Strategy'
+  },
+  'projectRequest.timeline.1week': {
+    tr: '1 Hafta',
+    en: '1 Week'
+  },
+  'projectRequest.timeline.1-4weeks': {
+    tr: '1-4 Hafta',
+    en: '1-4 Weeks'
+  },
+  'projectRequest.timeline.1-3months': {
+    tr: '1-3 Ay',
+    en: '1-3 Months'
+  },
+  'projectRequest.timeline.3-6months': {
+    tr: '3-6 Ay',
+    en: '3-6 Months'
+  },
+  'projectRequest.timeline.6monthsPlus': {
+    tr: '6+ Ay',
+    en: '6+ Months'
+  },
+  'projectRequest.timeline.undecided': {
+    tr: 'Henüz Karar Vermedim',
+    en: 'Not Decided Yet'
+  },
+  'projectRequest.solution.oneTime': {
+    tr: 'Tek Seferlik Proje',
+    en: 'One-Time Project'
+  },
+  'projectRequest.solution.additionalSupport': {
+    tr: 'Ek Destek',
+    en: 'Additional Support'
+  },
+  'projectRequest.solution.regularService': {
+    tr: 'Düzenli Hizmet',
+    en: 'Regular Service'
+  },
+  'projectRequest.solution.other': {
+    tr: 'Diğer',
+    en: 'Other'
+  },
+  'projectRequest.form.companyName': {
+    tr: 'Şirket Adı',
+    en: 'Company Name'
+  },
+  'projectRequest.form.contactName': {
+    tr: 'İletişim Kişisi',
+    en: 'Contact Person'
+  },
+  'projectRequest.form.projectDescription': {
+    tr: 'Proje Açıklaması',
+    en: 'Project Description'
+  },
+  'projectRequest.form.briefUrl': {
+    tr: 'Brifing/Dosya Linki (Opsiyonel)',
+    en: 'Brief/File Link (Optional)'
+  },
+  'projectRequest.button.next': {
+    tr: 'İleri',
+    en: 'Next'
+  },
+  'projectRequest.button.back': {
+    tr: 'Geri',
+    en: 'Back'
+  },
+  'projectRequest.button.submit': {
+    tr: 'Gönder',
+    en: 'Submit'
+  },
+  'projectRequest.success.title': {
+    tr: 'Talebiniz Alındı!',
+    en: 'Request Received!'
+  },
+  'projectRequest.success.message': {
+    tr: 'En kısa sürede sizinle iletişime geçeceğiz.',
+    en: 'We will contact you as soon as possible.'
+  },
+  'projectRequest.error.selectCategory': {
+    tr: 'Lütfen en az bir hizmet kategorisi seçin',
+    en: 'Please select at least one service category'
+  },
+  'projectRequest.error.fillFields': {
+    tr: 'Lütfen tüm gerekli alanları doldurun',
+    en: 'Please fill in all required fields'
+  },
+
+  // Join Us Form Translations
+  'joinUs.step1.title': {
+    tr: 'Kişisel Bilgiler',
+    en: 'Personal Information'
+  },
+  'joinUs.step2.title': {
+    tr: 'Yetenekleriniz',
+    en: 'Your Skills'
+  },
+  'joinUs.step3.title': {
+    tr: 'Portfolyo',
+    en: 'Portfolio'
+  },
+  'joinUs.step4.title': {
+    tr: 'Özgeçmiş',
+    en: 'Resume'
+  },
+  'joinUs.form.location': {
+    tr: 'Konum',
+    en: 'Location'
+  },
+  'joinUs.form.turkey': {
+    tr: 'Türkiye',
+    en: 'Turkey'
+  },
+  'joinUs.form.international': {
+    tr: 'Uluslararası',
+    en: 'International'
+  },
+  'joinUs.form.city': {
+    tr: 'Şehir',
+    en: 'City'
+  },
+  'joinUs.form.country': {
+    tr: 'Ülke',
+    en: 'Country'
+  },
+  'joinUs.form.workPreference': {
+    tr: 'Çalışma Tercihi',
+    en: 'Work Preference'
+  },
+  'joinUs.form.remote': {
+    tr: 'Uzaktan',
+    en: 'Remote'
+  },
+  'joinUs.form.hybrid': {
+    tr: 'Hibrit',
+    en: 'Hybrid'
+  },
+  'joinUs.form.categories': {
+    tr: 'Kategoriler',
+    en: 'Categories'
+  },
+  'joinUs.form.mainExpertise': {
+    tr: 'Ana Uzmanlık Alanları',
+    en: 'Main Expertise'
+  },
+  'joinUs.form.subExpertise': {
+    tr: 'Alt Uzmanlık Alanları',
+    en: 'Sub Expertise'
+  },
+  'joinUs.form.tools': {
+    tr: 'Araçlar ve Teknolojiler',
+    en: 'Tools and Technologies'
+  },
+  'joinUs.form.educationStatus': {
+    tr: 'Eğitim Durumu',
+    en: 'Education Status'
+  },
+  'joinUs.form.graduationYear': {
+    tr: 'Mezuniyet Yılı',
+    en: 'Graduation Year'
+  },
+  'joinUs.form.portfolioTitle': {
+    tr: 'Portfolyo Başlığı',
+    en: 'Portfolio Title'
+  },
+  'joinUs.form.portfolioUrl': {
+    tr: 'Portfolyo URL',
+    en: 'Portfolio URL'
+  },
+  'joinUs.form.addPortfolio': {
+    tr: 'Portfolyo Ekle',
+    en: 'Add Portfolio'
+  },
+  'joinUs.form.socialPlatform': {
+    tr: 'Platform',
+    en: 'Platform'
+  },
+  'joinUs.form.socialUrl': {
+    tr: 'URL',
+    en: 'URL'
+  },
+  'joinUs.form.addSocial': {
+    tr: 'Sosyal Medya Ekle',
+    en: 'Add Social Media'
+  },
+  'joinUs.form.cvUpload': {
+    tr: 'Özgeçmiş Yükle',
+    en: 'Upload Resume'
+  },
+  'joinUs.form.dropFile': {
+    tr: 'Dosyayı buraya sürükleyin veya seçmek için tıklayın',
+    en: 'Drag and drop file here or click to select'
+  },
+  'joinUs.form.pdfOnly': {
+    tr: 'Sadece PDF dosyası (Maks. 5MB)',
+    en: 'PDF only (Max. 5MB)'
+  },
+  'joinUs.success.title': {
+    tr: 'Başvurunuz Alındı!',
+    en: 'Application Received!'
+  },
+  'joinUs.success.message': {
+    tr: 'Başvurunuzu inceleyip en kısa sürede geri dönüş yapacağız.',
+    en: 'We will review your application and get back to you soon.'
+  },
+  'joinUs.button.previous': {
+    tr: 'Önceki',
+    en: 'Previous'
+  },
+  'joinUs.button.next': {
+    tr: 'Sonraki',
+    en: 'Next'
+  },
+  'joinUs.button.submit': {
+    tr: 'Başvuruyu Gönder',
+    en: 'Submit Application'
+  },
+  'joinUs.category.software': {
+    tr: 'Yazılım',
+    en: 'Software'
+  },
+  'joinUs.category.design': {
+    tr: 'Tasarım',
+    en: 'Design'
+  },
+  'joinUs.category.marketing': {
+    tr: 'Dijital Pazarlama',
+    en: 'Digital Marketing'
   }
 };
 

@@ -4,14 +4,15 @@ import { Helmet } from 'react-helmet-async';
 import { Search, Zap, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getBlogPosts, type BlogPost } from '../lib/supabase';
+import { useTranslation } from '../hooks/useTranslation';
 
-const categories = [
-  "Tümü",
-  "Teknoloji",
-  "Tasarım",
-  "Yapay Zeka",
-  "Web Geliştirme",
-  "Mobil"
+const getCategoryKeys = () => [
+  'blog.category.all',
+  'blog.category.technology',
+  'blog.category.design',
+  'blog.category.ai',
+  'blog.category.webDevelopment',
+  'blog.category.mobile'
 ];
 
 const BlogCardSkeleton = () => (
@@ -26,7 +27,9 @@ const BlogCardSkeleton = () => (
 );
 
 const Blog = () => {
-  const [selectedCategory, setSelectedCategory] = useState("Tümü");
+  const { t } = useTranslation();
+  const categoryKeys = getCategoryKeys();
+  const [selectedCategory, setSelectedCategory] = useState(categoryKeys[0]);
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -122,9 +125,9 @@ const Blog = () => {
               <Zap className="w-3.5 h-3.5 md:w-4 md:h-4 mr-1.5 md:mr-2" />
               <span>Güncel İçerikler</span>
             </motion.div>
-            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">Blog</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">{t('blog.title')}</h1>
             <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
-              Teknoloji, tasarım ve dijital dönüşüm hakkında güncel içerikler
+              {t('blog.subtitle')}
             </p>
           </motion.div>
         </div>
@@ -144,7 +147,7 @@ const Blog = () => {
                 <Search className="absolute left-3 md:left-4 top-1/2 -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-gray-600 dark:text-gray-400" />
                 <input
                   type="text"
-                  placeholder="Blog yazılarında ara..."
+                  placeholder={t('blog.search.placeholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="w-full bg-white dark:bg-dark-light/80 backdrop-blur-sm border border-white/10 rounded-xl pl-10 md:pl-12 pr-4 py-2.5 md:py-3 focus:outline-none focus:border-primary transition-colors text-sm md:text-base placeholder-gray-400 text-gray-100"
@@ -158,18 +161,18 @@ const Blog = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="flex flex-wrap justify-center gap-2 md:gap-3"
             >
-              {categories.map((category) => (
+              {categoryKeys.map((categoryKey) => (
                 <button
-                  key={category}
-                  onClick={() => { setSelectedCategory(category); setPage(1); }}
+                  key={categoryKey}
+                  onClick={() => { setSelectedCategory(categoryKey); setPage(1); }}
                   className={`
                     px-4 md:px-6 py-2 md:py-2.5 rounded-xl text-sm transition-all
-                    ${selectedCategory === category
+                    ${selectedCategory === categoryKey
                       ? 'bg-primary text-white shadow-lg shadow-primary/25'
                       : 'bg-white dark:bg-dark-light/80 backdrop-blur-sm text-gray-600 dark:text-gray-300 hover:bg-primary/10 border border-white/10'}
                   `}
                 >
-                  {category}
+                  {t(categoryKey)}
                 </button>
               ))}
             </motion.div>
@@ -195,7 +198,7 @@ const Blog = () => {
                   onClick={loadBlogPosts}
                   className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                 >
-                  Tekrar Dene
+                  {t('blog.loading')}
                 </button>
               </div>
             ) : (

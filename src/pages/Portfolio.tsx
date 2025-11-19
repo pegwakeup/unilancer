@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   Code2, Palette, LineChart, Globe, Smartphone, Database,
   BrainCircuit, PaintBucket, FileImage, Figma, Monitor,
   Search, Target, BarChart2, ArrowUpRight, ExternalLink,
@@ -8,49 +8,52 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getPortfolioItems, type PortfolioItem } from '../lib/portfolio';
+import { useTranslation } from '../hooks/useTranslation';
 
-// Categories and subcategories mapping
-const categories = {
+// Categories and subcategories mapping (using function to access t)
+const getCategories = (t: (key: string) => string) => ({
   software: {
-    label: 'Yazılım',
+    label: t('portfolio.category.software'),
     icon: Code2,
     subcategories: [
-      { id: 'web', label: 'Web Geliştirme', icon: Globe },
-      { id: 'mobile', label: 'Mobil Uygulama', icon: Smartphone },
-      { id: 'saas', label: 'SaaS Çözümleri', icon: Database },
-      { id: 'ai', label: 'AI Entegrasyonları', icon: BrainCircuit }
+      { id: 'web', label: t('portfolio.category.web'), icon: Globe },
+      { id: 'mobile', label: t('portfolio.category.mobile'), icon: Smartphone },
+      { id: 'saas', label: t('portfolio.category.saas'), icon: Database },
+      { id: 'ai', label: t('portfolio.category.ai'), icon: BrainCircuit }
     ]
   },
   design: {
-    label: 'Tasarım',
+    label: t('portfolio.category.design'),
     icon: Palette,
     subcategories: [
-      { id: 'ui-ux', label: 'UI/UX Tasarım', icon: Monitor },
-      { id: 'brand', label: 'Kurumsal Kimlik', icon: PaintBucket },
-      { id: 'print', label: 'Basılı Tasarım', icon: FileImage },
-      { id: 'illustration', label: '3D & İllüstrasyon', icon: Figma }
+      { id: 'ui-ux', label: t('portfolio.category.uiux'), icon: Monitor },
+      { id: 'brand', label: t('portfolio.category.brand'), icon: PaintBucket },
+      { id: 'print', label: t('portfolio.category.print'), icon: FileImage },
+      { id: 'illustration', label: t('portfolio.category.illustration'), icon: Figma }
     ]
   },
   marketing: {
-    label: 'Dijital Pazarlama',
+    label: t('portfolio.category.marketing'),
     icon: LineChart,
     subcategories: [
-      { id: 'seo', label: 'SEO & SEM', icon: Search },
-      { id: 'ads', label: 'Dijital Reklam', icon: Target },
-      { id: 'analytics', label: 'Analitik', icon: BarChart2 }
+      { id: 'seo', label: t('portfolio.category.seo'), icon: Search },
+      { id: 'ads', label: t('portfolio.category.ads'), icon: Target },
+      { id: 'analytics', label: t('portfolio.category.analytics'), icon: BarChart2 }
     ]
   }
-};
-
-const CategoryIcon = ({ category }: { category: string }) => {
-  const categoryData = categories[category as keyof typeof categories];
-  if (!categoryData) return null;
-  
-  const Icon = categoryData.icon;
-  return <Icon className="w-4 h-4 text-primary" />;
-};
+});
 
 const Portfolio = () => {
+  const { t } = useTranslation();
+  const categories = getCategories(t);
+
+  const CategoryIcon = ({ category }: { category: string }) => {
+    const categoryData = categories[category as keyof typeof categories];
+    if (!categoryData) return null;
+
+    const Icon = categoryData.icon;
+    return <Icon className="w-4 h-4 text-primary" />;
+  };
   const [items, setItems] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -70,7 +73,7 @@ const Portfolio = () => {
       setItems(data);
     } catch (err) {
       console.error('Portfolio items loading error:', err);
-      setError('Portfolyo öğeleri yüklenirken bir hata oluştu.');
+      setError(t('portfolio.loading'));
     } finally {
       setLoading(false);
     }
@@ -108,10 +111,10 @@ const Portfolio = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
-              Portfolyo
+              {t('portfolio.title')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              Modern teknolojiler ve yaratıcı çözümlerle geliştirdiğimiz projelerimizden örnekler
+              {t('portfolio.subtitle')}
             </p>
           </motion.div>
         </div>
@@ -125,7 +128,7 @@ const Portfolio = () => {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 dark:text-gray-400" />
             <input
               type="text"
-              placeholder="Proje ara..."
+              placeholder={t('blog.search.placeholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white dark:bg-dark border border-slate-200 dark:border-white/10 rounded-xl pl-12 pr-4 py-3 focus:outline-none focus:border-primary text-slate-900 dark:text-white"
@@ -145,7 +148,7 @@ const Portfolio = () => {
                   : 'bg-white dark:bg-dark-light text-gray-700 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-white/5 border border-slate-200 dark:border-transparent'
               }`}
             >
-              Tümü
+              {t('portfolio.category.all')}
             </button>
             
             {Object.entries(categories).map(([key, category]) => (
@@ -218,7 +221,7 @@ const Portfolio = () => {
             </div>
           ) : filteredItems.length === 0 ? (
             <div className="text-center py-20">
-              <p className="text-gray-400">Seçilen kriterlere uygun proje bulunamadı.</p>
+              <p className="text-gray-400">{t('portfolio.noProjects')}</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
