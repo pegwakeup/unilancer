@@ -147,22 +147,27 @@ const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index
       <div
         className={`
           rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
-          ${isOpen
-            ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
-            : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
+          ${
+            isOpen
+              ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
+              : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
           }
         `}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="p-5 flex items-start justify-between gap-4">
           <div className="flex-1">
-            <h4 className={`font-semibold transition-colors duration-200 ${isOpen ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-gray-200'}`}>
+            <h4
+              className={`font-semibold transition-colors duration-200 ${
+                isOpen ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-gray-200'
+              }`}
+            >
               {t(faq.qKey)}
             </h4>
           </div>
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
               isOpen ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
             }`}
@@ -176,7 +181,7 @@ const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
               <div className="px-5 pb-5 pt-0">
@@ -238,7 +243,7 @@ const Home = () => {
         {/* HERO */}
         <section
           id="hero"
-          className="min-h-[80vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
+          className="min-h-[82vh] lg:min-h-[88vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -250,10 +255,26 @@ const Home = () => {
                 className="space-y-7"
               >
                 <div className="space-y-5">
-                  <h1 className="text-4xl sm:text-5xl lg:text-[3rem] font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
+                  <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.6rem] font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
                     {t('home.hero.mainTitle')}
-                    <span className="block bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
-                      {t('home.hero.mainTitleHighlight')}
+                    <span className="block w-fit mt-1 relative bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
+                      <span className="relative z-10">
+                        {t('home.hero.mainTitleHighlight')}
+                      </span>
+                      <svg
+                        className="absolute -bottom-1 left-0 w-full h-2 text-primary"
+                        viewBox="0 0 200 12"
+                        preserveAspectRatio="none"
+                        aria-hidden="true"
+                      >
+                        <path
+                          d="M0,7 Q50,0 100,7 T200,7"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                      </svg>
                     </span>
                   </h1>
 
@@ -302,14 +323,14 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="flex justify-center lg:justify-end"
               >
-                <div className="relative w-full max-w-[480px] group cursor-pointer">
+                <div className="relative w-full max-w-[520px] group cursor-pointer">
                   <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
                   <motion.img
                     src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
                     alt="Unilancer iş birliği"
                     className="relative w-full h-auto rounded-3xl shadow-2xl object-cover transition-transform duration-500"
                     whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                   />
                 </div>
               </motion.div>
