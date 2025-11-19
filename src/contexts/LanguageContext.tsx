@@ -1,0 +1,136 @@
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+export type Language = 'tr' | 'en';
+
+interface LanguageContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  toggleLanguage: () => void;
+  t: (key: string, fallback?: string) => string;
+}
+
+const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
+const LANGUAGE_KEY = 'unilancer_language';
+
+const routeTranslations: Record<string, Record<Language, string>> = {
+  '/': { tr: '/', en: '/' },
+  '/portfolio': { tr: '/portfolyo', en: '/portfolio' },
+  '/services': { tr: '/hizmetler', en: '/services' },
+  '/about': { tr: '/hakkimizda', en: '/about' },
+  '/blog': { tr: '/blog', en: '/blog' },
+  '/contact': { tr: '/iletisim', en: '/contact' },
+  '/join': { tr: '/basvuru', en: '/join' },
+  '/project-request': { tr: '/proje-talebi', en: '/project-request' },
+  '/digitall/3d-ar-sanal-tur': { tr: '/digitall/3d-ar-sanal-tur', en: '/digitall/3d-ar-virtual-tour' }
+};
+
+const reverseRouteTranslations: Record<string, string> = {};
+Object.entries(routeTranslations).forEach(([base, langs]) => {
+  reverseRouteTranslations[langs.tr] = base;
+  reverseRouteTranslations[langs.en] = base;
+});
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const getInitialLanguage = (): Language => {
+    const pathLang = location.pathname.startsWith('/en/') ? 'en' :
+                     location.pathname.startsWith('/tr/') ? 'tr' : null;
+
+    if (pathLang) return pathLang;
+
+    const savedLang = localStorage.getItem(LANGUAGE_KEY) as Language | null;
+    if (savedLang === 'tr' || savedLang === 'en') return savedLang;
+
+    const browserLang = navigator.language.toLowerCase();
+    if (browserLang.startsWith('en')) return 'en';
+
+    return 'tr';
+  };
+
+  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [translations, setTranslations] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    loadTranslations(language);
+  }, [language]);
+
+  const loadTranslations = async (lang: Language) => {
+    if (lang === 'tr') {
+      setTranslations({});
+      return;
+    }
+
+    try {
+      const { supabase } = await import('../lib/supabase');
+      const { data } = await supabase
+        .from('translations')
+        .select('content_key, translated_text')
+        .eq('language', lang);
+
+      if (data) {
+        const translationMap: Record<string, string> = {};
+        data.forEach((item) => {
+          translationMap[item.content_key] = item.translated_text;
+        });
+        setTranslations(translationMap);
+      }
+    } catch (error) {
+      console.error('Error loading translations:', error);
+    }
+  };
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem(LANGUAGE_KEY, lang);
+
+    const currentPathWithoutLang = location.pathname.replace(/^\/(tr|en)/, '') || '/';
+    const baseRoute = reverseRouteTranslations[currentPathWithoutLang] || currentPathWithoutLang;
+
+    const translatedRoute = routeTranslations[baseRoute]?.[lang] || baseRoute;
+    const newPath = `/${lang}${translatedRoute}`;
+
+    if (location.pathname !== newPath) {
+      navigate(newPath, { replace: true });
+    }
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'tr' ? 'en' : 'tr');
+  };
+
+  const t = (key: string, fallback?: string): string => {
+    if (language === 'tr') {
+      return fallback || key;
+    }
+    return translations[key] || fallback || key;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language, setLanguage, toggleLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
+}
+
+export function useLanguage() {
+  const context = useContext(LanguageContext);
+  if (context === undefined) {
+    throw new Error('useLanguage must be used within a LanguageProvider');
+  }
+  return context;
+}
+
+export function getRouteForLanguage(route: string, lang: Language): string {
+  const baseRoute = reverseRouteTranslations[route] || route;
+  const translatedRoute = routeTranslations[baseRoute]?.[lang] || route;
+  return `/${lang}${translatedRoute}`;
+}
+
+export function getBaseRoute(pathname: string): string {
+  const pathWithoutLang = pathname.replace(/^\/(tr|en)/, '') || '/';
+  return reverseRouteTranslations[pathWithoutLang] || pathWithoutLang;
+}

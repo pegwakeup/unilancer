@@ -4,20 +4,22 @@ import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
   FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon,
-  ShoppingCart, Box, Sparkles
+  ShoppingCart, Box, Sparkles, Languages
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
+import { useTranslation } from '../hooks/useTranslation';
+import { getRouteForLanguage } from '../contexts/LanguageContext';
 
-const digitAllServices = [
-  { icon: Monitor, label: "Web Tasarım", path: "/services" },
-  { icon: Box, label: "3D AR SANAL TUR", path: "/digitall/3d-ar-sanal-tur" },
-  { icon: ShoppingCart, label: "E Ticaret Çözümleri", path: "/services" },
-  { icon: Target, label: "Pazarlama & Reklam", path: "/services" },
-  { icon: BrainCircuit, label: "Yapay Zeka - Digibot", path: "/services" },
-  { icon: Code2, label: "Yazılım Geliştirme", path: "/services" },
-  { icon: PaintBucket, label: "Kurumsal Kimlik & Marka", path: "/services" },
-  { icon: Palette, label: "Grafik ve Tasarım", path: "/services" }
+const getDigitAllServices = (t: (key: string) => string, lang: string) => [
+  { icon: Monitor, label: t('service.webDesign'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: Box, label: t('service.3dAr'), path: getRouteForLanguage('/digitall/3d-ar-sanal-tur', lang as 'tr' | 'en') },
+  { icon: ShoppingCart, label: t('service.ecommerce'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: Target, label: t('service.marketing'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: BrainCircuit, label: t('service.ai'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: Code2, label: t('service.development'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: PaintBucket, label: t('service.branding'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
+  { icon: Palette, label: t('service.graphics'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') }
 ];
 
 const NavLink = ({ to, active, children, onClick }: {
@@ -95,6 +97,9 @@ const Navbar = () => {
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
+  const { language, toggleLanguage, t } = useTranslation();
+
+  const digitAllServices = getDigitAllServices(t, language);
 
   const handleScroll = useCallback(() => {
     const scrolled = window.scrollY > 50;
@@ -239,23 +244,36 @@ const Navbar = () => {
                 </AnimatePresence>
               </div>
 
-              <NavLink to="/portfolio" active={location.pathname === '/portfolio'} onClick={scrollToTop}>
-                Portfolyo
+              <NavLink to={getRouteForLanguage('/portfolio', language)} active={location.pathname.includes('/portfolio') || location.pathname.includes('/portfolyo')} onClick={scrollToTop}>
+                {t('nav.portfolio')}
               </NavLink>
-              <NavLink to="/about" active={location.pathname === '/about'} onClick={scrollToTop}>
-                Hakkımızda
+              <NavLink to={getRouteForLanguage('/about', language)} active={location.pathname.includes('/about') || location.pathname.includes('/hakkimizda')} onClick={scrollToTop}>
+                {t('nav.about')}
               </NavLink>
-              <NavLink to="/blog" active={location.pathname === '/blog'} onClick={scrollToTop}>
-                Blog
+              <NavLink to={getRouteForLanguage('/blog', language)} active={location.pathname.includes('/blog')} onClick={scrollToTop}>
+                {t('nav.blog')}
               </NavLink>
-              <NavLink to="/contact" active={location.pathname === '/contact'} onClick={scrollToTop}>
-                İletişim
+              <NavLink to={getRouteForLanguage('/contact', language)} active={location.pathname.includes('/contact') || location.pathname.includes('/iletisim')} onClick={scrollToTop}>
+                {t('nav.contact')}
               </NavLink>
             </div>
           </div>
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
+            <motion.button
+              onClick={toggleLanguage}
+              className="p-2.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              aria-label="Toggle language"
+              title={language === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+            >
+              <div className="flex items-center space-x-1.5">
+                <Languages className="w-4 h-4" />
+                <span className="text-sm font-semibold">{language.toUpperCase()}</span>
+              </div>
+            </motion.button>
             <motion.button
               onClick={toggleTheme}
               className="p-2.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md"
@@ -287,11 +305,11 @@ const Navbar = () => {
                 )}
               </AnimatePresence>
             </motion.button>
-            <ActionButton href="/project-request" icon={Rocket} primary isLink>
-              Teklif Al
+            <ActionButton href={getRouteForLanguage('/project-request', language)} icon={Rocket} primary isLink>
+              {t('nav.getQuote')}
             </ActionButton>
-            <ActionButton href="/join" icon={Users} onClick={scrollToTop} isLink>
-              Bize Katıl
+            <ActionButton href={getRouteForLanguage('/join', language)} icon={Users} onClick={scrollToTop} isLink>
+              {t('nav.joinUs')}
             </ActionButton>
           </div>
 
@@ -395,14 +413,14 @@ const Navbar = () => {
 
                       {/* Other Navigation Links */}
                       {[
-                        { to: '/portfolio', icon: Image, label: 'Portfolyo' },
-                        { to: '/about', icon: Users, label: 'Hakkımızda' },
-                        { to: '/blog', icon: FileText, label: 'Blog' },
-                        { to: '/contact', icon: MessageSquare, label: 'İletişim' }
+                        { to: '/portfolio', icon: Image, labelKey: 'nav.portfolio' },
+                        { to: '/about', icon: Users, labelKey: 'nav.about' },
+                        { to: '/blog', icon: FileText, labelKey: 'nav.blog' },
+                        { to: '/contact', icon: MessageSquare, labelKey: 'nav.contact' }
                       ].map((link) => (
                         <Link
                           key={link.to}
-                          to={link.to}
+                          to={getRouteForLanguage(link.to, language)}
                           className="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 group border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
                           onClick={() => {
                             setIsOpen(false);
@@ -413,15 +431,26 @@ const Navbar = () => {
                             <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
                               <link.icon className="w-5 h-5 text-primary" />
                             </div>
-                            <span className="font-semibold">{link.label}</span>
+                            <span className="font-semibold">{t(link.labelKey)}</span>
                           </div>
                           <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
                         </Link>
                       ))}
                     </div>
                     
-                    {/* Theme Toggle */}
-                    <div className="pt-4">
+                    {/* Language & Theme Toggle */}
+                    <div className="pt-4 space-y-3">
+                      <button
+                        onClick={toggleLanguage}
+                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
+                            <Languages className="w-5 h-5 text-primary" />
+                          </div>
+                          <span className="font-semibold">{language === 'tr' ? 'English' : 'Türkçe'}</span>
+                        </div>
+                      </button>
                       <button
                         onClick={toggleTheme}
                         className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
@@ -434,7 +463,7 @@ const Navbar = () => {
                               <Moon className="w-5 h-5 text-slate-700" />
                             )}
                           </div>
-                          <span className="font-semibold">{theme === 'dark' ? 'Aydınlık Tema' : 'Koyu Tema'}</span>
+                          <span className="font-semibold">{t(theme === 'dark' ? 'nav.lightTheme' : 'nav.darkTheme')}</span>
                         </div>
                       </button>
                     </div>
@@ -442,15 +471,15 @@ const Navbar = () => {
                     {/* Action Buttons */}
                     <div className="grid grid-cols-2 gap-4 pt-4">
                       <Link
-                        to="/project-request"
+                        to={getRouteForLanguage('/project-request', language)}
                         className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary text-white rounded-xl hover:bg-primary-dark transition-all font-semibold shadow-md hover:shadow-lg"
                         onClick={() => setIsOpen(false)}
                       >
                         <Rocket className="w-5 h-5" />
-                        <span className="font-medium">Teklif Al</span>
+                        <span className="font-medium">{t('nav.getQuote')}</span>
                       </Link>
                       <Link
-                        to="/join"
+                        to={getRouteForLanguage('/join', language)}
                         className="flex items-center justify-center space-x-2 px-6 py-4 bg-primary/10 dark:bg-primary/10 text-primary rounded-xl hover:bg-primary/20 dark:hover:bg-primary/20 transition-all font-semibold border border-primary/20 dark:border-primary/20"
                         onClick={() => {
                           setIsOpen(false);
@@ -458,7 +487,7 @@ const Navbar = () => {
                         }}
                       >
                         <Users className="w-5 h-5" />
-                        <span className="font-medium">Bize Katıl</span>
+                        <span className="font-medium">{t('nav.joinUs')}</span>
                       </Link>
                     </div>
                   </div>
