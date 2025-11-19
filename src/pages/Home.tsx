@@ -548,4 +548,95 @@ const Home = () => {
           id="sss"
           className="py-16 md:py-20 relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-blue-50/30 to
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-blue-50/30 to-white/50 dark:from-dark dark:via-dark-light/50 dark:to-dark" />
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/10 border border-primary/20 mb-4">
+                <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                <span className="text-sm font-medium text-primary">Sık Sorulan Sorular</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                {t('home.faq.title')}
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+                {t('home.faq.description')}
+              </p>
+            </motion.div>
+
+            <div className="grid gap-8 lg:gap-12 md:grid-cols-2">
+              {/* İş Veren */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+                    <span className="text-2xl">💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.employers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  {employerFaqs.map((faq, i) => (
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Freelancer */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/25">
+                    <span className="text-2xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.freelancers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  {freelancerFaqs.map((faq, i) => (
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Calendly */}
+        <section className="py-12 md:py-16 bg-slate-50/50 dark:bg-dark-light/30">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                {t('home.meeting.title')}
+              </h2>
+              <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+                {t('home.meeting.description')}
+              </p>
+            </div>
+            <CalendlyInline />
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
