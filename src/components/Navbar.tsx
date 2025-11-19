@@ -263,15 +263,22 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             <motion.button
               onClick={toggleLanguage}
-              className="p-2.5 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md"
+              className="relative flex items-center space-x-2 px-3 py-2 rounded-lg bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 transition-all hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md group overflow-hidden"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle language"
               title={language === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
             >
-              <div className="flex items-center space-x-1.5">
-                <Languages className="w-4 h-4" />
-                <span className="text-sm font-semibold">{language.toUpperCase()}</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+              <Globe className="w-4 h-4 text-primary relative z-10" />
+              <div className="flex items-center space-x-1 relative z-10">
+                <span className="text-sm font-semibold text-slate-700 dark:text-gray-300">
+                  {language === 'tr' ? 'TR' : 'EN'}
+                </span>
+                <span className="text-xs text-slate-500 dark:text-gray-400">|</span>
+                <span className="text-xs text-slate-500 dark:text-gray-400">
+                  {language === 'tr' ? 'EN' : 'TR'}
+                </span>
               </div>
             </motion.button>
             <motion.button
@@ -442,14 +449,20 @@ const Navbar = () => {
                     <div className="pt-4 space-y-3">
                       <button
                         onClick={toggleLanguage}
-                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md"
+                        className="w-full flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-dark-light/30 text-lg font-medium text-slate-800 dark:text-gray-300 hover:text-slate-900 dark:hover:text-white rounded-xl transition-all duration-200 border border-slate-200 dark:border-transparent shadow-sm hover:shadow-md group"
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
-                            <Languages className="w-5 h-5 text-primary" />
+                          <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Globe className="w-5 h-5 text-primary" />
                           </div>
-                          <span className="font-semibold">{language === 'tr' ? 'English' : 'Türkçe'}</span>
+                          <div className="flex flex-col items-start">
+                            <span className="font-semibold text-base">{language === 'tr' ? 'Türkçe' : 'English'}</span>
+                            <span className="text-xs text-slate-500 dark:text-gray-500">
+                              {language === 'tr' ? 'Switch to English' : 'Türkçeye Geç'}
+                            </span>
+                          </div>
                         </div>
+                        <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
                       </button>
                       <button
                         onClick={toggleTheme}

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
+import {
   FileText, Users, LogOut, X, ChevronLeft, Briefcase,
-  Image // Added Image icon for portfolio
+  Image, Globe
 } from 'lucide-react';
 import { signOut } from '../../../../lib/auth';
 
@@ -13,25 +13,30 @@ interface AdminSidebarProps {
 }
 
 const sidebarLinks = [
-  { 
-    icon: FileText, 
-    label: 'Blog Yönetimi', 
+  {
+    icon: FileText,
+    label: 'Blog Yönetimi',
     href: '/admin/blog'
   },
-  { 
-    icon: Image, // Portfolio link with Image icon
-    label: 'Portfolyo', 
+  {
+    icon: Image,
+    label: 'Portfolyo',
     href: '/admin/portfolio'
   },
-  { 
-    icon: Users, 
-    label: 'Freelancerlar', 
+  {
+    icon: Users,
+    label: 'Freelancerlar',
     href: '/admin/freelancers'
   },
   {
     icon: Briefcase,
     label: 'Proje Talepleri',
     href: '/admin/project-requests'
+  },
+  {
+    icon: Globe,
+    label: 'Çeviriler',
+    href: '/admin/translations'
   }
 ];
 

@@ -8,6 +8,7 @@ const PortfolioAdminPage = lazy(() => import('./portfolio/pages/PortfolioAdminPa
 const PortfolioEditor = lazy(() => import('./portfolio/pages/PortfolioEditor'));
 const FreelancerList = lazy(() => import('./freelancers/pages/FreelancerList'));
 const ProjectRequestsPage = lazy(() => import('./project-requests/pages/ProjectRequestsPage'));
+const TranslationManager = lazy(() => import('./translations/pages/TranslationManager'));
 
 const AdminRoutes = () => {
   return (
@@ -30,7 +31,10 @@ const AdminRoutes = () => {
 
       {/* Project Requests routes */}
       <Route path="/project-requests" element={<ProjectRequestsPage />} />
-      
+
+      {/* Translation Management routes */}
+      <Route path="/translations" element={<TranslationManager />} />
+
       {/* Fallback redirect */}
       <Route path="*" element={<Navigate to="/admin/blog" replace />} />
     </Routes>

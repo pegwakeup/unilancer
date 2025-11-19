@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { 
-  Mail, Phone, MapPin, Send, Building2, ArrowUpRight, 
+import {
+  Mail, Phone, MapPin, Send, Building2, ArrowUpRight,
   MessageSquare, Clock, ExternalLink
 } from 'lucide-react';
+import { useTranslation } from '../hooks/useTranslation';
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -39,11 +41,11 @@ const Contact = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="text-3xl font-bold mb-8">İletişime Geçin</h1>
+            <h1 className="text-3xl font-bold mb-8">{t('contact.title')}</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-200">
-                  İsim Soyisim
+                  {t('contact.form.name')}
                 </label>
                 <input
                   type="text"
@@ -57,7 +59,7 @@ const Contact = () => {
               
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-200">
-                  E-posta Adresi
+                  {t('contact.form.email')}
                 </label>
                 <input
                   type="email"
@@ -71,7 +73,7 @@ const Contact = () => {
               
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-200">
-                  Konu
+                  {t('contact.form.subject')}
                 </label>
                 <input
                   type="text"
@@ -85,7 +87,7 @@ const Contact = () => {
               
               <div>
                 <label className="block text-sm font-medium mb-2 text-gray-200">
-                  Mesaj
+                  {t('contact.form.message')}
                 </label>
                 <textarea
                   value={formData.message}
@@ -105,7 +107,7 @@ const Contact = () => {
                   className="flex-1 bg-primary hover:bg-primary-dark text-white px-8 py-4 rounded-xl transition-colors flex items-center justify-center space-x-2 group"
                 >
                   <Send className="w-5 h-5" />
-                  <span>Gönder</span>
+                  <span>{t('contact.form.submit')}</span>
                   <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                 </motion.button>
 
@@ -133,7 +135,7 @@ const Contact = () => {
             className="lg:pl-12"
           >
             <div className="space-y-8">
-              <h2 className="text-xl font-bold text-gray-200">İletişim Bilgileri</h2>
+              <h2 className="text-xl font-bold text-gray-200">{t('contact.info.address')}</h2>
               
               <div className="space-y-6">
                 <a 
@@ -144,7 +146,7 @@ const Contact = () => {
                     <Mail className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-base font-medium text-gray-100">E-posta</h3>
+                    <h3 className="text-base font-medium text-gray-100">{t('contact.info.email')}</h3>
                     <p className="text-base text-gray-600 dark:text-gray-400">info@unilancerlabs.com</p>
                   </div>
                 </a>
@@ -157,7 +159,7 @@ const Contact = () => {
                     <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-base font-medium text-gray-100">Telefon</h3>
+                    <h3 className="text-base font-medium text-gray-100">{t('contact.info.phone')}</h3>
                     <p className="text-base text-gray-600 dark:text-gray-400">+90 506 152 32 55</p>
                   </div>
                 </a>
@@ -172,7 +174,7 @@ const Contact = () => {
                     <MapPin className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-base font-medium text-gray-100">Adres</h3>
+                    <h3 className="text-base font-medium text-gray-100">{t('contact.info.address')}</h3>
                     <p className="text-base text-gray-600 dark:text-gray-400">
                       Şehit Muhtar, Mis Sk. No:24<br />
                       34435 Beyoğlu/İstanbul<br />
@@ -186,7 +188,7 @@ const Contact = () => {
                     <Clock className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                    <h3 className="text-base font-medium text-gray-100">Çalışma Saatleri</h3>
+                    <h3 className="text-base font-medium text-gray-100">{t('contact.info.hours')}</h3>
                     <p className="text-base text-gray-600 dark:text-gray-400">
                       Pazartesi - Cuma: 09:00 - 18:00<br />
                       Cumartesi - Pazar: Kapalı

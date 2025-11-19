@@ -187,7 +187,7 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
     tr: 'Web sitesi, e-ticaret, tasarım, içerik, SEO ve daha fazlası…',
     en: 'Website, e-commerce, design, content, SEO and more…'
   },
-  'home.hero.startProject': {
+  'home.hero.startProjectButton': {
     tr: 'Projenizi Başlatın',
     en: 'Start Your Project'
   },
@@ -250,12 +250,12 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
     en: 'Selected teams & project management'
   },
 
-  // Partners Section
-  'home.partners.title': {
+  // Partners Section (Extended)
+  'home.partnersSection.title': {
     tr: 'Partnerler',
     en: 'Partners'
   },
-  'home.partners.description': {
+  'home.partnersSection.description': {
     tr: 'İş birliği yaptığımız kurumlar ve markalarla birlikte büyüyoruz.',
     en: 'We grow together with the institutions and brands we collaborate with.'
   },
@@ -706,6 +706,492 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
   'about.cta.contactUs': {
     tr: 'Bize Ulaşın',
     en: 'Contact Us'
+  },
+
+  // Portfolio Page Translations
+  'portfolio.title': {
+    tr: 'Portfolyo',
+    en: 'Portfolio'
+  },
+  'portfolio.subtitle': {
+    tr: 'Gerçekleştirdiğimiz projelerle markaları dijitale taşıyoruz',
+    en: 'We bring brands to digital with our completed projects'
+  },
+  'portfolio.category.all': {
+    tr: 'Tümü',
+    en: 'All'
+  },
+  'portfolio.category.software': {
+    tr: 'Yazılım',
+    en: 'Software'
+  },
+  'portfolio.category.design': {
+    tr: 'Tasarım',
+    en: 'Design'
+  },
+  'portfolio.category.marketing': {
+    tr: 'Dijital Pazarlama',
+    en: 'Digital Marketing'
+  },
+  'portfolio.category.web': {
+    tr: 'Web Geliştirme',
+    en: 'Web Development'
+  },
+  'portfolio.category.mobile': {
+    tr: 'Mobil Uygulama',
+    en: 'Mobile App'
+  },
+  'portfolio.category.saas': {
+    tr: 'SaaS Çözümleri',
+    en: 'SaaS Solutions'
+  },
+  'portfolio.category.ai': {
+    tr: 'AI Entegrasyonları',
+    en: 'AI Integrations'
+  },
+  'portfolio.category.uiux': {
+    tr: 'UI/UX Tasarım',
+    en: 'UI/UX Design'
+  },
+  'portfolio.category.brand': {
+    tr: 'Kurumsal Kimlik',
+    en: 'Corporate Identity'
+  },
+  'portfolio.category.print': {
+    tr: 'Basılı Tasarım',
+    en: 'Print Design'
+  },
+  'portfolio.category.illustration': {
+    tr: '3D & İllüstrasyon',
+    en: '3D & Illustration'
+  },
+  'portfolio.category.seo': {
+    tr: 'SEO & SEM',
+    en: 'SEO & SEM'
+  },
+  'portfolio.category.ads': {
+    tr: 'Dijital Reklam',
+    en: 'Digital Ads'
+  },
+  'portfolio.category.analytics': {
+    tr: 'Analitik',
+    en: 'Analytics'
+  },
+  'portfolio.viewProject': {
+    tr: 'Projeyi Görüntüle',
+    en: 'View Project'
+  },
+  'portfolio.viewWebsite': {
+    tr: 'Web Sitesini Ziyaret Et',
+    en: 'Visit Website'
+  },
+  'portfolio.viewGithub': {
+    tr: 'GitHub Reposunu Gör',
+    en: 'View GitHub Repo'
+  },
+  'portfolio.loading': {
+    tr: 'Projeler yükleniyor...',
+    en: 'Loading projects...'
+  },
+  'portfolio.noProjects': {
+    tr: 'Henüz proje bulunmamaktadır',
+    en: 'No projects available yet'
+  },
+
+  // Services Page Translations
+  'services.hero.title': {
+    tr: 'Dijital Çözümlerimiz',
+    en: 'Our Digital Solutions'
+  },
+  'services.hero.subtitle': {
+    tr: 'Web\'den mobil uygulamalara, tasarımdan pazarlamaya kadar tüm dijital ihtiyaçlarınız için profesyonel çözümler',
+    en: 'Professional solutions for all your digital needs, from web to mobile apps, design to marketing'
+  },
+  'services.software.title': {
+    tr: 'Yazılım Geliştirme',
+    en: 'Software Development'
+  },
+  'services.software.desc': {
+    tr: 'Modern teknolojilerle güçlü ve ölçeklenebilir yazılım çözümleri',
+    en: 'Powerful and scalable software solutions with modern technologies'
+  },
+  'services.software.web': {
+    tr: 'Web Uygulamaları',
+    en: 'Web Applications'
+  },
+  'services.software.mobile': {
+    tr: 'Mobil Uygulamalar',
+    en: 'Mobile Apps'
+  },
+  'services.software.ecommerce': {
+    tr: 'E-Ticaret Platformları',
+    en: 'E-Commerce Platforms'
+  },
+  'services.software.api': {
+    tr: 'API Entegrasyonları',
+    en: 'API Integrations'
+  },
+  'services.design.title': {
+    tr: 'Tasarım Hizmetleri',
+    en: 'Design Services'
+  },
+  'services.design.desc': {
+    tr: 'Markanızı öne çıkaran yaratıcı tasarım çözümleri',
+    en: 'Creative design solutions that make your brand stand out'
+  },
+  'services.design.uiux': {
+    tr: 'UI/UX Tasarımı',
+    en: 'UI/UX Design'
+  },
+  'services.design.logo': {
+    tr: 'Logo & Kurumsal Kimlik',
+    en: 'Logo & Corporate Identity'
+  },
+  'services.design.graphics': {
+    tr: 'Grafik Tasarım',
+    en: 'Graphic Design'
+  },
+  'services.design.3d': {
+    tr: '3D Modelleme',
+    en: '3D Modeling'
+  },
+  'services.marketing.title': {
+    tr: 'Dijital Pazarlama',
+    en: 'Digital Marketing'
+  },
+  'services.marketing.desc': {
+    tr: 'Markanızı büyüten stratejik pazarlama çözümleri',
+    en: 'Strategic marketing solutions that grow your brand'
+  },
+  'services.marketing.seo': {
+    tr: 'SEO Optimizasyonu',
+    en: 'SEO Optimization'
+  },
+  'services.marketing.social': {
+    tr: 'Sosyal Medya Yönetimi',
+    en: 'Social Media Management'
+  },
+  'services.marketing.ads': {
+    tr: 'Dijital Reklamcılık',
+    en: 'Digital Advertising'
+  },
+  'services.marketing.content': {
+    tr: 'İçerik Üretimi',
+    en: 'Content Production'
+  },
+  'services.consulting.title': {
+    tr: 'Danışmanlık',
+    en: 'Consulting'
+  },
+  'services.consulting.desc': {
+    tr: 'Dijital dönüşüm sürecinizde uzman rehberlik',
+    en: 'Expert guidance in your digital transformation process'
+  },
+  'services.consulting.strategy': {
+    tr: 'Dijital Strateji',
+    en: 'Digital Strategy'
+  },
+  'services.consulting.tech': {
+    tr: 'Teknoloji Danışmanlığı',
+    en: 'Technology Consulting'
+  },
+  'services.consulting.optimization': {
+    tr: 'Süreç Optimizasyonu',
+    en: 'Process Optimization'
+  },
+  'services.consulting.training': {
+    tr: 'Eğitim & Workshop',
+    en: 'Training & Workshop'
+  },
+  'services.cta.title': {
+    tr: 'Projenizi Başlatalım',
+    en: 'Let\'s Start Your Project'
+  },
+  'services.cta.description': {
+    tr: 'Size özel çözümler için hemen iletişime geçin',
+    en: 'Contact us now for customized solutions'
+  },
+  'services.cta.button': {
+    tr: 'Ücretsiz Teklif Alın',
+    en: 'Get Free Quote'
+  },
+
+  // Contact Page Translations
+  'contact.title': {
+    tr: 'İletişime Geçin',
+    en: 'Get In Touch'
+  },
+  'contact.subtitle': {
+    tr: 'Projeniz hakkında konuşalım',
+    en: 'Let\'s talk about your project'
+  },
+  'contact.form.name': {
+    tr: 'İsim Soyisim',
+    en: 'Full Name'
+  },
+  'contact.form.email': {
+    tr: 'E-posta',
+    en: 'Email'
+  },
+  'contact.form.subject': {
+    tr: 'Konu',
+    en: 'Subject'
+  },
+  'contact.form.message': {
+    tr: 'Mesajınız',
+    en: 'Your Message'
+  },
+  'contact.form.submit': {
+    tr: 'Gönder',
+    en: 'Send'
+  },
+  'contact.info.address': {
+    tr: 'Adres',
+    en: 'Address'
+  },
+  'contact.info.phone': {
+    tr: 'Telefon',
+    en: 'Phone'
+  },
+  'contact.info.email': {
+    tr: 'E-posta',
+    en: 'Email'
+  },
+  'contact.info.hours': {
+    tr: 'Çalışma Saatleri',
+    en: 'Working Hours'
+  },
+  'contact.info.hoursValue': {
+    tr: 'Pazartesi - Cuma: 09:00 - 18:00',
+    en: 'Monday - Friday: 09:00 - 18:00'
+  },
+  'contact.socials.title': {
+    tr: 'Sosyal Medya',
+    en: 'Social Media'
+  },
+  'contact.socials.follow': {
+    tr: 'Bizi takip edin',
+    en: 'Follow us'
+  },
+
+  // Blog Page Translations
+  'blog.title': {
+    tr: 'Blog',
+    en: 'Blog'
+  },
+  'blog.subtitle': {
+    tr: 'Teknoloji, tasarım ve dijital pazarlama üzerine güncel yazılar',
+    en: 'Latest articles on technology, design and digital marketing'
+  },
+  'blog.readMore': {
+    tr: 'Devamını Oku',
+    en: 'Read More'
+  },
+  'blog.categories': {
+    tr: 'Kategoriler',
+    en: 'Categories'
+  },
+  'blog.allPosts': {
+    tr: 'Tüm Yazılar',
+    en: 'All Posts'
+  },
+  'blog.noResults': {
+    tr: 'Sonuç bulunamadı',
+    en: 'No results found'
+  },
+  'blog.loading': {
+    tr: 'Yükleniyor...',
+    en: 'Loading...'
+  },
+  'blog.published': {
+    tr: 'Yayınlanma',
+    en: 'Published'
+  },
+  'blog.author': {
+    tr: 'Yazar',
+    en: 'Author'
+  },
+  'blog.relatedPosts': {
+    tr: 'İlgili Yazılar',
+    en: 'Related Posts'
+  },
+  'blog.sharePost': {
+    tr: 'Yazıyı Paylaş',
+    en: 'Share Post'
+  },
+
+  // Join Us Page Translations
+  'join.title': {
+    tr: 'Bize Katıl',
+    en: 'Join Us'
+  },
+  'join.subtitle': {
+    tr: 'Yeteneklerini paylaş, birlikte büyüyelim',
+    en: 'Share your talents, let\'s grow together'
+  },
+  'join.form.fullName': {
+    tr: 'Ad Soyad',
+    en: 'Full Name'
+  },
+  'join.form.email': {
+    tr: 'E-posta',
+    en: 'Email'
+  },
+  'join.form.phone': {
+    tr: 'Telefon',
+    en: 'Phone'
+  },
+  'join.form.university': {
+    tr: 'Üniversite',
+    en: 'University'
+  },
+  'join.form.department': {
+    tr: 'Bölüm',
+    en: 'Department'
+  },
+  'join.form.skills': {
+    tr: 'Yetenekler',
+    en: 'Skills'
+  },
+  'join.form.portfolio': {
+    tr: 'Portfolio URL',
+    en: 'Portfolio URL'
+  },
+  'join.form.message': {
+    tr: 'Mesajınız',
+    en: 'Your Message'
+  },
+  'join.form.submit': {
+    tr: 'Başvuruyu Gönder',
+    en: 'Submit Application'
+  },
+  'join.benefits.title': {
+    tr: 'Neden Unilancer?',
+    en: 'Why Unilancer?'
+  },
+  'join.benefits.flexible': {
+    tr: 'Esnek Çalışma',
+    en: 'Flexible Working'
+  },
+  'join.benefits.projects': {
+    tr: 'Gerçek Projeler',
+    en: 'Real Projects'
+  },
+  'join.benefits.mentorship': {
+    tr: 'Mentorluk',
+    en: 'Mentorship'
+  },
+  'join.benefits.income': {
+    tr: 'Gelir Elde Et',
+    en: 'Earn Income'
+  },
+
+  // Project Request Page Translations
+  'projectRequest.title': {
+    tr: 'Proje Talebi',
+    en: 'Project Request'
+  },
+  'projectRequest.subtitle': {
+    tr: 'Projenizi anlatın, size özel teklif hazırlayalım',
+    en: 'Tell us about your project, we\'ll prepare a custom proposal'
+  },
+  'projectRequest.form.company': {
+    tr: 'Şirket Adı',
+    en: 'Company Name'
+  },
+  'projectRequest.form.contactPerson': {
+    tr: 'İletişim Kişisi',
+    en: 'Contact Person'
+  },
+  'projectRequest.form.email': {
+    tr: 'E-posta',
+    en: 'Email'
+  },
+  'projectRequest.form.phone': {
+    tr: 'Telefon',
+    en: 'Phone'
+  },
+  'projectRequest.form.projectType': {
+    tr: 'Proje Tipi',
+    en: 'Project Type'
+  },
+  'projectRequest.form.budget': {
+    tr: 'Bütçe',
+    en: 'Budget'
+  },
+  'projectRequest.form.timeline': {
+    tr: 'Zaman Çizelgesi',
+    en: 'Timeline'
+  },
+  'projectRequest.form.description': {
+    tr: 'Proje Açıklaması',
+    en: 'Project Description'
+  },
+  'projectRequest.form.submit': {
+    tr: 'Talebi Gönder',
+    en: 'Submit Request'
+  },
+  'projectRequest.types.website': {
+    tr: 'Web Sitesi',
+    en: 'Website'
+  },
+  'projectRequest.types.ecommerce': {
+    tr: 'E-Ticaret',
+    en: 'E-Commerce'
+  },
+  'projectRequest.types.mobile': {
+    tr: 'Mobil Uygulama',
+    en: 'Mobile App'
+  },
+  'projectRequest.types.design': {
+    tr: 'Tasarım',
+    en: 'Design'
+  },
+  'projectRequest.types.marketing': {
+    tr: 'Dijital Pazarlama',
+    en: 'Digital Marketing'
+  },
+  'projectRequest.types.other': {
+    tr: 'Diğer',
+    en: 'Other'
+  },
+
+  // 3D AR Virtual Tour Page Translations
+  '3dar.title': {
+    tr: '3D AR Sanal Tur',
+    en: '3D AR Virtual Tour'
+  },
+  '3dar.subtitle': {
+    tr: 'İnteraktif 3D deneyimler ve sanal turlar',
+    en: 'Interactive 3D experiences and virtual tours'
+  },
+  '3dar.features.title': {
+    tr: 'Özellikler',
+    en: 'Features'
+  },
+  '3dar.features.3dModeling': {
+    tr: '3D Modelleme',
+    en: '3D Modeling'
+  },
+  '3dar.features.ar': {
+    tr: 'Artırılmış Gerçeklik',
+    en: 'Augmented Reality'
+  },
+  '3dar.features.virtualTour': {
+    tr: 'Sanal Tur',
+    en: 'Virtual Tour'
+  },
+  '3dar.features.interactive': {
+    tr: 'İnteraktif Deneyim',
+    en: 'Interactive Experience'
+  },
+  '3dar.demo.title': {
+    tr: 'Demo',
+    en: 'Demo'
+  },
+  '3dar.demo.description': {
+    tr: 'Aşağıdaki 3D modeli keşfedin',
+    en: 'Explore the 3D model below'
   }
 };
 

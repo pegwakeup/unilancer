@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { detectUserLocation, markGeolocationDetected } from '../lib/geolocation';
 
 export type Language = 'tr' | 'en';
 
@@ -36,7 +37,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getInitialLanguage = (): Language => {
+  const getInitialLanguage = async (): Promise<Language> => {
     const pathLang = location.pathname.startsWith('/en/') ? 'en' :
                      location.pathname.startsWith('/tr/') ? 'tr' : null;
 
@@ -45,18 +46,51 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     const savedLang = localStorage.getItem(LANGUAGE_KEY) as Language | null;
     if (savedLang === 'tr' || savedLang === 'en') return savedLang;
 
+    const geoResult = await detectUserLocation();
+    if (geoResult && geoResult.detected) {
+      markGeolocationDetected();
+      return geoResult.suggestedLanguage;
+    }
+
     const browserLang = navigator.language.toLowerCase();
     if (browserLang.startsWith('en')) return 'en';
 
     return 'tr';
   };
 
-  const [language, setLanguageState] = useState<Language>(getInitialLanguage);
+  const [language, setLanguageState] = useState<Language>('tr');
   const [translations, setTranslations] = useState<Record<string, string>>({});
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
-    loadTranslations(language);
-  }, [language]);
+    const initLanguage = async () => {
+      const initialLang = await getInitialLanguage();
+      setLanguageState(initialLang);
+      await loadTranslations(initialLang);
+      setIsInitialized(true);
+
+      if (!location.pathname.startsWith(`/${initialLang}`)) {
+        const currentPathWithoutLang = location.pathname.replace(/^\/(tr|en)/, '') || '/';
+        const baseRoute = reverseRouteTranslations[currentPathWithoutLang] || currentPathWithoutLang;
+        const translatedRoute = routeTranslations[baseRoute]?.[initialLang] || baseRoute;
+        const newPath = `/${initialLang}${translatedRoute}`;
+
+        if (location.pathname !== newPath) {
+          navigate(newPath, { replace: true });
+        }
+      }
+    };
+
+    if (!isInitialized) {
+      initLanguage();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isInitialized) {
+      loadTranslations(language);
+    }
+  }, [language, isInitialized]);
 
   const loadTranslations = async (lang: Language) => {
     if (lang === 'tr') {
