@@ -161,8 +161,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link 
-            to="/" 
+          <Link
+            to="/"
             className="flex items-center space-x-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
             onClick={scrollToTop}
           >
@@ -172,12 +172,12 @@ const Navbar = () => {
               className="relative"
             >
               <div className="absolute -inset-2 bg-gradient-to-r from-primary/20 to-primary-light/20 rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <img
-                src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/Unilancer%20logo%202.webp"
-                alt="Unilancer"
-                className="h-10 w-auto relative"
-                style={{ width: '150.7px', height: '40px' }}
-              />
+              <div className="relative flex items-center h-10">
+                <span className="text-2xl font-bold tracking-tight" style={{ fontFamily: '"Space Grotesk", "Inter", sans-serif' }}>
+                  <span className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 dark:from-white dark:via-gray-200 dark:to-white bg-clip-text text-transparent">digit</span>
+                  <span className="bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 dark:from-blue-400 dark:via-blue-500 dark:to-cyan-400 bg-clip-text text-transparent font-extrabold">All</span>
+                </span>
+              </div>
             </motion.div>
           </Link>
 
@@ -199,7 +199,10 @@ const Navbar = () => {
                     hover:bg-slate-100/70 dark:hover:bg-white/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary text-base
                   `}
                 >
-                  <span>DigitAll</span>
+                  <span className="font-semibold" style={{ fontFamily: '"Space Grotesk", "Inter", sans-serif' }}>
+                    <span className="text-slate-900 dark:text-white">digit</span>
+                    <span className="text-blue-600 dark:text-blue-400">All</span>
+                  </span>
                   <motion.div
                     animate={{ rotate: isServicesOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -375,7 +378,10 @@ const Navbar = () => {
                             <div className="w-10 h-10 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center">
                               <Sparkles className="w-5 h-5 text-primary" />
                             </div>
-                            <span className="font-semibold">DigitAll</span>
+                            <span className="font-semibold" style={{ fontFamily: '"Space Grotesk", "Inter", sans-serif' }}>
+                              <span className="text-slate-900 dark:text-white">digit</span>
+                              <span className="text-blue-600 dark:text-blue-400">All</span>
+                            </span>
                           </div>
                           <motion.div
                             animate={{ rotate: mobileServicesOpen ? 180 : 0 }}

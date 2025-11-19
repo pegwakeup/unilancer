@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, Sparkles, ChevronDown } from 'lucide-react';
 import { LogosCarousel } from '../components/ui/logos-carousel';
 import { useTranslation } from '../hooks/useTranslation';
 
@@ -49,16 +49,22 @@ const getAudience = (t: (key: string) => string) => [
     titleKey: 'home.forWhom.sme.title',
     descriptionKey: 'home.forWhom.sme.description',
     tagKey: 'home.forWhom.sme.tag',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'İş adamı ve esnaf',
   },
   {
     titleKey: 'home.forWhom.agencies.title',
     descriptionKey: 'home.forWhom.agencies.description',
     tagKey: 'home.forWhom.agencies.tag',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'Üniversite öğrencisi',
   },
   {
     titleKey: 'home.forWhom.freelancers.title',
     descriptionKey: 'home.forWhom.freelancers.description',
     tagKey: 'home.forWhom.freelancers.tag',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'Startup sahibi',
   },
 ];
 
@@ -126,6 +132,66 @@ const getFreelancerFaqs = (t: (key: string) => string) => [
     aKey: 'home.faq.freelancer.a5',
   },
 ];
+
+const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index: number; t: (key: string) => string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="group"
+    >
+      <div
+        className={`
+          rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
+          ${isOpen
+            ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
+            : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
+          }
+        `}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="p-5 flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <h4 className={`font-semibold transition-colors duration-200 ${isOpen ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-gray-200'}`}>
+              {t(faq.qKey)}
+            </h4>
+          </div>
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+              isOpen ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
+            }`}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </motion.div>
+        </div>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="px-5 pb-5 pt-0">
+                <div className="h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-white/10 to-transparent mb-4" />
+                <p className="text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                  {t(faq.aKey)}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+};
 
 const CalendlyInline = () => {
   useEffect(() => {
@@ -243,12 +309,14 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="flex justify-center lg:justify-end"
               >
-                <div className="relative w-full max-w-[480px]">
-                  <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 blur-2xl opacity-80" />
-                  <img
+                <div className="relative w-full max-w-[480px] group cursor-pointer">
+                  <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.img
                     src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
                     alt="Unilancer iş birliği"
-                    className="relative w-full h-auto rounded-3xl shadow-2xl object-cover"
+                    className="relative w-full h-auto rounded-3xl shadow-2xl object-cover transition-transform duration-500"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   />
                 </div>
               </motion.div>
@@ -276,17 +344,27 @@ const Home = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4 }}
-                  className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-5 flex flex-col"
+                  className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all overflow-hidden flex flex-col group"
                 >
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                    {t(item.titleKey)}
-                  </h3>
-                  <p className="text-sm text-slate-600 dark:text-gray-300 mb-3 flex-1">
-                    {t(item.descriptionKey)}
-                  </p>
-                  <span className="inline-flex items-center text-[11px] font-medium text-primary bg-primary/5 rounded-full px-3 py-1 self-start">
-                    {t(item.tagKey)}
-                  </span>
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark/60 z-10" />
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                      {t(item.titleKey)}
+                    </h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-300 mb-3 flex-1">
+                      {t(item.descriptionKey)}
+                    </p>
+                    <span className="inline-flex items-center text-[11px] font-medium text-primary bg-primary/5 rounded-full px-3 py-1 self-start">
+                      {t(item.tagKey)}
+                    </span>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -456,58 +534,76 @@ const Home = () => {
         {/* SSS */}
         <section
           id="sss"
-          className="py-12 md:py-16 border-t border-slate-200/60 dark:border-white/10 bg-white/70 dark:bg-dark/60"
+          className="py-16 md:py-20 relative overflow-hidden"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-blue-50/30 to-white/50 dark:from-dark dark:via-dark-light/50 dark:to-dark" />
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/10 border border-primary/20 mb-4">
+                <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                <span className="text-sm font-medium text-primary">Sık Sorulan Sorular</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                 {t('home.faq.title')}
               </h2>
-              <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
                 {t('home.faq.description')}
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid gap-8 lg:gap-12 md:grid-cols-2">
               {/* İş Veren */}
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">💼</span> {t('home.faq.employers.title')}
-                </h3>
-                <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+                    <span className="text-2xl">💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.employers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
                   {employerFaqs.map((faq, i) => (
-                    <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
-                      <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
-                        <span>{t(faq.qKey)}</span>
-                        <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
-                      </summary>
-                      <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
-                        {t(faq.aKey)}
-                      </p>
-                    </details>
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
                   ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Freelancer */}
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">👨‍💻</span> {t('home.faq.freelancers.title')}
-                </h3>
-                <div className="space-y-3">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/25">
+                    <span className="text-2xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.freelancers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
                   {freelancerFaqs.map((faq, i) => (
-                    <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
-                      <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
-                        <span>{t(faq.qKey)}</span>
-                        <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
-                      </summary>
-                      <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
-                        {t(faq.aKey)}
-                      </p>
-                    </details>
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>

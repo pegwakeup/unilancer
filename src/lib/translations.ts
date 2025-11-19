@@ -172,12 +172,12 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
     en: 'Digitalizing Turkey'
   },
   'home.hero.mainTitle': {
-    tr: 'Üniversiteli ekiplerle',
-    en: 'With university teams'
+    tr: 'Türkiye\'nin',
+    en: 'Turkey\'s'
   },
   'home.hero.mainTitleHighlight': {
-    tr: 'markanızı dijitale taşıyoruz.',
-    en: 'bringing your brand to digital.'
+    tr: 'Üniversiteli Freelancer Ekosistemi',
+    en: 'University Freelancer Ecosystem'
   },
   'home.hero.mainDescription': {
     tr: 'Seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri süreci uçtan uca yönetir; siz uygun bütçeyle güvenle dijitalleşirsiniz.',
