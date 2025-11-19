@@ -6,7 +6,6 @@ import { PrivacyTermsProvider } from './components/ui/privacy-terms-provider';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import SiteLayout from './components/layout/SiteLayout';
-import AdminLayout from './features/admin/components/layout/AdminLayout';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -90,9 +89,7 @@ function App() {
                       path="/admin/*"
                       element={
                         <PrivateRoute>
-                          <AdminLayout>
-                            <AdminRoutes />
-                          </AdminLayout>
+                          <AdminRoutes />
                         </PrivateRoute>
                       }
                     />
