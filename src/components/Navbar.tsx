@@ -284,7 +284,7 @@ const Navbar = () => {
                               <span className="text-primary">All</span>
                               <span className="text-slate-900 dark:text-white"> Hizmetlerimiz</span>
                             </h3>
-                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                            <p className="text-sm text-slate-600 dark:text-slate-300">
                               Dijital dönüşümünüz için kapsamlı çözümler
                             </p>
                           </div>

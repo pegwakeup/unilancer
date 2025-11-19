@@ -109,3 +109,5 @@ export const CalendlyModal: React.FC<CalendlyModalProps> = ({ isOpen, onClose })
     </AnimatePresence>
   );
 };
+
+export default CalendlyModal;

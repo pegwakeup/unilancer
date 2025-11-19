@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Sparkles, ChevronDown } from "lucide-react";
 import { LogosCarousel } from "../components/ui/logos-carousel";
 import { useTranslation } from "../hooks/useTranslation";
+import CalendlyModal from "../components/CalendlyModal";
 
 const getServices = (t: (key: string) => string) => [
   {
@@ -243,6 +244,7 @@ const Home = () => {
   const whyItems = getWhyItems(t);
   const employerFaqs = getEmployerFaqs(t);
   const freelancerFaqs = getFreelancerFaqs(t);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
 
   // Başlık için 3 satır: Türkiye'nin / Üniversiteli Freelancer / Ekosistemi
   const mainTitleTop = t("home.hero.mainTitle"); // "Türkiye'nin"
@@ -330,14 +332,14 @@ const Home = () => {
                     <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.a>
 
-                  <motion.a
-                    href="#rapor"
+                  <motion.button
+                    onClick={() => setIsCalendlyOpen(true)}
                     className="inline-flex items-center justify-center px-8 py-3.5 bg-white/90 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span>{t("home.hero.getFreeReport")}</span>
-                  </motion.a>
+                  </motion.button>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
@@ -669,6 +671,12 @@ const Home = () => {
             <CalendlyInline />
           </div>
         </section>
+
+        {/* Calendly Modal */}
+        <CalendlyModal
+          isOpen={isCalendlyOpen}
+          onClose={() => setIsCalendlyOpen(false)}
+        />
       </div>
     </div>
   );
