@@ -39,15 +39,21 @@ const Login = () => {
         throw new Error('Lütfen e-posta ve şifrenizi girin.');
       }
 
+      console.log('Attempting login with:', email);
       const { data, error } = await signIn(email, password);
-      
+
+      console.log('Login response:', { data, error });
+
       if (error) throw error;
       if (!data.session) throw new Error('Oturum oluşturulamadı.');
+
+      console.log('Login successful, redirecting to:', location.state?.from?.pathname || '/admin');
 
       // Redirect to admin or intended page
       const from = location.state?.from?.pathname || '/admin';
       navigate(from, { replace: true });
     } catch (err: any) {
+      console.error('Login error:', err);
       setError(err.message || 'Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin.');
     } finally {
       setLoading(false);
