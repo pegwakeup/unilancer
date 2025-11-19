@@ -1,5 +1,6 @@
 import React, { lazy } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import AdminLayout from './components/layout/AdminLayout';
 
 // Lazy load admin pages
 const BlogAdminPage = lazy(() => import('./blog/pages/BlogAdminPage'));
@@ -12,7 +13,8 @@ const TranslationManager = lazy(() => import('./translations/pages/TranslationMa
 
 const AdminRoutes = () => {
   return (
-    <Routes>
+    <AdminLayout>
+      <Routes>
       {/* Default redirect */}
       <Route path="/" element={<Navigate to="/admin/blog" replace />} />
       
@@ -37,7 +39,8 @@ const AdminRoutes = () => {
 
       {/* Fallback redirect */}
       <Route path="*" element={<Navigate to="/admin/blog" replace />} />
-    </Routes>
+      </Routes>
+    </AdminLayout>
   );
 };
 
