@@ -5,6 +5,7 @@ import {
   Palette, Code2, Linkedin, MessageSquare, ArrowUpRight
 } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
+import { useTranslation } from '../hooks/useTranslation';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -73,6 +74,7 @@ const teamMembers = [
 ];
 
 const About = () => {
+  const { t } = useTranslation();
   const carouselRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
   const [listWidth, setListWidth] = useState(0);
@@ -141,17 +143,26 @@ const About = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <h2 className="text-3xl font-bold mb-4">Hikayemiz</h2>
+                <h2 className="text-3xl font-bold mb-4">{t('about.story.title')}</h2>
                 <div className="space-y-6 text-gray-600 dark:text-gray-300">
                   <p>
-                    2022 yılında, farklı alanlarda freelance hizmet veren üniversiteli gençler olarak; 
-                    "Uni" (üniversiteli, bir ve bütün) ve "Freelancer" kavramlarından ilham alarak <span className="text-primary font-medium">Unilancer Labs</span>'i kurduk.
+                    {t('about.story.p1')}{' '}
+                    <span className="text-primary font-medium">{t('about.story.unilancer')}</span>
+                    {t('about.story.p1End')}
                   </p>
                   <p>
-                    Kısa sürede <span className="text-primary font-medium">150</span>'den fazla <span className="text-primary font-medium">yetkin freelancerı</span> bünyemize katarak "Unilance" iş modelini geliştirdik.
+                    {t('about.story.p2')}{' '}
+                    <span className="text-primary font-medium">{t('about.story.p2Count')}</span>
+                    {t('about.story.p2Middle')}{' '}
+                    <span className="text-primary font-medium">{t('about.story.p2Skilled')}</span>{' '}
+                    {t('about.story.p2End')}
                   </p>
                   <p>
-                    Bugün, <span className="text-primary font-medium">Teknopark İstanbul</span> bünyesinde yazılım, tasarım ve pazarlama alanlarında <span className="text-primary font-medium">B2B</span> hizmetler sunuyoruz.
+                    {t('about.story.p3')}{' '}
+                    <span className="text-primary font-medium">{t('about.story.technopark')}</span>{' '}
+                    {t('about.story.p3Middle')}{' '}
+                    <span className="text-primary font-medium">{t('about.story.b2b')}</span>{' '}
+                    {t('about.story.p3End')}
                   </p>
                 </div>
                 <motion.div 
@@ -163,15 +174,15 @@ const About = () => {
                 >
                   <div className="flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-primary" />
-                    <span>Yazılım</span>
+                    <span>{t('about.badge.software')}</span>
                   </div>
                   <div className="flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-primary" />
-                    <span>Tasarım</span>
+                    <span>{t('about.badge.design')}</span>
                   </div>
                   <div className="flex items-center space-x-2 px-4 py-2 bg-primary/10 rounded-lg">
                     <CheckCircle className="w-5 h-5 text-primary" />
-                    <span>Dijital Pazarlama</span>
+                    <span>{t('about.badge.marketing')}</span>
                   </div>
                 </motion.div>
               </motion.div>
@@ -205,7 +216,7 @@ const About = () => {
                     </div>
                     <div>
                       <div className="text-2xl font-bold">150+</div>
-                      <div className="text-gray-600 dark:text-gray-400">Freelancer</div>
+                      <div className="text-gray-600 dark:text-gray-400">{t('about.stats.freelancers')}</div>
                     </div>
                   </div>
                 </motion.div>
@@ -222,23 +233,21 @@ const About = () => {
                         <Code2 className="w-5 h-5 text-primary" />
                       </div>
                       <div className="text-left">
-                        <h3 className="text-lg font-semibold">Unilancer Labs</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Yazılım ve Teknoloji Çözümleri</p>
+                        <h3 className="text-lg font-semibold">{t('about.company.unilancerLabs')}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('about.company.unilancerLabs.subtitle')}</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6">
                     <div className="space-y-4">
                       <p className="text-gray-600 dark:text-gray-300">
-                        Unilancer Labs, yazılım ve teknoloji alanında yenilikçi çözümler sunan ana şirketimizdir. 
-                        Web ve mobil uygulama geliştirme, yapay zeka entegrasyonları ve özel yazılım çözümleri 
-                        konularında uzmanlaşmış ekibimizle, işletmelerin dijital dönüşüm süreçlerini yönetiyoruz.
+                        {t('about.company.unilancerLabs.description')}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Web Geliştirme</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Mobil Uygulama</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI Entegrasyonları</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">SaaS Çözümleri</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.webDev')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.mobileApp')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.ai')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.saas')}</span>
                       </div>
                     </div>
                   </AccordionContent>
@@ -251,23 +260,21 @@ const About = () => {
                         <Palette className="w-5 h-5 text-primary" />
                       </div>
                       <div className="text-left">
-                        <h3 className="text-lg font-semibold">Lance Art</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">Tasarım ve Kreatif Stüdyo</p>
+                        <h3 className="text-lg font-semibold">{t('about.company.lanceArt')}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('about.company.lanceArt.subtitle')}</p>
                       </div>
                     </div>
                   </AccordionTrigger>
                   <AccordionContent className="px-6">
                     <div className="space-y-4">
                       <p className="text-gray-600 dark:text-gray-300">
-                        Lance Art, yaratıcı tasarım çözümleri sunan kreatif stüdyomuzdur. 
-                        Dijital tasarım, marka kimliği, UI/UX tasarımı ve illüstrasyon alanlarında 
-                        uzman ekibimizle, markaların görsel dünyasını şekillendiriyoruz.
+                        {t('about.company.lanceArt.description')}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">UI/UX Tasarım</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Marka Kimliği</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">İllüstrasyon</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">3D Tasarım</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.uiux')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.brand')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.illustration')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.3d')}</span>
                       </div>
                     </div>
                   </AccordionContent>
@@ -486,9 +493,9 @@ const About = () => {
               </div>
               <div className="text-5xl font-bold">150+</div>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">Yetenekli Freelancer</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">{t('about.team.members.count')}</h3>
             <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
-              Farklı uzmanlık alanlarında deneyimli freelancer ekibimizle projelerinizi hayata geçiriyoruz
+              {t('about.team.members.description')}
             </p>
           </div>
         </motion.div>
@@ -522,10 +529,10 @@ const About = () => {
           />
           <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-center gap-6 px-6 text-center lg:px-8">
             <h2 className="text-3xl font-bold sm:text-5xl animate-appear bg-gradient-to-b from-white to-white/80 bg-clip-text text-transparent">
-              Ekibimize Katılın
+              {t('about.cta.title')}
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto animate-appear delay-100">
-              Yeteneklerinizi bizimle paylaşın, birlikte büyüyelim
+              {t('about.cta.description')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 animate-appear delay-200">
               <motion.a
@@ -534,7 +541,7 @@ const About = () => {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <span>Freelancer Başvurusu</span>
+                <span>{t('about.cta.freelancerApply')}</span>
                 <ArrowUpRight className="w-5 h-5 group-hover/button:rotate-45 transition-transform" />
               </motion.a>
               <motion.a
@@ -546,7 +553,7 @@ const About = () => {
                 whileTap={{ scale: 0.98 }}
               >
                 <MessageSquare className="w-5 h-5" />
-                <span>Bize Ulaşın</span>
+                <span>{t('about.cta.contactUs')}</span>
                 <ArrowUpRight className="w-5 h-5 group-hover/button:rotate-45 transition-transform" />
               </motion.a>
             </div>

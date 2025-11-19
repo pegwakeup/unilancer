@@ -4,136 +4,129 @@ import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
 import { LogosCarousel } from '../components/ui/logos-carousel';
+import { useTranslation } from '../hooks/useTranslation';
 
-const services = [
+const getServices = (t: (key: string) => string) => [
   {
-    title: 'Web Sitesi',
+    titleKey: 'home.services.website.title',
     emoji: '💻',
-    description: 'Kurumsal, kişisel marka ve landing page web siteleri.',
+    descriptionKey: 'home.services.website.description',
   },
   {
-    title: 'E-Ticaret Çözümleri',
+    titleKey: 'home.services.ecommerce.title',
     emoji: '🛒',
-    description: 'Hazır altyapı veya özel geliştirme ile satışa hazır mağazalar.',
+    descriptionKey: 'home.services.ecommerce.description',
   },
   {
-    title: 'Grafik ve Tasarım',
+    titleKey: 'home.services.graphics.title',
     emoji: '🎨',
-    description: 'Logo, kurumsal kimlik, sosyal medya görselleri ve daha fazlası.',
+    descriptionKey: 'home.services.graphics.description',
   },
   {
-    title: 'Mobil Uygulama ve SaaS',
+    titleKey: 'home.services.mobile.title',
     emoji: '📱',
-    description: 'MVP, panel, dashboard ve SaaS ürünleri için geliştirme.',
+    descriptionKey: 'home.services.mobile.description',
   },
   {
-    title: 'Pazarlama ve Reklam',
+    titleKey: 'home.services.marketing.title',
     emoji: '📢',
-    description: 'Reklam yönetimi, sosyal medya, içerik üretimi.',
+    descriptionKey: 'home.services.marketing.description',
   },
   {
-    title: '3D / AR',
+    titleKey: 'home.services.3dar.title',
     emoji: '🍔',
-    description: '3D ürün modelleme, WebAR deneyimleri ve interaktif sunumlar.',
+    descriptionKey: 'home.services.3dar.description',
   },
   {
-    title: 'Yapay Zeka – Dijibot',
+    titleKey: 'home.services.ai.title',
     emoji: '🤖',
-    description: 'AI chatbotlar ve süreçleri hızlandıran akıllı çözümler.',
+    descriptionKey: 'home.services.ai.description',
   },
 ];
 
-const audience = [
+const getAudience = (t: (key: string) => string) => [
   {
-    title: 'KOBİ ve İşletmeler',
-    description:
-      'Web sitesi, e-ticaret ve dijital pazarlama ihtiyaçlarını tek noktadan çözmek isteyen markalar.',
-    tag: 'Dijitalleşmek isteyen işletmeler',
+    titleKey: 'home.forWhom.sme.title',
+    descriptionKey: 'home.forWhom.sme.description',
+    tagKey: 'home.forWhom.sme.tag',
   },
   {
-    title: 'Ajanslar ve Startuplar',
-    description:
-      'Yoğun dönemlerde işi güvenilir bir ekibe outsource etmek isteyen ajanslar ve hızlı büyüyen girişimler.',
-    tag: 'Esnek kapasite & white-label üretim',
+    titleKey: 'home.forWhom.agencies.title',
+    descriptionKey: 'home.forWhom.agencies.description',
+    tagKey: 'home.forWhom.agencies.tag',
   },
   {
-    title: 'Üniversiteli Freelancerlar',
-    description:
-      'Portföyünü büyütmek ve gerçek müşterilerle proje yapmak isteyen öğrenciler.',
-    tag: 'Seçilmiş ekipler & proje yönetimi',
+    titleKey: 'home.forWhom.freelancers.title',
+    descriptionKey: 'home.forWhom.freelancers.description',
+    tagKey: 'home.forWhom.freelancers.tag',
   },
 ];
 
-const whyItems = [
+const getWhyItems = (t: (key: string) => string) => [
   {
-    title: 'Seçilmiş Üniversiteli Ekipler',
-    description:
-      'Fakülte, yetkinlik ve portföy kriterlerine göre seçilmiş ekiplerle çalışırsınız.',
+    titleKey: 'home.why.selectedTeams.title',
+    descriptionKey: 'home.why.selectedTeams.description',
   },
   {
-    title: 'Profesyonel Proje Yönetimi',
-    description:
-      'Süreç boyunca tek muhatabınız olan proje yöneticisi tüm adımları sizin yerinize koordine eder.',
+    titleKey: 'home.why.projectManagement.title',
+    descriptionKey: 'home.why.projectManagement.description',
   },
   {
-    title: 'Şeffaf ve Erişilebilir Fiyatlar',
-    description:
-      'Freelancer esnekliği ile kurumsal süreçleri birleştiren, anlaşılır fiyat yapısı.',
+    titleKey: 'home.why.pricing.title',
+    descriptionKey: 'home.why.pricing.description',
   },
   {
-    title: 'Türkiyeyi Dijitalleştiriyoruz',
-    description:
-      'Markaları dijitalleştirirken genç yeteneklerin global seviyede üretmesini destekliyoruz.',
+    titleKey: 'home.why.digitalize.title',
+    descriptionKey: 'home.why.digitalize.description',
   },
 ];
 
-const employerFaqs = [
+const getEmployerFaqs = (t: (key: string) => string) => [
   {
-    q: 'Proje süreci nasıl işliyor?',
-    a: 'İhtiyaç formunu dolduruyorsunuz, size uygun ekip ve teklif hazırlıyoruz; onay sonrası proje yöneticisiyle süreç başlıyor.',
+    qKey: 'home.faq.employer.q1',
+    aKey: 'home.faq.employer.a1',
   },
   {
-    q: 'Fiyatlandırma nasıl belirleniyor?',
-    a: 'İş kapsamına göre freelancer ekibi, proje yönetimi ve Unilancer payı şeffaf şekilde planlanıyor.',
+    qKey: 'home.faq.employer.q2',
+    aKey: 'home.faq.employer.a2',
   },
   {
-    q: 'Teslim süreleri ne kadar?',
-    a: 'Standart web projeleri genelde 3–6 hafta arasında tamamlanıyor. Daha karmaşık işler kapsamına göre planlanıyor.',
+    qKey: 'home.faq.employer.q3',
+    aKey: 'home.faq.employer.a3',
   },
   {
-    q: 'Tek muhatabım kim oluyor?',
-    a: 'Tüm süreci yöneten deneyimli bir proje yöneticisi ile çalışıyorsunuz.',
+    qKey: 'home.faq.employer.q4',
+    aKey: 'home.faq.employer.a4',
   },
   {
-    q: 'Memnun kalmazsam ne oluyor?',
-    a: 'Revizyon süreci ve memnuniyet odaklı yaklaşımımızla projenin hedefe ulaşmasını birlikte sağlıyoruz.',
-  },
-];
-
-const freelancerFaqs = [
-  {
-    q: 'Unilancer’a nasıl freelancer olarak katılabilirim?',
-    a: 'Başvuru formunu doldurup portföyünüzü yüklüyorsunuz; uygun profilleri görüşmeye davet ediyoruz.',
-  },
-  {
-    q: 'Projeler nasıl dağıtılıyor?',
-    a: 'Proje gereksinimleri, yetkinlikler ve önceki performans skorlarına göre ekipler oluşturuluyor.',
-  },
-  {
-    q: 'Ödemelerimi nasıl alıyorum?',
-    a: 'Proje teslim ve onay sürecinin ardından ödemeniz güvenli şekilde tarafınıza aktarılıyor.',
-  },
-  {
-    q: 'Sadece öğrenciler mi başvurabiliyor?',
-    a: 'Ana odağımız üniversiteliler; bazı kategorilerde mezun profillere de yer verebiliyoruz.',
-  },
-  {
-    q: 'Tam zamanlı çalışmak zorunda mıyım?',
-    a: 'Hayır, proje bazlı ve esnek çalışma modelini destekliyoruz.',
+    qKey: 'home.faq.employer.q5',
+    aKey: 'home.faq.employer.a5',
   },
 ];
 
-// Calendly inline embed bileşeni (yükseklik kontrollü)
+const getFreelancerFaqs = (t: (key: string) => string) => [
+  {
+    qKey: 'home.faq.freelancer.q1',
+    aKey: 'home.faq.freelancer.a1',
+  },
+  {
+    qKey: 'home.faq.freelancer.q2',
+    aKey: 'home.faq.freelancer.a2',
+  },
+  {
+    qKey: 'home.faq.freelancer.q3',
+    aKey: 'home.faq.freelancer.a3',
+  },
+  {
+    qKey: 'home.faq.freelancer.q4',
+    aKey: 'home.faq.freelancer.a4',
+  },
+  {
+    qKey: 'home.faq.freelancer.q5',
+    aKey: 'home.faq.freelancer.a5',
+  },
+];
+
 const CalendlyInline = () => {
   useEffect(() => {
     const existingScript = document.querySelector(
@@ -160,6 +153,13 @@ const CalendlyInline = () => {
 };
 
 const Home = () => {
+  const { t } = useTranslation();
+  const services = getServices(t);
+  const audience = getAudience(t);
+  const whyItems = getWhyItems(t);
+  const employerFaqs = getEmployerFaqs(t);
+  const freelancerFaqs = getFreelancerFaqs(t);
+
   return (
     <div className="relative min-h-screen">
       {/* Arka plan */}
@@ -186,26 +186,25 @@ const Home = () => {
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 dark:bg-white/5 backdrop-blur-md border border-slate-200/70 dark:border-white/10 shadow-sm">
                   <Sparkles className="w-4 h-4 mr-2 text-primary" />
                   <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-100">
-                    Türkiyeyi Dijitalleştiriyoruz
+                    {t('home.hero.newBadge')}
                   </span>
                 </div>
 
                 <div className="space-y-4">
                   <h1 className="text-4xl sm:text-5xl lg:text-[3rem] font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
-                    Üniversiteli ekiplerle
+                    {t('home.hero.mainTitle')}
                     <span className="block bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
-                      markanızı dijitale taşıyoruz.
+                      {t('home.hero.mainTitleHighlight')}
                     </span>
                   </h1>
 
                   <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
-                    Seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri süreci uçtan uca yönetir;
-                    siz uygun bütçeyle güvenle dijitalleşirsiniz.
+                    {t('home.hero.mainDescription')}
                   </p>
 
                   <div className="inline-flex items-center text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-3 py-1">
                     <span className="mr-2 text-primary">•</span>
-                    Web sitesi, e-ticaret, tasarım, içerik, SEO ve daha fazlası…
+                    {t('home.hero.servicesNote')}
                   </div>
                 </div>
 
@@ -216,7 +215,7 @@ const Home = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Projenizi Başlatın</span>
+                    <span>{t('home.hero.startProject')}</span>
                     <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.a>
 
@@ -226,14 +225,14 @@ const Home = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Ücretsiz Dijital Rapor Alın</span>
+                    <span>{t('home.hero.getFreeReport')}</span>
                   </motion.a>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                  <span>100+ proje</span>
+                  <span>{t('home.hero.stats.projects')}</span>
                   <span className="text-slate-300 dark:text-white/20">•</span>
-                  <span>500+ üniversiteli freelancer ekosistemi</span>
+                  <span>{t('home.hero.stats.freelancers')}</span>
                 </div>
               </motion.div>
 
@@ -262,17 +261,17 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                Kimin için?
+                {t('home.forWhom.title')}
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                Unilancer, hem işverenler hem de üniversiteli freelancerlar için tasarlanmış bir ekosistemdir.
+                {t('home.forWhom.description')}
               </p>
             </div>
 
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               {audience.map((item) => (
                 <motion.div
-                  key={item.title}
+                  key={item.titleKey}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -280,13 +279,13 @@ const Home = () => {
                   className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all p-5 flex flex-col"
                 >
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                    {item.title}
+                    {t(item.titleKey)}
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-gray-300 mb-3 flex-1">
-                    {item.description}
+                    {t(item.descriptionKey)}
                   </p>
                   <span className="inline-flex items-center text-[11px] font-medium text-primary bg-primary/5 rounded-full px-3 py-1 self-start">
-                    {item.tag}
+                    {t(item.tagKey)}
                   </span>
                 </motion.div>
               ))}
@@ -302,10 +301,10 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                Partnerler
+                {t('home.partners.title')}
               </h2>
               <p className="text-sm md:text-base text-slate-600 dark:text-gray-300">
-                İş birliği yaptığımız kurumlar ve markalarla birlikte büyüyoruz.
+                {t('home.partners.description')}
               </p>
             </div>
           </div>
@@ -318,24 +317,24 @@ const Home = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                  Neden Unilancer?
+                  {t('home.why.title')}
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  Freelancer esnekliğini kurumsal proje yönetimiyle buluşturuyoruz.
+                  {t('home.why.description')}
                 </p>
               </div>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
                 <span className="mr-2 text-primary">
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
-                Türkiyeyi Dijitalleştiriyoruz
+                {t('home.why.badge')}
               </div>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2">
               {whyItems.map((item) => (
                 <motion.div
-                  key={item.title}
+                  key={item.titleKey}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -343,10 +342,10 @@ const Home = () => {
                   className="rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
                 >
                   <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                    {item.title}
+                    {t(item.titleKey)}
                   </h3>
                   <p className="text-sm text-slate-600 dark:text-gray-300">
-                    {item.description}
+                    {t(item.descriptionKey)}
                   </p>
                 </motion.div>
               ))}
@@ -366,29 +365,28 @@ const Home = () => {
                 className="space-y-4"
               >
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
-                  Ücretsiz Dijital Raporunuzu Alın
+                  {t('home.report.title')}
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  Web sitenizden sosyal medya hesaplarınıza kadar dijital varlığınızı inceliyor,
-                  sektörünüzü ve rakiplerinizi analiz ediyor, size kısa ve net bir yol haritası çıkarıyoruz.
+                  {t('home.report.description')}
                 </p>
 
                 <ul className="space-y-2 text-sm text-slate-600 dark:text-gray-300">
-                  <li>• Web & e-ticaret kontrolleri</li>
-                  <li>• Sosyal medya & içerik analizi</li>
-                  <li>• Reklam & SEO hazırlık durumu</li>
-                  <li>• İlk 30 gün için aksiyon listesi</li>
+                  <li>• {t('home.report.check1')}</li>
+                  <li>• {t('home.report.check2')}</li>
+                  <li>• {t('home.report.check3')}</li>
+                  <li>• {t('home.report.check4')}</li>
                 </ul>
 
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
                   <span className="mr-2 text-primary">
                     <Sparkles className="w-3.5 h-3.5" />
                   </span>
-                  Beyin Göçü Yerine Hizmet İhracatı
+                  {t('home.report.exportBadge')}
                 </div>
 
                 <p className="pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                  Görüşmenizi seçin, kalan her şeyi biz hazırlayalım.
+                  {t('home.report.note')}
                 </p>
               </motion.div>
 
@@ -402,15 +400,14 @@ const Home = () => {
                 <div className="mb-3 flex items-center justify-between">
                   <div>
                     <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white">
-                      30 Dakikalık Dijital Analiz Görüşmesi
+                      {t('home.report.meetingTitle')}
                     </h3>
                     <p className="text-xs md:text-sm text-slate-500 dark:text-gray-300">
-                      Takviminizden uygun zamanı seçin.
+                      {t('home.report.meetingDescription')}
                     </p>
                   </div>
                 </div>
 
-                {/* Calendly inline widget */}
                 <CalendlyInline />
               </motion.div>
             </div>
@@ -422,17 +419,17 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                DigitAll hizmetlerimiz
+                {t('home.services.title')}
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                Markanızın dijital yolculuğunun her adımı için, uzman üniversiteli ekiplerle uçtan uca çözümler sunuyoruz.
+                {t('home.services.description')}
               </p>
             </div>
 
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {services.map((service) => (
                 <motion.div
-                  key={service.title}
+                  key={service.titleKey}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -444,11 +441,11 @@ const Home = () => {
                       {service.emoji}
                     </div>
                     <h3 className="text-base font-semibold text-slate-900 dark:text-white">
-                      {service.title}
+                      {t(service.titleKey)}
                     </h3>
                   </div>
                   <p className="text-sm text-slate-600 dark:text-gray-300">
-                    {service.description}
+                    {t(service.descriptionKey)}
                   </p>
                 </motion.div>
               ))}
@@ -464,10 +461,10 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                Sık Sorulan Sorular
+                {t('home.faq.title')}
               </h2>
               <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Hem iş verenler hem de freelancerlar için süreci şeffaf ve anlaşılır kılmaya çalışıyoruz.
+                {t('home.faq.description')}
               </p>
             </div>
 
@@ -475,17 +472,17 @@ const Home = () => {
               {/* İş Veren */}
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">💼</span> İş Verenler İçin
+                  <span className="text-2xl">💼</span> {t('home.faq.employers.title')}
                 </h3>
                 <div className="space-y-3">
                   {employerFaqs.map((faq, i) => (
                     <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
                       <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
-                        <span>{faq.q}</span>
+                        <span>{t(faq.qKey)}</span>
                         <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
                       </summary>
                       <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
-                        {faq.a}
+                        {t(faq.aKey)}
                       </p>
                     </details>
                   ))}
@@ -495,17 +492,17 @@ const Home = () => {
               {/* Freelancer */}
               <div>
                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <span className="text-2xl">👨‍💻</span> Freelancerlar İçin
+                  <span className="text-2xl">👨‍💻</span> {t('home.faq.freelancers.title')}
                 </h3>
                 <div className="space-y-3">
                   {freelancerFaqs.map((faq, i) => (
                     <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
                       <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
-                        <span>{faq.q}</span>
+                        <span>{t(faq.qKey)}</span>
                         <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
                       </summary>
                       <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
-                        {faq.a}
+                        {t(faq.aKey)}
                       </p>
                     </details>
                   ))}
@@ -520,10 +517,10 @@ const Home = () => {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                Hemen Görüşelim
+                {t('home.meeting.title')}
               </h2>
               <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Projenizi hemen başlatmak için 15 dakikalık ücretsiz görüşme ayarlayabilirsiniz.
+                {t('home.meeting.description')}
               </p>
             </div>
             <CalendlyInline />
