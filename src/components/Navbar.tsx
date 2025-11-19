@@ -300,12 +300,12 @@ const Navbar = () => {
                                   scrollToTop();
                                 }}
                               >
-                                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary transition-colors">
+                                <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 hover:border-primary dark:hover:border-primary hover:dark:bg-slate-800/50 transition-all">
                                   <div className="flex flex-col items-center text-center space-y-2.5">
-                                    <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center">
+                                    <div className="w-12 h-12 bg-primary/10 dark:bg-primary/15 rounded-lg flex items-center justify-center">
                                       <service.icon className="w-5 h-5 text-primary" />
                                     </div>
-                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-300 group-hover:text-primary transition-colors">
+                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">
                                       {service.label}
                                     </p>
                                   </div>
@@ -316,7 +316,7 @@ const Navbar = () => {
                         </div>
 
                         <div className="lg:col-span-4">
-                          <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-5 border border-slate-200 dark:border-slate-700">
+                          <div className="bg-slate-50 dark:bg-slate-800/30 rounded-xl p-5 border border-slate-200 dark:border-slate-700/50">
                             <div className="space-y-4">
                               <div className="relative w-full h-32 rounded-lg overflow-hidden">
                                 <img
@@ -334,7 +334,7 @@ const Navbar = () => {
                                 <h4 className="text-base font-semibold text-slate-900 dark:text-white">
                                   {t('nav.getFreeReport')}
                                 </h4>
-                                <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                                   Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
                                 </p>
 
