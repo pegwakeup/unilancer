@@ -49,21 +49,24 @@ const getAudience = (t: (key: string) => string) => [
     titleKey: 'home.forWhom.sme.title',
     descriptionKey: 'home.forWhom.sme.description',
     tagKey: 'home.forWhom.sme.tag',
-    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    image:
+      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
     imageAlt: 'İş adamı ve esnaf',
   },
   {
     titleKey: 'home.forWhom.agencies.title',
     descriptionKey: 'home.forWhom.agencies.description',
     tagKey: 'home.forWhom.agencies.tag',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    image:
+      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
     imageAlt: 'Üniversite öğrencisi',
   },
   {
     titleKey: 'home.forWhom.freelancers.title',
     descriptionKey: 'home.forWhom.freelancers.description',
     tagKey: 'home.forWhom.freelancers.tag',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
+    image:
+      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
     imageAlt: 'Startup sahibi',
   },
 ];
@@ -133,7 +136,15 @@ const getFreelancerFaqs = (t: (key: string) => string) => [
   },
 ];
 
-const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index: number; t: (key: string) => string }) => {
+const FaqItem = ({
+  faq,
+  index,
+  t,
+}: {
+  faq: { qKey: string; aKey: string };
+  index: number;
+  t: (key: string) => string;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -145,21 +156,20 @@ const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index
       className="group"
     >
       <div
-        className={`
-          rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
-          ${
-            isOpen
-              ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
-              : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
-          }
-        `}
+        className={`rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer ${
+          isOpen
+            ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
+            : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
+        }`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="p-5 flex items-start justify-between gap-4">
           <div className="flex-1">
             <h4
               className={`font-semibold transition-colors duration-200 ${
-                isOpen ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-gray-200'
+                isOpen
+                  ? 'text-slate-900 dark:text-white'
+                  : 'text-slate-800 dark:text-gray-200'
               }`}
             >
               {t(faq.qKey)}
@@ -169,7 +179,9 @@ const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index
             animate={{ rotate: isOpen ? 180 : 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
             className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
-              isOpen ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
+              isOpen
+                ? 'bg-primary/10 text-primary'
+                : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
             }`}
           >
             <ChevronDown className="w-4 h-4" />
@@ -206,7 +218,8 @@ const CalendlyInline = () => {
 
     if (!existingScript) {
       const script = document.createElement('script');
-      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.src =
+        'https://assets.calendly.com/assets/external/widget.js';
       script.async = true;
       document.body.appendChild(script);
     }
@@ -230,6 +243,19 @@ const Home = () => {
   const whyItems = getWhyItems(t);
   const employerFaqs = getEmployerFaqs(t);
   const freelancerFaqs = getFreelancerFaqs(t);
+
+  // Başlık için 3 satırlı yapı: Türkiye'nin / Üniversiteli Freelancer / Ekosistemi
+  const mainTitleTop = t('home.hero.mainTitle'); // Örn: "Türkiye'nin"
+  const highlightFull = t('home.hero.mainTitleHighlight'); // Örn: "Üniversiteli Freelancer Ekosistemi"
+
+  const words = highlightFull.split(' ');
+  let mainTitleBottom = '';
+  let mainTitleCenter = highlightFull;
+
+  if (words.length > 1) {
+    mainTitleBottom = words[words.length - 1]; // "Ekosistemi"
+    mainTitleCenter = words.slice(0, -1).join(' '); // "Üniversiteli Freelancer"
+  }
 
   return (
     <div className="relative min-h-screen">
@@ -256,24 +282,31 @@ const Home = () => {
               >
                 <div className="space-y-5">
                   <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] xl:text-[3.6rem] font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
-                    {t('home.hero.mainTitle')}{' '}
-                    <span className="relative inline-block text-primary dark:text-primary">
-                      {t('home.hero.mainTitleHighlight')}
-                      <svg
-                        className="absolute -bottom-2 left-0 w-full h-3"
-                        viewBox="0 0 200 12"
-                        preserveAspectRatio="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M0,7 Q50,0 100,7 T200,7"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                        />
-                      </svg>
-                    </span>
+                    <span className="block">{mainTitleTop}</span>
+                    {mainTitleCenter && (
+                      <span className="block mt-1">
+                        <span className="relative inline-block text-primary dark:text-primary">
+                          {mainTitleCenter}
+                          <svg
+                            className="absolute -bottom-2 left-0 w-full h-4 text-primary"
+                            viewBox="0 0 200 12"
+                            preserveAspectRatio="none"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M0,7 Q50,0 100,7 T200,7"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    )}
+                    {mainTitleBottom && (
+                      <span className="block">{mainTitleBottom}</span>
+                    )}
                   </h1>
 
                   <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
@@ -454,7 +487,7 @@ const Home = () => {
                 transition={{ duration: 0.5 }}
                 className="space-y-4"
               >
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+                <h2 className="text-3xl font-bold text-slate-900 dark:text:white">
                   {t('home.report.title')}
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
@@ -562,7 +595,9 @@ const Home = () => {
             >
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/10 border border-primary/20 mb-4">
                 <Sparkles className="w-4 h-4 mr-2 text-primary" />
-                <span className="text-sm font-medium text-primary">Sık Sorulan Sorular</span>
+                <span className="text-sm font-medium text-primary">
+                  Sık Sorulan Sorular
+                </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                 {t('home.faq.title')}
