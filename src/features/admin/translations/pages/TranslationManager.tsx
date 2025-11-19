@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Globe, RefreshCw, Search, Filter, CheckCircle, XCircle,
-  AlertCircle, Download, Upload, Loader2
+  AlertCircle, Download, Upload, Loader2, X
 } from 'lucide-react';
 import { supabase } from '../../../../lib/supabase';
 import { initializeStaticTranslations } from '../../../../lib/translations';
+import { generateContentKey, generateHash, deduplicateTranslations } from '../../../../utils/translationScanner';
+import { getAllStaticTranslations } from '../../../../data/translationSources';
+import type { ScannedTranslation } from '../../../../utils/translationScanner';
 
 interface Translation {
   id: string;
@@ -17,12 +20,24 @@ interface Translation {
   updated_at: string;
 }
 
+interface SyncResult {
+  success: boolean;
+  found: number;
+  existing: number;
+  added: number;
+  addedKeys: string[];
+  errors?: string[];
+}
+
 const TranslationManager = () => {
   const [translations, setTranslations] = useState<Translation[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
   const [retranslating, setRetranslating] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState<SyncResult | null>(null);
+  const [showSyncModal, setShowSyncModal] = useState(false);
   const [stats, setStats] = useState({
     total: 0,
     tr: 0,
@@ -103,7 +118,7 @@ const TranslationManager = () => {
           content_key: contentKey,
           language: 'en',
           translated_text: result.translatedText,
-          content_hash: generateHash(originalText),
+          content_hash: generateHashLocal(originalText),
         });
 
       if (error) throw error;
@@ -160,7 +175,7 @@ const TranslationManager = () => {
               content_key: translation.contentKey,
               language: 'en',
               translated_text: translation.translatedText,
-              content_hash: generateHash(translation.originalText),
+              content_hash: generateHashLocal(translation.originalText),
             });
         }
       }
@@ -176,14 +191,121 @@ const TranslationManager = () => {
     }
   };
 
-  const generateHash = (text: string): string => {
+  const generateHashLocal = (text: string): string => {
     let hash = 0;
     for (let i = 0; i < text.length; i++) {
       const char = text.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
-    return Math.abs(hash).toString(36);
+    return Math.abs(hash).toString(36).substring(0, 6);
+  };
+
+  const syncMissingTranslations = async () => {
+    try {
+      setSyncing(true);
+      setSyncResult(null);
+
+      const staticTranslations = getAllStaticTranslations();
+
+      const scannedTranslations: ScannedTranslation[] = staticTranslations.map(({ context, text }) => ({
+        contentKey: generateContentKey(text, context),
+        text,
+        hash: generateHash(text),
+        context,
+      }));
+
+      const uniqueTranslations = deduplicateTranslations(scannedTranslations);
+
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sync-translations`;
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          translations: uniqueTranslations,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Sync failed: ${errorText}`);
+      }
+
+      const result: SyncResult = await response.json();
+      setSyncResult(result);
+      setShowSyncModal(true);
+
+      await loadTranslations();
+    } catch (error) {
+      console.error('Error syncing translations:', error);
+      alert('Failed to sync translations. Please try again.');
+    } finally {
+      setSyncing(false);
+    }
+  };
+
+  const autoTranslateNewOnes = async () => {
+    if (!syncResult || syncResult.added === 0) return;
+
+    try {
+      setRetranslating(true);
+
+      const trTranslations = translations.filter(t =>
+        t.language === 'tr' && syncResult.addedKeys.includes(t.content_key)
+      );
+
+      const textsToTranslate = trTranslations.map(t => ({
+        text: t.translated_text,
+        contentKey: t.content_key,
+      }));
+
+      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/translate-content/batch`;
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          texts: textsToTranslate,
+          targetLang: 'EN',
+          sourceLang: 'TR',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Translation failed');
+      }
+
+      const result = await response.json();
+
+      for (const translation of result.translations) {
+        if (translation.success) {
+          await supabase
+            .from('translations')
+            .upsert({
+              content_key: translation.contentKey,
+              language: 'en',
+              translated_text: translation.translatedText,
+              content_hash: generateHashLocal(translation.originalText),
+            });
+        }
+      }
+
+      await loadTranslations();
+      setShowSyncModal(false);
+      alert(`Successfully translated ${result.successCount} new items`);
+    } catch (error) {
+      console.error('Error auto-translating:', error);
+      alert('Failed to translate new items');
+    } finally {
+      setRetranslating(false);
+    }
   };
 
   const filteredTranslations = translations.filter(t => {
@@ -206,20 +328,37 @@ const TranslationManager = () => {
           </p>
         </div>
 
-        <motion.button
-          onClick={retranslateAll}
-          disabled={retranslating}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          {retranslating ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            <RefreshCw className="w-5 h-5" />
-          )}
-          <span>Retranslate All</span>
-        </motion.button>
+        <div className="flex gap-3">
+          <motion.button
+            onClick={syncMissingTranslations}
+            disabled={syncing || retranslating}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {syncing ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <Upload className="w-5 h-5" />
+            )}
+            <span>Sync Missing</span>
+          </motion.button>
+
+          <motion.button
+            onClick={retranslateAll}
+            disabled={retranslating || syncing}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {retranslating ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <RefreshCw className="w-5 h-5" />
+            )}
+            <span>Retranslate All</span>
+          </motion.button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -330,6 +469,121 @@ const TranslationManager = () => {
           </div>
         )}
       </div>
+
+      <AnimatePresence>
+        {showSyncModal && syncResult && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+            onClick={() => setShowSyncModal(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white dark:bg-dark-light rounded-lg shadow-xl max-w-2xl w-full p-6"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  {syncResult.success ? (
+                    <CheckCircle className="w-6 h-6 text-green-500" />
+                  ) : (
+                    <AlertCircle className="w-6 h-6 text-yellow-500" />
+                  )}
+                  Sync Results
+                </h2>
+                <button
+                  onClick={() => setShowSyncModal(false)}
+                  className="p-2 hover:bg-gray-100 dark:hover:bg-dark rounded-lg transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              <div className="space-y-4 mb-6">
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="bg-blue-500/10 rounded-lg p-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Found</p>
+                    <p className="text-2xl font-bold text-blue-500">{syncResult.found}</p>
+                  </div>
+                  <div className="bg-gray-500/10 rounded-lg p-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Already in DB</p>
+                    <p className="text-2xl font-bold text-gray-500">{syncResult.existing}</p>
+                  </div>
+                  <div className="bg-green-500/10 rounded-lg p-4">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Newly Added</p>
+                    <p className="text-2xl font-bold text-green-500">{syncResult.added}</p>
+                  </div>
+                </div>
+
+                {syncResult.added > 0 && (
+                  <div>
+                    <h3 className="font-semibold mb-2">Newly Added Translations:</h3>
+                    <div className="bg-gray-50 dark:bg-dark rounded-lg p-4 max-h-48 overflow-y-auto">
+                      <ul className="space-y-1 text-sm">
+                        {syncResult.addedKeys.slice(0, 10).map((key, idx) => (
+                          <li key={idx} className="font-mono text-gray-600 dark:text-gray-400">
+                            • {key}
+                          </li>
+                        ))}
+                        {syncResult.addedKeys.length > 10 && (
+                          <li className="text-gray-500 italic">
+                            ... and {syncResult.addedKeys.length - 10} more
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {syncResult.errors && syncResult.errors.length > 0 && (
+                  <div>
+                    <h3 className="font-semibold mb-2 text-red-500">Errors:</h3>
+                    <div className="bg-red-50 dark:bg-red-900/20 rounded-lg p-4 max-h-32 overflow-y-auto">
+                      <ul className="space-y-1 text-sm text-red-600 dark:text-red-400">
+                        {syncResult.errors.map((error, idx) => (
+                          <li key={idx}>• {error}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-3 justify-end">
+                <button
+                  onClick={() => setShowSyncModal(false)}
+                  className="px-4 py-2 border border-gray-300 dark:border-white/10 rounded-lg hover:bg-gray-50 dark:hover:bg-dark transition-colors"
+                >
+                  Close
+                </button>
+                {syncResult.added > 0 && (
+                  <button
+                    onClick={autoTranslateNewOnes}
+                    disabled={retranslating}
+                    className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50"
+                  >
+                    {retranslating ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin" />
+                        Translating...
+                      </>
+                    ) : (
+                      <>
+                        <RefreshCw className="w-4 h-4" />
+                        Auto-Translate Now
+                      </>
+                    )}
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
