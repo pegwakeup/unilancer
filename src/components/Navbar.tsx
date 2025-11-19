@@ -302,10 +302,10 @@ const Navbar = () => {
                               >
                                 <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-200 dark:border-slate-700/50 hover:border-primary dark:hover:border-primary hover:dark:bg-slate-800/50 transition-all">
                                   <div className="flex flex-col items-center text-center space-y-2.5">
-                                    <div className="w-12 h-12 bg-primary/10 dark:bg-primary/15 rounded-lg flex items-center justify-center">
-                                      <service.icon className="w-5 h-5 text-primary" />
+                                    <div className="w-12 h-12 bg-primary/10 dark:bg-slate-700/40 rounded-lg flex items-center justify-center group-hover:dark:bg-slate-700/60 transition-colors">
+                                      <service.icon className="w-5 h-5 text-primary dark:text-cyan-400" />
                                     </div>
-                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors">
+                                    <p className="text-sm font-medium text-slate-700 dark:text-slate-200 group-hover:text-primary dark:group-hover:text-cyan-400 transition-colors">
                                       {service.label}
                                     </p>
                                   </div>
