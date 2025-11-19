@@ -189,7 +189,7 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center justify-center">
             <div className="flex items-center space-x-2">
-              <div 
+              <div
                 className="relative group"
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
@@ -215,108 +215,6 @@ const Navbar = () => {
                     <ChevronDown className="w-4 h-4" />
                   </motion.div>
                 </button>
-
-                <AnimatePresence>
-                  {isServicesOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 10 }}
-                      transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
-                      className="absolute top-full mt-3"
-                      style={{
-                        width: '1100px',
-                        maxWidth: '95vw',
-                        left: '50%',
-                        transform: 'translateX(-50%)'
-                      }}
-                    >
-                      <div className="bg-white dark:bg-slate-900 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden">
-                        <div className="p-6">
-                          <div className="grid grid-cols-12 gap-6">
-                            <div className="col-span-8">
-                              <div className="mb-5">
-                                <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1.5">
-                                  <span className="text-slate-900 dark:text-white">digit</span>
-                                  <span className="text-primary">All</span> Hizmetlerimiz
-                                </h3>
-                                <p className="text-xs text-slate-600 dark:text-slate-400">
-                                  Dijital dönüşümünüz için kapsamlı çözümler
-                                </p>
-                              </div>
-
-                              <div className="grid grid-cols-4 gap-3">
-                                {digitAllServices.map((service, index) => (
-                                  <Link
-                                    key={index}
-                                    to={service.path}
-                                    className="group relative block"
-                                    onClick={() => {
-                                      setIsServicesOpen(false);
-                                      scrollToTop();
-                                    }}
-                                  >
-                                    <div className="relative p-4 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-primary/50 dark:hover:border-primary/50 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 will-change-transform">
-                                      <div className="flex flex-col items-center text-center space-y-2.5">
-                                        <div className="relative">
-                                          <div className="absolute inset-0 bg-primary/20 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                                          <div className="relative w-12 h-12 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 rounded-lg flex items-center justify-center group-hover:scale-105 transition-transform duration-200">
-                                            <service.icon className="w-5 h-5 text-primary" />
-                                          </div>
-                                        </div>
-                                        <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 group-hover:text-primary transition-colors leading-tight">
-                                          {service.label}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="col-span-4">
-                              <div className="relative h-full bg-gradient-to-br from-primary/5 to-primary/10 dark:from-primary/10 dark:to-primary/20 rounded-xl p-5 border border-primary/20 dark:border-primary/30">
-                                <div className="space-y-4">
-                                  <div className="relative w-full h-36 rounded-lg overflow-hidden shadow-md">
-                                    <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/10" />
-                                    <img
-                                      src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
-                                      alt="Digital Services"
-                                      className="w-full h-full object-cover opacity-70"
-                                      loading="lazy"
-                                    />
-                                  </div>
-
-                                  <div className="space-y-2.5">
-                                    <h4 className="text-base font-bold text-slate-900 dark:text-white">
-                                      {t('nav.getFreeReport')}
-                                    </h4>
-                                    <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-                                      Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
-                                    </p>
-
-                                    <motion.button
-                                      onClick={() => {
-                                        setIsServicesOpen(false);
-                                        setIsCalendlyOpen(true);
-                                      }}
-                                      className="w-full flex items-center justify-center space-x-2 px-4 py-3 bg-primary hover:bg-primary-dark text-white rounded-lg transition-all font-semibold shadow-md hover:shadow-lg group"
-                                      whileHover={{ scale: 1.02 }}
-                                      whileTap={{ scale: 0.98 }}
-                                    >
-                                      <Calendar className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-                                      <span className="text-sm">{t('nav.scheduleConsultation')}</span>
-                                    </motion.button>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
               </div>
 
               <NavLink to={getRouteForLanguage('/portfolio', language)} active={location.pathname.includes('/portfolio') || location.pathname.includes('/portfolyo')} onClick={scrollToTop}>
@@ -333,6 +231,121 @@ const Navbar = () => {
               </NavLink>
             </div>
           </div>
+
+          {/* Dropdown Menu - Fixed to Navbar */}
+          <AnimatePresence>
+            {isServicesOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2, ease: [0.4, 0, 0.2, 1] }}
+                className="fixed left-0 right-0 top-[72px] z-40"
+                style={{
+                  marginTop: isScrolled ? '0px' : '8px'
+                }}
+                onMouseEnter={() => setIsServicesOpen(true)}
+                onMouseLeave={() => setIsServicesOpen(false)}
+              >
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                  <div className={`
+                    backdrop-blur-xl rounded-2xl shadow-2xl overflow-hidden
+                    ${isScrolled
+                      ? 'bg-white/98 dark:bg-slate-900/98 border border-slate-200/80 dark:border-slate-700/80'
+                      : 'bg-white/95 dark:bg-slate-900/95 border border-slate-200/60 dark:border-slate-700/60'}
+                  `}
+                  style={{
+                    boxShadow: theme === 'dark'
+                      ? '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(95, 200, 218, 0.1)'
+                      : '0 20px 60px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.05)'
+                  }}
+                  >
+                    <div className="p-7">
+                      <div className="grid grid-cols-12 gap-7">
+                        <div className="col-span-8">
+                          <div className="mb-6">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
+                              <span className="text-slate-900 dark:text-white">digit</span>
+                              <span className="text-primary">All</span> Hizmetlerimiz
+                            </h3>
+                            <p className="text-sm text-slate-600 dark:text-slate-400">
+                              Dijital dönüşümünüz için kapsamlı çözümler
+                            </p>
+                          </div>
+
+                          <div className="grid grid-cols-4 gap-4">
+                            {digitAllServices.map((service, index) => (
+                              <Link
+                                key={index}
+                                to={service.path}
+                                className="group relative block"
+                                onClick={() => {
+                                  setIsServicesOpen(false);
+                                  scrollToTop();
+                                }}
+                              >
+                                <div className="relative p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-800/80 dark:to-slate-800/40 border border-slate-200/50 dark:border-slate-700/50 hover:border-primary/40 dark:hover:border-primary/40 transition-all duration-200 hover:shadow-lg hover:-translate-y-0.5 will-change-transform backdrop-blur-sm">
+                                  <div className="flex flex-col items-center text-center space-y-3">
+                                    <div className="relative">
+                                      <div className="absolute inset-0 bg-primary/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                                      <div className="relative w-14 h-14 bg-gradient-to-br from-primary/15 to-primary/5 dark:from-primary/25 dark:to-primary/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-200 shadow-inner">
+                                        <service.icon className="w-6 h-6 text-primary" />
+                                      </div>
+                                    </div>
+                                    <p className="text-sm font-semibold text-slate-800 dark:text-slate-100 group-hover:text-primary transition-colors leading-tight">
+                                      {service.label}
+                                    </p>
+                                  </div>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="col-span-4">
+                          <div className="relative h-full bg-gradient-to-br from-primary/8 via-primary/5 to-primary/10 dark:from-primary/15 dark:via-primary/10 dark:to-primary/20 rounded-xl p-6 border border-primary/30 dark:border-primary/40 backdrop-blur-sm">
+                            <div className="space-y-5">
+                              <div className="relative w-full h-40 rounded-xl overflow-hidden shadow-lg ring-1 ring-primary/20 dark:ring-primary/30">
+                                <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-primary/10" />
+                                <img
+                                  src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
+                                  alt="Digital Services"
+                                  className="w-full h-full object-cover opacity-60"
+                                  loading="lazy"
+                                />
+                              </div>
+
+                              <div className="space-y-3">
+                                <h4 className="text-lg font-bold text-slate-900 dark:text-white">
+                                  {t('nav.getFreeReport')}
+                                </h4>
+                                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                                  Dijital varlığınızı analiz ediyor, size özel yol haritası çıkarıyoruz.
+                                </p>
+
+                                <motion.button
+                                  onClick={() => {
+                                    setIsServicesOpen(false);
+                                    setIsCalendlyOpen(true);
+                                  }}
+                                  className="w-full flex items-center justify-center space-x-2 px-5 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg hover:shadow-xl hover:shadow-primary/30 group"
+                                  whileHover={{ scale: 1.02 }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  <Calendar className="w-5 h-5 group-hover:rotate-12 transition-transform" />
+                                  <span>{t('nav.scheduleConsultation')}</span>
+                                </motion.button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* Desktop Action Buttons */}
           <div className="hidden md:flex items-center space-x-4">
