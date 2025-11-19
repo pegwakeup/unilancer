@@ -29,7 +29,7 @@ const Home = () => {
       {/* Content */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center overflow-visible pt-24 pb-16 md:pt-28 md:pb-20">
+        <section className="relative isolate min-h-[92vh] flex items-center overflow-visible pt-24 pb-16 md:pt-28 md:pb-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
               {/* Left Content */}
@@ -47,7 +47,7 @@ const Home = () => {
                   className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/15 to-cyan-400/15 dark:from-primary/25 dark:to-cyan-500/25 text-primary dark:text-primary backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-sm"
                 >
                   <Sparkles className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">Türkiye'nin Yeni Nesil Freelance Platformu</span>
+                  <span className="text-sm font-medium">Türkiye&apos;nin Yeni Nesil Freelance Platformu</span>
                 </motion.div>
 
                 {/* Heading */}
@@ -58,11 +58,11 @@ const Home = () => {
                   className="space-y-4"
                 >
                   <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
-                    Türkiye'nin{' '}
+                    Türkiye&apos;nin{' '}
                     <span className="text-primary relative inline-block">
                       üniversiteli
                       <svg
-                        className="absolute -bottom-2 left-0 w-full h-3"
+                        className="absolute -bottom-2 left-0 w-full h-3 text-primary/80"
                         viewBox="0 0 200 12"
                         preserveAspectRatio="none"
                       >
@@ -75,7 +75,9 @@ const Home = () => {
                       </svg>
                     </span>
                     <br />
-                    freelancer ekosistemi
+                    <span className="bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
+                      freelancer ekosistemi
+                    </span>
                   </h1>
                 </motion.div>
 
@@ -109,32 +111,43 @@ const Home = () => {
                   ))}
                 </motion.div>
 
-                {/* CTA Buttons */}
+                {/* CTA Buttons + Trust */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="flex flex-col sm:flex-row gap-4 pt-4"
+                  className="space-y-3 pt-4"
                 >
-                  <motion.a
-                    href="/project-request"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>Projenizi Başlatalım</span>
-                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </motion.a>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <motion.a
+                      href="/project-request"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span>Projenizi Başlatalım</span>
+                      <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </motion.a>
 
-                  <motion.a
-                    href="/portfolio"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <span>Portfolyomuzu İnceleyin</span>
-                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </motion.a>
+                    <motion.a
+                      href="/portfolio"
+                      className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <span>Portfolyomuzu İnceleyin</span>
+                      <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    </motion.a>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 px-3 py-1">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                      <span>100+ projede tercih edildi</span>
+                    </div>
+                    <span className="hidden sm:inline text-slate-300 dark:text-white/20">•</span>
+                    <span>Ortalama memnuniyet: 4.9 / 5</span>
+                  </div>
                 </motion.div>
               </motion.div>
 
@@ -146,19 +159,60 @@ const Home = () => {
                 className="lg:col-span-5 flex justify-center lg:justify-end"
               >
                 <div className="relative w-full max-w-[520px] group">
+                  {/* Glow behind image */}
+                  <div
+                    className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 opacity-70 blur-2xl group-hover:opacity-100 transition-opacity"
+                    aria-hidden="true"
+                  />
+
                   {/* Main Image - no frame, no cropping */}
                   <img
                     src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
                     alt="Unilancer Üniversiteli Freelancer Ekosistemi"
-                    className="w-full h-auto rounded-3xl shadow-2xl object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
+                    className="relative w-full h-auto rounded-3xl shadow-2xl object-cover object-center group-hover:scale-[1.02] transition-transform duration-700"
                   />
+
+                  {/* Floating Badge - Ücretsiz Dijital Analiz */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ delay: 0.8, duration: 0.6 }}
+                    className="hidden md:flex items-center gap-3 absolute -top-6 left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-4 py-3 z-20"
+                  >
+                    <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-cyan-500 text-white">
+                      <Sparkles className="w-4 h-4" />
+                    </div>
+                    <div className="text-xs">
+                      <div className="font-semibold text-slate-900 dark:text-white">
+                        Ücretsiz Dijital Analiz
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-gray-400">
+                        Web, sosyal medya & rakip incelemesi
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Floating Mini Metric */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ delay: 1.0, duration: 0.6 }}
+                    className="hidden md:flex items-center gap-3 absolute -right-4 top-14 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200 dark:border-white/10 px-4 py-3 z-10"
+                  >
+                    <div className="flex flex-col">
+                      <span className="text-xs text-slate-500 dark:text-gray-400">Teslim süresi</span>
+                      <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                        3-6 hafta arası
+                      </span>
+                    </div>
+                  </motion.div>
 
                   {/* Stats Badge */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
-                    className="mt-5 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
+                    className="mt-5 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs z-30"
                   >
                     <div className="flex items-center justify-between gap-4">
                       <div className="text-center flex-1">
@@ -179,6 +233,14 @@ const Home = () => {
                   </motion.div>
                 </div>
               </motion.div>
+            </div>
+          </div>
+
+          {/* Scroll Hint */}
+          <div className="pointer-events-none absolute bottom-6 inset-x-0 flex justify-center">
+            <div className="flex flex-col items-center gap-1 text-[11px] text-slate-400 dark:text-gray-500">
+              <span>Dijital çözümlerimizi keşfedin</span>
+              <span className="w-px h-6 bg-slate-300/70 dark:bg-white/15 animate-pulse" />
             </div>
           </div>
         </section>
