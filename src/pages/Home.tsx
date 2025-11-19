@@ -1,138 +1,138 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Sparkles, ChevronDown } from 'lucide-react';
-import { LogosCarousel } from '../components/ui/logos-carousel';
-import { useTranslation } from '../hooks/useTranslation';
+import React, { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Sparkles, ChevronDown } from "lucide-react";
+import { LogosCarousel } from "../components/ui/logos-carousel";
+import { useTranslation } from "../hooks/useTranslation";
 
 const getServices = (t: (key: string) => string) => [
   {
-    titleKey: 'home.services.website.title',
-    emoji: '💻',
-    descriptionKey: 'home.services.website.description',
+    titleKey: "home.services.website.title",
+    emoji: "💻",
+    descriptionKey: "home.services.website.description",
   },
   {
-    titleKey: 'home.services.ecommerce.title',
-    emoji: '🛒',
-    descriptionKey: 'home.services.ecommerce.description',
+    titleKey: "home.services.ecommerce.title",
+    emoji: "🛒",
+    descriptionKey: "home.services.ecommerce.description",
   },
   {
-    titleKey: 'home.services.graphics.title',
-    emoji: '🎨',
-    descriptionKey: 'home.services.graphics.description',
+    titleKey: "home.services.graphics.title",
+    emoji: "🎨",
+    descriptionKey: "home.services.graphics.description",
   },
   {
-    titleKey: 'home.services.mobile.title',
-    emoji: '📱',
-    descriptionKey: 'home.services.mobile.description',
+    titleKey: "home.services.mobile.title",
+    emoji: "📱",
+    descriptionKey: "home.services.mobile.description",
   },
   {
-    titleKey: 'home.services.marketing.title',
-    emoji: '📢',
-    descriptionKey: 'home.services.marketing.description',
+    titleKey: "home.services.marketing.title",
+    emoji: "📢",
+    descriptionKey: "home.services.marketing.description",
   },
   {
-    titleKey: 'home.services.3dar.title',
-    emoji: '🍔',
-    descriptionKey: 'home.services.3dar.description',
+    titleKey: "home.services.3dar.title",
+    emoji: "🍔",
+    descriptionKey: "home.services.3dar.description",
   },
   {
-    titleKey: 'home.services.ai.title',
-    emoji: '🤖',
-    descriptionKey: 'home.services.ai.description',
+    titleKey: "home.services.ai.title",
+    emoji: "🤖",
+    descriptionKey: "home.services.ai.description",
   },
 ];
 
 const getAudience = (t: (key: string) => string) => [
   {
-    titleKey: 'home.forWhom.sme.title',
-    descriptionKey: 'home.forWhom.sme.description',
-    tagKey: 'home.forWhom.sme.tag',
+    titleKey: "home.forWhom.sme.title",
+    descriptionKey: "home.forWhom.sme.description",
+    tagKey: "home.forWhom.sme.tag",
     image:
-      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
-    imageAlt: 'İş adamı ve esnaf',
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80",
+    imageAlt: "İş adamı ve esnaf",
   },
   {
-    titleKey: 'home.forWhom.agencies.title',
-    descriptionKey: 'home.forWhom.agencies.description',
-    tagKey: 'home.forWhom.agencies.tag',
+    titleKey: "home.forWhom.agencies.title",
+    descriptionKey: "home.forWhom.agencies.description",
+    tagKey: "home.forWhom.agencies.tag",
     image:
-      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
-    imageAlt: 'Üniversite öğrencisi',
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80",
+    imageAlt: "Üniversite öğrencisi",
   },
   {
-    titleKey: 'home.forWhom.freelancers.title',
-    descriptionKey: 'home.forWhom.freelancers.description',
-    tagKey: 'home.forWhom.freelancers.tag',
+    titleKey: "home.forWhom.freelancers.title",
+    descriptionKey: "home.forWhom.freelancers.description",
+    tagKey: "home.forWhom.freelancers.tag",
     image:
-      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
-    imageAlt: 'Startup sahibi',
+      "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80",
+    imageAlt: "Startup sahibi",
   },
 ];
 
 const getWhyItems = (t: (key: string) => string) => [
   {
-    titleKey: 'home.why.selectedTeams.title',
-    descriptionKey: 'home.why.selectedTeams.description',
+    titleKey: "home.why.selectedTeams.title",
+    descriptionKey: "home.why.selectedTeams.description",
   },
   {
-    titleKey: 'home.why.projectManagement.title',
-    descriptionKey: 'home.why.projectManagement.description',
+    titleKey: "home.why.projectManagement.title",
+    descriptionKey: "home.why.projectManagement.description",
   },
   {
-    titleKey: 'home.why.pricing.title',
-    descriptionKey: 'home.why.pricing.description',
+    titleKey: "home.why.pricing.title",
+    descriptionKey: "home.why.pricing.description",
   },
   {
-    titleKey: 'home.why.digitalize.title',
-    descriptionKey: 'home.why.digitalize.description',
+    titleKey: "home.why.digitalize.title",
+    descriptionKey: "home.why.digitalize.description",
   },
 ];
 
 const getEmployerFaqs = (t: (key: string) => string) => [
   {
-    qKey: 'home.faq.employer.q1',
-    aKey: 'home.faq.employer.a1',
+    qKey: "home.faq.employer.q1",
+    aKey: "home.faq.employer.a1",
   },
   {
-    qKey: 'home.faq.employer.q2',
-    aKey: 'home.faq.employer.a2',
+    qKey: "home.faq.employer.q2",
+    aKey: "home.faq.employer.a2",
   },
   {
-    qKey: 'home.faq.employer.q3',
-    aKey: 'home.faq.employer.a3',
+    qKey: "home.faq.employer.q3",
+    aKey: "home.faq.employer.a3",
   },
   {
-    qKey: 'home.faq.employer.q4',
-    aKey: 'home.faq.employer.a4',
+    qKey: "home.faq.employer.q4",
+    aKey: "home.faq.employer.a4",
   },
   {
-    qKey: 'home.faq.employer.q5',
-    aKey: 'home.faq.employer.a5',
+    qKey: "home.faq.employer.q5",
+    aKey: "home.faq.employer.a5",
   },
 ];
 
 const getFreelancerFaqs = (t: (key: string) => string) => [
   {
-    qKey: 'home.faq.freelancer.q1',
-    aKey: 'home.faq.freelancer.a1',
+    qKey: "home.faq.freelancer.q1",
+    aKey: "home.faq.freelancer.a1",
   },
   {
-    qKey: 'home.faq.freelancer.q2',
-    aKey: 'home.faq.freelancer.a2',
+    qKey: "home.faq.freelancer.q2",
+    aKey: "home.faq.freelancer.a2",
   },
   {
-    qKey: 'home.faq.freelancer.q3',
-    aKey: 'home.faq.freelancer.a3',
+    qKey: "home.faq.freelancer.q3",
+    aKey: "home.faq.freelancer.a3",
   },
   {
-    qKey: 'home.faq.freelancer.q4',
-    aKey: 'home.faq.freelancer.a4',
+    qKey: "home.faq.freelancer.q4",
+    aKey: "home.faq.freelancer.a4",
   },
   {
-    qKey: 'home.faq.freelancer.q5',
-    aKey: 'home.faq.freelancer.a5',
+    qKey: "home.faq.freelancer.q5",
+    aKey: "home.faq.freelancer.a5",
   },
 ];
 
@@ -158,8 +158,8 @@ const FaqItem = ({
       <div
         className={`rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer ${
           isOpen
-            ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
-            : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
+            ? "bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10"
+            : "bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md"
         }`}
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -168,8 +168,8 @@ const FaqItem = ({
             <h4
               className={`font-semibold transition-colors duration-200 ${
                 isOpen
-                  ? 'text-slate-900 dark:text-white'
-                  : 'text-slate-800 dark:text-gray-200'
+                  ? "text-slate-900 dark:text-white"
+                  : "text-slate-800 dark:text-gray-200"
               }`}
             >
               {t(faq.qKey)}
@@ -177,11 +177,11 @@ const FaqItem = ({
           </div>
           <motion.div
             animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
             className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
               isOpen
-                ? 'bg-primary/10 text-primary'
-                : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
+                ? "bg-primary/10 text-primary"
+                : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400"
             }`}
           >
             <ChevronDown className="w-4 h-4" />
@@ -191,9 +191,9 @@ const FaqItem = ({
           {isOpen && (
             <motion.div
               initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
+              animate={{ height: "auto", opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
               className="overflow-hidden"
             >
               <div className="px-5 pb-5 pt-0">
@@ -217,9 +217,9 @@ const CalendlyInline = () => {
     ) as HTMLScriptElement | null;
 
     if (!existingScript) {
-      const script = document.createElement('script');
+      const script = document.createElement("script");
       script.src =
-        'https://assets.calendly.com/assets/external/widget.js';
+        "https://assets.calendly.com/assets/external/widget.js";
       script.async = true;
       document.body.appendChild(script);
     }
@@ -230,7 +230,7 @@ const CalendlyInline = () => {
       <div
         className="calendly-inline-widget w-full h-full"
         data-url="https://calendly.com/taha-unilancerlabs/30min"
-        style={{ minWidth: '320px', height: '100%' }}
+        style={{ minWidth: "320px", height: "100%" }}
       />
     </div>
   );
@@ -244,17 +244,17 @@ const Home = () => {
   const employerFaqs = getEmployerFaqs(t);
   const freelancerFaqs = getFreelancerFaqs(t);
 
-  // Başlık için 3 satırlı yapı: Türkiye'nin / Üniversiteli Freelancer / Ekosistemi
-  const mainTitleTop = t('home.hero.mainTitle'); // Örn: "Türkiye'nin"
-  const highlightFull = t('home.hero.mainTitleHighlight'); // Örn: "Üniversiteli Freelancer Ekosistemi"
+  // Başlık için 3 satır: Türkiye'nin / Üniversiteli Freelancer / Ekosistemi
+  const mainTitleTop = t("home.hero.mainTitle"); // "Türkiye'nin"
+  const highlightFull = t("home.hero.mainTitleHighlight"); // "Üniversiteli Freelancer Ekosistemi"
 
-  const words = highlightFull.split(' ');
-  let mainTitleBottom = '';
+  const words = highlightFull.split(" ");
+  let mainTitleBottom = "";
   let mainTitleCenter = highlightFull;
 
   if (words.length > 1) {
     mainTitleBottom = words[words.length - 1]; // "Ekosistemi"
-    mainTitleCenter = words.slice(0, -1).join(' '); // "Üniversiteli Freelancer"
+    mainTitleCenter = words.slice(0, -1).join(" "); // "Üniversiteli Freelancer"
   }
 
   return (
@@ -285,7 +285,7 @@ const Home = () => {
                     <span className="block">{mainTitleTop}</span>
                     {mainTitleCenter && (
                       <span className="block mt-1">
-                        <span className="relative inline-block text-primary dark:text-primary">
+                        <span className="relative inline-block text-primary dark:text-primary lg:whitespace-nowrap">
                           {mainTitleCenter}
                           <svg
                             className="absolute -bottom-2 left-0 w-full h-4 text-primary"
@@ -310,12 +310,12 @@ const Home = () => {
                   </h1>
 
                   <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
-                    {t('home.hero.mainDescription')}
+                    {t("home.hero.mainDescription")}
                   </p>
 
                   <div className="inline-flex items-center text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-3 py-1">
                     <span className="mr-2 text-primary">•</span>
-                    {t('home.hero.servicesNote')}
+                    {t("home.hero.servicesNote")}
                   </div>
                 </div>
 
@@ -326,7 +326,7 @@ const Home = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>{t('home.hero.startProject')}</span>
+                    <span>{t("home.hero.startProject")}</span>
                     <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.a>
 
@@ -336,14 +336,14 @@ const Home = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>{t('home.hero.getFreeReport')}</span>
+                    <span>{t("home.hero.getFreeReport")}</span>
                   </motion.a>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                  <span>{t('home.hero.stats.projects')}</span>
+                  <span>{t("home.hero.stats.projects")}</span>
                   <span className="text-slate-300 dark:text-white/20">•</span>
-                  <span>{t('home.hero.stats.freelancers')}</span>
+                  <span>{t("home.hero.stats.freelancers")}</span>
                 </div>
               </motion.div>
 
@@ -361,7 +361,7 @@ const Home = () => {
                     alt="Unilancer iş birliği"
                     className="relative w-full h-auto rounded-3xl shadow-2xl object-cover transition-transform duration-500"
                     whileHover={{ scale: 1.05 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   />
                 </div>
               </motion.div>
@@ -374,10 +374,10 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                {t('home.forWhom.title')}
+                {t("home.forWhom.title")}
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                {t('home.forWhom.description')}
+                {t("home.forWhom.description")}
               </p>
             </div>
 
@@ -424,10 +424,10 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-                {t('home.partners.title')}
+                {t("home.partners.title")}
               </h2>
               <p className="text-sm md:text-base text-slate-600 dark:text-gray-300">
-                {t('home.partners.description')}
+                {t("home.partners.description")}
               </p>
             </div>
           </div>
@@ -440,17 +440,17 @@ const Home = () => {
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                  {t('home.why.title')}
+                  {t("home.why.title")}
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  {t('home.why.description')}
+                  {t("home.why.description")}
                 </p>
               </div>
               <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
                 <span className="mr-2 text-primary">
                   <Sparkles className="w-3.5 h-3.5" />
                 </span>
-                {t('home.why.badge')}
+                {t("home.why.badge")}
               </div>
             </div>
 
@@ -487,29 +487,29 @@ const Home = () => {
                 transition={{ duration: 0.5 }}
                 className="space-y-4"
               >
-                <h2 className="text-3xl font-bold text-slate-900 dark:text:white">
-                  {t('home.report.title')}
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+                  {t("home.report.title")}
                 </h2>
                 <p className="text-slate-600 dark:text-gray-300 max-w-xl">
-                  {t('home.report.description')}
+                  {t("home.report.description")}
                 </p>
 
                 <ul className="space-y-2 text-sm text-slate-600 dark:text-gray-300">
-                  <li>• {t('home.report.check1')}</li>
-                  <li>• {t('home.report.check2')}</li>
-                  <li>• {t('home.report.check3')}</li>
-                  <li>• {t('home.report.check4')}</li>
+                  <li>• {t("home.report.check1")}</li>
+                  <li>• {t("home.report.check2")}</li>
+                  <li>• {t("home.report.check3")}</li>
+                  <li>• {t("home.report.check4")}</li>
                 </ul>
 
                 <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
                   <span className="mr-2 text-primary">
                     <Sparkles className="w-3.5 h-3.5" />
                   </span>
-                  {t('home.report.exportBadge')}
+                  {t("home.report.exportBadge")}
                 </div>
 
                 <p className="pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-                  {t('home.report.note')}
+                  {t("home.report.note")}
                 </p>
               </motion.div>
 
@@ -523,10 +523,10 @@ const Home = () => {
                 <div className="mb-3 flex items-center justify-between">
                   <div>
                     <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white">
-                      {t('home.report.meetingTitle')}
+                      {t("home.report.meetingTitle")}
                     </h3>
                     <p className="text-xs md:text-sm text-slate-500 dark:text-gray-300">
-                      {t('home.report.meetingDescription')}
+                      {t("home.report.meetingDescription")}
                     </p>
                   </div>
                 </div>
@@ -542,10 +542,10 @@ const Home = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                {t('home.services.title')}
+                {t("home.services.title")}
               </h2>
               <p className="text-slate-600 dark:text-gray-300">
-                {t('home.services.description')}
+                {t("home.services.description")}
               </p>
             </div>
 
@@ -600,10 +600,10 @@ const Home = () => {
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                {t('home.faq.title')}
+                {t("home.faq.title")}
               </h2>
               <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-                {t('home.faq.description')}
+                {t("home.faq.description")}
               </p>
             </motion.div>
 
@@ -620,7 +620,7 @@ const Home = () => {
                     <span className="text-2xl">💼</span>
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {t('home.faq.employers.title')}
+                    {t("home.faq.employers.title")}
                   </h3>
                 </div>
                 <div className="space-y-4">
@@ -642,7 +642,7 @@ const Home = () => {
                     <span className="text-2xl">👨‍💻</span>
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {t('home.faq.freelancers.title')}
+                    {t("home.faq.freelancers.title")}
                   </h3>
                 </div>
                 <div className="space-y-4">
@@ -660,10 +660,10 @@ const Home = () => {
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
-                {t('home.meeting.title')}
+                {t("home.meeting.title")}
               </h2>
               <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
-                {t('home.meeting.description')}
+                {t("home.meeting.description")}
               </p>
             </div>
             <CalendlyInline />
