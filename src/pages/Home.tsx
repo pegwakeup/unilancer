@@ -474,4 +474,64 @@ const Home = () => {
             <div className="grid gap-8 md:grid-cols-2">
               {/* İş Veren */}
               <div>
-                <h3 className="text-lg font-s
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                  <span className="text-2xl">💼</span> İş Verenler İçin
+                </h3>
+                <div className="space-y-3">
+                  {employerFaqs.map((faq, i) => (
+                    <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
+                      <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
+                        <span>{faq.q}</span>
+                        <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
+                      </summary>
+                      <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        {faq.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+
+              {/* Freelancer */}
+              <div>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                  <span className="text-2xl">👨‍💻</span> Freelancerlar İçin
+                </h3>
+                <div className="space-y-3">
+                  {freelancerFaqs.map((faq, i) => (
+                    <details key={i} className="group rounded-xl border border-slate-200/70 dark:border-white/10 bg-white/90 dark:bg-dark-light/90 p-4 hover:shadow-sm transition-all">
+                      <summary className="cursor-pointer font-medium text-slate-900 dark:text-white list-none flex items-center justify-between">
+                        <span>{faq.q}</span>
+                        <span className="text-primary group-open:rotate-180 transition-transform">▼</span>
+                      </summary>
+                      <p className="mt-3 text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                        {faq.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Calendly */}
+        <section className="py-12 md:py-16 bg-slate-50/50 dark:bg-dark-light/30">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                Hemen Görüşelim
+              </h2>
+              <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Projenizi hemen başlatmak için 15 dakikalık ücretsiz görüşme ayarlayabilirsiniz.
+              </p>
+            </div>
+            <CalendlyInline />
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Home;
