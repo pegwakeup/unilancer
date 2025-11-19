@@ -1,211 +1,620 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Sparkles, Globe, ShoppingCart, Palette, FileText, Search } from 'lucide-react';
-import { CTASection } from '../components/ui/cta-with-glow';
-import { LogosCarousel } from '../components/ui/logos-carousel';
-import { FaqSectionDemo } from '../components/ui/faq-demo';
-import { FeatureSectionTop } from '../components/ui/feature-section-top';
-import { FeatureSectionBottom } from '../components/ui/feature-section-bottom';
-import { ServicesSection } from '../components/ui/services-section';
-import { PortfolioPreview } from '../components/ui/portfolio-preview';
+"use client";
 
-const services = [
-  { icon: Globe, label: 'Web Sitesi' },
-  { icon: ShoppingCart, label: 'E-Ticaret' },
-  { icon: Palette, label: 'Tasarım' },
-  { icon: FileText, label: 'İçerik' },
-  { icon: Search, label: 'SEO' },
+import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowUpRight, Sparkles, ChevronDown } from 'lucide-react';
+import { LogosCarousel } from '../components/ui/logos-carousel';
+import { useTranslation } from '../hooks/useTranslation';
+
+const getServices = (t: (key: string) => string) => [
+  {
+    titleKey: 'home.services.website.title',
+    emoji: '💻',
+    descriptionKey: 'home.services.website.description',
+  },
+  {
+    titleKey: 'home.services.ecommerce.title',
+    emoji: '🛒',
+    descriptionKey: 'home.services.ecommerce.description',
+  },
+  {
+    titleKey: 'home.services.graphics.title',
+    emoji: '🎨',
+    descriptionKey: 'home.services.graphics.description',
+  },
+  {
+    titleKey: 'home.services.mobile.title',
+    emoji: '📱',
+    descriptionKey: 'home.services.mobile.description',
+  },
+  {
+    titleKey: 'home.services.marketing.title',
+    emoji: '📢',
+    descriptionKey: 'home.services.marketing.description',
+  },
+  {
+    titleKey: 'home.services.3dar.title',
+    emoji: '🍔',
+    descriptionKey: 'home.services.3dar.description',
+  },
+  {
+    titleKey: 'home.services.ai.title',
+    emoji: '🤖',
+    descriptionKey: 'home.services.ai.description',
+  },
 ];
 
+const getAudience = (t: (key: string) => string) => [
+  {
+    titleKey: 'home.forWhom.sme.title',
+    descriptionKey: 'home.forWhom.sme.description',
+    tagKey: 'home.forWhom.sme.tag',
+    image: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'İş adamı ve esnaf',
+  },
+  {
+    titleKey: 'home.forWhom.agencies.title',
+    descriptionKey: 'home.forWhom.agencies.description',
+    tagKey: 'home.forWhom.agencies.tag',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'Üniversite öğrencisi',
+  },
+  {
+    titleKey: 'home.forWhom.freelancers.title',
+    descriptionKey: 'home.forWhom.freelancers.description',
+    tagKey: 'home.forWhom.freelancers.tag',
+    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=600&q=80',
+    imageAlt: 'Startup sahibi',
+  },
+];
+
+const getWhyItems = (t: (key: string) => string) => [
+  {
+    titleKey: 'home.why.selectedTeams.title',
+    descriptionKey: 'home.why.selectedTeams.description',
+  },
+  {
+    titleKey: 'home.why.projectManagement.title',
+    descriptionKey: 'home.why.projectManagement.description',
+  },
+  {
+    titleKey: 'home.why.pricing.title',
+    descriptionKey: 'home.why.pricing.description',
+  },
+  {
+    titleKey: 'home.why.digitalize.title',
+    descriptionKey: 'home.why.digitalize.description',
+  },
+];
+
+const getEmployerFaqs = (t: (key: string) => string) => [
+  {
+    qKey: 'home.faq.employer.q1',
+    aKey: 'home.faq.employer.a1',
+  },
+  {
+    qKey: 'home.faq.employer.q2',
+    aKey: 'home.faq.employer.a2',
+  },
+  {
+    qKey: 'home.faq.employer.q3',
+    aKey: 'home.faq.employer.a3',
+  },
+  {
+    qKey: 'home.faq.employer.q4',
+    aKey: 'home.faq.employer.a4',
+  },
+  {
+    qKey: 'home.faq.employer.q5',
+    aKey: 'home.faq.employer.a5',
+  },
+];
+
+const getFreelancerFaqs = (t: (key: string) => string) => [
+  {
+    qKey: 'home.faq.freelancer.q1',
+    aKey: 'home.faq.freelancer.a1',
+  },
+  {
+    qKey: 'home.faq.freelancer.q2',
+    aKey: 'home.faq.freelancer.a2',
+  },
+  {
+    qKey: 'home.faq.freelancer.q3',
+    aKey: 'home.faq.freelancer.a3',
+  },
+  {
+    qKey: 'home.faq.freelancer.q4',
+    aKey: 'home.faq.freelancer.a4',
+  },
+  {
+    qKey: 'home.faq.freelancer.q5',
+    aKey: 'home.faq.freelancer.a5',
+  },
+];
+
+const FaqItem = ({ faq, index, t }: { faq: { qKey: string; aKey: string }; index: number; t: (key: string) => string }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="group"
+    >
+      <div
+        className={`
+          rounded-2xl border transition-all duration-300 overflow-hidden cursor-pointer
+          ${isOpen
+            ? 'bg-white dark:bg-dark-light border-primary/30 dark:border-primary/30 shadow-lg shadow-primary/10'
+            : 'bg-white/80 dark:bg-dark-light/80 border-slate-200/70 dark:border-white/10 hover:border-primary/20 dark:hover:border-primary/20 hover:shadow-md'
+          }
+        `}
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="p-5 flex items-start justify-between gap-4">
+          <div className="flex-1">
+            <h4 className={`font-semibold transition-colors duration-200 ${isOpen ? 'text-slate-900 dark:text-white' : 'text-slate-800 dark:text-gray-200'}`}>
+              {t(faq.qKey)}
+            </h4>
+          </div>
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors duration-300 ${
+              isOpen ? 'bg-primary/10 text-primary' : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-gray-400'
+            }`}
+          >
+            <ChevronDown className="w-4 h-4" />
+          </motion.div>
+        </div>
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              transition={{ duration: 0.3, ease: "easeInOut" }}
+              className="overflow-hidden"
+            >
+              <div className="px-5 pb-5 pt-0">
+                <div className="h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-white/10 to-transparent mb-4" />
+                <p className="text-sm text-slate-600 dark:text-gray-300 leading-relaxed">
+                  {t(faq.aKey)}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </motion.div>
+  );
+};
+
+const CalendlyInline = () => {
+  useEffect(() => {
+    const existingScript = document.querySelector(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    ) as HTMLScriptElement | null;
+
+    if (!existingScript) {
+      const script = document.createElement('script');
+      script.src = 'https://assets.calendly.com/assets/external/widget.js';
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
+
+  return (
+    <div className="h-[560px] md:h-[650px] w-full">
+      <div
+        className="calendly-inline-widget w-full h-full"
+        data-url="https://calendly.com/taha-unilancerlabs/30min"
+        style={{ minWidth: '320px', height: '100%' }}
+      />
+    </div>
+  );
+};
+
 const Home = () => {
+  const { t } = useTranslation();
+  const services = getServices(t);
+  const audience = getAudience(t);
+  const whyItems = getWhyItems(t);
+  const employerFaqs = getEmployerFaqs(t);
+  const freelancerFaqs = getFreelancerFaqs(t);
+
   return (
     <div className="relative min-h-screen">
-      {/* Fixed Background */}
+      {/* Arka plan */}
       <div className="fixed inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-cyan-50/40 to-blue-100/30 dark:from-dark dark:via-dark-light dark:to-dark" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_85%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA30_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA30_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_10%,black_80%)] opacity-70" />
       </div>
 
-      {/* Content */}
       <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="relative min-h-[90vh] flex items-center overflow-hidden pt-24 pb-16 md:pt-28 md:pb-20">
+        {/* HERO */}
+        <section
+          id="hero"
+          className="min-h-[80vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              {/* Left Content */}
+            <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              {/* Sol taraf */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="lg:col-span-7 space-y-7"
+                className="space-y-7"
               >
-                {/* Badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/15 to-cyan-400/15 dark:from-primary/25 dark:to-cyan-500/25 text-primary dark:text-primary backdrop-blur-sm border border-primary/20 dark:border-primary/30 shadow-sm"
-                >
-                  <Sparkles className="w-4 h-4 mr-2" />
-                  <span className="text-sm font-medium">Türkiye'nin Yeni Nesil Freelance Platformu</span>
-                </motion.div>
-
-                {/* Heading */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="space-y-4"
-                >
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight text-slate-900 dark:text-white max-w-2xl">
-                    Türkiye'nin{' '}
-                    <span className="text-primary relative inline-block">
-                      üniversiteli
-                      <svg
-                        className="absolute -bottom-2 left-0 w-full h-3"
-                        viewBox="0 0 200 12"
-                        preserveAspectRatio="none"
-                      >
-                        <path d="M0,7 Q50,0 100,7 T200,7" fill="none" stroke="currentColor" strokeWidth="3" />
-                      </svg>
+                <div className="space-y-5">
+                  <h1 className="text-4xl sm:text-5xl lg:text-[3rem] font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
+                    {t('home.hero.mainTitle')}
+                    <span className="block bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
+                      {t('home.hero.mainTitleHighlight')}
                     </span>
-                    <br />
-                    freelancer ekosistemi
                   </h1>
-                </motion.div>
 
-                {/* Description */}
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="text-base sm:text-lg text-slate-600 dark:text-gray-300 leading-relaxed max-w-xl"
-                >
-                  Unilancer'da projelerinizi seçilmiş üniversiteli ekipler üretir, deneyimli proje yöneticileri uçtan uca
-                  yönetir; siz hem uygun bütçeyle çalışır hem de genç yeteneklerin büyümesine katkı sağlarsınız.
-                </motion.p>
+                  <p className="text-base sm:text-lg text-slate-600 dark:text-gray-300 max-w-xl leading-relaxed">
+                    {t('home.hero.mainDescription')}
+                  </p>
 
-                {/* CTA Buttons */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="flex flex-col sm:flex-row gap-4 pt-4"
-                >
+                  <div className="inline-flex items-center text-xs sm:text-sm text-slate-500 dark:text-gray-400 bg-white/80 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 rounded-full px-3 py-1">
+                    <span className="mr-2 text-primary">•</span>
+                    {t('home.hero.servicesNote')}
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <motion.a
                     href="/project-request"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
+                    className="inline-flex items-center justify-center px-8 py-3.5 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold transition-all shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Projenizi Başlatalım</span>
+                    <span>{t('home.hero.startProject')}</span>
                     <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                   </motion.a>
 
                   <motion.a
-                    href="/portfolio"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-white dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
+                    href="#rapor"
+                    className="inline-flex items-center justify-center px-8 py-3.5 bg-white/90 dark:bg-white/5 backdrop-blur-sm text-slate-900 dark:text-white rounded-xl font-semibold hover:bg-slate-100 dark:hover:bg-white/10 transition-all border border-slate-200 dark:border-white/10 group"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <span>Portfolyomuzu İnceleyin</span>
-                    <ArrowUpRight className="w-5 h-5 ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <span>{t('home.hero.getFreeReport')}</span>
                   </motion.a>
-                </motion.div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-3 pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
+                  <span>{t('home.hero.stats.projects')}</span>
+                  <span className="text-slate-300 dark:text-white/20">•</span>
+                  <span>{t('home.hero.stats.freelancers')}</span>
+                </div>
               </motion.div>
 
-              {/* Right Image */}
+              {/* Sağ taraf – görsel */}
               <motion.div
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="lg:col-span-5"
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="flex justify-center lg:justify-end"
               >
-                <div className="relative">
-                  {/* Main Image Container - sade, çerçevesiz görünüm */}
-                  <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-100/60 dark:border-white/10">
-                    <img
-                      src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
-                      alt="Unilancer Üniversiteli Freelancer Ekosistemi"
-                      className="w-full h-full object-cover object-center aspect-[4/3] group-hover:scale-105 transition-transform duration-700"
-                    />
-                  </div>
-
-                  {/* Stats Badge */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.9 }}
-                    className="mt-6 md:mt-0 md:absolute md:-bottom-6 md:left-6 bg-white/95 dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 dark:border-white/10 px-6 py-4 w-full max-w-xs"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <div className="text-center flex-1">
-                        <div className="text-2xl font-bold text-primary">500+</div>
-                        <div className="text-xs text-slate-600 dark:text-gray-400">Üniversiteli</div>
-                      </div>
-                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
-                      <div className="text-center flex-1">
-                        <div className="text-2xl font-bold text-primary">100+</div>
-                        <div className="text-xs text-slate-600 dark:text-gray-400">Proje</div>
-                      </div>
-                      <div className="w-px h-10 bg-slate-200 dark:bg-white/10" />
-                      <div className="text-center flex-1">
-                        <div className="text-2xl font-bold text-primary">50+</div>
-                        <div className="text-xs text-slate-600 dark:text-gray-400">İş Ortağı</div>
-                      </div>
-                    </div>
-                  </motion.div>
+                <div className="relative w-full max-w-[480px] group cursor-pointer">
+                  <div className="pointer-events-none absolute -inset-6 rounded-[40px] bg-gradient-to-tr from-primary/25 via-cyan-400/15 to-purple-500/25 blur-2xl opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                  <motion.img
+                    src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/elsikisma.webp"
+                    alt="Unilancer iş birliği"
+                    className="relative w-full h-auto rounded-3xl shadow-2xl object-cover transition-transform duration-500"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  />
                 </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Feature Section Top */}
-        <FeatureSectionTop />
-
-        {/* Services Section */}
-        <ServicesSection />
-
-        {/* Partners Section */}
-        <section className="pt-8 pb-4 relative overflow-hidden bg-gradient-to-b from-transparent via-purple-50/20 to-transparent dark:from-transparent dark:via-transparent dark:to-transparent">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <motion.div
-              className="text-center mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Partnerlerimiz</h2>
-              <p className="text-slate-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Güvenilir iş ortaklarımızla birlikte büyüyoruz
+        {/* KİMİN İÇİN */}
+        <section id="kimin-icin" className="py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                {t('home.forWhom.title')}
+              </h2>
+              <p className="text-slate-600 dark:text-gray-300">
+                {t('home.forWhom.description')}
               </p>
-            </motion.div>
-          </div>
+            </div>
 
+            <div className="mt-8 grid gap-6 md:grid-cols-3">
+              {audience.map((item) => (
+                <motion.div
+                  key={item.titleKey}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
+                  className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all overflow-hidden flex flex-col group"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark/60 z-10" />
+                    <img
+                      src={item.image}
+                      alt={item.imageAlt}
+                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                      {t(item.titleKey)}
+                    </h3>
+                    <p className="text-sm text-slate-600 dark:text-gray-300 mb-3 flex-1">
+                      {t(item.descriptionKey)}
+                    </p>
+                    <span className="inline-flex items-center text-[11px] font-medium text-primary bg-primary/5 rounded-full px-3 py-1 self-start">
+                      {t(item.tagKey)}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* PARTNERLER */}
+        <section
+          id="partnerler"
+          className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5"
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                {t('home.partners.title')}
+              </h2>
+              <p className="text-sm md:text-base text-slate-600 dark:text-gray-300">
+                {t('home.partners.description')}
+              </p>
+            </div>
+          </div>
           <LogosCarousel />
         </section>
 
-        {/* Portfolio Preview Section */}
-        <PortfolioPreview />
+        {/* NEDEN UNILANCER */}
+        <section id="neden-unilancer" className="py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+              <div>
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                  {t('home.why.title')}
+                </h2>
+                <p className="text-slate-600 dark:text-gray-300 max-w-xl">
+                  {t('home.why.description')}
+                </p>
+              </div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
+                <span className="mr-2 text-primary">
+                  <Sparkles className="w-3.5 h-3.5" />
+                </span>
+                {t('home.why.badge')}
+              </div>
+            </div>
 
-        {/* Feature Section Bottom */}
-        <FeatureSectionBottom />
+            <div className="grid gap-6 md:grid-cols-2">
+              {whyItems.map((item) => (
+                <motion.div
+                  key={item.titleKey}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35 }}
+                  className="rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+                    {t(item.titleKey)}
+                  </h3>
+                  <p className="text-sm text-slate-600 dark:text-gray-300">
+                    {t(item.descriptionKey)}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-        {/* FAQ Section */}
-        <FaqSectionDemo />
+        {/* ÜCRETSİZ DİJİTAL RAPOR + CALENDLY */}
+        <section id="rapor" className="py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-8 lg:grid-cols-2 items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="space-y-4"
+              >
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+                  {t('home.report.title')}
+                </h2>
+                <p className="text-slate-600 dark:text-gray-300 max-w-xl">
+                  {t('home.report.description')}
+                </p>
 
-        {/* CTA Section */}
-        <CTASection
-          title="Projenizi Hayata Geçirmeye Hazır mısınız?"
-          description="Size özel çözümler için hemen iletişime geçin"
-          action={{
-            text: 'Teklif Alın',
-            href: '/project-request',
-            variant: 'default',
-          }}
-          className="py-12"
-        />
+                <ul className="space-y-2 text-sm text-slate-600 dark:text-gray-300">
+                  <li>• {t('home.report.check1')}</li>
+                  <li>• {t('home.report.check2')}</li>
+                  <li>• {t('home.report.check3')}</li>
+                  <li>• {t('home.report.check4')}</li>
+                </ul>
+
+                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
+                  <span className="mr-2 text-primary">
+                    <Sparkles className="w-3.5 h-3.5" />
+                  </span>
+                  {t('home.report.exportBadge')}
+                </div>
+
+                <p className="pt-2 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
+                  {t('home.report.note')}
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="rounded-3xl bg-white/95 dark:bg-dark-light/95 border border-slate-200/70 dark:border-white/10 shadow-xl p-4 md:p-5 lg:p-6 flex flex-col overflow-hidden"
+              >
+                <div className="mb-3 flex items-center justify-between">
+                  <div>
+                    <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white">
+                      {t('home.report.meetingTitle')}
+                    </h3>
+                    <p className="text-xs md:text-sm text-slate-500 dark:text-gray-300">
+                      {t('home.report.meetingDescription')}
+                    </p>
+                  </div>
+                </div>
+
+                <CalendlyInline />
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* DIGITALL HİZMETLERİMİZ */}
+        <section id="digitall" className="py-12 md:py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl mb-8">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                {t('home.services.title')}
+              </h2>
+              <p className="text-slate-600 dark:text-gray-300">
+                {t('home.services.description')}
+              </p>
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service) => (
+                <motion.div
+                  key={service.titleKey}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35 }}
+                  className="rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 p-5 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
+                >
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary/10 text-lg">
+                      {service.emoji}
+                    </div>
+                    <h3 className="text-base font-semibold text-slate-900 dark:text-white">
+                      {t(service.titleKey)}
+                    </h3>
+                  </div>
+                  <p className="text-sm text-slate-600 dark:text-gray-300">
+                    {t(service.descriptionKey)}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* SSS */}
+        <section
+          id="sss"
+          className="py-16 md:py-20 relative overflow-hidden"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-white/50 via-blue-50/30 to-white/50 dark:from-dark dark:via-dark-light/50 dark:to-dark" />
+          <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-12"
+            >
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 dark:bg-primary/10 border border-primary/20 mb-4">
+                <Sparkles className="w-4 h-4 mr-2 text-primary" />
+                <span className="text-sm font-medium text-primary">Sık Sorulan Sorular</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                {t('home.faq.title')}
+              </h2>
+              <p className="text-lg text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+                {t('home.faq.description')}
+              </p>
+            </motion.div>
+
+            <div className="grid gap-8 lg:gap-12 md:grid-cols-2">
+              {/* İş Veren */}
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25">
+                    <span className="text-2xl">💼</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.employers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  {employerFaqs.map((faq, i) => (
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Freelancer */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+              >
+                <div className="mb-6 flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary to-cyan-500 rounded-2xl flex items-center justify-center shadow-lg shadow-primary/25">
+                    <span className="text-2xl">👨‍💻</span>
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                    {t('home.faq.freelancers.title')}
+                  </h3>
+                </div>
+                <div className="space-y-4">
+                  {freelancerFaqs.map((faq, i) => (
+                    <FaqItem key={i} faq={faq} index={i} t={t} />
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Calendly */}
+        <section className="py-12 md:py-16 bg-slate-50/50 dark:bg-dark-light/30">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                {t('home.meeting.title')}
+              </h2>
+              <p className="text-slate-600 dark:text-gray-300 max-w-2xl mx-auto">
+                {t('home.meeting.description')}
+              </p>
+            </div>
+            <CalendlyInline />
+          </div>
+        </section>
       </div>
     </div>
   );
