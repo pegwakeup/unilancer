@@ -4,12 +4,13 @@ import {
   Menu, X, Rocket, Users, ChevronDown, Code2, Palette, LineChart,
   Globe, Smartphone, Database, BrainCircuit, PaintBucket,
   FileImage, Figma, Search, Target, Monitor, ArrowRight, MessageSquare, Image, FileText, Sun, Moon,
-  ShoppingCart, Box, Sparkles, Languages
+  ShoppingCart, Box, Sparkles, Languages, Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 import { useTranslation } from '../hooks/useTranslation';
 import { getRouteForLanguage } from '../contexts/LanguageContext';
+import { CalendlyModal } from './CalendlyModal';
 
 const getDigitAllServices = (t: (key: string) => string, lang: string) => [
   { icon: Monitor, label: t('service.webDesign'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },
@@ -95,6 +96,7 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [isCalendlyOpen, setIsCalendlyOpen] = useState(false);
   const location = useLocation();
   const { theme, toggleTheme } = useTheme();
   const { language, toggleLanguage, t } = useTranslation();
@@ -218,28 +220,59 @@ const Navbar = () => {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="absolute top-full left-0 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-md rounded-xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white dark:bg-dark-light/95 backdrop-blur-md rounded-2xl shadow-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden"
+                      style={{ width: '800px', maxWidth: '95vw' }}
                     >
-                      <div className="p-3 min-w-[280px]">
-                        <div className="space-y-1">
-                          {digitAllServices.map((service, index) => (
-                            <Link
-                              key={index}
-                              to={service.path}
-                              className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-all group min-h-[48px] hover:translate-x-1"
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
+                        <div className="relative bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 dark:from-primary/10 dark:via-primary/20 dark:to-primary/10 p-8 flex flex-col items-center justify-center border-r border-slate-200/50 dark:border-white/5">
+                          <div className="relative w-full max-w-[280px] mb-6">
+                            <div className="absolute inset-0 bg-primary/20 rounded-2xl blur-3xl"></div>
+                            <img
+                              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80"
+                              alt="Digital Services"
+                              className="relative rounded-2xl shadow-xl w-full h-48 object-cover"
+                            />
+                          </div>
+                          <div className="text-center space-y-4 w-full">
+                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                              {t('nav.getFreeReport')}
+                            </h3>
+                            <motion.button
                               onClick={() => {
                                 setIsServicesOpen(false);
-                                scrollToTop();
+                                setIsCalendlyOpen(true);
                               }}
+                              className="w-full flex items-center justify-center space-x-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg hover:shadow-xl"
+                              whileHover={{ scale: 1.02 }}
+                              whileTap={{ scale: 0.98 }}
                             >
-                              <div className="w-9 h-9 bg-primary/10 dark:bg-primary/10 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
-                                <service.icon className="w-4 h-4 text-primary" />
-                              </div>
-                              <span className="text-base text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors font-medium">
-                                {service.label}
-                              </span>
-                            </Link>
-                          ))}
+                              <Calendar className="w-5 h-5" />
+                              <span>{t('nav.scheduleConsultation')}</span>
+                            </motion.button>
+                          </div>
+                        </div>
+
+                        <div className="p-6">
+                          <div className="grid grid-cols-2 gap-3">
+                            {digitAllServices.map((service, index) => (
+                              <Link
+                                key={index}
+                                to={service.path}
+                                className="flex flex-col items-center space-y-2 p-4 rounded-xl hover:bg-slate-100 dark:hover:bg-white/5 transition-all group border border-transparent hover:border-primary/20"
+                                onClick={() => {
+                                  setIsServicesOpen(false);
+                                  scrollToTop();
+                                }}
+                              >
+                                <div className="w-12 h-12 bg-primary/10 dark:bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:scale-110 group-hover:bg-primary/20 transition-all">
+                                  <service.icon className="w-5 h-5 text-primary" />
+                                </div>
+                                <span className="text-sm text-center text-gray-700 dark:text-gray-300 group-hover:text-slate-900 dark:group-hover:text-white transition-colors font-medium leading-tight">
+                                  {service.label}
+                                </span>
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     </motion.div>
@@ -366,6 +399,25 @@ const Navbar = () => {
               >
                 <div className="min-h-screen px-4 py-6">
                   <div className="space-y-6 max-w-lg mx-auto">
+                    {/* Free Report CTA */}
+                    <div className="bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 rounded-xl p-6 border border-primary/20 shadow-sm">
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-3 text-center">
+                        {t('nav.getFreeReport')}
+                      </h3>
+                      <motion.button
+                        onClick={() => {
+                          setIsOpen(false);
+                          setIsCalendlyOpen(true);
+                        }}
+                        className="w-full flex items-center justify-center space-x-2 px-6 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl transition-all font-semibold shadow-lg"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <Calendar className="w-5 h-5" />
+                        <span>{t('nav.scheduleConsultation')}</span>
+                      </motion.button>
+                    </div>
+
                     {/* Main Navigation Links */}
                     <div className="space-y-3">
                       {/* Services Dropdown */}
@@ -516,6 +568,8 @@ const Navbar = () => {
           </AnimatePresence>
         </div>
       </div>
+
+      <CalendlyModal isOpen={isCalendlyOpen} onClose={() => setIsCalendlyOpen(false)} />
     </motion.nav>
   );
 };

@@ -1192,6 +1192,14 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
   '3dar.demo.description': {
     tr: 'Aşağıdaki 3D modeli keşfedin',
     en: 'Explore the 3D model below'
+  },
+  'nav.getFreeReport': {
+    tr: 'Ücretsiz Dijital Raporunuzu Alın',
+    en: 'Get Your Free Digital Report'
+  },
+  'nav.scheduleConsultation': {
+    tr: 'Görüşme Ayarlayın',
+    en: 'Schedule Consultation'
   }
 };
 
