@@ -35,6 +35,7 @@ const TranslationManager = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<string>('all');
   const [retranslating, setRetranslating] = useState(false);
+  const [translationProgress, setTranslationProgress] = useState({ current: 0, total: 0 });
   const [syncing, setSyncing] = useState(false);
   const [syncResult, setSyncResult] = useState<SyncResult | null>(null);
   const [showSyncModal, setShowSyncModal] = useState(false);
@@ -135,59 +136,104 @@ const TranslationManager = () => {
   };
 
   const retranslateAll = async () => {
+    const confirmed = window.confirm('This will translate all Turkish texts to English. This may take several minutes. Continue?');
+    if (!confirmed) return;
+
     try {
       setRetranslating(true);
 
-      const trTranslations = translations.filter(t => t.language === 'tr');
+      const { data: trTranslations, error: fetchError } = await supabase
+        .from('translations')
+        .select('content_key, translated_text')
+        .eq('language', 'tr');
+
+      if (fetchError) throw fetchError;
+
+      if (!trTranslations || trTranslations.length === 0) {
+        alert('No Turkish translations found');
+        return;
+      }
+
       const textsToTranslate = trTranslations.map(t => ({
         text: t.translated_text,
         contentKey: t.content_key,
       }));
 
-      const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/translate-content/batch`;
+      const BATCH_SIZE = 50;
+      let totalSuccess = 0;
+      let totalProcessed = 0;
 
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          texts: textsToTranslate,
-          targetLang: 'EN',
-          sourceLang: 'TR',
-        }),
-      });
+      setTranslationProgress({ current: 0, total: textsToTranslate.length });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Translation API Error:', errorText);
-        throw new Error(`Batch translation failed: ${errorText}`);
-      }
+      for (let i = 0; i < textsToTranslate.length; i += BATCH_SIZE) {
+        const batch = textsToTranslate.slice(i, i + BATCH_SIZE);
 
-      const result = await response.json();
+        try {
+          const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/translate-content/batch`;
 
-      for (const translation of result.translations) {
-        if (translation.success) {
-          await supabase
-            .from('translations')
-            .upsert({
-              content_key: translation.contentKey,
-              language: 'en',
-              translated_text: translation.translatedText,
-              content_hash: generateHashLocal(translation.originalText),
-            });
+          const response = await fetch(apiUrl, {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              texts: batch,
+              targetLang: 'EN',
+              sourceLang: 'TR',
+            }),
+          });
+
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Translation API Error:', errorText);
+            totalProcessed += batch.length;
+            setTranslationProgress({ current: totalProcessed, total: textsToTranslate.length });
+            continue;
+          }
+
+          const result = await response.json();
+
+          const upsertBatch = [];
+          for (const translation of result.translations) {
+            if (translation.success) {
+              upsertBatch.push({
+                content_key: translation.contentKey,
+                language: 'en',
+                translated_text: translation.translatedText,
+                content_hash: generateHashLocal(translation.originalText),
+              });
+              totalSuccess++;
+            }
+          }
+
+          if (upsertBatch.length > 0) {
+            await supabase
+              .from('translations')
+              .upsert(upsertBatch);
+          }
+
+          totalProcessed += batch.length;
+          setTranslationProgress({ current: totalProcessed, total: textsToTranslate.length });
+          console.log(`Translated batch ${Math.floor(i / BATCH_SIZE) + 1}: ${totalSuccess}/${totalProcessed}`);
+
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        } catch (batchError) {
+          console.error('Batch error:', batchError);
+          totalProcessed += batch.length;
+          setTranslationProgress({ current: totalProcessed, total: textsToTranslate.length });
         }
       }
 
       await loadTranslations();
 
-      alert(`Successfully retranslated ${result.successCount} out of ${result.totalCount} items`);
+      alert(`Successfully translated ${totalSuccess} out of ${totalProcessed} items!`);
     } catch (error) {
       console.error('Error retranslating all:', error);
-      alert('Error retranslating content');
+      alert(`Error retranslating content: ${error.message}`);
     } finally {
       setRetranslating(false);
+      setTranslationProgress({ current: 0, total: 0 });
     }
   };
 
@@ -352,11 +398,16 @@ const TranslationManager = () => {
             className="flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {retranslating ? (
-              <Loader2 className="w-5 h-5 animate-spin" />
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                <span>{translationProgress.current}/{translationProgress.total}</span>
+              </>
             ) : (
-              <RefreshCw className="w-5 h-5" />
+              <>
+                <RefreshCw className="w-5 h-5" />
+                <span>Retranslate All</span>
+              </>
             )}
-            <span>Retranslate All</span>
           </motion.button>
         </div>
       </div>
