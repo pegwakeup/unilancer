@@ -64,6 +64,12 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const initLanguage = async () => {
+      // Skip language redirect for admin and login routes
+      if (location.pathname.startsWith('/admin') || location.pathname === '/login') {
+        setIsInitialized(true);
+        return;
+      }
+
       const initialLang = await getInitialLanguage();
       setLanguageState(initialLang);
       await loadTranslations(initialLang);
