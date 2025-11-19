@@ -6,7 +6,6 @@ import { PrivacyTermsProvider } from './components/ui/privacy-terms-provider';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import SiteLayout from './components/layout/SiteLayout';
-import AdminLayout from './features/admin/components/layout/AdminLayout';
 
 // Lazy load pages
 const Home = lazy(() => import('./pages/Home'));
@@ -22,13 +21,7 @@ const Contact = lazy(() => import('./pages/Contact'));
 const ThreeDARVirtualTour = lazy(() => import('./pages/ThreeDARVirtualTour'));
 
 // Admin routes
-const BlogAdminPage = lazy(() => import('./features/admin/blog/pages/BlogAdminPage'));
-const BlogEditor = lazy(() => import('./features/admin/blog/pages/BlogEditor'));
-const PortfolioAdminPage = lazy(() => import('./features/admin/portfolio/pages/PortfolioAdminPage'));
-const PortfolioEditor = lazy(() => import('./features/admin/portfolio/pages/PortfolioEditor'));
-const FreelancerList = lazy(() => import('./features/admin/freelancers/pages/FreelancerList'));
-const ProjectRequestsPage = lazy(() => import('./features/admin/project-requests/pages/ProjectRequestsPage'));
-const TranslationManager = lazy(() => import('./features/admin/translations/pages/TranslationManager'));
+const AdminRoutes = lazy(() => import('./features/admin/routes'));
 
 // Scroll to top component
 function ScrollToTop() {
@@ -96,35 +89,10 @@ function App() {
                       path="/admin/*"
                       element={
                         <PrivateRoute>
-                          <AdminLayout />
+                          <AdminRoutes />
                         </PrivateRoute>
                       }
-                    >
-                      {/* Default redirect */}
-                      <Route index element={<Navigate to="/admin/blog" replace />} />
-
-                      {/* Blog routes */}
-                      <Route path="blog" element={<BlogAdminPage />} />
-                      <Route path="blog/new" element={<BlogEditor />} />
-                      <Route path="blog/edit/:id" element={<BlogEditor />} />
-
-                      {/* Portfolio routes */}
-                      <Route path="portfolio" element={<PortfolioAdminPage />} />
-                      <Route path="portfolio/new" element={<PortfolioEditor />} />
-                      <Route path="portfolio/edit/:id" element={<PortfolioEditor />} />
-
-                      {/* Freelancer routes */}
-                      <Route path="freelancers" element={<FreelancerList />} />
-
-                      {/* Project Requests routes */}
-                      <Route path="project-requests" element={<ProjectRequestsPage />} />
-
-                      {/* Translation Management routes */}
-                      <Route path="translations" element={<TranslationManager />} />
-
-                      {/* Fallback redirect */}
-                      <Route path="*" element={<Navigate to="/admin/blog" replace />} />
-                    </Route>
+                    />
 
                     {/* Legacy routes - redirect to Turkish */}
                     <Route path="/portfolio" element={<Navigate to="/tr/portfolyo" replace />} />
