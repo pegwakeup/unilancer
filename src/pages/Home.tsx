@@ -247,16 +247,9 @@ const Home = () => {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6 }}
-                className="space-y-6"
+                className="space-y-7"
               >
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/80 dark:bg-white/5 backdrop-blur-md border border-slate-200/70 dark:border-white/10 shadow-sm">
-                  <Sparkles className="w-4 h-4 mr-2 text-primary" />
-                  <span className="text-xs sm:text-sm font-medium text-slate-700 dark:text-gray-100">
-                    {t('home.hero.newBadge')}
-                  </span>
-                </div>
-
-                <div className="space-y-4">
+                <div className="space-y-5">
                   <h1 className="text-4xl sm:text-5xl lg:text-[3rem] font-bold leading-tight text-slate-900 dark:text-white max-w-xl">
                     {t('home.hero.mainTitle')}
                     <span className="block bg-gradient-to-r from-slate-900 via-primary to-cyan-600 bg-clip-text text-transparent dark:from-white dark:via-primary dark:to-cyan-400">
