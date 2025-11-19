@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from '../hooks/useTranslation';
 import { 
   Code2, Database, Globe, Palette, PenTool, Layout,
   LineChart, Search, TrendingUp, Smartphone, Cpu,
@@ -69,6 +70,8 @@ const ImageSection = ({ image, title, description }: {
 );
 
 const Services = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section */}
@@ -96,14 +99,14 @@ const Services = () => {
               className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-primary-light/20 text-primary mb-6"
             >
               <Zap className="w-4 h-4 mr-2" />
-              <span>Modern Çözümler</span>
+              <span>{t('services.hero.badge', 'Modern Çözümler')}</span>
             </motion.div>
 
             <h1 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white">
-              DigitAll
+              {t('services.hero.title', 'DigitAll')}
             </h1>
             <p className="text-xl text-gray-600 dark:text-gray-300">
-              İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümler sunuyoruz
+              {t('services.hero.subtitle', 'İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümler sunuyoruz')}
             </p>
           </motion.div>
         </div>
@@ -119,9 +122,9 @@ const Services = () => {
             whileInView="whileInView"
             viewport={fadeInUp.viewport}
           >
-            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">Tasarım</h2>
+            <h2 className="text-4xl font-bold mb-4 text-slate-900 dark:text-white">{t('services.design.title', 'Tasarım')}</h2>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Modern ve kullanıcı odaklı tasarım çözümleri ile markanızı öne çıkarın
+              {t('services.design.subtitle', 'Modern ve kullanıcı odaklı tasarım çözümleri ile markanızı öne çıkarın')}
             </p>
           </motion.div>
 
@@ -134,41 +137,41 @@ const Services = () => {
           >
             <ServiceCard
               icon={Monitor}
-              title="Dijital & Web Tasarım"
+              title={t('services.design.digital.title', 'Dijital & Web Tasarım')}
               items={[
-                "Web & Mobil Uygulama Tasarımı",
-                "UI & UX Tasarımı",
-                "E-Ticaret ve Satış Sayfası Tasarımları"
+                t('services.design.digital.item1', 'Web & Mobil Uygulama Tasarımı'),
+                t('services.design.digital.item2', 'UI & UX Tasarımı'),
+                t('services.design.digital.item3', 'E-Ticaret ve Satış Sayfası Tasarımları')
               ]}
             />
 
             <ServiceCard
               icon={PaintBucket}
-              title="Kurumsal Kimlik & Marka"
+              title={t('services.design.corporate.title', 'Kurumsal Kimlik & Marka')}
               items={[
-                "Logo ve Kurumsal Kimlik Oluşturma",
-                "Marka Konsept Tasarımı",
-                "Reklam ve Promosyon Tasarımları"
+                t('services.design.corporate.item1', 'Logo ve Kurumsal Kimlik Oluşturma'),
+                t('services.design.corporate.item2', 'Marka Konsept Tasarımı'),
+                t('services.design.corporate.item3', 'Reklam ve Promosyon Tasarımları')
               ]}
             />
 
             <ServiceCard
               icon={FileImage}
-              title="Basılı & Grafik Tasarım"
+              title={t('services.design.print.title', 'Basılı & Grafik Tasarım')}
               items={[
-                "Katalog ve Broşür Tasarımı",
-                "Ambalaj ve Etiket Tasarımı",
-                "Poster ve Afiş Tasarımı"
+                t('services.design.print.item1', 'Katalog ve Broşür Tasarımı'),
+                t('services.design.print.item2', 'Ambalaj ve Etiket Tasarımı'),
+                t('services.design.print.item3', 'Poster ve Afiş Tasarımı')
               ]}
             />
 
             <ServiceCard
               icon={Figma}
-              title="İllüstrasyon & Özel Grafik"
+              title={t('services.design.illustration.title', 'İllüstrasyon & Özel Grafik')}
               items={[
-                "Dijital Çizim & Karakter Tasarımı",
-                "3D Modelleme & Render Tasarım",
-                "Özel Grafik Çözümleri"
+                t('services.design.illustration.item1', 'Dijital Çizim & Karakter Tasarımı'),
+                t('services.design.illustration.item2', '3D Modelleme & Render Tasarım'),
+                t('services.design.illustration.item3', 'Özel Grafik Çözümleri')
               ]}
             />
           </motion.div>
@@ -183,18 +186,18 @@ const Services = () => {
           >
             <ImageSection
               image="https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=800"
-              title="UI/UX Tasarım"
-              description="Kullanıcı deneyimini ön planda tutan, modern ve etkileyici arayüz tasarımları"
+              title={t('services.design.example1.title', 'UI/UX Tasarım')}
+              description={t('services.design.example1.description', 'Kullanıcı deneyimini ön planda tutan, modern ve etkileyici arayüz tasarımları')}
             />
             <ImageSection
               image="https://images.unsplash.com/photo-1613909207039-6b173b755cc1?auto=format&fit=crop&q=80&w=800"
-              title="Marka Kimliği"
-              description="Markanızı yansıtan özgün ve profesyonel kurumsal kimlik tasarımları"
+              title={t('services.design.example2.title', 'Marka Kimliği')}
+              description={t('services.design.example2.description', 'Markanızı yansıtan özgün ve profesyonel kurumsal kimlik tasarımları')}
             />
             <ImageSection
               image="https://images.unsplash.com/photo-1626785774573-4b799315345d?auto=format&fit=crop&q=80&w=800"
-              title="3D Tasarım"
-              description="Etkileyici 3D modelleme ve görselleştirme çözümleri"
+              title={t('services.design.example3.title', '3D Tasarım')}
+              description={t('services.design.example3.description', 'Etkileyici 3D modelleme ve görselleştirme çözümleri')}
             />
           </motion.div>
         </div>
