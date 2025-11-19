@@ -5,7 +5,6 @@ import {
   ListOrdered, List, Heading2, ImagePlus, Save,
   AlignLeft, AlignCenter, AlignRight, Quote, Eye
 } from 'lucide-react';
-import AdminLayout from '../../components/layout/AdminLayout';
 import { createBlogPost, uploadImage, updateBlogPost } from '../../../../lib/supabase';
 import type { BlogPost } from '../types';
 
@@ -162,7 +161,6 @@ const BlogEditor = ({ post }: BlogEditorProps) => {
   ];
 
   return (
-    <AdminLayout>
       <div className="max-w-5xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center space-x-4">
@@ -384,7 +382,6 @@ const BlogEditor = ({ post }: BlogEditorProps) => {
           </div>
         </form>
       </div>
-    </AdminLayout>
   );
 };
 

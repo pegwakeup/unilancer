@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import AdminLayout from '../../components/layout/AdminLayout';
 import PortfolioStats from '../components/PortfolioStats';
 import PortfolioFilters from '../components/PortfolioFilters';
 import PortfolioList from '../components/PortfolioList';
@@ -73,7 +72,7 @@ const PortfolioAdminPage = () => {
   const filteredItems = filterItems(filters);
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold">Portfolyo Yönetimi</h1>
@@ -126,7 +125,7 @@ const PortfolioAdminPage = () => {
           onClose={() => setSelectedItem(null)}
         />
       )}
-    </AdminLayout>
+    </>
   );
 };
 

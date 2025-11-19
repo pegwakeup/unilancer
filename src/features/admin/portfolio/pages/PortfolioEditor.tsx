@@ -10,7 +10,6 @@ import {
   ExternalLink,
   Github,
 } from 'lucide-react';
-import AdminLayout from '../../components/layout/AdminLayout';
 import {
   createPortfolioItem,
   updatePortfolioItem,
@@ -234,16 +233,13 @@ const PortfolioEditor = () => {
 
   if (loading) {
     return (
-      <AdminLayout>
         <div className="flex items-center justify-center min-h-screen">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
         </div>
-      </AdminLayout>
     );
   }
 
   return (
-    <AdminLayout>
       <div className="max-w-5xl mx-auto">
         {/* Üst Başlık ve Önizleme Butonu */}
         <div className="flex items-center justify-between mb-8">
@@ -525,7 +521,6 @@ const PortfolioEditor = () => {
           </div>
         </form>
       </div>
-    </AdminLayout>
   );
 };
 
