@@ -1,3 +1,6 @@
+// LEGACY / UNUSED COMPONENT
+// Şu anda projede kullanılmıyor, gelecekte referans için saklanıyor.
+
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
