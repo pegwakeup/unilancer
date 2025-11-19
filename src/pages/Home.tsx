@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Sparkles } from 'lucide-react';
@@ -44,17 +46,20 @@ const services = [
 const audience = [
   {
     title: 'KOBİ ve İşletmeler',
-    description: 'Web sitesi, e-ticaret ve dijital pazarlama ihtiyaçlarını tek noktadan çözmek isteyen markalar.',
+    description:
+      'Web sitesi, e-ticaret ve dijital pazarlama ihtiyaçlarını tek noktadan çözmek isteyen markalar.',
     tag: 'Dijitalleşmek isteyen işletmeler',
   },
   {
     title: 'Ajanslar ve Startuplar',
-    description: 'Yoğun dönemlerde işi güvenilir bir ekibe outsource etmek isteyen ajanslar ve hızlı büyüyen girişimler.',
+    description:
+      'Yoğun dönemlerde işi güvenilir bir ekibe outsource etmek isteyen ajanslar ve hızlı büyüyen girişimler.',
     tag: 'Esnek kapasite & white-label üretim',
   },
   {
     title: 'Üniversiteli Freelancerlar',
-    description: 'Portföyünü büyütmek ve gerçek müşterilerle proje yapmak isteyen öğrenciler.',
+    description:
+      'Portföyünü büyütmek ve gerçek müşterilerle proje yapmak isteyen öğrenciler.',
     tag: 'Seçilmiş ekipler & proje yönetimi',
   },
 ];
@@ -62,19 +67,23 @@ const audience = [
 const whyItems = [
   {
     title: 'Seçilmiş Üniversiteli Ekipler',
-    description: 'Fakülte, yetkinlik ve portföy kriterlerine göre seçilmiş ekiplerle çalışırsınız.',
+    description:
+      'Fakülte, yetkinlik ve portföy kriterlerine göre seçilmiş ekiplerle çalışırsınız.',
   },
   {
     title: 'Profesyonel Proje Yönetimi',
-    description: 'Süreç boyunca tek muhatabınız olan proje yöneticisi tüm adımları sizin yerinize koordine eder.',
+    description:
+      'Süreç boyunca tek muhatabınız olan proje yöneticisi tüm adımları sizin yerinize koordine eder.',
   },
   {
     title: 'Şeffaf ve Erişilebilir Fiyatlar',
-    description: 'Freelancer esnekliği ile kurumsal süreçleri birleştiren, anlaşılır fiyat yapısı.',
+    description:
+      'Freelancer esnekliği ile kurumsal süreçleri birleştiren, anlaşılır fiyat yapısı.',
   },
   {
     title: 'Türkiyeyi Dijitalleştiriyoruz',
-    description: 'Markaları dijitalleştirirken genç yeteneklerin global seviyede üretmesini destekliyoruz.',
+    description:
+      'Markaları dijitalleştirirken genç yeteneklerin global seviyede üretmesini destekliyoruz.',
   },
 ];
 
@@ -124,7 +133,7 @@ const freelancerFaqs = [
   },
 ];
 
-// Calendly inline embed bileşeni
+// Calendly inline embed bileşeni (yükseklik kontrollü)
 const CalendlyInline = () => {
   useEffect(() => {
     const existingScript = document.querySelector(
@@ -140,11 +149,13 @@ const CalendlyInline = () => {
   }, []);
 
   return (
-    <div
-      className="calendly-inline-widget rounded-2xl"
-      data-url="https://calendly.com/taha-unilancerlabs/30min"
-      style={{ minWidth: '320px', height: '700px' }}
-    />
+    <div className="h-[560px] md:h-[650px] w-full">
+      <div
+        className="calendly-inline-widget w-full h-full"
+        data-url="https://calendly.com/taha-unilancerlabs/30min"
+        style={{ minWidth: '320px', height: '100%' }}
+      />
+    </div>
   );
 };
 
@@ -386,7 +397,7 @@ const Home = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="rounded-3xl bg-white/95 dark:bg-dark-light/95 border border-slate-200/70 dark:border-white/10 shadow-xl p-4 md:p-5"
+                className="rounded-3xl bg-white/95 dark:bg-dark-light/95 border border-slate-200/70 dark:border-white/10 shadow-xl p-4 md:p-5 lg:p-6 flex flex-col overflow-hidden"
               >
                 <div className="mb-3 flex items-center justify-between">
                   <div>
@@ -463,64 +474,4 @@ const Home = () => {
             <div className="grid gap-8 md:grid-cols-2">
               {/* İş Veren */}
               <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text:white mb-4">
-                  İş Veren
-                </h3>
-                <div className="space-y-3">
-                  {employerFaqs.map((item) => (
-                    <div
-                      key={item.q}
-                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200 hover:-translate-y-0.5 hover:shadow-md transition-all"
-                    >
-                      <div className="font-semibold mb-1">{item.q}</div>
-                      <div className="text-xs sm:text-[13px] text-slate-600 dark:text-gray-300">
-                        {item.a}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Freelancer */}
-              <div>
-                <h3 className="text-lg font-semibold text-slate-900 dark:text:white mb-4">
-                  Freelancer
-                </h3>
-                <div className="space-y-3">
-                  {freelancerFaqs.map((item) => (
-                    <div
-                      key={item.q}
-                      className="rounded-2xl bg-white dark:bg-dark-light border border-slate-200/70 dark:border-white/10 p-4 text-sm text-slate-700 dark:text-gray-200 hover:-translate-y-0.5 hover:shadow-md transition-all"
-                    >
-                      <div className="font-semibold mb-1">{item.q}</div>
-                      <div className="text-xs sm:text-[13px] text-slate-600 dark:text-gray-300">
-                        {item.a}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs sm:text-sm text-slate-500 dark:text-gray-400">
-              <span>
-                Hâlâ aklınıza takılan bir şey mi var?{' '}
-                <a href="/contact" className="text-primary font-medium hover:underline">
-                  Bize yazın.
-                </a>
-              </span>
-              <a
-                href="/project-request"
-                className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-all"
-              >
-                Proje Talebi Oluşturun
-              </a>
-            </div>
-          </div>
-        </section>
-      </div>
-    </div>
-  );
-};
-
-export default Home;
+                <h3 className="text-lg font-s
