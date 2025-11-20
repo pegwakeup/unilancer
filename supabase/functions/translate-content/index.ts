@@ -77,17 +77,24 @@ async function callDeepL(
   targetLang: string,
   sourceLang: string
 ) {
+  const targetLangCode = targetLang.toUpperCase() === 'EN' ? 'EN-US' : targetLang.toUpperCase();
+
+  const requestBody: any = {
+    text: [text],
+    target_lang: targetLangCode,
+  };
+
+  if (sourceLang && sourceLang !== 'auto') {
+    requestBody.source_lang = sourceLang.toUpperCase();
+  }
+
   const response = await fetch("https://api-free.deepl.com/v2/translate", {
     method: "POST",
     headers: {
       "Authorization": `DeepL-Auth-Key ${deeplApiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      text: [text],
-      target_lang: targetLang.toUpperCase(),
-      source_lang: sourceLang.toUpperCase(),
-    }),
+    body: JSON.stringify(requestBody),
   });
 
   if (!response.ok) {
