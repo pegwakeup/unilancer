@@ -373,22 +373,24 @@ const Home = () => {
         </section>
 
         {/* TURKIYE DIJITALLESME VIZYONU */}
-        <section className="py-6 w-full overflow-hidden">
-          <div className="flex flex-col gap-4">
-            <MarqueeAnimation
-              direction="left"
-              baseVelocity={-2}
-              className="bg-red-600 text-white py-3 text-xl sm:text-2xl md:text-3xl font-semibold"
-            >
-              TURKIYE YI DIJITALLESTIRIYORUZ • TURKIYE YI DIJITALLESTIRIYORUZ • TURKIYE YI DIJITALLESTIRIYORUZ
-            </MarqueeAnimation>
-            <MarqueeAnimation
-              direction="right"
-              baseVelocity={-2}
-              className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white py-3 text-xl sm:text-2xl md:text-3xl font-semibold"
-            >
-              BEYIN GOCU YERINE HIZMET IHRACATI • BEYIN GOCU YERINE HIZMET IHRACATI • BEYIN GOCU YERINE HIZMET IHRACATI
-            </MarqueeAnimation>
+        <section className="py-8 w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-4">
+              <MarqueeAnimation
+                direction="left"
+                baseVelocity={-2}
+                className="bg-gradient-to-r from-red-50 via-red-100 to-red-50 dark:from-red-900/20 dark:via-red-800/30 dark:to-red-900/20 text-red-700 dark:text-red-300 py-4 text-lg sm:text-xl md:text-2xl font-medium rounded-xl border border-red-200/50 dark:border-red-700/30 shadow-sm"
+              >
+                TURKIYE YI DIJITALLESTIRIYORUZ • TURKIYE YI DIJITALLESTIRIYORUZ • TURKIYE YI DIJITALLESTIRIYORUZ
+              </MarqueeAnimation>
+              <MarqueeAnimation
+                direction="right"
+                baseVelocity={-2}
+                className="bg-gradient-to-r from-blue-50 via-cyan-50 to-blue-50 dark:from-blue-900/20 dark:via-cyan-800/30 dark:to-blue-900/20 text-blue-700 dark:text-cyan-300 py-4 text-lg sm:text-xl md:text-2xl font-medium rounded-xl border border-blue-200/50 dark:border-blue-700/30 shadow-sm"
+              >
+                BEYIN GOCU YERINE HIZMET IHRACATI • BEYIN GOCU YERINE HIZMET IHRACATI • BEYIN GOCU YERINE HIZMET IHRACATI
+              </MarqueeAnimation>
+            </div>
           </div>
         </section>
 
