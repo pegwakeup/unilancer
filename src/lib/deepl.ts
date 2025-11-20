@@ -7,6 +7,7 @@ interface TranslationFunctionResponse {
   translatedText: string;
   detectedSourceLang?: string;
   contentKey?: string;
+  contentHash?: string;
   targetLang: string;
 }
 
@@ -14,6 +15,9 @@ interface TranslationFunctionBatchItem {
   contentKey: string;
   originalText: string;
   translatedText: string;
+  contentHash?: string;
+  targetLang?: string;
+  sourceLang?: string;
   success: boolean;
   error?: string;
 }
@@ -33,6 +37,7 @@ export interface TranslationResult {
   translatedText: string;
   detectedSourceLang?: string;
   contentKey?: string;
+  contentHash?: string;
   error?: string;
 }
 
@@ -52,42 +57,38 @@ function generateHash(text: string): string {
   return Math.abs(hash).toString(36);
 }
 
-function getTranslationConfig() {
-  const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-  const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+async function assertAdminSession() {
+  const { data, error } = await supabase.auth.getUser();
 
-  if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Supabase environment variables are required for translations');
+  if (error || !data?.user) {
+    throw new Error('Admin session is required to trigger translations');
   }
 
-  return {
-    baseUrl: `${supabaseUrl}/functions/v1/translate-content`,
-    anonKey: supabaseAnonKey,
-  };
+  const role = data.user.app_metadata?.role;
+  if (role !== 'admin') {
+    throw new Error('Only admin users can trigger translations');
+  }
 }
 
 async function invokeTranslationFunction<T>(
-  payload: Record<string, unknown>,
-  pathSuffix = ''
+  path: 'translate-content' | 'translate-content/batch',
+  payload: Record<string, unknown>
 ): Promise<T> {
-  const { baseUrl, anonKey } = getTranslationConfig();
-  const url = pathSuffix ? `${baseUrl}/${pathSuffix}` : baseUrl;
+  await assertAdminSession();
 
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${anonKey}`
-    },
-    body: JSON.stringify(payload)
+  const { data, error } = await supabase.functions.invoke<T>(path, {
+    body: payload
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Translation function failed (${response.status}): ${errorText}`);
+  if (error) {
+    throw new Error(error.message || 'Translation function failed');
   }
 
-  return response.json() as Promise<T>;
+  if (!data) {
+    throw new Error('Translation function returned no data');
+  }
+
+  return data;
 }
 
 export async function translateText(
@@ -104,7 +105,7 @@ export async function translateText(
   }
 
   try {
-    const result = await invokeTranslationFunction<TranslationFunctionResponse>({
+    const result = await invokeTranslationFunction<TranslationFunctionResponse>('translate-content', {
       text,
       targetLang: targetLang.toUpperCase(),
       sourceLang: sourceLang.toUpperCase(),
@@ -114,7 +115,8 @@ export async function translateText(
     return {
       translatedText: result.translatedText || text,
       detectedSourceLang: result.detectedSourceLang,
-      contentKey: result.contentKey || contentKey
+      contentKey: result.contentKey || contentKey,
+      contentHash: result.contentHash
     };
   } catch (error) {
     console.error('Error translating text:', error);
@@ -140,11 +142,11 @@ export async function translateTextBatch(
   }));
 
   try {
-    const result = await invokeTranslationFunction<TranslationFunctionBatchResponse>({
+    const result = await invokeTranslationFunction<TranslationFunctionBatchResponse>('translate-content/batch', {
       texts: normalizedTexts,
       targetLang: targetLang.toUpperCase(),
       sourceLang: sourceLang.toUpperCase()
-    }, 'batch');
+    });
 
     const translationMap = new Map(
       result.translations.map(item => [item.contentKey, item])
@@ -157,7 +159,8 @@ export async function translateTextBatch(
         return {
           translatedText: translation.translatedText,
           contentKey,
-          detectedSourceLang: sourceLang
+          contentHash: translation.contentHash,
+          detectedSourceLang: (translation.sourceLang as Language) || sourceLang
         };
       }
 
@@ -180,7 +183,8 @@ export async function translateTextBatch(
 export async function getOrCreateTranslation(
   contentKey: string,
   originalText: string,
-  language: Language = 'en'
+  language: Language = 'en',
+  options?: { allowTranslate?: boolean; sourceLang?: Language }
 ): Promise<string> {
   if (language === 'tr') {
     return originalText;
@@ -211,10 +215,23 @@ export async function getOrCreateTranslation(
       return existingTranslation.translated_text || originalText;
     }
 
-    // No stored translation; fall back to original Turkish content. Admins can
-    // later call translateBlogPost/translateTextBatch from the control panel to
-    // populate the translations table without impacting visitors.
-    return originalText;
+    if (!options?.allowTranslate) {
+      return originalText;
+    }
+
+    try {
+      const translation = await translateText(
+        originalText,
+        options?.sourceLang || 'tr',
+        language,
+        contentKey
+      );
+
+      return translation.translatedText;
+    } catch (translationError) {
+      console.error('Failed to create translation via DeepL:', translationError);
+      return originalText;
+    }
   } catch (error) {
     console.error('Error in getOrCreateTranslation:', error);
     return originalText;
