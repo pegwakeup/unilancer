@@ -162,7 +162,7 @@ const BlogAdmin = ({ post, onCancel, onSuccess }: BlogAdminProps) => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">
           {post ? 'Blog Yazısını Düzenle' : 'Yeni Blog Yazısı'}

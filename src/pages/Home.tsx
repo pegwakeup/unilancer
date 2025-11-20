@@ -274,7 +274,7 @@ const Home = () => {
           id="hero"
           className="min-h-[82vh] lg:min-h-[88vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               {/* Sol taraf */}
               <motion.div
@@ -374,7 +374,7 @@ const Home = () => {
 
         {/* KIMIN ICIN */}
         <section id="kimin-icin" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.forWhom.title")}
@@ -424,7 +424,7 @@ const Home = () => {
           id="partnerler"
           className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                 {t("home.partners.title")}
@@ -439,7 +439,7 @@ const Home = () => {
 
         {/* NEDEN UNILANCER */}
         <section id="neden-unilancer" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
@@ -481,7 +481,7 @@ const Home = () => {
 
         {/* TÜRKİYE DİJİTALLEŞME VİZYONU */}
         <section className="py-8 w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col gap-4">
               <MarqueeAnimation
                 direction="left"
@@ -503,7 +503,7 @@ const Home = () => {
 
         {/* ÜCRETSİZ DİJİTAL RAPOR + CALENDLY */}
         <section id="rapor" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-2 items-start">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -564,7 +564,7 @@ const Home = () => {
 
         {/* DIGITALL HİZMETLERİMİZ */}
         <section id="digitall" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.services.title")}
@@ -610,7 +610,7 @@ const Home = () => {
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -682,7 +682,7 @@ const Home = () => {
 
         {/* Calendly */}
         <section className="py-12 md:py-16 bg-slate-50/50 dark:bg-dark-light/30">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.meeting.title")}

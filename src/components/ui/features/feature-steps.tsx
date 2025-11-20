@@ -73,7 +73,7 @@ export function FeatureSteps({
       />
 
       {/* Content Container */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative">
         {/* Framed Content */}
         <div className="relative bg-white dark:bg-dark-light/30 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-white/10 p-8 md:p-12">
           {/* Inner Gradient Background */}

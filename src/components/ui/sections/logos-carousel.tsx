@@ -66,7 +66,7 @@ const LogosCarousel = ({
 }: LogosCarouselProps) => {
   return (
     <div className={cn("relative overflow-hidden py-2 md:py-4", className)}>
-      <div className="relative mx-auto flex items-center justify-center max-w-7xl">
+      <div className="relative mx-auto flex items-center justify-center max-w-[1600px]">
         <Carousel
           opts={{
             loop: true,

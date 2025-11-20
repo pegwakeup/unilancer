@@ -173,7 +173,7 @@ const BlogDetail = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/50 to-dark" />
         </div>
         
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative h-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col justify-end h-full pb-12 md:pb-16 lg:pb-20">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -223,7 +223,7 @@ const BlogDetail = () => {
 
       {/* Content Section */}
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
           <div className="lg:grid lg:grid-cols-[1fr_300px] xl:grid-cols-[1fr_320px] gap-8">
             {/* Main Content */}
             <motion.article

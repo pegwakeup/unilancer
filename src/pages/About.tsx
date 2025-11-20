@@ -219,7 +219,7 @@ const About = () => {
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-20 text-center px-4 max-w-5xl mx-auto">
+        <div className="relative z-20 text-center px-4 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -290,7 +290,7 @@ const About = () => {
 
       {/* JOURNEY TIMELINE */}
       <section className="py-24 bg-gradient-to-b from-white to-gray-50 dark:from-dark dark:to-dark-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -348,7 +348,7 @@ const About = () => {
 
       {/* LIVE STATISTICS */}
       <section className="py-24 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/5 dark:to-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -396,7 +396,7 @@ const About = () => {
 
       {/* VALUES - FLIP CARDS */}
       <section className="py-24 bg-white dark:bg-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -447,7 +447,7 @@ const About = () => {
 
       {/* PROJECT SHOWCASE */}
       <section className="py-24 bg-gray-50 dark:bg-dark-light">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -516,7 +516,7 @@ const About = () => {
 
       {/* TEAM SECTION */}
       <section className="py-24 bg-white dark:bg-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -534,7 +534,7 @@ const About = () => {
 
       {/* CLIENT TESTIMONIALS */}
       <section className="py-24 bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/5 dark:to-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -586,7 +586,7 @@ const About = () => {
 
       {/* FREELANCER STORIES */}
       <section className="py-24 bg-white dark:bg-dark">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -673,7 +673,7 @@ const About = () => {
           }}
           className="absolute -right-40 -bottom-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"
         />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
             Hadi Başlayalım!
           </h2>

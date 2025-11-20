@@ -20,7 +20,7 @@ const FaqSection = React.forwardRef<HTMLElement, FaqSectionProps>(
         className={cn("py-16 w-full", className)}
         {...props}
       >
-        <div className="container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
