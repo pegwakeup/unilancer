@@ -226,30 +226,25 @@ const ServiceCard = ({ service, index }: { service: Service; index: number }) =>
   return (
     <motion.div
       variants={cardVariants}
-      className="h-full rounded-2xl bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all overflow-hidden flex flex-col group"
-    >
-      <div className={cn(
-        "relative h-48 overflow-hidden bg-gradient-to-br",
+      className={cn(
+        "relative flex h-[450px] w-full flex-col justify-between overflow-hidden rounded-3xl p-8 bg-gradient-to-r",
         service.gradient
-      )}>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent" />
-        <div className="absolute top-4 left-4 z-10">
-          <span className="text-xs font-mono text-white/80 bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full">
-            {service.number}
-          </span>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <service.icon className="h-16 w-16 text-white/90 group-hover:scale-110 transition-transform duration-300" />
-        </div>
+      )}
+    >
+      <div className="z-10 flex flex-col items-start text-left">
+        <span className="mb-8 text-sm font-mono text-foreground/50">
+          ( {service.number} )
+        </span>
+        <service.icon className="mb-auto h-12 w-12 text-foreground" />
       </div>
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-2">
+      <div className="z-10">
+        <h3 className="mb-2 text-lg font-semibold uppercase tracking-wider">
           {service.title}
         </h3>
-        <p className="text-sm text-slate-600 dark:text-gray-300 flex-1">
-          {service.description}
-        </p>
+        <p className="text-sm text-foreground/70">{service.description}</p>
       </div>
+
+      <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent"></div>
     </motion.div>
   );
 };
@@ -259,7 +254,7 @@ export const ServiceCarousel = ({ services }: { services: Service[] }) => {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="w-full max-w-[1600px] mx-auto px-4">
       <Carousel
         ref={ref}
         opts={{
@@ -273,15 +268,17 @@ export const ServiceCarousel = ({ services }: { services: Service[] }) => {
             animate={isInView ? "visible" : "hidden"}
             transition={{ staggerChildren: 0.1 }}
         >
-            <CarouselContent className="-ml-4">
+            <CarouselContent>
             {services.map((service, index) => (
-                <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <ServiceCard service={service} index={index} />
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                <div className="p-1">
+                    <ServiceCard service={service} index={index} />
+                </div>
                 </CarouselItem>
             ))}
             </CarouselContent>
         </motion.div>
-        <CarouselNext className="bg-white/90 dark:bg-dark-light/90 border border-slate-200/70 dark:border-white/10 hover:bg-white dark:hover:bg-dark-light text-slate-900 dark:text-white shadow-sm hover:shadow-md" />
+        <CarouselNext className="bg-foreground/10 border-0 hover:bg-foreground/20 text-foreground" />
       </Carousel>
     </div>
   );
