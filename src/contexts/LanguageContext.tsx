@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { detectUserLocation, markGeolocationDetected } from '../lib/geolocation';
+import { detectUserLocation, markGeolocationDetected } from '../lib/services/geolocation';
 import { getStaticTranslation } from '../lib/translations';
 
 export type Language = 'tr' | 'en';
@@ -106,7 +106,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const { supabase } = await import('../lib/supabase');
+      const { supabase } = await import('../lib/config/supabase');
       const { data } = await supabase
         .from('translations')
         .select('content_key, translated_text')

@@ -2,7 +2,7 @@ import React, { lazy, Suspense, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import PrivateRoute from './components/PrivateRoute';
-import { PrivacyTermsProvider } from './components/ui/privacy-terms-provider';
+import { PrivacyTermsProvider } from './components/ui/modals/privacy-terms-provider';
 import { ThemeProvider } from './contexts/ThemeContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import SiteLayout from './components/layout/SiteLayout';

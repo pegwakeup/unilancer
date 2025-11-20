@@ -21,10 +21,10 @@ import {
   Plus // <-- ÖNEMLİ: "Plus" ikonunu da import ettik
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { createFreelancerApplication } from '../lib/freelancers';
-import { cities } from '../data/cities';
-import { countries } from '../data/countries';
-import { usePrivacyTerms } from '../components/ui/privacy-terms-provider';
+import { createFreelancerApplication } from '../lib/api/freelancers';
+import { cities } from '../data/location/cities';
+import { countries } from '../data/location/countries';
+import { usePrivacyTerms } from '../components/ui/modals/privacy-terms-provider';
 
 /* -------------------------------
    ADIM TİPLERİ VE FORM DATA YAPISI

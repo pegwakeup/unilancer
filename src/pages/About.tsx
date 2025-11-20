@@ -4,7 +4,7 @@ import {
   Users, Target, Globe, CheckCircle,
   Palette, Code2, Linkedin, MessageSquare, ArrowUpRight
 } from 'lucide-react';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/accordion';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/core/accordion';
 import { useTranslation } from '../hooks/useTranslation';
 
 const fadeInUp = {

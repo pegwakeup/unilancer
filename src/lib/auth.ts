@@ -1,5 +1,5 @@
 import { AuthError, AuthResponse } from '@supabase/supabase-js';
-import { supabase } from './supabase';
+import { supabase } from './config/supabase';
 
 export type User = {
   id: string;

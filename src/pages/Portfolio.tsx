@@ -7,7 +7,7 @@ import {
   Github, Eye, Loader2
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getPortfolioItems, type PortfolioItem } from '../lib/portfolio';
+import { getPortfolioItems, type PortfolioItem } from '../lib/api/portfolio';
 import { useTranslation } from '../hooks/useTranslation';
 
 // Categories and subcategories mapping (using function to access t)

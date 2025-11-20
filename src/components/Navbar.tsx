@@ -10,7 +10,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
 import { useTranslation } from '../hooks/useTranslation';
 import { getRouteForLanguage } from '../contexts/LanguageContext';
-import { CalendlyModal } from './CalendlyModal';
+import { CalendlyModal } from './modals/CalendlyModal';
 
 const getDigitAllServices = (t: (key: string) => string, lang: string) => [
   { icon: Monitor, label: t('service.webDesign'), path: getRouteForLanguage('/services', lang as 'tr' | 'en') },

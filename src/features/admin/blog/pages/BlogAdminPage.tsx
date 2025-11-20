@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import BlogStats from '../components/BlogStats';
 import BlogFilters from '../components/BlogFilters';
 import BlogList from '../components/BlogList';
-import { getBlogPosts, deleteBlogPost } from '../../../../lib/supabase';
+import { getBlogPosts, deleteBlogPost } from '../../../../lib/config/supabase';
 import type { BlogPost } from '../types';
 
 interface BlogStats {

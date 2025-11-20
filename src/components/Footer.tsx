@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, ArrowUpRight, Linkedin, Twitter, Instagram, Github } from 'lucide-react';
-import { usePrivacyTerms } from './ui/privacy-terms-provider';
+import { usePrivacyTerms } from './ui/modals/privacy-terms-provider';
 
 const Footer = () => {
   const { openPrivacyPolicy, openTerms } = usePrivacyTerms();

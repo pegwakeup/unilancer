@@ -5,7 +5,7 @@ import {
   ListOrdered, List, Heading2, ImagePlus, Save,
   AlignLeft, AlignCenter, AlignRight, Quote, Eye
 } from 'lucide-react';
-import { createBlogPost, uploadImage, updateBlogPost } from '../../../../lib/supabase';
+import { createBlogPost, uploadImage, updateBlogPost } from '../../../../lib/config/supabase';
 import type { BlogPost } from '../types';
 
 interface BlogEditorProps {

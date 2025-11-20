@@ -1,7 +1,7 @@
 import React from "react";
 import AutoScroll from "embla-carousel-auto-scroll";
-import { Carousel, CarouselContent, CarouselItem } from "./carousel";
-import { cn } from "../../lib/utils";
+import { Carousel, CarouselContent, CarouselItem } from "../core/carousel";
+import { cn } from "../../../lib/utils";
 
 interface Logo {
   id: string;

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Calendar, Clock, Tag, ChevronUp, ArrowLeft, ChevronRight } from 'lucide-react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { getBlogPost, type BlogPost } from '../lib/supabase';
+import { getBlogPost, type BlogPost } from '../lib/config/supabase';
 
 type Heading = {
   id: string;

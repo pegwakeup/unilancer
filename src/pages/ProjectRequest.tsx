@@ -21,8 +21,8 @@ import {
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { useNavigate } from 'react-router-dom';
-import { createProjectRequest } from '../lib/projectRequests';
-import { usePrivacyTerms } from '../components/ui/privacy-terms-provider';
+import { createProjectRequest } from '../lib/api/projectRequests';
+import { usePrivacyTerms } from '../components/ui/modals/privacy-terms-provider';
 
 /* -----------------------------
    Adım Tipleri ve Veri Yapıları

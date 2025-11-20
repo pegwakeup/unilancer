@@ -15,7 +15,7 @@ import {
   updatePortfolioItem,
   getPortfolioItem,
   uploadPortfolioImage
-} from '../../../../lib/portfolio';
+} from '../../../../lib/api/portfolio';
 import type { PortfolioItem } from '../types';
 
 // Kategoriler

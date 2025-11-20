@@ -25,11 +25,11 @@ import {
   getBlogPosts,
   deleteBlogPost,
   type BlogPost,
-} from '../lib/supabase';
+} from '../lib/config/supabase';
 import {
   getFreelancerApplications,
   updateFreelancerStatus,
-} from '../lib/freelancers';
+} from '../lib/api/freelancers';
 import type { Freelancer } from '../types/freelancer';
 
 type TabType = 'blog' | 'portfolio' | 'media' | 'messages' | 'settings' | 'freelancers';

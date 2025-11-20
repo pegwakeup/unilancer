@@ -3,7 +3,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { signIn } from '../lib/auth';
 import { ArrowRight } from 'lucide-react';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../lib/config/supabase';
 
 const Login = () => {
   const navigate = useNavigate();

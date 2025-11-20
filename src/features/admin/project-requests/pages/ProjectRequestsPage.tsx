@@ -5,7 +5,7 @@ import {
   AlertTriangle, Eye, Check, X, ExternalLink,
   Search, Filter
 } from 'lucide-react';
-import { getProjectRequests, updateProjectStatus } from '../../../../lib/projectRequests';
+import { getProjectRequests, updateProjectStatus } from '../../../../lib/api/projectRequests';
 import type { ProjectRequest, ProjectRequestStats } from '../types';
 
 const ProjectRequestsPage = () => {

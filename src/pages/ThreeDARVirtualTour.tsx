@@ -8,8 +8,8 @@ import {
   ShoppingCart, Hotel, Car, Palette, Ruler, Layers
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import BeanBagChair3D from '../components/BeanBagChair3D';
-import ARViewer from '../components/ARViewer';
+import BeanBagChair3D from '../components/3d/BeanBagChair3D';
+import ARViewer from '../components/ar/ARViewer';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },

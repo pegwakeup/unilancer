@@ -7,7 +7,7 @@ import {
   Calendar, Clock, Tag, ChevronRight, AlertCircle
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { createBlogPost, uploadImage, type BlogPost } from '../lib/supabase';
+import { createBlogPost, uploadImage, type BlogPost } from '../lib/config/supabase';
 
 const NewBlogPost = () => {
   const navigate = useNavigate();

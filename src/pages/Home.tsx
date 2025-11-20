@@ -3,9 +3,9 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Sparkles, ChevronDown } from "lucide-react";
-import { LogosCarousel } from "../components/ui/logos-carousel";
+import { LogosCarousel } from "../components/ui/sections/logos-carousel";
 import { useTranslation } from "../hooks/useTranslation";
-import CalendlyModal from "../components/CalendlyModal";
+import CalendlyModal from "../components/modals/CalendlyModal";
 
 const getServices = (t: (key: string) => string) => [
   {

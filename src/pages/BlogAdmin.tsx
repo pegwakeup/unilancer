@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { createBlogPost, uploadImage, updateBlogPost, type BlogPost } from '../lib/supabase';
+import { createBlogPost, uploadImage, updateBlogPost, type BlogPost } from '../lib/config/supabase';
 import { 
   Image, ArrowLeft, Bold, Italic, Link as LinkIcon, Code, 
   ListOrdered, List, Heading2, ImagePlus, Undo, Redo,

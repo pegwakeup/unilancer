@@ -1,4 +1,4 @@
-import { Language, getOrCreateTranslation } from './deepl';
+import { Language, getOrCreateTranslation } from './services/deepl';
 
 export const staticTranslations: Record<string, Record<Language, string>> = {
   'nav.digitall': {
@@ -1522,7 +1522,7 @@ export const staticTranslations: Record<string, Record<Language, string>> = {
 };
 
 export async function initializeStaticTranslations() {
-  const { supabase } = await import('./supabase');
+  const { supabase } = await import('./config/supabase');
 
   for (const [key, translations] of Object.entries(staticTranslations)) {
     const trText = translations.tr;

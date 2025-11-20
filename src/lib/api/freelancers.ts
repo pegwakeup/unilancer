@@ -1,4 +1,4 @@
-import { supabase } from './supabase';
+import { supabase } from '../config/supabase';
 import type { FreelancerApplication } from '../types/freelancer';
 
 // Add retry logic for database operations
