@@ -212,7 +212,7 @@ const About = () => {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/60 to-dark/80 z-10" />
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop"
+            src="https://ctncspdgguclpeijikfp.supabase.co/storage/v1/object/public/Landing%20Page/ekiparkaplan.webp"
             alt="Team Working"
             className="w-full h-full object-cover"
           />
