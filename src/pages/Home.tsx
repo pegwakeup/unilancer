@@ -423,23 +423,30 @@ const Home = () => {
           </div>
         </section>
 
-        {/* HİZMETLERİMİZ - DigitAll Services */}
-        <section id="hizmetlerimiz" className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-dark-light dark:to-dark">
-          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-left"
-            >
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-slate-900 dark:text-white mb-4">
-                {t('home.services.heading', 'Hizmetlerimiz.')}
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
-                {t('home.services.subheading', 'İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümlerimizi keşfedin')}
-              </p>
-            </motion.div>
+        {/* DigitAll HİZMETLERİMİZ */}
+        <section id="digitall-hizmetlerimiz" className="py-12 md:py-16">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
+                  {t('home.services.heading', 'DigitAll Hizmetlerimiz')}
+                </h2>
+                <p className="text-slate-600 dark:text-gray-300 max-w-xl">
+                  {t('home.services.subheading', 'İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümlerimizi keşfedin')}
+                </p>
+              </motion.div>
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/90 dark:bg-white/5 border border-slate-200/70 dark:border-white/10 text-xs sm:text-sm text-slate-700 dark:text-gray-200">
+                <span className="mr-2 text-primary">
+                  <Sparkles className="w-3.5 h-3.5" />
+                </span>
+                {t('home.services.badge', '8 Temel Hizmet')}
+              </div>
+            </div>
           </div>
           <ServiceCarousel services={(() => {
             const digitAllServices: Service[] = [
