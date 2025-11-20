@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Sparkles, ChevronDown } from "lucide-react";
 import { LogosCarousel } from "../components/ui/sections/logos-carousel";
+import { MarqueeAnimation } from "../components/ui/effects/marquee-effect";
 import { useTranslation } from "../hooks/useTranslation";
 import CalendlyModal from "../components/modals/CalendlyModal";
 
@@ -415,6 +416,26 @@ const Home = () => {
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* TÜRKİYE DİJİTALLEŞME VİZYONU */}
+        <section className="py-8 w-full overflow-hidden">
+          <div className="flex flex-col gap-6">
+            <MarqueeAnimation
+              direction="left"
+              baseVelocity={-4}
+              className="bg-gradient-to-r from-red-600 via-white to-red-600 text-red-700 py-6 text-3xl sm:text-4xl md:text-5xl font-black shadow-lg"
+            >
+              🇹🇷 TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ • TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ • TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ
+            </MarqueeAnimation>
+            <MarqueeAnimation
+              direction="right"
+              baseVelocity={-4}
+              className="bg-gradient-to-r from-blue-600 via-blue-400 to-blue-600 text-white py-6 text-3xl sm:text-4xl md:text-5xl font-black shadow-lg"
+            >
+              ✈️ BEYİN GÖÇÜ YERİNE HİZMET İHRACATI • BEYİN GÖÇÜ YERİNE HİZMET İHRACATI • BEYİN GÖÇÜ YERİNE HİZMET İHRACATI
+            </MarqueeAnimation>
           </div>
         </section>
 
