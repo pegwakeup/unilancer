@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '../hooks/useTranslation';
-import { 
+import {
   Code2, Database, Globe, Palette, PenTool, Layout,
   LineChart, Search, TrendingUp, Smartphone, Cpu,
   MessageSquare, BarChart2, Layers, Zap, Box,
@@ -9,6 +9,7 @@ import {
   Briefcase, Target, Users, BrainCircuit, ArrowUpRight,
   CheckCircle
 } from 'lucide-react';
+import { ServiceCarousel, type Service } from '../components/ui/core/services-card';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -72,6 +73,51 @@ const ImageSection = ({ image, title, description }: {
 const Services = () => {
   const { t } = useTranslation();
 
+  const featuredServices: Service[] = [
+    {
+      number: "001",
+      title: t('services.featured.web.title', 'Web Development'),
+      description: t('services.featured.web.desc', 'Modern ve responsive web siteleri, e-ticaret platformları ve web uygulamaları geliştiriyoruz.'),
+      icon: Code2,
+      gradient: "from-blue-100 to-cyan-200 dark:from-blue-900/50 dark:to-cyan-800/50",
+    },
+    {
+      number: "002",
+      title: t('services.featured.design.title', 'UI/UX Design'),
+      description: t('services.featured.design.desc', 'Kullanıcı deneyimini ön planda tutan, estetik ve işlevsel arayüz tasarımları yaratıyoruz.'),
+      icon: Palette,
+      gradient: "from-purple-100 to-pink-200 dark:from-purple-900/50 dark:to-pink-800/50",
+    },
+    {
+      number: "003",
+      title: t('services.featured.mobile.title', 'Mobile Apps'),
+      description: t('services.featured.mobile.desc', 'iOS ve Android platformları için native ve cross-platform mobil uygulamalar geliştiriyoruz.'),
+      icon: Smartphone,
+      gradient: "from-green-100 to-emerald-200 dark:from-green-900/50 dark:to-emerald-800/50",
+    },
+    {
+      number: "004",
+      title: t('services.featured.seo.title', 'SEO & Marketing'),
+      description: t('services.featured.seo.desc', 'Arama motorlarında üst sıralarda yer almanız için kapsamlı SEO ve dijital pazarlama stratejileri.'),
+      icon: Search,
+      gradient: "from-orange-100 to-red-200 dark:from-orange-900/50 dark:to-red-800/50",
+    },
+    {
+      number: "005",
+      title: t('services.featured.branding.title', 'Branding'),
+      description: t('services.featured.branding.desc', 'Markanızı öne çıkaracak logo, kurumsal kimlik ve marka stratejisi çalışmaları yapıyoruz.'),
+      icon: Figma,
+      gradient: "from-pink-100 to-rose-200 dark:from-pink-900/50 dark:to-rose-800/50",
+    },
+    {
+      number: "006",
+      title: t('services.featured.ai.title', 'AI Solutions'),
+      description: t('services.featured.ai.desc', 'Yapay zeka ve makine öğrenmesi teknolojileri ile işletmenizi geleceğe taşıyoruz.'),
+      icon: BrainCircuit,
+      gradient: "from-indigo-100 to-violet-200 dark:from-indigo-900/50 dark:to-violet-800/50",
+    },
+  ];
+
   return (
     <div className="pt-24 pb-16 bg-white dark:bg-dark">
       {/* Hero Section */}
@@ -110,6 +156,27 @@ const Services = () => {
             </p>
           </motion.div>
         </div>
+      </section>
+
+      {/* Featured Services Carousel */}
+      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-dark-light dark:to-dark">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-left mb-12"
+          >
+            <h2 className="text-5xl md:text-6xl font-bold tracking-tighter text-slate-900 dark:text-white">
+              {t('services.featured.heading', 'Hizmetlerimiz.')}
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mt-4 max-w-2xl">
+              {t('services.featured.subheading', 'İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümlerimizi keşfedin')}
+            </p>
+          </motion.div>
+        </div>
+        <ServiceCarousel services={featuredServices} />
       </section>
 
       {/* Design Services */}
