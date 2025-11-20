@@ -11,7 +11,7 @@ import TeamSection from '../components/ui/sections/team-section';
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
   whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-100px" },
+  viewport: { once: true, margin: '-100px' },
   transition: { duration: 0.8 }
 };
 
@@ -27,9 +27,65 @@ const About = () => {
       </div>
 
       <div className="relative z-10">
-        {/* Hikayemiz Bölümü */}
         <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Hakkımızda Intro / Hero */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="mb-16 text-center"
+            >
+              <span className="inline-flex items-center justify-center px-3 py-1 text-xs font-semibold tracking-wide uppercase rounded-full bg-primary/10 text-primary">
+                Hakkımızda
+              </span>
+              <h1 className="mt-4 text-3xl sm:text-4xl font-bold">
+                Türkiye’nin üniversiteli freelancer ekosistemini inşa eden ekip
+              </h1>
+              <p className="mt-4 text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+                Teknopark İstanbul merkezli Unilancer Labs olarak, şirketlerin dijital ihtiyaçlarını
+                üniversiteli freelancer ekiplerle buluşturuyor; bir yandan KOBİ’lerin işini büyütürken,
+                diğer yandan genç yeteneklere gerçek proje deneyimi kazandırıyoruz.
+              </p>
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+                <div className="p-4 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm">
+                  <div className="flex items-center justify-center space-x-2">
+                    <Users className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      150+ freelancer
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                    Farklı üniversite ve bölümlerden seçilmiş, yetenekli ve motive ekipler.
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm">
+                  <div className="flex items-center justify-center space-x-2">
+                    <CheckCircle className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Onlarca tamamlanan proje
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                    Web, e-ticaret, tasarım, içerik ve dijital pazarlama projelerinde deneyim.
+                  </p>
+                </div>
+                <div className="p-4 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm">
+                  <div className="flex items-center justify-center space-x-2">
+                    <Globe className="w-5 h-5 text-primary" />
+                    <span className="text-sm font-medium text-gray-700 dark:text-gray-200">
+                      Teknopark İstanbul
+                    </span>
+                  </div>
+                  <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                    Ar-Ge odaklı, hizmet ihracatına hazırlanan ölçeklenebilir bir iş modeli.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Hikayemiz Bölümü */}
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
@@ -59,7 +115,7 @@ const About = () => {
                     {t('about.story.p3End')}
                   </p>
                 </div>
-                <motion.div 
+                <motion.div
                   className="mt-4 flex flex-wrap gap-2"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
@@ -119,7 +175,11 @@ const About = () => {
 
             {/* Companies Bölümü */}
             <div className="mt-8">
-              <Accordion type="single" collapsible className="w-full backdrop-blur-sm rounded-xl border border-white/10">
+              <Accordion
+                type="single"
+                collapsible
+                className="w-full backdrop-blur-sm rounded-xl border border-white/10"
+              >
                 <AccordionItem value="unilancer-labs">
                   <AccordionTrigger className="px-6">
                     <div className="flex items-center space-x-3">
@@ -128,7 +188,9 @@ const About = () => {
                       </div>
                       <div className="text-left">
                         <h3 className="text-lg font-semibold">{t('about.company.unilancerLabs')}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('about.company.unilancerLabs.subtitle')}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {t('about.company.unilancerLabs.subtitle')}
+                        </p>
                       </div>
                     </div>
                   </AccordionTrigger>
@@ -138,10 +200,18 @@ const About = () => {
                         {t('about.company.unilancerLabs.description')}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.webDev')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.mobileApp')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.ai')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.saas')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.webDev')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.mobileApp')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.ai')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.saas')}
+                        </span>
                       </div>
                     </div>
                   </AccordionContent>
@@ -155,7 +225,9 @@ const About = () => {
                       </div>
                       <div className="text-left">
                         <h3 className="text-lg font-semibold">{t('about.company.lanceArt')}</h3>
-                        <p className="text-sm text-gray-600 dark:text-gray-400">{t('about.company.lanceArt.subtitle')}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">
+                          {t('about.company.lanceArt.subtitle')}
+                        </p>
                       </div>
                     </div>
                   </AccordionTrigger>
@@ -165,10 +237,18 @@ const About = () => {
                         {t('about.company.lanceArt.description')}
                       </p>
                       <div className="flex flex-wrap gap-2">
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.uiux')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.brand')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.illustration')}</span>
-                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">{t('about.company.tag.3d')}</span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.uiux')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.brand')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.illustration')}
+                        </span>
+                        <span className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                          {t('about.company.tag.3d')}
+                        </span>
                       </div>
                     </div>
                   </AccordionContent>
@@ -176,7 +256,7 @@ const About = () => {
               </Accordion>
             </div>
 
-            {/* Misyon & Vizyon Bölümü */}
+            {/* Misyon, Vizyon & Değerler Bölümü */}
             <div className="mt-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <motion.div
@@ -198,7 +278,9 @@ const About = () => {
                       "Beyin Göçü yerine Hizmet İhracatı"
                     </p>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Ülkemizin önemli sorunlarından biri olan beyin göçünü hizmet ihracatı yoluyla azaltmayı ve ölçeklenebilir bir yapıyla freelancerlar, işverenler ve iş ortaklarımız için güvenilir, kârlı ve adil bir freelance ekosistemi olmayı amaçlıyoruz.
+                      Ülkemizin önemli sorunlarından biri olan beyin göçünü hizmet ihracatı yoluyla azaltmayı
+                      ve ölçeklenebilir bir yapıyla freelancerlar, işverenler ve iş ortaklarımız için güvenilir,
+                      kârlı ve adil bir freelance ekosistemi olmayı amaçlıyoruz.
                     </p>
                   </div>
                 </motion.div>
@@ -222,9 +304,65 @@ const About = () => {
                       "Freelancer Ekosistemin İlk Tercihi"
                     </p>
                     <p className="text-gray-600 dark:text-gray-400">
-                      Öncelikle Türkiye'de, ardından dünyada freelancerlar ile firmaların ilk tercihi olmak. Yenilikçi iş modelimiz ve teknoloji odaklı yaklaşımımızla sektöre yön veren bir marka olmayı hedefliyoruz.
+                      Öncelikle Türkiye'de, ardından dünyada freelancerlar ile firmaların ilk tercihi olmak.
+                      Yenilikçi iş modelimiz ve teknoloji odaklı yaklaşımımızla sektöre yön veren bir marka
+                      olmayı hedefliyoruz.
                     </p>
                   </div>
+                </motion.div>
+              </div>
+
+              {/* Değerlerimiz */}
+              <div className="mt-8 grid md:grid-cols-3 gap-6">
+                <motion.div
+                  variants={fadeInUp}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={fadeInUp.viewport}
+                  className="p-6 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm"
+                >
+                  <div className="flex items-center space-x-3 mb-3">
+                    <CheckCircle className="w-6 h-6 text-primary" />
+                    <h4 className="text-lg font-semibold">Güven &amp; Şeffaflık</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Hem işverenler hem de freelancerlar için süreçleri, beklentileri ve ücretleri baştan netleştiriyor;
+                    herkesin hakkını koruyan adil ve şeffaf bir model benimsiyoruz.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  variants={fadeInUp}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={fadeInUp.viewport}
+                  className="p-6 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm"
+                >
+                  <div className="flex items-center space-x-3 mb-3">
+                    <Target className="w-6 h-6 text-primary" />
+                    <h4 className="text-lg font-semibold">Kalite &amp; Öğrenme</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Her projeyi sadece teslim edilen bir iş değil, aynı zamanda öğrenciler için bir öğrenme alanı;
+                    şirketler için ise ölçülebilir değer yaratan bir iş olarak tasarlıyoruz.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  variants={fadeInUp}
+                  initial="initial"
+                  whileInView="whileInView"
+                  viewport={fadeInUp.viewport}
+                  className="p-6 rounded-xl border border-white/10 bg-white/70 dark:bg-dark-light/80 backdrop-blur-sm"
+                >
+                  <div className="flex items-center space-x-3 mb-3">
+                    <Globe className="w-6 h-6 text-primary" />
+                    <h4 className="text-lg font-semibold">Sosyal Etki &amp; İhracat</h4>
+                  </div>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    "Beyin Göçü yerine Hizmet İhracatı" vizyonuyla Türkiye’de üretilen dijital hizmetleri dünyaya açmayı,
+                    genç yeteneklere ülkesinden ayrılmadan global kariyer imkânı sunmayı hedefliyoruz.
+                  </p>
                 </motion.div>
               </div>
             </div>
@@ -256,7 +394,9 @@ const About = () => {
               </div>
               <div className="text-5xl font-bold">150+</div>
             </div>
-            <h3 className="text-2xl font-bold text-white mb-2">{t('about.team.members.count')}</h3>
+            <h3 className="text-2xl font-bold text-white mb-2">
+              {t('about.team.members.count')}
+            </h3>
             <p className="text-gray-600 dark:text-gray-300 max-w-xl mx-auto">
               {t('about.team.members.description')}
             </p>
@@ -266,26 +406,26 @@ const About = () => {
         {/* CTA Bölümü */}
         <section className="relative py-24 sm:py-32 overflow-hidden">
           <motion.div
-            animate={{ 
+            animate={{
               opacity: [0.1, 0.3, 0.1],
               scale: [1, 1.2, 1]
             }}
-            transition={{ 
+            transition={{
               duration: 8,
               repeat: Infinity,
-              ease: "easeInOut"
+              ease: 'easeInOut'
             }}
             className="absolute -left-40 -top-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl"
           />
           <motion.div
-            animate={{ 
+            animate={{
               opacity: [0.1, 0.2, 0.1],
               scale: [1.2, 1, 1.2]
             }}
-            transition={{ 
+            transition={{
               duration: 10,
               repeat: Infinity,
-              ease: "easeInOut",
+              ease: 'easeInOut',
               delay: 1
             }}
             className="absolute -right-40 -bottom-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl"
