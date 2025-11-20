@@ -439,7 +439,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* PARTNERLER */}
+        {/* PARTNERLER */
         <section
           id="partnerler"
           className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5"
