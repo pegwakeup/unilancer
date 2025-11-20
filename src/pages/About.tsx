@@ -1,11 +1,12 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { motion, useAnimation, useMotionValue } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import {
   Users, Target, Globe, CheckCircle,
-  Palette, Code2, Linkedin, MessageSquare, ArrowUpRight
+  Palette, Code2, MessageSquare, ArrowUpRight
 } from 'lucide-react';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../components/ui/core/accordion';
 import { useTranslation } from '../hooks/useTranslation';
+import TeamSection from '../components/ui/sections/team-section';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -14,115 +15,8 @@ const fadeInUp = {
   transition: { duration: 0.8 }
 };
 
-const teamMembers = [
-  {
-    name: "Ahmet Yılmaz",
-    role: "CEO & Kurucu Ortak",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=200",
-    bio: "5+ yıl yazılım geliştirme ve proje yönetimi deneyimi",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Ayşe Kaya",
-    role: "Tasarım Direktörü",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200",
-    bio: "UI/UX ve marka tasarımı konusunda uzman",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Mehmet Demir",
-    role: "Teknoloji Direktörü",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=200",
-    bio: "Full-stack geliştirme ve AI entegrasyonları uzmanı",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Zeynep Arslan",
-    role: "Proje Yöneticisi",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=200",
-    bio: "Agile proje yönetimi ve müşteri ilişkileri uzmanı",
-    social: { linkedin: "https://linkedin.com" }
-  },
-  {
-    name: "Can Öztürk",
-    role: "Backend Geliştirici",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=200",
-    bio: "Mikroservis mimarisi ve veritabanı optimizasyonu uzmanı",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Elif Yıldız",
-    role: "UI/UX Tasarımcı",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200",
-    bio: "Kullanıcı deneyimi ve arayüz tasarımı uzmanı",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Burak Şahin",
-    role: "Frontend Geliştirici",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200",
-    bio: "Modern web teknolojileri ve performans optimizasyonu uzmanı",
-    social: { linkedin: "https://linkedin.com", github: "https://github.com" }
-  },
-  {
-    name: "Selin Aydın",
-    role: "Pazarlama Yöneticisi",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200",
-    bio: "Dijital pazarlama ve marka stratejisi uzmanı",
-    social: { linkedin: "https://linkedin.com" }
-  }
-];
-
 const About = () => {
   const { t } = useTranslation();
-  const carouselRef = useRef(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [listWidth, setListWidth] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const controls = useAnimation();
-  const x = useMotionValue(0);
-
-  // Mobil/Masaüstü kontrolü
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Carousel ölçümleri (masaüstünde, tekrarlı içerik olduğundan scrollWidth'in yarısı)
-  useEffect(() => {
-    if (!isMobile && carouselRef.current) {
-      setListWidth(carouselRef.current.scrollWidth / 2);
-    }
-  }, [isMobile, teamMembers]);
-
-  // Otomatik kaydırma: Eğer masaüstünde, drag veya hover yoksa, daha yavaş (60s döngü) kaydırma başlasın
-  useEffect(() => {
-    let mounted = true;
-    if (!isMobile && !isDragging && !isHovered && listWidth > 0) {
-      const currentOffset = x.get();
-      const mod = Math.abs(currentOffset) % listWidth;
-      const remainingDistance = listWidth - mod;
-      const remainingDuration = (60 * remainingDistance) / listWidth; // 60 saniyelik full loop
-
-      controls.start({
-        x: currentOffset - remainingDistance,
-        transition: { duration: remainingDuration, ease: "linear" }
-      }).then(() => {
-        if (!mounted) return;
-        controls.set({ x: 0 });
-        controls.start({
-          x: -listWidth,
-          transition: { duration: 60, ease: "linear", repeat: Infinity, repeatType: "loop" }
-        });
-      });
-    }
-    return () => {
-      mounted = false;
-    };
-  }, [isDragging, isHovered, isMobile, listWidth, controls, x]);
 
   return (
     <div className="relative min-h-screen pt-24 pb-16 bg-white dark:bg-dark">
@@ -338,138 +232,7 @@ const About = () => {
         </section>
 
         {/* EKİBİMİZ BÖLÜMÜ */}
-        <section className="py-12">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div
-              className="text-center mb-8"
-              variants={fadeInUp}
-              initial="initial"
-              whileInView="whileInView"
-              viewport={fadeInUp.viewport}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Ekibimiz</h2>
-              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Deneyimli ve tutkulu ekibimizle müşterilerimize en iyi hizmeti sunuyoruz
-              </p>
-            </motion.div>
-            {/* Masaüstünde overflow-visible; mobilde kaydırılabilir.
-                onMouseEnter/Leave ile otomatik kaydırma durur/devam eder */}
-            <div
-              className={`relative ${isMobile ? 'overflow-x-auto no-scrollbar' : 'overflow-visible'}`}
-              onMouseEnter={() => { if (!isMobile) { setIsHovered(true); controls.stop(); } }}
-              onMouseLeave={() => { if (!isMobile) { setIsHovered(false); } }}
-            >
-              <motion.div
-                ref={carouselRef}
-                drag="x"
-                dragConstraints={{ right: 0, left: -listWidth }}
-                onDragStart={() => {
-                  setIsDragging(true);
-                  controls.stop();
-                }}
-                onDragEnd={() => {
-                  setIsDragging(false);
-                  setTimeout(() => {
-                    // useEffect otomatik kaydırmayı yeniden tetikleyecek
-                  }, 2000);
-                }}
-                animate={controls}
-                style={{ x }}
-                className="flex space-x-4 cursor-grab"
-              >
-                {teamMembers.map((member, index) => (
-                  <motion.div
-                    key={member.name + index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={
-                      !isMobile
-                        ? { scale: 1.1, translateY: -10, zIndex: 30, boxShadow: "0 6px 15px rgba(0,0,0,0.3)" }
-                        : {}
-                    }
-                    transition={{ duration: 0.2 }}
-                    viewport={{ once: true }}
-                    className="group min-w-[250px] flex-shrink-0"
-                  >
-                    <div className="p-6 rounded-xl border border-white/10 transition-all shadow-md bg-transparent backdrop-blur-sm">
-                      <div className="relative mb-6">
-                        <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-20 h-20 rounded-full mx-auto object-cover relative"
-                        />
-                      </div>
-                      <div className="text-center">
-                        <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                        <p className="text-primary text-sm mb-2">{member.role}</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{member.bio}</p>
-                        <div className="flex justify-center">
-                          {member.social.linkedin && (
-                            <a
-                              href={member.social.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="p-2 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
-                            >
-                              <Linkedin className="w-4 h-4 text-primary" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-                {/* Masaüstünde kesintisiz akış için tekrarlı içerik */}
-                {!isMobile && teamMembers.map((member, index) => (
-                  <motion.div
-                    key={member.name + "dup" + index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    whileHover={
-                      !isMobile
-                        ? { scale: 1.1, translateY: -10, zIndex: 30, boxShadow: "0 6px 15px rgba(0,0,0,0.3)" }
-                        : {}
-                    }
-                    transition={{ duration: 0.2 }}
-                    viewport={{ once: true }}
-                    className="group min-w-[250px] flex-shrink-0"
-                  >
-                    <div className="p-6 rounded-xl border border-white/10 transition-all shadow-md bg-transparent backdrop-blur-sm">
-                      <div className="relative mb-6">
-                        <div className="absolute -inset-2 bg-gradient-to-br from-primary/20 to-transparent rounded-full blur-lg opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <img
-                          src={member.image}
-                          alt={member.name}
-                          className="w-20 h-20 rounded-full mx-auto object-cover relative"
-                        />
-                      </div>
-                      <div className="text-center">
-                        <h3 className="text-lg font-semibold mb-1">{member.name}</h3>
-                        <p className="text-primary text-sm mb-2">{member.role}</p>
-                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{member.bio}</p>
-                        <div className="flex justify-center">
-                          {member.social.linkedin && (
-                            <a
-                              href={member.social.linkedin}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={(e) => e.stopPropagation()}
-                              className="p-2 bg-primary/10 rounded-lg hover:bg-primary/20 transition-colors"
-                            >
-                              <Linkedin className="w-4 h-4 text-primary" />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </motion.div>
-            </div>
-          </div>
-        </section>
+        <TeamSection />
 
         {/* 150+ Freelancer Bölümü */}
         <motion.div
@@ -560,17 +323,6 @@ const About = () => {
           </div>
         </section>
       </div>
-
-      {/* Scrollbar Gizleme */}
-      <style>{`
-        .no-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 };
