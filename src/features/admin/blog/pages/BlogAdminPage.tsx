@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { PlusCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import AdminLayout from '../../components/layout/AdminLayout';
 import BlogStats from '../components/BlogStats';
 import BlogFilters from '../components/BlogFilters';
 import BlogList from '../components/BlogList';
-import { getBlogPosts, deleteBlogPost } from '../../../../lib/supabase';
+import { getBlogPosts, deleteBlogPost } from '../../../../lib/config/supabase';
 import type { BlogPost } from '../types';
 
 interface BlogStats {
@@ -81,7 +80,7 @@ const BlogAdminPage = () => {
   });
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold">Blog Yönetimi</h1>
@@ -130,7 +129,7 @@ const BlogAdminPage = () => {
           onDelete={handleDelete}
         />
       )}
-    </AdminLayout>
+    </>
   );
 };
 

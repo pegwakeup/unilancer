@@ -2,10 +2,15 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Sparkles, ChevronDown } from "lucide-react";
-import { LogosCarousel } from "../components/ui/logos-carousel";
+import {
+  ArrowUpRight, Sparkles, ChevronDown, Monitor, Box, ShoppingCart,
+  Target, BrainCircuit, Code2, PaintBucket, Palette
+} from "lucide-react";
+import { LogosCarousel } from "../components/ui/sections/logos-carousel";
+import { MarqueeAnimation } from "../components/ui/effects/marquee-effect";
 import { useTranslation } from "../hooks/useTranslation";
-import CalendlyModal from "../components/CalendlyModal";
+import CalendlyModal from "../components/modals/CalendlyModal";
+import { ServiceCarousel, type Service } from "../components/ui/core/services-card";
 
 const getServices = (t: (key: string) => string) => [
   {
@@ -273,7 +278,7 @@ const Home = () => {
           id="hero"
           className="min-h-[82vh] lg:min-h-[88vh] flex items-center pt-24 pb-16 md:pt-28 md:pb-20"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
               {/* Sol taraf */}
               <motion.div
@@ -371,9 +376,9 @@ const Home = () => {
           </div>
         </section>
 
-        {/* KİMİN İÇİN */}
+        {/* KIMIN ICIN */}
         <section id="kimin-icin" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.forWhom.title")}
@@ -418,12 +423,93 @@ const Home = () => {
           </div>
         </section>
 
+        {/* HİZMETLERİMİZ - DigitAll Services */}
+        <section id="hizmetlerimiz" className="py-16 md:py-20 bg-gradient-to-b from-gray-50 to-white dark:from-dark-light dark:to-dark">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="text-left"
+            >
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter text-slate-900 dark:text-white mb-4">
+                {t('home.services.heading', 'Hizmetlerimiz.')}
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl">
+                {t('home.services.subheading', 'İşletmenizi dijital dünyada öne çıkaracak kapsamlı çözümlerimizi keşfedin')}
+              </p>
+            </motion.div>
+          </div>
+          <ServiceCarousel services={(() => {
+            const digitAllServices: Service[] = [
+              {
+                number: "001",
+                title: t('service.webDesign', 'Web & Mobil Tasarım'),
+                description: t('home.services.web.desc', 'Modern ve responsive web siteleri, mobil uygulamalar ve kullanıcı dostu arayüzler tasarlıyoruz.'),
+                icon: Monitor,
+                gradient: "from-blue-100 to-cyan-200 dark:from-blue-900/50 dark:to-cyan-800/50",
+              },
+              {
+                number: "002",
+                title: t('service.3dAr', '3D & AR Sanal Tur'),
+                description: t('home.services.3dar.desc', 'Artırılmış gerçeklik ve 3D teknolojileri ile işletmenizi sanal ortama taşıyoruz.'),
+                icon: Box,
+                gradient: "from-purple-100 to-pink-200 dark:from-purple-900/50 dark:to-pink-800/50",
+              },
+              {
+                number: "003",
+                title: t('service.ecommerce', 'E-Ticaret Çözümleri'),
+                description: t('home.services.ecommerce.desc', 'Online satış platformları, ödeme sistemleri ve stok yönetimi ile e-ticaret sitenizi kuruyor ve yönetiyoruz.'),
+                icon: ShoppingCart,
+                gradient: "from-green-100 to-emerald-200 dark:from-green-900/50 dark:to-emerald-800/50",
+              },
+              {
+                number: "004",
+                title: t('service.marketing', 'Dijital Pazarlama'),
+                description: t('home.services.marketing.desc', 'SEO, sosyal medya yönetimi, içerik pazarlama ve Google Ads ile markanızı büyütüyoruz.'),
+                icon: Target,
+                gradient: "from-orange-100 to-red-200 dark:from-orange-900/50 dark:to-red-800/50",
+              },
+              {
+                number: "005",
+                title: t('service.ai', 'Yapay Zeka Çözümleri'),
+                description: t('home.services.ai.desc', 'AI destekli chatbot\'lar, otomasyon sistemleri ve akıllı veri analitiği ile işlerinizi optimize ediyoruz.'),
+                icon: BrainCircuit,
+                gradient: "from-indigo-100 to-violet-200 dark:from-indigo-900/50 dark:to-violet-800/50",
+              },
+              {
+                number: "006",
+                title: t('service.development', 'Yazılım Geliştirme'),
+                description: t('home.services.development.desc', 'Özel yazılımlar, API entegrasyonları ve backend sistemleri ile dijital altyapınızı güçlendiriyoruz.'),
+                icon: Code2,
+                gradient: "from-teal-100 to-cyan-200 dark:from-teal-900/50 dark:to-cyan-800/50",
+              },
+              {
+                number: "007",
+                title: t('service.branding', 'Marka Kimliği'),
+                description: t('home.services.branding.desc', 'Logo tasarımı, kurumsal kimlik, marka rehberi ve görsel iletişim stratejileri oluşturuyoruz.'),
+                icon: PaintBucket,
+                gradient: "from-pink-100 to-rose-200 dark:from-pink-900/50 dark:to-rose-800/50",
+              },
+              {
+                number: "008",
+                title: t('service.graphics', 'Grafik Tasarım'),
+                description: t('home.services.graphics.desc', 'Sosyal medya görselleri, reklam tasarımları, broşürler ve tüm görsel ihtiyaçlarınız için profesyonel tasarımlar.'),
+                icon: Palette,
+                gradient: "from-amber-100 to-yellow-200 dark:from-amber-900/50 dark:to-yellow-800/50",
+              },
+            ];
+            return digitAllServices;
+          })()} />
+        </section>
+
         {/* PARTNERLER */}
         <section
           id="partnerler"
           className="py-10 md:py-14 bg-gradient-to-b from-transparent via-white/70 to-transparent dark:via-white/5"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-6">
               <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                 {t("home.partners.title")}
@@ -438,7 +524,7 @@ const Home = () => {
 
         {/* NEDEN UNILANCER */}
         <section id="neden-unilancer" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
               <div>
                 <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
@@ -478,9 +564,31 @@ const Home = () => {
           </div>
         </section>
 
+        {/* TÜRKİYE DİJİTALLEŞME VİZYONU */}
+        <section className="py-8 w-full">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-4">
+              <MarqueeAnimation
+                direction="left"
+                baseVelocity={-2}
+                className="bg-gradient-to-r from-red-50 via-red-100 to-red-50 dark:from-red-900/20 dark:via-red-800/30 dark:to-red-900/20 text-red-700 dark:text-red-300 py-4 text-lg sm:text-xl md:text-2xl font-medium rounded-xl border border-red-200/50 dark:border-red-700/30 shadow-sm"
+              >
+                🇹🇷 TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ • TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ • TÜRKİYE'Yİ DİJİTALLEŞTİRİYORUZ
+              </MarqueeAnimation>
+              <MarqueeAnimation
+                direction="right"
+                baseVelocity={-2}
+                className="bg-gradient-to-r from-blue-50 via-cyan-50 to-blue-50 dark:from-blue-900/20 dark:via-cyan-800/30 dark:to-blue-900/20 text-blue-700 dark:text-cyan-300 py-4 text-lg sm:text-xl md:text-2xl font-medium rounded-xl border border-blue-200/50 dark:border-blue-700/30 shadow-sm"
+              >
+                ✈️ BEYİN GÖÇÜ YERİNE HİZMET İHRACATI • BEYİN GÖÇÜ YERİNE HİZMET İHRACATI • BEYİN GÖÇÜ YERİNE HİZMET İHRACATI
+              </MarqueeAnimation>
+            </div>
+          </div>
+        </section>
+
         {/* ÜCRETSİZ DİJİTAL RAPOR + CALENDLY */}
         <section id="rapor" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid gap-8 lg:grid-cols-2 items-start">
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -541,7 +649,7 @@ const Home = () => {
 
         {/* DIGITALL HİZMETLERİMİZ */}
         <section id="digitall" className="py-12 md:py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-2xl mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.services.title")}
@@ -587,7 +695,7 @@ const Home = () => {
           <div className="absolute top-0 left-0 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -659,7 +767,7 @@ const Home = () => {
 
         {/* Calendly */}
         <section className="py-12 md:py-16 bg-slate-50/50 dark:bg-dark-light/30">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-8">
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-3">
                 {t("home.meeting.title")}

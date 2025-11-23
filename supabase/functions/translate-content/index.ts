@@ -1,4 +1,5 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -22,6 +23,92 @@ interface TranslateBatchRequest {
   sourceLang?: string;
 }
 
+async function generateHash(text: string): Promise<string> {
+  const data = new TextEncoder().encode(text);
+  const buffer = await crypto.subtle.digest("SHA-256", data);
+  return Array.from(new Uint8Array(buffer)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+async function getSupabaseClient(req: Request) {
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
+  if (!supabaseUrl || !supabaseServiceKey) {
+    throw new Error("Missing Supabase environment variables");
+  }
+
+  return createClient(supabaseUrl, supabaseServiceKey, {
+    global: {
+      headers: {
+        Authorization: req.headers.get("Authorization") || "",
+      },
+    },
+  });
+}
+
+async function requireAdmin(req: Request) {
+  const supabase = await getSupabaseClient(req);
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  const role = user.app_metadata?.role;
+  if (role !== "admin") {
+    throw new Response(JSON.stringify({ error: "Admin role required" }), {
+      status: 403,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
+  return supabase;
+}
+
+async function callDeepL(
+  deeplApiKey: string,
+  text: string,
+  targetLang: string,
+  sourceLang: string
+) {
+  const targetLangCode = targetLang.toUpperCase() === 'EN' ? 'EN-US' : targetLang.toUpperCase();
+
+  const requestBody: any = {
+    text: [text],
+    target_lang: targetLangCode,
+  };
+
+  if (sourceLang && sourceLang !== 'auto') {
+    requestBody.source_lang = sourceLang.toUpperCase();
+  }
+
+  const response = await fetch("https://api-free.deepl.com/v2/translate", {
+    method: "POST",
+    headers: {
+      "Authorization": `DeepL-Auth-Key ${deeplApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(requestBody),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`DeepL API error: ${errorText}`);
+  }
+
+  const data = await response.json();
+  const translatedText = data.translations[0]?.text || text;
+  const detectedSourceLang = data.translations[0]?.detected_source_language;
+
+  return { translatedText, detectedSourceLang };
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, {
@@ -31,18 +118,8 @@ Deno.serve(async (req: Request) => {
   }
 
   try {
-    // Try to get from env, fallback to Supabase env or hardcoded for testing
-    let deeplApiKey = Deno.env.get("DEEPL_API_KEY");
-
-    if (!deeplApiKey) {
-      // Fallback: Try to get from Supabase environment
-      deeplApiKey = Deno.env.get("VITE_DEEPL_API_KEY");
-    }
-
-    if (!deeplApiKey) {
-      // Last resort for testing - this should be replaced with proper secret management
-      deeplApiKey = "a7a99c84-233c-4523-a4e4-87f170ffce78:fx";
-    }
+    const supabase = await requireAdmin(req);
+    const deeplApiKey = Deno.env.get("DEEPL_API_KEY");
 
     if (!deeplApiKey) {
       throw new Error("DEEPL_API_KEY environment variable is not set");
@@ -64,34 +141,49 @@ Deno.serve(async (req: Request) => {
         );
       }
 
-      const translatedTexts = await Promise.all(
+      const translationResults = await Promise.all(
         texts.map(async ({ text, contentKey }) => {
+          if (!contentKey) {
+            return {
+              contentKey,
+              originalText: text,
+              translatedText: text,
+              success: false,
+              error: "contentKey is required",
+            };
+          }
+
           try {
-            const response = await fetch("https://api-free.deepl.com/v2/translate", {
-              method: "POST",
-              headers: {
-                "Authorization": `DeepL-Auth-Key ${deeplApiKey}`,
-                "Content-Type": "application/json",
+            const { translatedText, detectedSourceLang } = await callDeepL(
+              deeplApiKey,
+              text,
+              targetLang,
+              sourceLang
+            );
+            const contentHash = await generateHash(text);
+
+            const { error } = await supabase.from("translations").upsert(
+              {
+                content_key: contentKey,
+                language: targetLang.toLowerCase(),
+                source_lang: sourceLang.toLowerCase(),
+                translated_text: translatedText,
+                content_hash: contentHash,
               },
-              body: JSON.stringify({
-                text: [text],
-                target_lang: targetLang.toUpperCase(),
-                source_lang: sourceLang.toUpperCase(),
-              }),
-            });
+              { onConflict: "content_key,language" }
+            );
 
-            if (!response.ok) {
-              const errorText = await response.text();
-              throw new Error(`DeepL API error: ${errorText}`);
+            if (error) {
+              throw error;
             }
-
-            const data = await response.json();
-            const translatedText = data.translations[0]?.text || text;
 
             return {
               contentKey,
               originalText: text,
               translatedText,
+              contentHash,
+              targetLang,
+              sourceLang: detectedSourceLang || sourceLang,
               success: true,
             };
           } catch (error) {
@@ -108,9 +200,9 @@ Deno.serve(async (req: Request) => {
 
       return new Response(
         JSON.stringify({
-          translations: translatedTexts,
-          totalCount: translatedTexts.length,
-          successCount: translatedTexts.filter((t) => t.success).length,
+          translations: translationResults,
+          totalCount: translationResults.length,
+          successCount: translationResults.filter((t) => t.success).length,
         }),
         {
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -119,9 +211,9 @@ Deno.serve(async (req: Request) => {
     } else {
       const { text, targetLang, sourceLang = "TR", contentKey }: TranslateRequest = await req.json();
 
-      if (!text || !targetLang) {
+      if (!text || !targetLang || !contentKey) {
         return new Response(
-          JSON.stringify({ error: "text and targetLang are required" }),
+          JSON.stringify({ error: "text, targetLang and contentKey are required" }),
           {
             status: 400,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -129,33 +221,36 @@ Deno.serve(async (req: Request) => {
         );
       }
 
-      const response = await fetch("https://api-free.deepl.com/v2/translate", {
-        method: "POST",
-        headers: {
-          "Authorization": `DeepL-Auth-Key ${deeplApiKey}`,
-          "Content-Type": "application/json",
+      const { translatedText, detectedSourceLang } = await callDeepL(
+        deeplApiKey,
+        text,
+        targetLang,
+        sourceLang
+      );
+      const contentHash = await generateHash(text);
+
+      const { error } = await supabase.from("translations").upsert(
+        {
+          content_key: contentKey,
+          language: targetLang.toLowerCase(),
+          source_lang: sourceLang.toLowerCase(),
+          translated_text: translatedText,
+          content_hash: contentHash,
         },
-        body: JSON.stringify({
-          text: [text],
-          target_lang: targetLang.toUpperCase(),
-          source_lang: sourceLang.toUpperCase(),
-        }),
-      });
+        { onConflict: "content_key,language" }
+      );
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`DeepL API error: ${errorText}`);
+      if (error) {
+        throw error;
       }
-
-      const data = await response.json();
-      const translatedText = data.translations[0]?.text || text;
 
       return new Response(
         JSON.stringify({
           originalText: text,
           translatedText,
-          detectedSourceLang: data.translations[0]?.detected_source_language,
+          detectedSourceLang: detectedSourceLang || sourceLang,
           contentKey,
+          contentHash,
           targetLang,
         }),
         {
@@ -164,6 +259,10 @@ Deno.serve(async (req: Request) => {
       );
     }
   } catch (error) {
+    if (error instanceof Response) {
+      return error;
+    }
+
     console.error("Translation error:", error);
 
     return new Response(

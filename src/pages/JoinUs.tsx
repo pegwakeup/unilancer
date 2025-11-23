@@ -21,10 +21,10 @@ import {
   Plus // <-- ÖNEMLİ: "Plus" ikonunu da import ettik
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { createFreelancerApplication } from '../lib/freelancers';
-import { cities } from '../data/cities';
-import { countries } from '../data/countries';
-import { usePrivacyTerms } from '../components/ui/privacy-terms-provider';
+import { createFreelancerApplication } from '../lib/api/freelancers';
+import { cities } from '../data/location/cities';
+import { countries } from '../data/location/countries';
+import { usePrivacyTerms } from '../components/ui/modals/privacy-terms-provider';
 
 /* -------------------------------
    ADIM TİPLERİ VE FORM DATA YAPISI
@@ -415,7 +415,7 @@ const JoinUs = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/90 via-dark/70 to-dark" />
         </div>
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-30 max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Geri Butonu */}
           <button
             onClick={() => navigate('/')}

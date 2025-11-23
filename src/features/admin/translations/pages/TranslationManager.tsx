@@ -4,10 +4,10 @@ import {
   Globe, RefreshCw, Search, Filter, CheckCircle, XCircle,
   AlertCircle, Download, Upload, Loader2, X
 } from 'lucide-react';
-import { supabase } from '../../../../lib/supabase';
+import { supabase } from '../../../../lib/config/supabase';
 import { initializeStaticTranslations } from '../../../../lib/translations';
 import { generateContentKey, generateHash, deduplicateTranslations } from '../../../../utils/translationScanner';
-import { getAllStaticTranslations } from '../../../../data/translationSources';
+import { getAllStaticTranslations } from '../../../../data/static/translationSources';
 import type { ScannedTranslation } from '../../../../utils/translationScanner';
 
 interface Translation {

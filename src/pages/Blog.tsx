@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
 import { Search, Zap, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { getBlogPosts, type BlogPost } from '../lib/supabase';
+import { getBlogPosts, type BlogPost } from '../lib/config/supabase';
 import { useTranslation } from '../hooks/useTranslation';
 
 const getCategoryKeys = () => [
@@ -109,7 +109,7 @@ const Blog = () => {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-dark/80 via-dark/50 to-dark" />
         </div>
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+        <div className="relative h-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -134,7 +134,7 @@ const Blog = () => {
       </section>
 
       <div className="relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
           {/* Search and Filters */}
           <div className="mb-8 md:mb-12">
             <motion.div

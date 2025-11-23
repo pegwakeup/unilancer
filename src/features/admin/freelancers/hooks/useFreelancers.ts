@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getFreelancerApplications, updateFreelancerStatus, getFreelancerStats } from '../../../../lib/freelancers';
+import { getFreelancerApplications, updateFreelancerStatus, getFreelancerStats } from '../../../../lib/api/freelancers';
 import type { FreelancerApplication, FreelancerStats } from '../types';
 
 export function useFreelancers() {

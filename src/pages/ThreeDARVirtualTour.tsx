@@ -8,8 +8,8 @@ import {
   ShoppingCart, Hotel, Car, Palette, Ruler, Layers
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import BeanBagChair3D from '../components/BeanBagChair3D';
-import ARViewer from '../components/ARViewer';
+import BeanBagChair3D from '../components/3d/BeanBagChair3D';
+import ARViewer from '../components/ar/ARViewer';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 60 },
@@ -246,7 +246,7 @@ const ThreeDARVirtualTour = () => {
       <section className="relative min-h-[90vh] md:min-h-[95vh] lg:min-h-screen flex items-center overflow-hidden pt-24">
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#5FC8DA40_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA40_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#5FC8DA25_1px,transparent_1px),linear-gradient(to_bottom,#5FC8DA25_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black_80%)]" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Content - Focus on 3D Modeling & AR */}
             <motion.div
@@ -359,7 +359,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* 3D & AR Benefits Section */}
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -405,7 +405,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* 3D Use Cases Section */}
       <section className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -451,7 +451,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* Divider Section - Transitioning to Virtual Tours */}
       <section className="py-16 bg-gradient-to-r from-primary/10 via-primary-light/10 to-primary/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -472,7 +472,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* Virtual Tour Video/Demo Section */}
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -573,7 +573,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* Virtual Tour Benefits */}
       <section className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -619,7 +619,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* Industries Section */}
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -665,7 +665,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* Technology Comparison Section */}
       <section className="py-16 sm:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             className="text-center mb-12 sm:mb-16 flex flex-col items-center"
             variants={fadeInUp}
@@ -749,7 +749,7 @@ const ThreeDARVirtualTour = () => {
 
       {/* CTA Section */}
       <section className="py-16 sm:py-20 bg-white/50 dark:bg-dark-light/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

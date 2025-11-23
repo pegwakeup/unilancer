@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { createBlogPost, uploadImage, updateBlogPost, type BlogPost } from '../lib/supabase';
+import { createBlogPost, uploadImage, updateBlogPost, type BlogPost } from '../lib/config/supabase';
 import { 
   Image, ArrowLeft, Bold, Italic, Link as LinkIcon, Code, 
   ListOrdered, List, Heading2, ImagePlus, Undo, Redo,
@@ -162,7 +162,7 @@ const BlogAdmin = ({ post, onCancel, onSuccess }: BlogAdminProps) => {
   ];
 
   return (
-    <div className="max-w-5xl mx-auto">
+    <div className="max-w-6xl mx-auto">
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-3xl font-bold">
           {post ? 'Blog Yazısını Düzenle' : 'Yeni Blog Yazısı'}

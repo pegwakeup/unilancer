@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import AdminLayout from '../../components/layout/AdminLayout';
 import FreelancerStats from '../components/FreelancerStats';
 import FreelancerFilters from '../components/FreelancerFilters';
 import FreelancerTable from '../components/FreelancerList';
@@ -50,7 +49,7 @@ const FreelancerListPage = () => {
   ).sort();
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold">Freelancer Başvuruları</h1>
@@ -95,7 +94,7 @@ const FreelancerListPage = () => {
           onClose={() => setSelectedFreelancer(null)}
         />
       )}
-    </AdminLayout>
+    </>
   );
 };
 

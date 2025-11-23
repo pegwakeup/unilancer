@@ -33,7 +33,7 @@ const Contact = () => {
         <div className="absolute -right-40 -bottom-40 w-80 h-80 bg-primary/20 rounded-full blur-3xl opacity-20" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <motion.div

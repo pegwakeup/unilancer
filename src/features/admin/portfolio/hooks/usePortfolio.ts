@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { getPortfolioItems, deletePortfolioItem } from '../../../../lib/portfolio';
+import { getPortfolioItems, deletePortfolioItem } from '../../../../lib/api/portfolio';
 import type { PortfolioItem, PortfolioStats, PortfolioFilters } from '../types';
 
 export function usePortfolio() {

@@ -5,8 +5,7 @@ import {
   AlertTriangle, Eye, Check, X, ExternalLink,
   Search, Filter
 } from 'lucide-react';
-import AdminLayout from '../../components/layout/AdminLayout';
-import { getProjectRequests, updateProjectStatus } from '../../../../lib/projectRequests';
+import { getProjectRequests, updateProjectStatus } from '../../../../lib/api/projectRequests';
 import type { ProjectRequest, ProjectRequestStats } from '../types';
 
 const ProjectRequestsPage = () => {
@@ -122,7 +121,7 @@ const ProjectRequestsPage = () => {
   };
 
   return (
-    <AdminLayout>
+    <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold">Proje Talepleri</h1>
@@ -466,7 +465,7 @@ const ProjectRequestsPage = () => {
           </div>
         </div>
       )}
-    </AdminLayout>
+    </>
   );
 };
 
